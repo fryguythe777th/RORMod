@@ -10,10 +10,12 @@ namespace ROR2Artifacts
     {
         public int enigmaDelay;
         public bool DeathMark;
+        public bool Shatterspleen;
 
         public override void ResetEffects()
         {
             DeathMark = false;
+            Shatterspleen = false;
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -32,6 +34,40 @@ namespace ROR2Artifacts
                         target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
                         break;
                     }
+                }
+            }
+            if (Shatterspleen)
+            {
+                if (crit)
+                {
+                    target.AddBuff(ModContent.BuffType<ShatterBleedingDebuff>(), 300);
+                }
+            }
+        }
+
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            if (DeathMark)
+            {
+                int buffCount = 0;
+                for (int i = 0; i < NPC.maxBuffs; i++)
+                {
+                    if (target.buffType[i] != 0)
+                    {
+                        buffCount++;
+                    }
+                    if (buffCount >= 2)
+                    {
+                        target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
+                        break;
+                    }
+                }
+            }
+            if (Shatterspleen)
+            {
+                if (crit)
+                {
+                    target.AddBuff(ModContent.BuffType<ShatterBleedingDebuff>(), 300);
                 }
             }
         }

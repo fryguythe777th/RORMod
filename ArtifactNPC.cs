@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Microsoft.Xna.Framework;
+using ROR2Artifacts.Items.Accessories;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -148,6 +150,25 @@ namespace ROR2Artifacts
         {
             if (deathMarkDamageIncrease)
                 damage = (int)(damage * 1.15f);
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            if (npc.HasBuff(ModContent.BuffType<ShatterBleedingDebuff>()))
+            {
+                Projectile.NewProjectile(/*npc.GetSource_Accessory(Main.item[ModContent.ItemType<Shatterspleen>()])*/ npc.GetSource_FromThis(), npc.position, new Vector2(0, 0), ModContent.ProjectileType<BloodExplosion>(), 1, 6f);
+            }
+        }
+
+        public override void AI(NPC npc)
+        {
+            if (npc.HasBuff(ModContent.BuffType<ShatterBleedingDebuff>()))
+            {
+                if (Main.rand.NextBool(5) && !Main.dedServ)
+                {
+                    Dust.NewDust(npc.position, 4, 4, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), Main.rand.NextBool().ToDirectionInt(), 0, Scale:1.5f);
+                }
+            }
         }
 
         public override bool SpecialOnKill(NPC npc)
