@@ -1,0 +1,3 @@
+displayName = ROR Artifacts and More!
+author = Nalyd T.
+version = 0.1

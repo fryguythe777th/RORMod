@@ -1,0 +1,136 @@
+Mods: {
+	ROR2Artifacts: {
+		UnimplementedItem: This artifact is not implemented currently. Sorry!
+
+		ItemName: {
+			Chaos: Artifact of Chaos
+			Command: Artifact of Command
+			Death: Artifact of Death
+			Dissonance: Artifact of Dissonance
+			Enigma: Artifact of Enigma
+			Evolution: Artifact of Evolution
+			WeakAssKnees: Artifact of Frailty
+			Glass: Artifact of Glass
+			Honor: Artifact of Honor
+			Kin: Artifact of Kin
+			Metamorphosis: Artifact of Metamorphosis
+			Sacrifice: Artifact of Sacrifice
+			Soul: Artifact of Soul
+			Spite: Artifact of Spite
+			Swarms: Artifact of Swarms
+			Vengance: Artifact of Vengance
+		}
+
+		ItemTooltip: {
+			Chaos:
+				'''
+				Friendly fire is enabled for both players and monsters alike
+				'''
+			Command:
+				'''
+				Choose your items
+				'''
+			Death:
+				'''
+				When one player dies, everyone dies
+				'''
+			Dissonance:
+				'''
+				Monsters can appear outside their usual environments
+				'''
+			Enigma:
+				'''
+				Your hotbar is shuffled every 3 seconds
+				'''
+			Evolution:
+				'''
+				Monsters gain accessories after each boss
+				All monster items will be listed in the Artifact UI
+				'''
+			WeakAssKnees:
+				'''
+				Fall damage is doubled, and fall damage prevention accessories are weaker
+				'''
+			Glass:
+				'''
+				Deal 500% damage, but have 10% health
+				'''
+			Honor:
+				'''
+				Enemies can only spawn as elites
+				'''
+			Kin:
+				'''
+				Monsters will be of only one type for a day
+				'''
+			Metamorphosis:
+				'''
+				??? 
+				'''
+			Sacrifice:
+				'''
+				Monsters drop chest loot upon death
+				However chests will no longer generate with the world
+				'''
+			Soul:
+				'''
+				Enemies emerge from defeated monsters
+				'''
+			Spite:
+				'''
+				Monsters release multiple grenades upon death
+				'''
+			Swarms:
+				'''
+				Monster spawns are doubled, but monster maximum health is halved
+				'''
+			Vengance:
+				'''
+				???
+				'''
+		}
+
+		Announcements: {
+			ChaosPVP: You can no longer control what team you are on!
+			ArtifactEnabled: "{0} has been enabled by {1}!"
+			ArtifactDisabled: "{0} has been disabled by {1}!"
+		}
+
+		DeathReason: {
+			DeathArtifact: "{1} has been slain by the Artifact of Death, activated by {0}."
+		}
+
+		BossDesc: {
+			EyeofCthulhu: Nighttime Terror
+			EaterofWorlds: Spawn of malice
+			BrainofCthulhu: Crimson mastermind
+			KingSlime: Lord of all things slimy
+			Skeletron: Accursed tyrant
+			QueenBee: Matriarch of the hive
+			WallOfFlesh: Master and Core of the world
+			MechanicalBoss: Mechanical simulacrum
+			Plantera: Jungle's Wrath
+			Golem: Lihzahrd Construct
+			LunaticCultist: Harbinger of Doom
+			MoonLord: The End
+			EmpressOfLight: Prismatic Deity
+			QueenSlime: Higher Authority
+			CollabEvent: Otherworldy Creature
+			DukeFishron: Mutant terror of the sea
+			Deerclops: Winter abomination
+			MartianSaucer: Alien warship
+			Pillars: Celestial bindings
+		}
+
+		Configuration: {
+			HealthbarActive: Healthbar State
+			HealthbarActiveTooltip: 
+				'''
+				Sets the state of the healthbar. 
+				'Enabled_AlwaysUse' forces the healthbar to be used at all times, even if the boss has a specialized healthbar.
+				'''
+			HealthbarBottom: Bottom Healthbar
+			HealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
+		}
+	}
+}
