@@ -1,3 +1,3 @@
 displayName = ROR Artifacts and More!
-author = Nalyd T.
+author = Nalyd T, fryguythe777th, triangle, and niker
 version = 0.1
