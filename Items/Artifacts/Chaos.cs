@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace ROR2Artifacts.Items
+namespace ROR2Artifacts.Items.Artifacts
 {
     public class Chaos : BaseArtifact
     {

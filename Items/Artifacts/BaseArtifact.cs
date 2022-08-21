@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ROR2Artifacts.Items
+namespace ROR2Artifacts.Items.Artifacts
 {
     public abstract class BaseArtifact : ModItem
     {

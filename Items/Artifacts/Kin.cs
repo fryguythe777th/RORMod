@@ -1,4 +1,4 @@
-﻿namespace ROR2Artifacts.Items
+﻿namespace ROR2Artifacts.Items.Artifacts
 {
     public class Kin : BaseArtifact
     {
