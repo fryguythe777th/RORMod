@@ -21,6 +21,7 @@ namespace ROR2Artifacts
 
         public bool soulSpawn;
         public bool swarmsSpawn;
+        public bool deathMarkDamageIncrease;
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -30,6 +31,7 @@ namespace ROR2Artifacts
             npcParent = -1;
             chaosHitDelay = 0;
             swarmsSpawn = false;
+            deathMarkDamageIncrease = false;
         }
 
         public override void Load()
@@ -134,6 +136,18 @@ namespace ROR2Artifacts
                 }
                 NPC_GetHurtByOtherNPCs.Invoke(npc, new object[] { NPCID.Sets.AllNPCs });
             }
+        }
+
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+            if (deathMarkDamageIncrease)
+                damage = (int)(damage * 1.15f);
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+            if (deathMarkDamageIncrease)
+                damage = (int)(damage * 1.15f);
         }
 
         public override bool SpecialOnKill(NPC npc)

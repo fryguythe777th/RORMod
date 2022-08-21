@@ -1,12 +1,40 @@
-﻿using ROR2Artifacts.Items;
+﻿using ROR2Artifacts.Items.Artifacts;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
+using ROR2Artifacts.Items.Accessories;
 
 namespace ROR2Artifacts
 {
     public class ArtifactPlayer : ModPlayer
     {
         public int enigmaDelay;
+        public bool DeathMark;
+
+        public override void ResetEffects()
+        {
+            DeathMark = false;
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (DeathMark)
+            {
+                int buffCount = 0;
+                for (int i = 0; i < NPC.maxBuffs; i++)
+                {
+                    if (target.buffType[i] != 0)
+                    {
+                        buffCount++;
+                    }
+                    if (buffCount >= 2)
+                    {
+                        target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
+                        break;
+                    }
+                }
+            }
+        }
 
         public override bool PreItemCheck()
         {
