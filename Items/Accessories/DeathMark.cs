@@ -10,7 +10,7 @@ namespace ROR2Artifacts.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Damaging enemies with 2 or more debuff will mark them for death for 7 seconds\n" +
+            Tooltip.SetDefault("Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds\n" +
                 "Enemies marked for death will take 15% more damage");
         }
 

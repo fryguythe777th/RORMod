@@ -12,7 +12,7 @@ namespace ROR2Artifacts.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+30% critical strike chance\n" +
+            Tooltip.SetDefault("+5% critical strike chance\n" +
                 "All critical strikes will inflict Bleeding to enemies\n" +
                 "Any enemy that dies with this Bleeding will erupt into a bloody explosion");
         }
@@ -22,14 +22,14 @@ namespace ROR2Artifacts.Items.Accessories
             Item.width = 24;
             Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ArtifactPlayer artifactPlayer = player.GetModPlayer<ArtifactPlayer>();
             artifactPlayer.Shatterspleen = true;
-            player.GetCritChance<GenericDamageClass>() *= 1.3f;
+            player.GetCritChance<GenericDamageClass>() += 5;
         }
     }
 

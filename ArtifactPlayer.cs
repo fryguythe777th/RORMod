@@ -11,11 +11,21 @@ namespace ROR2Artifacts
         public int enigmaDelay;
         public bool DeathMark;
         public bool Shatterspleen;
+        public bool Medkit;
 
         public override void ResetEffects()
         {
             DeathMark = false;
             Shatterspleen = false;
+            Medkit = false;
+        }
+
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        {
+            if (Medkit)
+            {
+                Player.AddBuff(ModContent.BuffType<AutomaticHealingBuff>(), (7 * 60));
+            }
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
