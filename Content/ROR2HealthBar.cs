@@ -10,12 +10,19 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
-namespace ROR2Artifacts.Content
+namespace RORMod.Content
 {
-    public sealed class HealthBar : GlobalBossBar
+    public class ROR2HealthBar : GlobalBossBar
     {
         public const char LEFT_WHITE_CORNER_BRACKET = '「';
         public const char RIGHT_WHITE_CORNER_BRACKET = '」';
+
+        public enum HealthbarState
+        {
+            Disabled,
+            Enabled,
+            Enabled_AlwaysUse,
+        }
 
         public static Color hbColor;
         public static Color hbShieldColor;
@@ -42,7 +49,7 @@ namespace ROR2Artifacts.Content
 
         private string BossDescText(string key)
         {
-            return "Mods.ROR2Artifacts.BossDesc." + key;
+            return "Mods.RORMod.BossDesc." + key;
         }
 
         public override void SetStaticDefaults()
@@ -161,7 +168,7 @@ namespace ROR2Artifacts.Content
         public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
         {
             var state = ModContent.GetInstance<ClientConfig>().HealthbarActive;
-            if (state == ClientConfig.HealthbarState.Enabled_AlwaysUse || (state == ClientConfig.HealthbarState.Enabled && ((npc.boss && npc.BossBar == null) || BossDesc.ContainsKey(npc.netID))))
+            if (state == HealthbarState.Enabled_AlwaysUse || (state == HealthbarState.Enabled && ((npc.boss && npc.BossBar == null) || BossDesc.ContainsKey(npc.netID))))
             {
                 if (lastBoss != npc.type)
                 {

@@ -1,7 +1,7 @@
-﻿namespace ROR2Artifacts.Items.Artifacts
+﻿namespace RORMod.Items.Artifacts
 {
     public class Enigma : BaseArtifact
     {
-        public override bool ActiveFlag { get => ROR2Artifacts.EnigmaActive; set => ROR2Artifacts.EnigmaActive = value; }
+        public override bool ActiveFlag { get => RORMod.enigma; set => RORMod.enigma = value; }
     }
 }

@@ -1,24 +1,19 @@
-﻿using System.ComponentModel;
+﻿using RORMod.Common;
+using RORMod.Content;
+using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace ROR2Artifacts
+namespace RORMod
 {
     public class ClientConfig : ConfigurationBase
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        public enum HealthbarState
-        {
-            Disabled,
-            Enabled,
-            Enabled_AlwaysUse,
-        }
-
         [Name("HealthbarActive")]
         [Desc("HealthbarActive")]
         [MemberBGColor]
-        [DefaultValue(typeof(HealthbarState), "Enabled")]
-        public HealthbarState HealthbarActive;
+        [DefaultValue(typeof(ROR2HealthBar.HealthbarState), "Enabled")]
+        public ROR2HealthBar.HealthbarState HealthbarActive;
 
         [Name("HealthbarBottom")]
         [Desc("HealthbarBottom")]

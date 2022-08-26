@@ -2,7 +2,7 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace ROR2Artifacts
+namespace RORMod.Content.Artifacts
 {
     public class ArtifactProj : GlobalProjectile
     {
@@ -33,16 +33,16 @@ namespace ROR2Artifacts
         public void OwnerCheck(Entity ent, Projectile proj)
         {
             if (ent is NPC npc)
-            { 
+            {
                 npcOwnerType = npc.netID;
             }
         }
 
         public override bool? CanHitNPC(Projectile projectile, NPC target)
         {
-            if (ROR2Artifacts.ChaosActive)
+            if (RORMod.chaos)
             {
-                if (npcOwnerType == 0 || (target.type != npcOwnerType && 
+                if (npcOwnerType == 0 || (target.type != npcOwnerType &&
                     (!ArtifactNPC.Chaos_HitBlacklist.TryGetValue(npcOwnerType, out var l) || !l.Contains(target.whoAmI))))
                 {
                     return true;

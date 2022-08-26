@@ -1,90 +1,18 @@
-﻿using ROR2Artifacts.Items.Artifacts;
+﻿using RORMod.Buffs;
+using RORMod.Items.Accessories;
+using RORMod.Items.Artifacts;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
-using ROR2Artifacts.Items.Accessories;
 
-namespace ROR2Artifacts
+namespace RORMod.Content.Artifacts
 {
     public class ArtifactPlayer : ModPlayer
     {
         public int enigmaDelay;
-        public bool DeathMark;
-        public bool Shatterspleen;
-        public bool Medkit;
-
-        public override void ResetEffects()
-        {
-            DeathMark = false;
-            Shatterspleen = false;
-            Medkit = false;
-        }
-
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
-        {
-            if (Medkit)
-            {
-                Player.AddBuff(ModContent.BuffType<AutomaticHealingBuff>(), (7 * 60));
-            }
-        }
-
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            if (DeathMark)
-            {
-                int buffCount = 0;
-                for (int i = 0; i < NPC.maxBuffs; i++)
-                {
-                    if (target.buffType[i] != 0)
-                    {
-                        buffCount++;
-                    }
-                    if (buffCount >= 2)
-                    {
-                        target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
-                        break;
-                    }
-                }
-            }
-            if (Shatterspleen)
-            {
-                if (crit)
-                {
-                    target.AddBuff(ModContent.BuffType<ShatterBleedingDebuff>(), 300);
-                }
-            }
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-        {
-            if (DeathMark)
-            {
-                int buffCount = 0;
-                for (int i = 0; i < NPC.maxBuffs; i++)
-                {
-                    if (target.buffType[i] != 0)
-                    {
-                        buffCount++;
-                    }
-                    if (buffCount >= 2)
-                    {
-                        target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
-                        break;
-                    }
-                }
-            }
-            if (Shatterspleen)
-            {
-                if (crit)
-                {
-                    target.AddBuff(ModContent.BuffType<ShatterBleedingDebuff>(), 300);
-                }
-            }
-        }
 
         public override bool PreItemCheck()
         {
-            if (ROR2Artifacts.EnigmaActive)
+            if (RORMod.enigma)
             {
                 if (enigmaDelay <= 0)
                 {
@@ -111,16 +39,12 @@ namespace ROR2Artifacts
 
         public override bool? CanAutoReuseItem(Item item)
         {
-            if (ROR2Artifacts.EnigmaActive && enigmaDelay <= 0)
-            {
-                return false;
-            }
-            return null;
+            return RORMod.enigma && enigmaDelay <= 0 ? false : null;
         }
 
         public override void PostUpdateEquips()
         {
-            if (ROR2Artifacts.FrailtyActive)
+            if (RORMod.frailty)
             {
                 if ((int)Player.position.Y / 16 - Player.fallStart > 10)
                 {
@@ -138,7 +62,7 @@ namespace ROR2Artifacts
                     Player.noFallDmg = false;
                 }
             }
-            if (ROR2Artifacts.GlassActive)
+            if (RORMod.glass)
             {
                 Player.statLifeMax2 /= 10;
                 Player.GetDamage<GenericDamageClass>() *= 5f;
@@ -147,12 +71,12 @@ namespace ROR2Artifacts
 
         public override void PostUpdate()
         {
-            if (ROR2Artifacts.ChaosActive)
+            if (RORMod.chaos)
             {
                 Player.hostile = true;
                 Player.team = Main.myPlayer == Player.whoAmI ? 0 : 1;
             }
-            if (ROR2Artifacts.DissonanceActive)
+            if (RORMod.dissonance)
             {
                 bool inPillars = Player.ZoneTowerNebula || Player.ZoneTowerSolar || Player.ZoneTowerStardust || Player.ZoneTowerVortex;
                 Player.zone1 = (byte)Main.rand.Next(byte.MaxValue);

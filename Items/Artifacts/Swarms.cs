@@ -1,8 +1,8 @@
-﻿namespace ROR2Artifacts.Items.Artifacts
+﻿namespace RORMod.Items.Artifacts
 {
     public class Swarms : BaseArtifact
     {
-        public override bool ActiveFlag { get => ROR2Artifacts.SwarmsActive; set => ROR2Artifacts.SwarmsActive = value; }
+        public override bool ActiveFlag { get => RORMod.swarms; set => RORMod.swarms = value; }
 
         public override bool unimplemented => true;
     }

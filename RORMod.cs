@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using ROR2Artifacts.Content;
+using RORMod.Common.Networking;
+using RORMod.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
@@ -7,49 +8,68 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ROR2Artifacts
+namespace RORMod
 {
-	public class ROR2Artifacts : Mod
+	public class RORMod : Mod
 	{
-		public static bool ChaosActive;
-		public static bool CommandActive;
-		public static bool DeathActive;
-		public static bool DissonanceActive;
-		public static bool EnigmaActive;
-		public static bool EvolutionActive;
-		public static bool FrailtyActive;
-		public static bool GlassActive;
-		public static bool HonorActive;
-		public static bool KinActive;
-		public static bool MetamorphosisActive;
-		public static bool SacrificeActive;
-		public static bool SoulActive;
-		public static bool SpiteActive;
-		public static bool SwarmsActive;
-		public static bool VenganceActive;
+        public static bool chaos;
+        public static bool command;
+        public static bool death;
+        public static bool dissonance;
+        public static bool enigma;
+        public static bool evolution;
+        public static bool frailty;
+        public static bool glass;
+        public static bool honor;
+        public static bool kin;
+        public static bool metamorphosis;
+        public static bool sacrifice;
+        public static bool soul;
+        public static bool spite;
+        public static bool swarms;
+        public static bool vengeance;
+
+        public static RORMod Instance { get; private set; }
 
         public static Color BossSummonMessage => new Color(175, 75, 255, 255);
+
+        public override void Load()
+        {
+            Instance = this;
+        }
+
+        public override void Unload()
+        {
+            Instance = null;
+        }
 
         public override object Call(params object[] args)
         {
             switch (args[0] as string)
             {
                 case "HPPool":
-                    HealthBar.AddLifeGroup(args[1] as List<int>);
+                    ROR2HealthBar.AddLifeGroup(args[1] as List<int>);
                     return "Success";
                 case "CustomName":
-                    HealthBar.CustomNPCName.Add((int)args[1], args[2] as string);
+                    ROR2HealthBar.CustomNPCName.Add((int)args[1], args[2] as string);
                     return "Success";
                 case "BossDesc":
-                    HealthBar.BossDesc.Add((int)args[1], args[2] as string);
+                    ROR2HealthBar.BossDesc.Add((int)args[1], args[2] as string);
                     return "Success";
             }
             return "Failiure";
         }
 
-        public static void Broadcast(string text, Color color)
+        public static ModPacket GetPacket(PacketType type)
         {
-            text = "Mods.ROR2Artifacts." + text;
+            var p = Instance.GetPacket();
+            p.Write((byte)type);
+            return p;
+        }
+
+        public static void BroadcastMessage(string text, Color color)
+        {
+            text = "Mods.RORMod." + text;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(Language.GetTextValue(text), color);
@@ -59,9 +79,9 @@ namespace ROR2Artifacts
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text), color);
             }
         }
-        public static void Broadcast(string text, Color color, params object[] args)
+        public static void BroadcastMessage(string text, Color color, params object[] args)
         {
-            text = "Mods.ROR2Artifacts." + text;
+            text = "Mods.RORMod." + text;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(Language.GetTextValue(text, args), color);
@@ -71,7 +91,7 @@ namespace ROR2Artifacts
                 ChatHelper.BroadcastChatMessage(NetworkText.FromKey(text, args), color);
             }
         }
-        public static void BroadcastKeys(string text, Color color, params object[] args)
+        public static void BroadcastMessageKeys(string text, Color color, params object[] args)
         {
             if (args != null)
             {
@@ -100,7 +120,7 @@ namespace ROR2Artifacts
                     }
                 }
             }
-            Broadcast(text, color, args);
+            BroadcastMessage(text, color, args);
         }
     }
 }

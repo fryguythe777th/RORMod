@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ROR2Artifacts.Items.Artifacts
+namespace RORMod.Items.Artifacts
 {
     public abstract class BaseArtifact : ModItem
     {
@@ -16,7 +15,7 @@ namespace ROR2Artifacts.Items.Artifacts
 
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()
@@ -34,14 +33,14 @@ namespace ROR2Artifacts.Items.Artifacts
         {
             ActiveFlag = !ActiveFlag;
             if (Main.myPlayer == player.whoAmI)
-                ROR2Artifacts.BroadcastKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), ROR2Artifacts.BossSummonMessage, "Mods.ROR2Artifacts.ItemName." + Name, player.name);
+                RORMod.BroadcastMessageKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), RORMod.BossSummonMessage, "Mods.RORMod.ItemName." + Name, player.name);
             return true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (unimplemented)
-                tooltips.Add(new TooltipLine(Mod, "Unimplemented", Language.GetTextValue("Mods.ROR2Artifacts.UnimplementedItem")) { OverrideColor = Color.Gray });
+                tooltips.Add(new TooltipLine(Mod, "Unimplemented", Language.GetTextValue("Mods.RORMod.UnimplementedItem")) { OverrideColor = Color.Gray });
         }
     }
 }
