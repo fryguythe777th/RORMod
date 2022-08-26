@@ -1,11 +1,11 @@
 ﻿using Terraria.ModLoader.Config;
 
-namespace ROR2Artifacts
+namespace RORMod.Common
 {
     [BackgroundColor(10, 10, 40, 220)]
     public abstract class ConfigurationBase : ModConfig
     {
-        protected const string Key = "$Mods.ROR2Artifacts.Configuration.";
+        protected const string Key = "$Mods.RORMod.Configuration.";
 
         protected class NameAttribute : LabelAttribute
         {

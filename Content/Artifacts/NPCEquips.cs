@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using Terraria.ID;
 
-namespace ROR2Artifacts
+namespace RORMod.Content.Artifacts
 {
-    public struct EvolutionItemSet
+    public struct NPCEquips
     {
         public int ExpertAccessory;
         public List<Point> Accessories;
 
-        public EvolutionItemSet(int expertAcc = ItemID.None)
+        public NPCEquips(int expertAcc = ItemID.None)
         {
             ExpertAccessory = expertAcc;
             Accessories = new List<Point>();

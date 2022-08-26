@@ -1,7 +1,7 @@
-﻿namespace ROR2Artifacts.Items.Artifacts
+﻿namespace RORMod.Items.Artifacts
 {
     public class Death : BaseArtifact
     {
-        public override bool ActiveFlag { get => ROR2Artifacts.DeathActive; set => ROR2Artifacts.DeathActive = value; }
+        public override bool ActiveFlag { get => RORMod.death; set => RORMod.death = value; }
     }
 }

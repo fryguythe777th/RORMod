@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.Xna.Framework;
-using ROR2Artifacts.Items.Accessories;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROR2Artifacts
+namespace RORMod.Content.Artifacts
 {
     public class ArtifactNPC : GlobalNPC
     {
@@ -16,14 +14,13 @@ namespace ROR2Artifacts
         public static HashSet<int> Soul_SpawnBlacklist { get; private set; }
         public static Dictionary<int, HashSet<int>> Chaos_HitBlacklist { get; private set; }
 
-        public static EvolutionItemSet EvolutionItems;
+        public static NPCEquips EvolutionItems;
 
         public int npcParent;
         public int chaosHitDelay;
 
         public bool soulSpawn;
         public bool swarmsSpawn;
-        public bool deathMarkDamageIncrease;
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -33,7 +30,6 @@ namespace ROR2Artifacts
             npcParent = -1;
             chaosHitDelay = 0;
             swarmsSpawn = false;
-            deathMarkDamageIncrease = false;
         }
 
         public override void Load()
@@ -113,14 +109,14 @@ namespace ROR2Artifacts
 
         public override bool? CanHitNPC(NPC npc, NPC target)
         {
-            if (ROR2Artifacts.ChaosActive)
-            {
-                if (npc.whoAmI == target.whoAmI || (Chaos_HitBlacklist.TryGetValue(target.netID, out var l) && l.Contains(npc.netID)) || (npc.aiStyle == NPCAIStyleID.Worm && target.aiStyle == NPCAIStyleID.Worm))
-                {
-                    return false;
-                }
-            }
-            return null;
+            return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? null : false;
+        }
+
+        public bool Chaos_CanDamageOtherNPC(NPC npc, NPC target)
+        {
+            return npc.whoAmI != target.whoAmI && !(Chaos_HitBlacklist.TryGetValue(target.netID, out var l) && l.Contains(npc.netID)) &&
+                target.aiStyle != NPCAIStyleID.Worm &&
+                target.realLife != npc.whoAmI && target.whoAmI != npc.realLife && npc.realLife != target.realLife;
         }
 
         public override void PostAI(NPC npc)
@@ -129,9 +125,9 @@ namespace ROR2Artifacts
             {
                 npcParent = -1;
             }
-            if (ROR2Artifacts.ChaosActive)
+            if (ArtifactSystem.chaos)
             {
-                if (chaosHitDelay < 15)
+                if (chaosHitDelay < 30)
                 {
                     chaosHitDelay++;
                     return;
@@ -140,43 +136,12 @@ namespace ROR2Artifacts
             }
         }
 
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
-        {
-            if (deathMarkDamageIncrease)
-                damage = (int)(damage * 1.15f);
-        }
-
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
-        {
-            if (deathMarkDamageIncrease)
-                damage = (int)(damage * 1.15f);
-        }
-
-        public override void OnKill(NPC npc)
-        {
-            if (npc.HasBuff(ModContent.BuffType<ShatterBleedingDebuff>()))
-            {
-                Projectile.NewProjectile(/*npc.GetSource_Accessory(Main.item[ModContent.ItemType<Shatterspleen>()])*/ npc.GetSource_FromThis(), npc.position, new Vector2(0, 0), ModContent.ProjectileType<BloodExplosion>(), 1, 6f);
-            }
-        }
-
-        public override void AI(NPC npc)
-        {
-            if (npc.HasBuff(ModContent.BuffType<ShatterBleedingDebuff>()))
-            {
-                if (Main.rand.NextBool(5) && !Main.dedServ)
-                {
-                    Dust.NewDust(npc.position, 4, 4, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), Main.rand.NextBool().ToDirectionInt(), 0, Scale:1.5f);
-                }
-            }
-        }
-
         public override bool SpecialOnKill(NPC npc)
         {
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 var s = npc.GetSource_Death();
-                if (ROR2Artifacts.SoulActive && !npc.SpawnedFromStatue && !soulSpawn)
+                if (RORMod.soul && !npc.SpawnedFromStatue && !soulSpawn)
                 {
                     int amt = Main.masterMode ? 3 : Main.expertMode ? 2 : 1;
                     if (Main.getGoodWorld)
@@ -198,7 +163,7 @@ namespace ROR2Artifacts
                         }
                     }
                 }
-                if (ROR2Artifacts.SpiteActive)
+                if (RORMod.spite)
                 {
                     for (int i = 0; i < 3; i++)
                     {
@@ -213,19 +178,19 @@ namespace ROR2Artifacts
         {
             if (player.ZoneDungeon)
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.AngryBones : NPCID.Skeleton;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.AngryBones : NPCID.Skeleton;
             }
             if (player.ZoneCrimson)
             {
                 if (npc.wet && Main.rand.NextBool())
                 {
-                    return (Main.hardMode && Main.rand.NextBool()) ? NPCID.BloodFeeder : NPCID.CrimsonGoldfish;
+                    return Main.hardMode && Main.rand.NextBool() ? NPCID.BloodFeeder : NPCID.CrimsonGoldfish;
                 }
                 if (Main.rand.NextBool())
                 {
                     return player.ZoneSnow ? NPCID.CrimsonPenguin : NPCID.CrimsonBunny;
                 }
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.Herpling : NPCID.BloodCrawler;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.Herpling : NPCID.BloodCrawler;
             }
             if (player.ZoneCorrupt)
             {
@@ -237,13 +202,13 @@ namespace ROR2Artifacts
                 {
                     return player.ZoneSnow ? NPCID.CorruptPenguin : NPCID.CorruptBunny;
                 }
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.Corruptor : NPCID.EaterofSouls;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.Corruptor : NPCID.EaterofSouls;
             }
             if (player.ZoneJungle)
             {
                 if (npc.wet && Main.rand.NextBool())
                 {
-                    return (Main.hardMode && Main.rand.NextBool()) ? NPCID.Arapaima : (Main.rand.NextBool() ? NPCID.AnglerFish : NPCID.Piranha);
+                    return Main.hardMode && Main.rand.NextBool() ? NPCID.Arapaima : Main.rand.NextBool() ? NPCID.AnglerFish : NPCID.Piranha;
                 }
                 var l = new List<int>() { NPCID.JungleSlime, };
                 if (npc.position.Y > Main.worldSurface * 16f)
@@ -256,46 +221,46 @@ namespace ROR2Artifacts
             }
             if (player.ZoneBeach && npc.wet)
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.GreenJellyfish : NPCID.PinkJellyfish;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.GreenJellyfish : NPCID.PinkJellyfish;
             }
             if (player.ZoneUnderworldHeight)
             {
-                return (Main.hardMode && NPC.downedMechBossAny && Main.rand.NextBool()) ? NPCID.Lavabat : NPCID.Hellbat;
+                return Main.hardMode && NPC.downedMechBossAny && Main.rand.NextBool() ? NPCID.Lavabat : NPCID.Hellbat;
             }
             if (npc.wet && Main.rand.NextBool())
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.AnglerFish : NPCID.Piranha;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.AnglerFish : NPCID.Piranha;
             }
             if (player.ZoneHallow && Main.hardMode)
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.Gastropod : NPCID.Pixie;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.Gastropod : NPCID.Pixie;
             }
             if (player.ZoneSnow)
             {
                 if (npc.position.Y > Main.worldSurface * 16f)
-                    return (Main.hardMode && Main.rand.NextBool()) ? NPCID.IceElemental : NPCID.IceBat;
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.IceElemental : NPCID.IceSlime;
+                    return Main.hardMode && Main.rand.NextBool() ? NPCID.IceElemental : NPCID.IceBat;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.IceElemental : NPCID.IceSlime;
             }
             if (player.ZoneDesert)
             {
                 if (npc.position.Y > Main.worldSurface * 16f)
-                    return (Main.hardMode && Main.rand.NextBool()) ? NPCID.DesertBeast : NPCID.SandSlime;
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.Mummy : NPCID.Vulture;
+                    return Main.hardMode && Main.rand.NextBool() ? NPCID.DesertBeast : NPCID.SandSlime;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.Mummy : NPCID.Vulture;
             }
             if (npc.position.Y > Main.worldSurface * 16f)
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? (Main.rand.NextFloat(1f) < 0.1f ? NPCID.SkeletonArcher : NPCID.ArmoredSkeleton) : NPCID.Skeleton;
+                return Main.hardMode && Main.rand.NextBool() ? Main.rand.NextFloat(1f) < 0.1f ? NPCID.SkeletonArcher : NPCID.ArmoredSkeleton : NPCID.Skeleton;
             }
             if (!Main.dayTime)
             {
-                return (Main.hardMode && Main.rand.NextBool()) ? NPCID.PossessedArmor : NPCID.Zombie;
+                return Main.hardMode && Main.rand.NextBool() ? NPCID.PossessedArmor : NPCID.Zombie;
             }
             return NPCID.BlueSlime;
         }
 
-        public static EvolutionItemSet RollEvolutionItemsSet()
+        public static NPCEquips RollEvolutionItemsSet()
         {
-            return new EvolutionItemSet(0);
+            return new NPCEquips(0);
         }
     }
 }

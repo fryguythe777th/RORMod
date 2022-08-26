@@ -1,8 +1,14 @@
 Mods: {
-	ROR2Artifacts: {
+	RORMod: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
 
 		ItemName: {
+			Medkit: Medkit
+
+			DeathMark: Death Mark
+
+			Shatterspleen: Shatterspleen
+
 			Chaos: Artifact of Chaos
 			Command: Artifact of Command
 			Death: Artifact of Death
@@ -22,47 +28,39 @@ Mods: {
 		}
 
 		ItemTooltip: {
-			Chaos:
+			Medkit:
 				'''
-				Friendly fire is enabled for both players and monsters alike
+				After getting hurt, recieve a delayed heal
+				Heals 15% of maximum health plus 20
 				'''
-			Command:
+
+			DeathMark:
 				'''
-				Choose your items
+				Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds
+				Enemies marked for death will take 10% more damage
 				'''
-			Death:
+
+			Shatterspleen:
 				'''
-				When one player dies, everyone dies
+				5% increased critical strike chance
+				All critical strikes will inflict Bleeding to enemies
+				Any enemy that dies with this Bleeding will erupt into a bloody explosion
 				'''
-			Dissonance:
-				'''
-				Monsters can appear outside their usual environments
-				'''
-			Enigma:
-				'''
-				Your hotbar is shuffled every 3 seconds
-				'''
+			
+			Chaos: Friendly fire is enabled for both players and monsters alike
+			Command: Choose your items
+			Death: When one player dies, everyone dies
+			Dissonance: Monsters can appear outside their usual environments
+			Enigma: Your hotbar is shuffled every 3 seconds
 			Evolution:
 				'''
 				Monsters gain accessories after each boss
 				All monster items will be listed in the Artifact UI
 				'''
-			WeakAssKnees:
-				'''
-				Fall damage is doubled, and fall damage prevention accessories are weaker
-				'''
-			Glass:
-				'''
-				Deal 500% damage, but have 10% health
-				'''
-			Honor:
-				'''
-				Enemies can only spawn as elites
-				'''
-			Kin:
-				'''
-				Monsters will be of only one type for a day
-				'''
+			WeakAssKnees: Fall damage is doubled, and fall damage prevention accessories are weaker
+			Glass: Deal 500% damage, but have 10% health
+			Honor: Enemies can only spawn as elites
+			Kin: Monsters will be of only one type for a day
 			Metamorphosis:
 				'''
 				??? 
@@ -72,22 +70,25 @@ Mods: {
 				Monsters drop chest loot upon death
 				However chests will no longer generate with the world
 				'''
-			Soul:
-				'''
-				Enemies emerge from defeated monsters
-				'''
-			Spite:
-				'''
-				Monsters release multiple grenades upon death
-				'''
-			Swarms:
-				'''
-				Monster spawns are doubled, but monster maximum health is halved
-				'''
+			Soul: Enemies emerge from defeated monsters
+			Spite: Monsters release multiple grenades upon death
+			Swarms: Monster spawns are doubled, but monster maximum health is halved
 			Vengance:
 				'''
 				???
 				'''
+		}
+
+		BuffName: {
+			MedkitBuff: Medkit
+		}
+
+		BuffDescription: {
+			MedkitBuff: Heal a small amount of health after this buff is cleared
+		}
+
+		ProjectileName: {
+			ShatterspleenExplosion: Shatterspleen
 		}
 
 		Announcements: {
@@ -102,13 +103,13 @@ Mods: {
 
 		BossDesc: {
 			EyeofCthulhu: Nighttime Terror
-			EaterofWorlds: Spawn of malice
-			BrainofCthulhu: Crimson mastermind
-			KingSlime: Lord of all things slimy
-			Skeletron: Accursed tyrant
-			QueenBee: Matriarch of the hive
-			WallOfFlesh: Master and Core of the world
-			MechanicalBoss: Mechanical simulacrum
+			EaterofWorlds: Spawn of Malice
+			BrainofCthulhu: Crimson Mastermind
+			KingSlime: Lord of all things Slimy
+			Skeletron: Accursed Tyrant
+			QueenBee: Matriarch of the Hive
+			WallOfFlesh: Core of the World
+			MechanicalBoss: Mechanical Simulacrum
 			Plantera: Jungle's Wrath
 			Golem: Lihzahrd Construct
 			LunaticCultist: Harbinger of Doom
@@ -116,10 +117,10 @@ Mods: {
 			EmpressOfLight: Prismatic Deity
 			QueenSlime: Higher Authority
 			CollabEvent: Otherworldy Creature
-			DukeFishron: Mutant terror of the sea
-			Deerclops: Winter abomination
-			MartianSaucer: Alien warship
-			Pillars: Celestial bindings
+			DukeFishron: Mutant Terror of the Sea
+			Deerclops: Winter Abomination
+			MartianSaucer: Alien Warship
+			Pillars: Celestial Bindings
 		}
 
 		Configuration: {
