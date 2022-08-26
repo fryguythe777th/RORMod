@@ -1,0 +1,136 @@
+Mods: {
+	ROR2Artifacts: {
+		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
+
+		ItemName: {
+			Chaos: 混沌神器
+			Command: 统率神器
+			Death: 死亡神器
+			Dissonance: 纷争神器
+			Enigma: 谜团神器
+			Evolution: 进化神器
+			WeakAssKnees: 脆弱神器
+			Glass: 玻璃神器
+			Honor: 荣耀神器
+			Kin: 亲族神器
+			Metamorphosis: 质变神器
+			Sacrifice: 牺牲神器
+			Soul: 灵魂神器
+			Spite: 恶意神器
+			Swarms: 虫群神器
+			Vengance: 复仇神器
+		}
+
+		ItemTooltip: {
+			Chaos:
+				'''
+				玩家和怪物均启用友军误伤
+				'''
+			Command:
+				'''
+				选择你的物品
+				'''
+			Death:
+				'''
+				当一个玩家死亡时, 所有人都会死亡
+				'''
+			Dissonance:
+				'''
+				怪物可以出现在它们的常规环境之外
+				'''
+			Enigma:
+				'''
+				你的热键每3秒随机重新绑定一次
+				'''
+			Evolution:
+				'''
+				怪物会在每个Boss被击败之后获得一件饰品
+				所有怪物的物品都会列在神器UI中
+				'''
+			WeakAssKnees:
+				'''
+        跌落伤害加倍, 所有防止跌落伤害的饰品更弱
+				'''
+			Glass:
+				'''
+				造成500%的伤害, 但仅有10%生命值
+				'''
+			Honor:
+				'''
+				敌人只会以精英敌人的形式生成
+				'''
+			Kin:
+				'''
+				每一天的怪物只有一种类型
+				'''
+			Metamorphosis:
+				'''
+				??? 
+				'''
+			Sacrifice:
+				'''
+				怪物在死亡时掉落宝箱战利品
+				但宝箱不会再与世界一同生成
+				'''
+			Soul:
+				'''
+				敌人会从被击败的敌人中生成
+				'''
+			Spite:
+				'''
+				怪物死亡时会释放多枚手榴弹
+				'''
+			Swarms:
+				'''
+				怪物的生成数量翻倍, 但最大生命值减半
+				'''
+			Vengance:
+				'''
+				???
+				'''
+		}
+
+		Announcements: {
+			ChaosPVP: 你不能再控制你所在的团队了!
+			ArtifactEnabled: " {1}启用了{0}!"
+			ArtifactDisabled: "{1}禁用了{0}!"
+		}
+
+		DeathReason: {
+			DeathArtifact: "{1}已被由{0}激活的死亡神器击杀."
+		}
+
+		BossDesc: {
+			EyeofCthulhu: 暗夜之惧
+			EaterofWorlds: 滋生的恶意
+			BrainofCthulhu: 猩红的主脑
+			KingSlime: 一切黏糊糊事物的首领
+			Skeletron: 被诅咒的暴君
+			QueenBee: 蜂巢的女族长
+			WallOfFlesh: 世界的主宰与核心
+			MechanicalBoss: 机械幻象
+			Plantera: 丛林之怒
+			Golem: 神庙造物
+			LunaticCultist: 末日先驱
+			MoonLord: 结束了
+			EmpressOfLight: 棱光之神
+			QueenSlime: 首领的上级
+			CollabEvent: 异界生物
+			DukeFishron: 海洋中的恐怖突变体
+			Deerclops: 冬之憎恶
+			MartianSaucer: 外星战舰
+			Pillars: 天界之缚
+		}
+
+		Configuration: {
+			HealthbarActive: 生命栏状态
+			HealthbarActiveTooltip: 
+				'''
+				设置生命栏的状态. 
+				'Enabled_AlwaysUse'会强制使用生命栏, 即使Boss有专门的生命栏.
+				'''
+			HealthbarBottom: 底部生命栏
+			HealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
+		}
+	}
+}
