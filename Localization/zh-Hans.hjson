@@ -1,8 +1,14 @@
 Mods: {
-	ROR2Artifacts: {
+	RORMod: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
 		ItemName: {
+			Medkit: 医疗包
+
+			DeathMark: 死亡标记
+
+			Shatterspleen: 易爆的脾脏
+			
 			Chaos: 混沌神器
 			Command: 统率神器
 			Death: 死亡神器
@@ -22,47 +28,39 @@ Mods: {
 		}
 
 		ItemTooltip: {
-			Chaos:
+			Medkit:
 				'''
-				玩家和怪物均启用友军误伤
+				在承受伤害时会在短暂延迟后恢复生命值
+				恢复20点外加等同于最大生命值15%的生命值
 				'''
-			Command:
+
+			DeathMark:
 				'''
-				选择你的物品
+			        用2个及以上减益伤害敌人时会将其被标记为死亡7秒
+				被死亡标记的敌人会受到10%的额外伤害
 				'''
-			Death:
+
+			Shatterspleen:
 				'''
-				当一个玩家死亡时, 所有人都会死亡
+				增加5%暴击率
+				攻击造成暴击时会使敌人流血
+				流血的敌人将会在死亡时血腥的爆炸
 				'''
-			Dissonance:
-				'''
-				怪物可以出现在它们的常规环境之外
-				'''
-			Enigma:
-				'''
-				你的热键每3秒随机重新绑定一次
-				'''
+
+			Chaos: 玩家和怪物均启用友军误伤
+			Command: 选择你的物品
+			Death: 当一个玩家死亡时, 所有人都会死亡
+			Dissonance: 怪物可以出现在它们的常规环境之外
+			Enigma: 你的热键每3秒随机重新绑定一次
 			Evolution:
 				'''
 				怪物会在每个Boss被击败之后获得一件饰品
 				所有怪物的物品都会列在神器UI中
 				'''
-			WeakAssKnees:
-				'''
-        跌落伤害加倍, 所有防止跌落伤害的饰品更弱
-				'''
-			Glass:
-				'''
-				造成500%的伤害, 但仅有10%生命值
-				'''
-			Honor:
-				'''
-				敌人只会以精英敌人的形式生成
-				'''
-			Kin:
-				'''
-				每一天的怪物只有一种类型
-				'''
+			WeakAssKnees: 跌落伤害加倍, 所有防止跌落伤害的饰品更弱
+			Glass: 造成500%的伤害, 但仅有10%生命值
+			Honor: 敌人只会以精英敌人的形式生成
+			Kin: 每一天的怪物只有一种类型
 			Metamorphosis:
 				'''
 				??? 
@@ -72,22 +70,25 @@ Mods: {
 				怪物在死亡时掉落宝箱战利品
 				但宝箱不会再与世界一同生成
 				'''
-			Soul:
-				'''
-				敌人会从被击败的敌人中生成
-				'''
-			Spite:
-				'''
-				怪物死亡时会释放多枚手榴弹
-				'''
-			Swarms:
-				'''
-				怪物的生成数量翻倍, 但最大生命值减半
-				'''
+			Soul: 敌人会从被击败的敌人中生成
+			Spite: 怪物死亡时会释放多枚手榴弹
+			Swarms: 怪物的生成数量翻倍, 但最大生命值减半
 			Vengance:
 				'''
 				???
 				'''
+		}
+		
+		BuffName: {
+			MedkitBuff: 医疗包
+		}
+
+		BuffDescription: {
+			MedkitBuff: 清除此增益后会为你回复少量生命值
+		}
+
+		ProjectileName: {
+			ShatterspleenExplosion: 易爆的脾脏
 		}
 
 		Announcements: {
