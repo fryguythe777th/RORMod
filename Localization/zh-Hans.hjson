@@ -3,7 +3,11 @@ Mods: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
 		ItemName: {
+			TougherTimes: 更艰难的时光
+			MonsterTooth: 怪物牙齿
 			Medkit: 医疗包
+			SoldiersSyringe: 士兵的注射器
+			TriTipDagger: 三尖匕首
 
 			DeathMark: 死亡标记
 
@@ -28,11 +32,23 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			TougherTimes: 有10%的几率闪避攻击
 			Medkit:
 				'''
 				在承受伤害时会在短暂延迟后恢复生命值
 				恢复20点外加等同于最大生命值15%的生命值
 				'''
+			MonsterTooth:
+				'''
+				击败敌人后会掉落一颗治疗球
+				恢复8点外加等同于最大生命值2%的生命值
+				'''
+			SoldiersSyringe:
+				'''
+				大幅度增加攻击速度
+				伤害降低
+				'''
+			TriTipDagger: 有10%的几率使敌人流血
 
 			DeathMark:
 				'''
@@ -84,7 +100,7 @@ Mods: {
 		}
 
 		BuffDescription: {
-			MedkitBuff: 清除此增益后会为你回复少量生命值
+			MedkitBuff: 此增益消失时会为你回复少量生命值
 		}
 
 		ProjectileName: {
