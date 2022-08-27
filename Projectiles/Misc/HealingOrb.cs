@@ -16,9 +16,10 @@ namespace RORMod.Projectiles.Misc
             Projectile.friendly = true;
             Projectile.timeLeft = 600;
             Projectile.tileCollide = true;
-            Projectile.width = 31;
-            Projectile.height = 31;
-            Projectile.hide = false; 
+            Projectile.width = 15;
+            Projectile.height = 15;
+            Projectile.alpha = 0;
+            Projectile.scale = 0.5f;
         }
 
         private int blinkCounter = 0;
@@ -47,13 +48,13 @@ namespace RORMod.Projectiles.Misc
             if (blinkCounter >= (Math.Round((double)(Projectile.timeLeft / 150)) + 1) * 5)
             {
                 blinkCounter = 0;
-                if (Projectile.hide == true)
+                if (Projectile.alpha == 95)
                 {
-                    Projectile.hide = false;
+                    Projectile.alpha = 0;
                 }
                 else
                 {
-                    Projectile.hide = true;
+                    Projectile.alpha = 95;
                 }
             }
 

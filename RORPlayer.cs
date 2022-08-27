@@ -15,6 +15,7 @@ namespace RORMod
         public bool accMedkit;
         public bool accTougherTimes;
         public bool accMonsterTooth;
+        public bool accTriTipDagger;
 
         public override void ResetEffects()
         {
@@ -23,6 +24,7 @@ namespace RORMod
             accMedkit = false;
             accTougherTimes = false;
             accMonsterTooth = false;
+            accTriTipDagger = false;
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
@@ -76,6 +78,10 @@ namespace RORMod
                 target.GetGlobalNPC<RORNPC>().bleedShatterspleen = true;
                 BleedingDebuff.AddStack(target, 300, 1);
                 target.netUpdate = true;
+            }
+            if (accTriTipDagger && Main.rand.NextBool(10))
+            {
+                BleedingDebuff.AddStack(target, 180, 1);
             }
         }
     }

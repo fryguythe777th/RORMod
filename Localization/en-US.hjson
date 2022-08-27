@@ -6,6 +6,8 @@ Mods: {
 			TougherTimes: Tougher Times
 			MonsterTooth: Monster Tooth
 			Medkit: Medkit
+			SoldiersSyringe: Soldier's Syringe
+			TriTipDagger: Tri-Tip Dagger
 
 			DeathMark: Death Mark
 
@@ -41,6 +43,12 @@ Mods: {
 				Killed enemies drop a healing orb
 				Heals 2% of maximum health plus 8
 				'''
+			SoldiersSyringe:
+				'''
+				Greatly increases attack speed
+				Decreases damage
+				'''
+			TriTipDagger: 10% chance to inflict Bleeding to enemies
 
 			DeathMark:
 				'''
