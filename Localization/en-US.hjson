@@ -3,6 +3,8 @@ Mods: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
 
 		ItemName: {
+			TougherTimes: Tougher Times
+			MonsterTooth: Monster Tooth
 			Medkit: Medkit
 
 			DeathMark: Death Mark
@@ -28,10 +30,16 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			TougherTimes: 10% chance to dodge attacks
 			Medkit:
 				'''
 				After getting hurt, recieve a delayed heal
 				Heals 15% of maximum health plus 20
+				'''
+			MonsterTooth:
+				'''
+				Killed enemies drop a healing orb
+				Heals 2% of maximum health plus 8
 				'''
 
 			DeathMark:

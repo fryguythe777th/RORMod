@@ -3,6 +3,7 @@ using RORMod.Buffs.Debuff;
 using RORMod.Items.Accessories;
 using RORMod.NPCs;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace RORMod
@@ -12,12 +13,26 @@ namespace RORMod
         public bool accDeathMark;
         public bool accShatterspleen;
         public bool accMedkit;
+        public bool accTougherTimes;
+        public bool accMonsterTooth;
 
         public override void ResetEffects()
         {
             accDeathMark = false;
             accShatterspleen = false;
             accMedkit = false;
+            accTougherTimes = false;
+            accMonsterTooth = false;
+        }
+
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        {
+            if (accTougherTimes && Main.rand.NextBool(10))
+            {
+                Player.NinjaDodge();
+                return false;
+            }
+            return true;
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
