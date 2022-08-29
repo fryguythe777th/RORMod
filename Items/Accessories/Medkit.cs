@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Waist)]
     public class Medkit : ModItem
     {
         public override void SetStaticDefaults()

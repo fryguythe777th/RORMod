@@ -62,7 +62,6 @@ namespace RORMod.Content.Artifacts
             }
             if (ArtifactSystem.glass)
             {
-                Player.statLifeMax2 /= 10;
                 Player.GetDamage<GenericDamageClass>() *= 5f;
             }
         }

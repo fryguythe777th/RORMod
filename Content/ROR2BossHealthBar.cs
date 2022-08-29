@@ -12,7 +12,7 @@ using Terraria.UI.Chat;
 
 namespace RORMod.Content
 {
-    public class ROR2HealthBar : GlobalBossBar
+    public class ROR2BossHealthBar : GlobalBossBar
     {
         public const char LEFT_WHITE_CORNER_BRACKET = '「';
         public const char RIGHT_WHITE_CORNER_BRACKET = '」';
@@ -167,7 +167,7 @@ namespace RORMod.Content
 
         public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
         {
-            var state = ModContent.GetInstance<ClientConfig>().HealthbarActive;
+            var state = ModContent.GetInstance<ClientConfig>().BossHealthbarActive;
             if (state == HealthbarState.Enabled_AlwaysUse || (state == HealthbarState.Enabled && ((npc.boss && npc.BossBar == null) || BossDesc.ContainsKey(npc.netID))))
             {
                 if (lastBoss != npc.type)
@@ -215,7 +215,7 @@ namespace RORMod.Content
 
                 var pixel = TextureAssets.MagicPixel.Value;
 
-                var bottom = ModContent.GetInstance<ClientConfig>().HealthbarBottom;
+                var bottom = ModContent.GetInstance<ClientConfig>().BossHealthbarBottom;
                 if (bottom)
                 {
                     topY += 24;

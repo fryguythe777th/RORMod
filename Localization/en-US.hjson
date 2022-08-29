@@ -144,14 +144,16 @@ Mods: {
 		}
 
 		Configuration: {
-			HealthbarActive: Healthbar State
-			HealthbarActiveTooltip: 
+			PlayerHealthbarOverlay: Player Healthbar Overlays
+			PlayerHealthbarOverlayTooltip: Whether or not to have player healthbar overlays enabled, disable this if you have a mod which changes vanilla Healthbar UI
+			BossHealthbarActive: Boss Healthbar State
+			BossHealthbarActiveTooltip: 
 				'''
-				Sets the state of the healthbar. 
+				Sets the state of the boss healthbar. 
 				'Enabled_AlwaysUse' forces the healthbar to be used at all times, even if the boss has a specialized healthbar.
 				'''
-			HealthbarBottom: Bottom Healthbar
-			HealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
+			BossHealthbarBottom: Boss Healthbar: Place on Bottom
+			BossHealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
 		}
 
 		Blocked: BLOCKED!

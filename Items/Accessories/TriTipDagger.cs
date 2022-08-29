@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Face)]
     public class TriTipDagger : ModItem
     {
         public override void SetStaticDefaults()
@@ -22,8 +23,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            RORPlayer rop = player.GetModPlayer<RORPlayer>();
-            rop.accTriTipDagger = true;
+            player.ROR().accTriTipDagger = true;
         }
     }
 }

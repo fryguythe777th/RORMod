@@ -9,16 +9,22 @@ namespace RORMod
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [Name("HealthbarActive")]
-        [Desc("HealthbarActive")]
+        [Name("BossHealthbarActive")]
+        [Desc("BossHealthbarActive")]
         [MemberBGColor]
-        [DefaultValue(typeof(ROR2HealthBar.HealthbarState), "Enabled")]
-        public ROR2HealthBar.HealthbarState HealthbarActive;
+        [DefaultValue(typeof(ROR2BossHealthBar.HealthbarState), "Enabled")]
+        public ROR2BossHealthBar.HealthbarState BossHealthbarActive;
 
-        [Name("HealthbarBottom")]
-        [Desc("HealthbarBottom")]
+        [Name("BossHealthbarBottom")]
+        [Desc("BossHealthbarBottom")]
         [MemberBGColor_Secondary]
         [DefaultValue(false)]
-        public bool HealthbarBottom;
+        public bool BossHealthbarBottom;
+
+        [Name("PlayerHealthbarOverlay")]
+        [Desc("PlayerHealthbarOverlay")]
+        [MemberBGColor]
+        [DefaultValue(true)]
+        public bool PlayerHealthbarOverlay;
     }
 }

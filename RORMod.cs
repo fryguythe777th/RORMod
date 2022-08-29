@@ -38,13 +38,13 @@ namespace RORMod
             switch (args[0] as string)
             {
                 case "HPPool":
-                    ROR2HealthBar.AddLifeGroup(args[1] as List<int>);
+                    ROR2BossHealthBar.AddLifeGroup(args[1] as List<int>);
                     return "Success";
                 case "CustomName":
-                    ROR2HealthBar.CustomNPCName.Add((int)args[1], args[2] as string);
+                    ROR2BossHealthBar.CustomNPCName.Add((int)args[1], args[2] as string);
                     return "Success";
                 case "BossDesc":
-                    ROR2HealthBar.BossDesc.Add((int)args[1], args[2] as string);
+                    ROR2BossHealthBar.BossDesc.Add((int)args[1], args[2] as string);
                     return "Success";
             }
             return "Failiure";

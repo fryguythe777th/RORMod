@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
+using RORMod.Content;
+using RORMod.Content.Artifacts;
 using RORMod.NPCs;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -18,6 +21,13 @@ namespace RORMod
 
         public float bootSpeed;
 
+        public float glass;
+        public int HPLostToGlass;
+
+        public float barrier;
+
+        public float shield;
+
         public bool accGlubby;
         public bool glubbyHide;
         public byte glubbyActive;
@@ -25,6 +35,8 @@ namespace RORMod
         public bool gLegPlayedSound;
         public bool gLegSounds;
 
+        public bool accTopazBrooch;
+        public bool accShieldGenerator;
         public bool accDeathMark;
         public bool accShatterspleen;
         public bool accMedkit;
@@ -44,6 +56,9 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            glass = ArtifactSystem.glass ? 0.9f : 0f;
+            accTopazBrooch = false;
+            accShieldGenerator = false;
             accGlubby = false;
             bootSpeed = 0f;
             gLegSounds = false;
@@ -90,9 +105,26 @@ namespace RORMod
 
         public override void PostUpdateRunSpeeds()
         {
+
             if (Player.accRunSpeed > 0f)
             {
                 Player.accRunSpeed += bootSpeed;
+            }
+        }
+
+        public override void PostUpdateEquips()
+        {
+            HPLostToGlass = 0;
+            if (glass > 0f)
+            {
+                HPLostToGlass = (int)(Player.statLifeMax2 * glass);
+                Player.statLifeMax2 -= HPLostToGlass;
+            }
+            if (Main.myPlayer == Player.whoAmI)
+            {
+                HeartOverlay.MaxShield = shield;
+                HeartOverlay.MaxBarrier = barrier;
+                HeartOverlay.MaxGlass = glass;
             }
         }
 
