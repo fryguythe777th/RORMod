@@ -38,6 +38,11 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			Warbanner: 
+				'''
+				After killing 15 enemies, or decreasing a boss's heath by 25%, place a banner below you
+				This banner lasts 1 minute and increases speed stats when you're within its aura
+				'''
 			TopazBrooch: When killing an enemy, gain 15 temporary barrier health points
 			PersonalShieldGenerator: 
 				'''

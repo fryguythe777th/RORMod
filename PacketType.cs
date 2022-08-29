@@ -4,5 +4,6 @@
     {
         SyncRORNPC,
         TougherTimesDodge,
+        SyncRORPlayer,
     }
 }

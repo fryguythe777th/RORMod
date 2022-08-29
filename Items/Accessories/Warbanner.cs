@@ -10,6 +10,7 @@ namespace RORMod.Items.Accessories
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
         }
 
         public override void SetDefaults()
@@ -23,6 +24,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.ROR().accWarbanner = Item;
         }
     }
 }

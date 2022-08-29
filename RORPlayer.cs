@@ -3,8 +3,10 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.NPCs;
+using RORMod.Projectiles.Misc;
 using RORMod.UI;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -20,6 +22,9 @@ namespace RORMod
         public const int ShieldRegenerationTime = 300;
 
         public Item accMonsterTooth;
+
+        public Item accWarbanner;
+        public byte warbannerProgress_Enemies;
 
         public float bootSpeed;
 
@@ -59,8 +64,59 @@ namespace RORMod
         /// </summary>
         public bool InDanger => dangerEnemy != -1;
 
+        public override void clientClone(ModPlayer clientClone)
+        {
+            var clone = (RORPlayer)clientClone;
+            clone.warbannerProgress_Enemies = warbannerProgress_Enemies;
+            clone.barrier = barrier;
+            clone.shield = shield;
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            var client = (RORPlayer)clientPlayer;
+            var p = RORMod.GetPacket(PacketType.SyncRORPlayer);
+            var bb = new BitsByte(
+                client.warbannerProgress_Enemies != warbannerProgress_Enemies,
+                client.barrier != barrier,
+                client.shield != shield);
+
+            p.Write(Player.whoAmI);
+            p.Write(bb);
+            if (bb[0])
+            {
+                p.Write(warbannerProgress_Enemies);
+            }
+            if (bb[1])
+            {
+                p.Write(barrier);
+            }
+            if (bb[2])
+            {
+                p.Write(shield);
+            }
+        }
+
+        public void RecieveChanges(BinaryReader reader)
+        {
+            var bb = (BitsByte)reader.ReadByte();
+            if (bb[0])
+            {
+                warbannerProgress_Enemies = reader.ReadByte();
+            }
+            if (bb[1])
+            {
+                barrier = reader.ReadSingle();
+            }
+            if (bb[2])
+            {
+                shield = reader.ReadSingle();
+            }
+        }
+
         public override void ResetEffects()
         {
+            accWarbanner = null;
             timeNotHit++;
             maxShield = 0f;
             if (barrier > 0f)
@@ -169,11 +225,22 @@ namespace RORMod
 
         public override void PostUpdate()
         {
+            if (warbannerProgress_Enemies > 15)
+            {
+                SpawnWarbanner();
+            }
             if (gLegSounds)
             {
                 UpdateGoatFootsteps();
             }
             DangerEnemy();
+        }
+
+        public void SpawnWarbanner()
+        {
+            warbannerProgress_Enemies = 0;
+            Projectile.NewProjectile(Player.GetSource_Accessory(accWarbanner), Player.Center - new Vector2(0f, 30f), Vector2.UnitY, ModContent.ProjectileType<WarbannerProj>(),
+                0, 0f, Player.whoAmI);
         }
 
         public void UpdateGoatFootsteps()

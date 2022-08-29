@@ -67,6 +67,12 @@ namespace RORMod
                         Main.player[reader.ReadInt32()].ROR().TougherTimesDodge();
                     }
                     break;
+
+                case PacketType.SyncRORPlayer:
+                    {
+                        Main.player[reader.ReadInt32()].ROR().RecieveChanges(reader);
+                    }
+                    break;
             }
         }
 

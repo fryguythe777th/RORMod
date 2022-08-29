@@ -9,8 +9,6 @@ namespace RORMod.Projectiles.Misc
 {
     public class ShatterspleenExplosion : ModProjectile
     {
-        public override string Texture => "RORMod/Assets/Explosion0";
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 7;
@@ -24,7 +22,7 @@ namespace RORMod.Projectiles.Misc
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return Color.Red.UseA(240) * 0.8f;
+            return new Color(222, 222, 222, 200);
         }
 
         public override void AI()

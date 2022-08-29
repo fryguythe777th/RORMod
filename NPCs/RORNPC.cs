@@ -86,8 +86,42 @@ namespace RORMod.NPCs
                 damage += (int)(damage * 0.1f);
         }
 
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+        {
+            CheckWarbannerBossProgress(npc, damage);
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+        {
+            CheckWarbannerBossProgress(npc, damage);
+        }
+
+        public void CheckWarbannerBossProgress(NPC npc, int damage)
+        {
+            if (!npc.boss)
+                return;
+
+            float percent = npc.life / (float)npc.lifeMax;
+            float lastPercent = (npc.life + damage) / (float)npc.lifeMax;
+            Main.NewText(percent);
+            Main.NewText(lastPercent, Color.Red);
+            if ((percent <= 0.25f && lastPercent > 0.25f) || (percent <= 0.5f && lastPercent > 0.5f) || (percent <= 0.75f && lastPercent > 0.75f) || (percent < 1f && lastPercent >= 1f))
+            {
+                var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+                if (!closest.dead)
+                {
+                    var ror = closest.ROR();
+                    if (ror.accWarbanner != null)
+                        ror.SpawnWarbanner();
+                }
+            }
+        }
+
         public override void OnKill(NPC npc)
         {
+            if (npc.SpawnedFromStatue || npc.friendly || npc.lifeMax < 5)
+                return;
+
             var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
             var ror = closest.ROR();
             if (bleedShatterspleen)
@@ -103,6 +137,11 @@ namespace RORMod.NPCs
             {
                 ror.barrier = Math.Min(ror.barrier + 15f / closest.statLifeMax2, 1f);
                 closest.statLife += 15;
+            }
+            if (ror.accWarbanner != null)
+            {
+                ror.warbannerProgress_Enemies++;
+                //Main.NewText(ror.warbannerProgress_Enemies);
             }
         }
 
