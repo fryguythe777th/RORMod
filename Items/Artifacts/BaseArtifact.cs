@@ -13,6 +13,11 @@ namespace RORMod.Items.Artifacts
 
         public virtual bool unimplemented => false;
 
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return !unimplemented;
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;

@@ -5,6 +5,8 @@ using RORMod.NPCs;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria.Audio;
 
 namespace RORMod
 {
@@ -27,11 +29,25 @@ namespace RORMod
             accTriTipDagger = false;
         }
 
+        public void TougherTimesDodge()
+        {
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                SoundEngine.PlaySound(RORMod.GetSound("toughertimes"), Player.Center);
+            }
+            Player.SetImmuneTimeForAllTypes(60);
+        }
+
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
-            if (accTougherTimes && Main.rand.NextBool(10))
+            if (Player.whoAmI == Main.myPlayer && accTougherTimes && Main.rand.NextBool(10))
             {
-                Player.NinjaDodge();
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                {
+                    var p = RORMod.GetPacket(PacketType.TougherTimesDodge);
+                    p.Write(Player.whoAmI);
+                }
+                TougherTimesDodge();
                 return false;
             }
             return true;

@@ -1,7 +1,9 @@
-﻿namespace RORMod.Items.Artifacts
+﻿using RORMod.Content.Artifacts;
+
+namespace RORMod.Items.Artifacts
 {
     public class Glass : BaseArtifact
     {
-        public override bool ActiveFlag { get => RORMod.glass; set => RORMod.glass = value; }
+        public override bool ActiveFlag { get => ArtifactSystem.glass; set => ArtifactSystem.glass = value; }
     }
 }

@@ -1,7 +1,8 @@
-﻿namespace RORMod.Common.Networking
+﻿namespace RORMod
 {
     public enum PacketType : byte
     {
         SyncRORNPC,
+        TougherTimesDodge,
     }
 }

@@ -1,6 +1,4 @@
-﻿using RORMod.Buffs;
-using RORMod.Items.Accessories;
-using RORMod.Items.Artifacts;
+﻿using RORMod.Items.Artifacts;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +10,7 @@ namespace RORMod.Content.Artifacts
 
         public override bool PreItemCheck()
         {
-            if (RORMod.enigma)
+            if (ArtifactSystem.enigma)
             {
                 if (enigmaDelay <= 0)
                 {
@@ -39,12 +37,12 @@ namespace RORMod.Content.Artifacts
 
         public override bool? CanAutoReuseItem(Item item)
         {
-            return RORMod.enigma && enigmaDelay <= 0 ? false : null;
+            return ArtifactSystem.enigma && enigmaDelay <= 0 ? false : null;
         }
 
         public override void PostUpdateEquips()
         {
-            if (RORMod.frailty)
+            if (ArtifactSystem.frailty)
             {
                 if ((int)Player.position.Y / 16 - Player.fallStart > 10)
                 {
@@ -62,7 +60,7 @@ namespace RORMod.Content.Artifacts
                     Player.noFallDmg = false;
                 }
             }
-            if (RORMod.glass)
+            if (ArtifactSystem.glass)
             {
                 Player.statLifeMax2 /= 10;
                 Player.GetDamage<GenericDamageClass>() *= 5f;
@@ -71,12 +69,12 @@ namespace RORMod.Content.Artifacts
 
         public override void PostUpdate()
         {
-            if (RORMod.chaos)
+            if (ArtifactSystem.chaos)
             {
                 Player.hostile = true;
                 Player.team = Main.myPlayer == Player.whoAmI ? 0 : 1;
             }
-            if (RORMod.dissonance)
+            if (ArtifactSystem.dissonance)
             {
                 bool inPillars = Player.ZoneTowerNebula || Player.ZoneTowerSolar || Player.ZoneTowerStardust || Player.ZoneTowerVortex;
                 Player.zone1 = (byte)Main.rand.Next(byte.MaxValue);

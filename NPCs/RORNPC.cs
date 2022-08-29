@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using RORMod.Buffs.Debuff;
-using RORMod.Common.Networking;
 using RORMod.Projectiles.Misc;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,9 +33,14 @@ namespace RORMod.NPCs
             if (Main.dedServ)
                 return;
 
-            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()) && Main.rand.NextBool(5))
+            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()))
             {
-                Dust.NewDust(npc.position, 4, 4, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), Main.rand.NextBool().ToDirectionInt(), 0, Scale: 1.5f);
+                if (Main.GameUpdateCount % 24 == 0)
+                {
+                    var d =Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
+                    d.velocity.X *= 0.5f;
+                    SoundEngine.PlaySound(RORMod.GetSounds("bleed_", 6).WithVolumeScale(0.3f), npc.Center);
+                }
             }
         }
 
@@ -116,10 +121,11 @@ namespace RORMod.NPCs
             if (Main.netMode == NetmodeID.SinglePlayer)
                 return;
 
-            if (Main.npc[npc].TryGetGlobalNPC<RORNPC>(out var aequus))
+            if (Main.npc[npc].TryGetGlobalNPC<RORNPC>(out var ror))
             {
                 var p = RORMod.GetPacket(PacketType.SyncRORNPC);
-                aequus.Send(npc, p);
+                p.Write(npc);
+                ror.Send(npc, p);
                 p.Send();
             }
         }

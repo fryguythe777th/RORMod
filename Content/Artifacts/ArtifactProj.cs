@@ -40,7 +40,7 @@ namespace RORMod.Content.Artifacts
 
         public override bool? CanHitNPC(Projectile projectile, NPC target)
         {
-            if (RORMod.chaos)
+            if (ArtifactSystem.chaos)
             {
                 if (npcOwnerType == 0 || (target.type != npcOwnerType &&
                     (!ArtifactNPC.Chaos_HitBlacklist.TryGetValue(npcOwnerType, out var l) || !l.Contains(target.whoAmI))))

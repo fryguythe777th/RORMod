@@ -1,8 +1,10 @@
-﻿namespace RORMod.Items.Artifacts
+﻿using RORMod.Content.Artifacts;
+
+namespace RORMod.Items.Artifacts
 {
     public class Sacrifice : BaseArtifact
     {
-        public override bool ActiveFlag { get => RORMod.sacrifice; set => RORMod.sacrifice = value; }
+        public override bool ActiveFlag { get => ArtifactSystem.sacrifice; set => ArtifactSystem.sacrifice = value; }
 
         public override bool unimplemented => true;
     }

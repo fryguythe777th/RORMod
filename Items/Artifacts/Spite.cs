@@ -1,7 +1,9 @@
-﻿namespace RORMod.Items.Artifacts
+﻿using RORMod.Content.Artifacts;
+
+namespace RORMod.Items.Artifacts
 {
     public class Spite : BaseArtifact
     {
-        public override bool ActiveFlag { get => RORMod.spite; set => RORMod.spite = value; }
+        public override bool ActiveFlag { get => ArtifactSystem.spite; set => ArtifactSystem.spite = value; }
     }
 }

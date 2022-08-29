@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RORMod.Content.Artifacts;
 using RORMod.NPCs;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;

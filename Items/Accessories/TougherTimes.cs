@@ -23,8 +23,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            RORPlayer rorp = player.GetModPlayer<RORPlayer>();
-            rorp.accTougherTimes = true;
+            player.ROR().accTougherTimes = true;
         }
     }
 }

@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
-using RORMod.Common.Networking;
 using RORMod.Content;
+using RORMod.NPCs;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
@@ -10,24 +12,12 @@ using Terraria.ModLoader;
 
 namespace RORMod
 {
-	public class RORMod : Mod
-	{
-        public static bool chaos;
-        public static bool command;
-        public static bool death;
-        public static bool dissonance;
-        public static bool enigma;
-        public static bool evolution;
-        public static bool frailty;
-        public static bool glass;
-        public static bool honor;
-        public static bool kin;
-        public static bool metamorphosis;
-        public static bool sacrifice;
-        public static bool soul;
-        public static bool spite;
-        public static bool swarms;
-        public static bool vengeance;
+    public class RORMod : Mod
+    {
+        public const string VanillaTexture = "Terraria/Images/";
+        public const string BlankTexture = "RORMod/Assets/None";
+        public const string AssetsPath = "RORMod/Assets/";
+        public const string SoundsPath = AssetsPath + "Sounds/";
 
         public static RORMod Instance { get; private set; }
 
@@ -58,6 +48,35 @@ namespace RORMod
                     return "Success";
             }
             return "Failiure";
+        }
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            var t = (PacketType)reader.ReadByte();
+            switch (t)
+            {
+                case PacketType.SyncRORNPC:
+                    {
+                        int npc = reader.ReadInt32();
+                        Main.npc[npc].GetGlobalNPC<RORNPC>().Receive(npc, reader);
+                    }
+                    break;
+
+                case PacketType.TougherTimesDodge:
+                    {
+                        Main.player[reader.ReadInt32()].ROR().TougherTimesDodge();
+                    }
+                    break;
+            }
+        }
+
+        internal static SoundStyle GetSounds(string name, int num, float volume = 1f, float pitch = 0f, float variance = 0f)
+        {
+            return new SoundStyle(SoundsPath + name, 0, num) { Volume = volume, Pitch = pitch, PitchVariance = variance, };
+        }
+        internal static SoundStyle GetSound(string name, float volume = 1f, float pitch = 0f, float variance = 0f)
+        {
+            return new SoundStyle(SoundsPath + name) { Volume = volume, Pitch = pitch, PitchVariance = variance, };
         }
 
         public static ModPacket GetPacket(PacketType type)

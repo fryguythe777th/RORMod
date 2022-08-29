@@ -141,7 +141,7 @@ namespace RORMod.Content.Artifacts
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 var s = npc.GetSource_Death();
-                if (RORMod.soul && !npc.SpawnedFromStatue && !soulSpawn)
+                if (ArtifactSystem.soul && !npc.SpawnedFromStatue && !soulSpawn)
                 {
                     int amt = Main.masterMode ? 3 : Main.expertMode ? 2 : 1;
                     if (Main.getGoodWorld)
@@ -163,7 +163,7 @@ namespace RORMod.Content.Artifacts
                         }
                     }
                 }
-                if (RORMod.spite)
+                if (ArtifactSystem.spite)
                 {
                     for (int i = 0; i < 3; i++)
                     {
