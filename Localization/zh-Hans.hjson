@@ -3,6 +3,10 @@ Mods: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
 		ItemName: {
+			Warbanner: 战旗
+			BustlingFungus: 爆裂真菌
+			TopazBrooch: 黄晶胸针
+			PersonalShieldGenerator: 个人护盾生成器
 			PaulsGoatHoof: 保罗的山羊蹄
 			CautiousSlug: 谨慎的蛞蝓
 			TougherTimes: 更艰难的时光
@@ -34,6 +38,12 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			TopazBrooch: 击败一名敌人时会获得15点临时的生命屏障
+			PersonalShieldGenerator: 
+				'''
+				获得一个相当于你最大生命值12%的护盾
+				该护盾会在你未受到伤害5秒后重新充能
+				'''
 			PaulsGoatHoof: 增加水平和垂直移动速度
 			CautiousSlug: 未处于战斗状态时会增加生命恢复速度
 			TougherTimes: 有10%的几率闪避攻击
@@ -144,14 +154,16 @@ Mods: {
 		}
 
 		Configuration: {
-			HealthbarActive: 生命栏状态
-			HealthbarActiveTooltip: 
+			PlayerHealthbarOverlay: 玩家生命栏覆盖
+			PlayerHealthbarOverlayTooltip: 是否启用玩家生命栏覆盖, 如果你有一个修改原版生命栏UI的Mod, 请禁用此选项
+			BossHealthbarActive: Boss生命栏状态
+			BossHealthbarActiveTooltip: 
 				'''
-				设置生命栏的状态. 
+				设置Boss生命栏的状态. 
 				'Enabled_AlwaysUse'会强制使用生命栏, 即使Boss有专门的生命栏.
 				'''
-			HealthbarBottom: 底部生命栏
-			HealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
+			BossHealthbarBottom: Boss生命栏: 置于底部
+			BossHealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
 		}
 		
 	Blocked: 格挡!
