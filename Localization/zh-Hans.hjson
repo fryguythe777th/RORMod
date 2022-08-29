@@ -3,6 +3,8 @@ Mods: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
 		ItemName: {
+			PaulsGoatHoof: 保罗的山羊蹄
+			CautiousSlug: 谨慎的蛞蝓
 			TougherTimes: 更艰难的时光
 			MonsterTooth: 怪物牙齿
 			Medkit: 医疗包
@@ -32,6 +34,8 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			PaulsGoatHoof: 增加水平和垂直移动速度
+			CautiousSlug: 未处于战斗状态时会增加生命恢复速度
 			TougherTimes: 有10%的几率闪避攻击
 			Medkit:
 				'''
@@ -45,8 +49,8 @@ Mods: {
 				'''
 			SoldiersSyringe:
 				'''
-				大幅度增加攻击速度
-				伤害降低
+				增加20%攻击速度
+				伤害降低12%
 				'''
 			TriTipDagger: 有10%的几率使敌人流血
 
@@ -100,7 +104,7 @@ Mods: {
 		}
 
 		BuffDescription: {
-			MedkitBuff: 此增益消失时会为你回复少量生命值
+			MedkitBuff: 此增益消失时会为你恢复少量生命值
 		}
 
 		ProjectileName: {
@@ -149,5 +153,7 @@ Mods: {
 			HealthbarBottom: 底部生命栏
 			HealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
 		}
+		
+	Blocked: 格挡!
 	}
 }
