@@ -29,6 +29,28 @@ namespace RORMod
             return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
         }
 
+        public static float UnNaN(this float value)
+        {
+            return float.IsNaN(value) ? 0f : value;
+        }
+        public static Vector2 UnNaN(this Vector2 value)
+        {
+            return new Vector2(UnNaN(value.X), UnNaN(value.Y));
+        }
+
+        public static void CollideWithOthers(this Projectile projectile, float speed = 0.05f)
+        {
+            var rect = projectile.getRect();
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].active && i != projectile.whoAmI && projectile.type == Main.projectile[i].type && projectile.owner == Main.projectile[i].owner
+                    && projectile.Colliding(rect, Main.projectile[i].getRect()))
+                {
+                    projectile.velocity += Main.projectile[i].DirectionTo(projectile.Center).UnNaN() * speed;
+                }
+            }
+        }
+
         public static void GetDrawInfo(this Projectile projectile, out Texture2D texture, out Vector2 offset, out Rectangle frame, out Vector2 origin, out int trailLength)
         {
             texture = TextureAssets.Projectile[projectile.type].Value;

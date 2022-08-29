@@ -7,6 +7,9 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Terraria.GameContent;
+using Terraria.Localization;
 
 namespace RORMod
 {
@@ -31,9 +34,19 @@ namespace RORMod
 
         public void TougherTimesDodge()
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.Server)
             {
-                SoundEngine.PlaySound(RORMod.GetSound("toughertimes"), Player.Center);
+                SoundEngine.PlaySound(RORMod.GetSound("toughertimes").WithVolumeScale(0.2f), Player.Center);
+                int c = CombatText.NewText(new Rectangle((int)Player.position.X + Player.width / 2 - 1, (int)Player.position.Y, 2, 2), new Color(255, 255, 255, 255), 0, false, true);
+                if (c != -1 && c != Main.maxCombatText)
+                {
+                    Main.combatText[c].text = Language.GetTextValue("Mods.RORMod.Blocked");
+                    Main.combatText[c].rotation = 0f;
+                    Main.combatText[c].scale *= 0.8f;
+                    Main.combatText[c].alphaDir = 0;
+                    Main.combatText[c].alpha = 0.99f;
+                    Main.combatText[c].position.X = Player.position.X + Player.width / 2f - FontAssets.CombatText[0].Value.MeasureString(Main.combatText[c].text).X / 2f;
+                }
             }
             Player.SetImmuneTimeForAllTypes(60);
         }

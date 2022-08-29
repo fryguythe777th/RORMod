@@ -35,11 +35,11 @@ namespace RORMod.NPCs
 
             if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()))
             {
-                if (Main.GameUpdateCount % 24 == 0)
+                if (Main.GameUpdateCount % 20 == 0)
                 {
                     var d =Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
                     d.velocity.X *= 0.5f;
-                    SoundEngine.PlaySound(RORMod.GetSounds("bleed_", 6).WithVolumeScale(0.3f), npc.Center);
+                    SoundEngine.PlaySound(RORMod.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
                 }
             }
         }

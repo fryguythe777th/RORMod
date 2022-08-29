@@ -45,8 +45,8 @@ Mods: {
 				'''
 			SoldiersSyringe:
 				'''
-				Greatly increases attack speed
-				Decreases damage
+				20% increased attack speed
+				12% decreased damage
 				'''
 			TriTipDagger: 10% chance to inflict Bleeding to enemies
 
@@ -149,5 +149,7 @@ Mods: {
 			HealthbarBottom: Bottom Healthbar
 			HealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
 		}
+
+		Blocked: BLOCKED!
 	}
 }

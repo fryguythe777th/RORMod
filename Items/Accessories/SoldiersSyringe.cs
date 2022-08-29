@@ -16,13 +16,14 @@ namespace RORMod.Items.Accessories
             Item.width = 18;
             Item.height = 36;
             Item.accessory = true;
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(silver: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Generic) -= 0.12f;
-            player.GetAttackSpeed(DamageClass.Generic) += 0.20f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.2f;
         }
     }
 }

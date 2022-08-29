@@ -17,6 +17,7 @@ namespace RORMod.Items.Accessories
             Item.height = 22;
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(gold: 5);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

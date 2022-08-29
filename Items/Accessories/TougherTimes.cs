@@ -11,14 +11,13 @@ namespace RORMod.Items.Accessories
             SacrificeTotal = 1;
         }
 
-        public override string Texture => "Terraria/ModLoader/Default/UnloadedItem";
-
         public override void SetDefaults()
         {
             Item.width = 24;
             Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
