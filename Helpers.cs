@@ -24,6 +24,11 @@ namespace RORMod
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
 
+        public static bool IsProbablyACritter(this NPC npc)
+        {
+            return NPCID.Sets.CountsAsCritter[npc.type] || (npc.lifeMax < 5 && npc.lifeMax != 1);
+        }
+
         public static Rectangle Frame(this Projectile projectile)
         {
             return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);

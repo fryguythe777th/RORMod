@@ -1,10 +1,10 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class MonsterTooth : ModItem
+    public class CautiousSlug : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -22,7 +22,8 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accMonsterTooth = Item;
+            player.ROR().accGlubby = true;
+            player.ROR().glubbyHide = hideVisual;
         }
     }
 }

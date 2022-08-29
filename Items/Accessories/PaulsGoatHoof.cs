@@ -1,10 +1,10 @@
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class MonsterTooth : ModItem
+    public class PaulsGoatHoof : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -16,13 +16,16 @@ namespace RORMod.Items.Accessories
             Item.width = 24;
             Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(silver: 50);
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accMonsterTooth = Item;
+            player.moveSpeed += 0.33f;
+            player.jumpSpeedBoost += 2f;
+            player.ROR().bootSpeed += 2f;
+            player.ROR().gLegSounds = !hideVisual;
         }
     }
 }

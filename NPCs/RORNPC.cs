@@ -89,14 +89,15 @@ namespace RORMod.NPCs
         public override void OnKill(NPC npc)
         {
             var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+            var ror = closest.ROR();
             if (bleedShatterspleen)
             {
                 Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionFrom(closest.Center) * 0.1f, 
                     ModContent.ProjectileType<ShatterspleenExplosion>(), npc.lifeMax / 4, 6f, closest.whoAmI);
             }
-            if (closest.ROR().accMonsterTooth)
+            if (ror.accMonsterTooth != null)
             {
-                Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(npc.Center.X, npc.position.Y), new Vector2(0, 1), ModContent.ProjectileType<HealingOrb>(), 0, 0, closest.whoAmI);
+                Projectile.NewProjectile(closest.GetSource_Accessory(ror.accMonsterTooth), npc.Center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, closest.whoAmI);
             }
         }
 

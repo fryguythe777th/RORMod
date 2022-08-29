@@ -3,6 +3,8 @@ Mods: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
 
 		ItemName: {
+			PaulsGoatHoof: Paul's Goat Hoof
+			CautiousSlug: Cautious Slug
 			TougherTimes: Tougher Times
 			MonsterTooth: Monster Tooth
 			Medkit: Medkit
@@ -32,6 +34,8 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			PaulsGoatHoof: Increased horizontal and vertical movement speed
+			CautiousSlug: Increases life regen when outside of battle
 			TougherTimes: 10% chance to dodge attacks
 			Medkit:
 				'''

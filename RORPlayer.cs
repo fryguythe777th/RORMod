@@ -1,35 +1,155 @@
-﻿using RORMod.Buffs;
+﻿using Microsoft.Xna.Framework;
+using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
-using RORMod.Items.Accessories;
 using RORMod.NPCs;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.Audio;
-using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace RORMod
 {
     public class RORPlayer : ModPlayer
     {
+        public Item accMonsterTooth;
+
+        public float bootSpeed;
+
+        public bool accGlubby;
+        public bool glubbyHide;
+        public byte glubbyActive;
+
+        public bool gLegPlayedSound;
+        public bool gLegSounds;
+
         public bool accDeathMark;
         public bool accShatterspleen;
         public bool accMedkit;
         public bool accTougherTimes;
-        public bool accMonsterTooth;
         public bool accTriTipDagger;
+
+        /// <summary>
+        /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
+        /// </summary>
+        public int dangerEnemy;
+        public int dangerEnemyOld;
+
+        /// <summary>
+        /// Helper for whether or not the player is in danger
+        /// </summary>
+        public bool InDanger => dangerEnemy != -1;
 
         public override void ResetEffects()
         {
+            accGlubby = false;
+            gLegSounds = false;
             accDeathMark = false;
             accShatterspleen = false;
             accMedkit = false;
             accTougherTimes = false;
-            accMonsterTooth = false;
+            accMonsterTooth = null;
             accTriTipDagger = false;
+        }
+
+        public override void UpdateLifeRegen()
+        {
+            UpdateCautiousSlug();
+        }
+
+        public void UpdateCautiousSlug()
+        {
+            if (accGlubby)
+            {
+                if (glubbyActive > 120)
+                {
+                    if (InDanger)
+                    {
+                        glubbyActive = 0;
+                        if (!glubbyHide)
+                            SoundEngine.PlaySound(RORMod.GetSound("glubbyhide").WithVolumeScale(0.4f));
+                    }
+                    Player.lifeRegen += 25;
+                    return;
+                }
+
+                if (!InDanger || Player.Distance(Main.npc[dangerEnemy].Center) > 800f)
+                {
+                    glubbyActive++;
+                    if (glubbyActive == 120)
+                    {
+                        if (!glubbyHide)
+                            SoundEngine.PlaySound(RORMod.GetSound("glubby").WithVolumeScale(0.4f));
+                    }
+                }
+            }
+        }
+
+        public override void PreUpdateMovement()
+        {
+            if (Player.accRunSpeed > 0f)
+            {
+                Player.accRunSpeed += bootSpeed;
+            }
+        }
+
+        public override void PostUpdate()
+        {
+            if (gLegSounds)
+            {
+                UpdateGoatFootsteps();
+            }
+            DangerEnemy();
+        }
+
+        public void UpdateGoatFootsteps()
+        {
+            int legFrame = Player.legFrame.Y / 56;
+            //Main.NewText(legFrame);
+            if (legFrame == 5 || legFrame == 10 || legFrame == 17)
+            {
+                if (!gLegPlayedSound)
+                    SoundEngine.PlaySound(RORMod.GetSounds("hoofstep_", 7, 0.33f, 0f, 0.1f));
+                gLegPlayedSound = true;
+            }
+            else
+            {
+                gLegPlayedSound = false;
+            }
+        }
+
+        /// <summary>
+        /// Finds the closest enemy to the player, and caches its index in <see cref="Main.npc"/>
+        /// </summary>
+        public void DangerEnemy()
+        {
+            dangerEnemyOld = dangerEnemy;
+            dangerEnemy = -1;
+
+            var center = Player.Center;
+            var checkTangle = new Rectangle((int)Player.position.X + Player.width / 2 - 1000, (int)Player.position.Y + Player.height / 2 - 500, 2000, 1000);
+            float distance = 2000f;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i].active && !Main.npc[i].friendly && Main.npc[i].type != NPCID.TargetDummy && Main.npc[i].CanBeChasedBy(Player) && !Main.npc[i].IsProbablyACritter())
+                {
+                    if (Main.npc[i].getRect().Intersects(checkTangle))
+                    {
+                        float d = Main.npc[i].Distance(center);
+                        if (!Main.npc[i].noTileCollide && !Collision.CanHitLine(Main.npc[i].position, Main.npc[i].width, Main.npc[i].height, Player.position, Player.width, Player.height))
+                        {
+                            d *= 4f;
+                        }
+                        if (d < distance)
+                        {
+                            distance = d;
+                            dangerEnemy = i;
+                        }
+                    }
+                }
+            }
         }
 
         public void TougherTimesDodge()
