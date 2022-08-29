@@ -45,6 +45,7 @@ namespace RORMod
         public override void ResetEffects()
         {
             accGlubby = false;
+            bootSpeed = 0f;
             gLegSounds = false;
             accDeathMark = false;
             accShatterspleen = false;
@@ -87,7 +88,7 @@ namespace RORMod
             }
         }
 
-        public override void PreUpdateMovement()
+        public override void PostUpdateRunSpeeds()
         {
             if (Player.accRunSpeed > 0f)
             {
