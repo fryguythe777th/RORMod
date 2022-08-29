@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace RORMod.Items.Accessories
 {
     [AutoloadEquip(EquipType.Front)]
-    public class BustingFungus : ModItem
+    public class BustlingFungus : ModItem
     {
         public override void SetStaticDefaults()
         {

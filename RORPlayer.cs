@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
-using RORMod.Content;
 using RORMod.Content.Artifacts;
 using RORMod.NPCs;
+using RORMod.UI;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,6 +17,8 @@ namespace RORMod
 {
     public class RORPlayer : ModPlayer
     {
+        public const int ShieldRegenerationTime = 300;
+
         public Item accMonsterTooth;
 
         public float bootSpeed;
@@ -133,15 +135,15 @@ namespace RORMod
                 Player.statLifeMax2 -= HPLostToGlass;
             }
             shield = Math.Min(shield, maxShield);
-            if (maxShield > 0f && timeNotHit >= 300)
+            if (maxShield > 0f && timeNotHit >= ShieldRegenerationTime)
             {
                 shield = maxShield;
             }
 
-            ManageLifeSupplements2(shield, lifeMax);
-            ManageLifeSupplements2(barrier, lifeMax);
+            ManageLifeSupplements(shield, lifeMax);
+            ManageLifeSupplements(barrier, lifeMax);
 
-            if (shield > 0f && timeNotHit == 300)
+            if (shield > 0f && timeNotHit == ShieldRegenerationTime)
             {
                 if (accShieldGenerator)
                     SoundEngine.PlaySound(RORMod.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
@@ -149,24 +151,15 @@ namespace RORMod
             }
             if (Main.myPlayer == Player.whoAmI)
             {
-                HeartOverlay.MaxShield = shield;
-                HeartOverlay.MaxBarrier = barrier;
-                HeartOverlay.MaxGlass = glass;
+                ResourceOverlaySystem.MaxShield = shield;
+                ResourceOverlaySystem.MaxBarrier = barrier;
+                ResourceOverlaySystem.MaxGlass = glass;
             }
-        }
-        public void ManageLifeSupplements2(float amt, int lifeMax)
-        {
-            int add = (int)(lifeMax * amt);
-            if (Player.statLife == Player.statLifeMax2)
-            {
-                Player.statLife += add;
-            }
-            Player.statLifeMax2 += add;
         }
 
-        public void ManageLifeSupplements(float amt)
+        public void ManageLifeSupplements(float amt, int lifeMax)
         {
-            int add = (int)(Player.statLifeMax * amt);
+            int add = (int)(lifeMax * amt);
             if (Player.statLife == Player.statLifeMax2)
             {
                 Player.statLife += add;
@@ -191,11 +184,9 @@ namespace RORMod
                 if (!gLegPlayedSound)
                     SoundEngine.PlaySound(RORMod.GetSounds("hoofstep_", 7, 0.33f, 0f, 0.1f));
                 gLegPlayedSound = true;
+                return;
             }
-            else
-            {
-                gLegPlayedSound = false;
-            }
+            gLegPlayedSound = false;
         }
 
         /// <summary>

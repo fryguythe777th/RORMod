@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace RORMod.Content
+namespace RORMod.UI
 {
-    public class HeartOverlay : ModSystem
+    public class ResourceOverlaySystem : ModSystem
     {
         public static float shield;
         public static float barrier;
@@ -146,7 +146,7 @@ namespace RORMod.Content
                         int amt = (int)(frame.Width * (life / 20f));
                         frame2.Width = amt;
                     }
-                    Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i + (hpTexture.Width / 20f * glassLife), y), frame2, Color.White * Main.cursorAlpha * 0.5f, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i + hpTexture.Width / 20f * glassLife, y), frame2, Color.White * Main.cursorAlpha * 0.5f, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }
@@ -166,7 +166,7 @@ namespace RORMod.Content
 
             var frame = new Rectangle(32, 0, 30, 30);
 
-            var drawLoc = new Vector2((float)(Main.screenWidth - 300 + 4), 15f);
+            var drawLoc = new Vector2(Main.screenWidth - 300 + 4, 15f);
 
             float glassLife = 0f;
             if (glass > 0f)
