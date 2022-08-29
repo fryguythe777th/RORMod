@@ -10,7 +10,6 @@ namespace RORMod.Items.Accessories
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
         }
 
         public override void SetDefaults()

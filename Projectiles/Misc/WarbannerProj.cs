@@ -13,6 +13,11 @@ namespace RORMod.Projectiles.Misc
 {
     public class WarbannerProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 4000;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 16;

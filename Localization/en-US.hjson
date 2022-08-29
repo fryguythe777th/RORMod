@@ -115,10 +115,12 @@ Mods: {
 		}
 
 		BuffName: {
+			Warbanner: Warbanner
 			MedkitBuff: Medkit
 		}
 
 		BuffDescription: {
+			Warbanner: Increased movement and weapon speed
 			MedkitBuff: Heal a small amount of health after this buff is cleared
 		}
 
