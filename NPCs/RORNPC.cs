@@ -99,6 +99,11 @@ namespace RORMod.NPCs
             {
                 Projectile.NewProjectile(closest.GetSource_Accessory(ror.accMonsterTooth), npc.Center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, closest.whoAmI);
             }
+            if (ror.accTopazBrooch)
+            {
+                ror.barrier = Math.Min(ror.barrier + 15f / closest.statLifeMax2, 1f);
+                closest.statLife += 15;
+            }
         }
 
         public void Send(int whoAmI, BinaryWriter writer)

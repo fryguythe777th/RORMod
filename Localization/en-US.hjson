@@ -3,6 +3,10 @@ Mods: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
 
 		ItemName: {
+			Warbanner: Warbanner
+			BustlingFungus: Bustling Fungus
+			TopazBrooch: Topaz Brooch
+			PersonalShieldGenerator: Personal Shield Generator
 			PaulsGoatHoof: Paul's Goat Hoof
 			CautiousSlug: Cautious Slug
 			TougherTimes: Tougher Times
@@ -34,6 +38,12 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			TopazBrooch: When killing an enemy, gain 15 temporary barrier health points
+			PersonalShieldGenerator: 
+				'''
+				Gain a shield equal to 12% of your maximum health
+				This shield will recharge after 5 seconds of not taking damage
+				'''
 			PaulsGoatHoof: Increased horizontal and vertical movement speed
 			CautiousSlug: Increases life regen when outside of battle
 			TougherTimes: 10% chance to dodge attacks

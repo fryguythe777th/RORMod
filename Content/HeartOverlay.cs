@@ -45,7 +45,14 @@ namespace RORMod.Content
             shield = MathHelper.Lerp(shield, MaxShield, 0.15f);
             barrier = MathHelper.Lerp(barrier, MaxBarrier, 0.15f);
             glass = MathHelper.Lerp(glass, MaxGlass, 0.15f);
+            if (MaxGlass == 0f && glass < 0.01f)
+                glass = 0f;
+            if (MaxBarrier == 0f && barrier < 0.01f)
+                barrier = 0f;
+            if (MaxShield == 0f && shield < 0.01f)
+                shield = 0f;
         }
+
         public static void GlassHP(Player player, int hp)
         {
             if (glass > 0f && MaxGlass > 0f)
@@ -83,19 +90,63 @@ namespace RORMod.Content
             x -= 2;
             y -= 2;
 
+            float glassLife = 0f;
             if (glass > 0f)
             {
                 var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
-                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
-                int i = 20 - (int)(life / 20);
-                life *= glass;
+                glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(glassLife / 20);
+                glassLife *= glass;
+                float life = glassLife;
                 while (life > 0f)
                 {
                     var frame2 = frame;
                     if (life < 20f)
                         frame2.Width = (int)(frame.Width * (life / 20f));
                     Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i, y), frame2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    i++;
+                    life -= 20;
+                }
+            }
+
+            if (shield > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(life / 20);
+                life = Math.Max(life * (shield * (1f - glass)), 8f);
+                while (life > 0f)
+                {
+                    var frame2 = frame;
+                    if (life < 20f)
+                    {
+                        int amt = (int)(frame.Width * (life / 20f));
+                        frame2.Width = amt;
+                    }
+                    Main.spriteBatch.Draw(texture, new Vector2(x - hpTexture.Width * i + hpTexture.Width * 19, y) + new Vector2(28f, 28f), frame2, Color.White * Main.cursorAlpha, MathHelper.Pi, Vector2.Zero, 1f, SpriteEffects.FlipVertically, 0f);
+                    i++;
+                    life -= 20;
+                }
+            }
+
+            if (barrier > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(life / 20);
+                life = Math.Max(life * (barrier * (1f - glass)), 5f);
+                while (life > 0f)
+                {
+                    var frame2 = frame;
+                    if (life < 20f)
+                    {
+                        int amt = (int)(frame.Width * (life / 20f));
+                        frame2.Width = amt;
+                    }
+                    Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i + (hpTexture.Width / 20f * glassLife), y), frame2, Color.White * Main.cursorAlpha * 0.5f, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }
@@ -117,13 +168,16 @@ namespace RORMod.Content
 
             var drawLoc = new Vector2((float)(Main.screenWidth - 300 + 4), 15f);
 
+            float glassLife = 0f;
             if (glass > 0f)
             {
                 var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
-                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
-                int i = 20 - (int)(life / 20);
-                life *= glass;
+                glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(glassLife / 20);
+                glassLife *= glass;
+
+                float life = glassLife;
                 while (life > 0f)
                 {
                     int heartX = 9 - i % 10;
@@ -135,7 +189,49 @@ namespace RORMod.Content
                     i++;
                     life -= 20;
                 }
+            }
 
+            if (shield > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = (int)(life / 20) - 1;
+                life = Math.Max(life * (shield * (1f - glass)), 8f);
+                while (life > 0f)
+                {
+                    int heartX = 9 - i % 10;
+                    int heartY = 1 - i / 10;
+                    float scale = 1f;
+                    if (life < 20f)
+                        scale = life / 20f;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 2) * heartX, drawLoc.Y + heartY * 28f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                    i--;
+                    life -= 20;
+                }
+            }
+
+            if (barrier > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(life / 20);
+                life = Math.Max(life * (barrier * (1f - glass)), 3f);
+                i += (int)(glassLife / 20f);
+                if (glassLife % 1f > 0.01f)
+                    i++;
+                while (life > 0f)
+                {
+                    int heartX = 9 - i % 10;
+                    int heartY = 1 - i / 10;
+                    float scale = 1f;
+                    if (life < 20f)
+                        scale = life / 20f * Main.cursorAlpha;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 2) * heartX, drawLoc.Y + heartY * 28f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                    i++;
+                    life -= 20;
+                }
             }
         }
 
@@ -157,13 +253,15 @@ namespace RORMod.Content
 
             var drawLoc = new Vector2(Main.screenWidth - 300 - 4f, 28f);
 
+            float glassLife = 0f;
             if (glass > 0f)
             {
                 var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = TextureAssets.Heart.Value;
-                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
-                int i = 20 - (int)(life / 20);
-                life *= glass;
+                glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(glassLife / 20);
+                glassLife *= glass;
+                float life = glassLife;
                 while (life > 0f)
                 {
                     int heartX = 9 - i % 10;
@@ -172,6 +270,49 @@ namespace RORMod.Content
                     if (life < 20f)
                         scale = life / 20f;
                     Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame, Color.White * scale, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                    i++;
+                    life -= 20;
+                }
+            }
+
+            if (shield > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var hpTexture = TextureAssets.Heart.Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = (int)(life / 20) - 1;
+                life = Math.Max(life * (shield * (1f - glass)), 3f);
+                while (life > 0f)
+                {
+                    int heartX = 9 - i % 10;
+                    int heartY = 1 - i / 10;
+                    float scale = 1f;
+                    if (life < 20f)
+                        scale = life / 20f * Main.cursorAlpha;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                    i--;
+                    life -= 20;
+                }
+            }
+
+            if (barrier > 0.01f)
+            {
+                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
+                float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
+                int i = 20 - (int)(life / 20);
+                life = Math.Max(life * (barrier * (1f - glass)), 3f);
+                i += (int)(glassLife / 20f);
+                if (glassLife % 1f > 0.01f)
+                    i++;
+                while (life > 0f)
+                {
+                    int heartX = 9 - i % 10;
+                    int heartY = 1 - i / 10;
+                    float scale = 1f;
+                    if (life < 20f)
+                        scale = life / 20f * Main.cursorAlpha;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }

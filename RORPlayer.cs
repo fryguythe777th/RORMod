@@ -27,6 +27,7 @@ namespace RORMod
         public float barrier;
 
         public float shield;
+        public float maxShield;
 
         public bool accGlubby;
         public bool glubbyHide;
@@ -43,6 +44,8 @@ namespace RORMod
         public bool accTougherTimes;
         public bool accTriTipDagger;
 
+        public int timeNotHit;
+
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>
@@ -56,6 +59,14 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            timeNotHit++;
+            maxShield = 0f;
+            if (barrier > 0f)
+            {
+                barrier -= 0.05f / Player.statLifeMax2 + barrier * 0.001f;
+                if (barrier < 0f)
+                    barrier = 0f;
+            }
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             accTopazBrooch = false;
             accShieldGenerator = false;
@@ -105,7 +116,6 @@ namespace RORMod
 
         public override void PostUpdateRunSpeeds()
         {
-
             if (Player.accRunSpeed > 0f)
             {
                 Player.accRunSpeed += bootSpeed;
@@ -115,10 +125,27 @@ namespace RORMod
         public override void PostUpdateEquips()
         {
             HPLostToGlass = 0;
+            int lifeMax = Player.statLifeMax;
             if (glass > 0f)
             {
                 HPLostToGlass = (int)(Player.statLifeMax2 * glass);
+                lifeMax = (int)(lifeMax * (1f - glass));
                 Player.statLifeMax2 -= HPLostToGlass;
+            }
+            shield = Math.Min(shield, maxShield);
+            if (maxShield > 0f && timeNotHit >= 300)
+            {
+                shield = maxShield;
+            }
+
+            ManageLifeSupplements2(shield, lifeMax);
+            ManageLifeSupplements2(barrier, lifeMax);
+
+            if (shield > 0f && timeNotHit == 300)
+            {
+                if (accShieldGenerator)
+                    SoundEngine.PlaySound(RORMod.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
+                Player.statLife = Math.Min(Player.statLife + (int)(Player.statLifeMax2 * shield), Player.statLifeMax2);
             }
             if (Main.myPlayer == Player.whoAmI)
             {
@@ -126,6 +153,25 @@ namespace RORMod
                 HeartOverlay.MaxBarrier = barrier;
                 HeartOverlay.MaxGlass = glass;
             }
+        }
+        public void ManageLifeSupplements2(float amt, int lifeMax)
+        {
+            int add = (int)(lifeMax * amt);
+            if (Player.statLife == Player.statLifeMax2)
+            {
+                Player.statLife += add;
+            }
+            Player.statLifeMax2 += add;
+        }
+
+        public void ManageLifeSupplements(float amt)
+        {
+            int add = (int)(Player.statLifeMax * amt);
+            if (Player.statLife == Player.statLifeMax2)
+            {
+                Player.statLife += add;
+            }
+            Player.statLifeMax2 += add;
         }
 
         public override void PostUpdate()
@@ -140,7 +186,6 @@ namespace RORMod
         public void UpdateGoatFootsteps()
         {
             int legFrame = Player.legFrame.Y / 56;
-            //Main.NewText(legFrame);
             if (legFrame == 5 || legFrame == 10 || legFrame == 17)
             {
                 if (!gLegPlayedSound)
@@ -221,9 +266,30 @@ namespace RORMod
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
+            timeNotHit = 0;
             if (accMedkit)
             {
                 Player.AddBuff(ModContent.BuffType<MedkitBuff>(), 120);
+            }
+            if (barrier > 0f)
+            {
+                barrier = (float)Math.Max(barrier - damage / (float)Player.statLifeMax, 0f);
+                if (barrier <= 0.01f)
+                {
+                    barrier = 0f;
+                }
+            }
+            else if (shield > 0f)
+            {
+                shield = (float)Math.Max(shield - damage / (float)Player.statLifeMax, 0f);
+                if (shield <= 0.01f)
+                {
+                    shield = 0f;
+                    if (accShieldGenerator)
+                    {
+                        SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
+                    }
+                }
             }
         }
 

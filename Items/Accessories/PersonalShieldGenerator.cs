@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +24,9 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accShieldGenerator = true;
+            var ror = player.ROR();
+            ror.accShieldGenerator = !hideVisual;
+            ror.maxShield += 0.12f;
         }
     }
 }
