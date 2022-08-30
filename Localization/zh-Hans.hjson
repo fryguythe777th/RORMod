@@ -38,6 +38,11 @@ Mods: {
 		}
 
 		ItemTooltip: {
+			Warbanner: 
+				'''
+				在击败15个敌人或降低25%Boss的生命值时在你的身后放置一面旗帜
+				旗帜会存在1分钟, 当你位于旗帜的光环内时会获得速度属性加成
+				'''
 			TopazBrooch: 击败一名敌人时会获得15点临时的生命屏障
 			PersonalShieldGenerator: 
 				'''
@@ -110,10 +115,12 @@ Mods: {
 		}
 		
 		BuffName: {
+			Warbanner: 战旗
 			MedkitBuff: 医疗包
 		}
 
 		BuffDescription: {
+			Warbanner: 增加移动速度和武器攻速
 			MedkitBuff: 此增益消失时会为你恢复少量生命值
 		}
 
