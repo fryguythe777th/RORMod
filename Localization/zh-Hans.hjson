@@ -14,6 +14,8 @@ Mods: {
 			Medkit: 医疗包
 			SoldiersSyringe: 士兵的注射器
 			TriTipDagger: 三尖匕首
+			RepulsionArmorPlate: 推斥装甲板
+			ArmorPiercingRounds: 穿甲弹
 
 			DeathMark: 死亡标记
 
@@ -68,6 +70,8 @@ Mods: {
 				伤害降低12%
 				'''
 			TriTipDagger: 有10%的几率使敌人流血
+			RepulsionArmorPlate: 减益造成的伤害减少5点
+			ArmorPiercingRounds: 对Boss额外造成20%伤害
 
 			DeathMark:
 				'''
