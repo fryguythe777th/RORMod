@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using RORMod.Buffs.Debuff;
+using RORMod.Content.Elites;
 using RORMod.Projectiles.Misc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -16,6 +19,53 @@ namespace RORMod.NPCs
         public bool bleedShatterspleen;
 
         public override bool InstancePerEntity => true;
+
+        public static List<EliteNPC> RegisteredElites { get; private set; }
+
+        /// <summary>
+        /// Used for HP bars and Armor Piercing Rounds for NPCs not flagged as a boss but should be treated as such
+        /// </summary>
+        public static HashSet<int> CountsAsBoss { get; private set; }
+
+        public override void Load()
+        {
+            CountsAsBoss = new HashSet<int>()
+            {
+                NPCID.GolemFistLeft,
+                NPCID.GolemFistRight,
+                NPCID.GolemHead,
+                NPCID.SkeletronHand,
+                NPCID.PrimeCannon,
+                NPCID.PrimeLaser,
+                NPCID.PrimeSaw,
+                NPCID.PrimeVice,
+                NPCID.TheDestroyerBody,
+                NPCID.TheDestroyerTail,
+                NPCID.BloodNautilus,
+                NPCID.PirateShipCannon,
+                NPCID.MourningWood,
+                NPCID.Pumpking,
+                NPCID.Everscream,
+                NPCID.SantaNK1,
+                NPCID.IceQueen,
+                NPCID.MartianSaucerCannon,
+                NPCID.MartianSaucerTurret,
+                NPCID.DD2Betsy,
+                NPCID.DD2DarkMageT1,
+                NPCID.DD2DarkMageT3,
+                NPCID.DD2OgreT2,
+                NPCID.DD2OgreT3,
+            };
+            RegisteredElites = new List<EliteNPC>();
+        }
+
+        public override void Unload()
+        {
+            CountsAsBoss?.Clear();
+            CountsAsBoss = null;
+            RegisteredElites?.Clear();
+            RegisteredElites = null;
+        }
 
         public override void ResetEffects(NPC npc)
         {
@@ -70,6 +120,19 @@ namespace RORMod.NPCs
             }
         }
 
+        public override void ModifyTypeName(NPC npc, ref string typeName)
+        {
+            string prefixes = "";
+            npc.GetElitePrefixes(out var list);
+            foreach (var e in list)
+            {
+                if (!string.IsNullOrEmpty(prefixes))
+                    prefixes += ", ";
+                prefixes += e.Prefix;
+            }
+            typeName = prefixes + " " + typeName;
+        }
+
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             ModifiyHit(npc, ref damage, ref knockback, ref crit);
@@ -103,8 +166,6 @@ namespace RORMod.NPCs
 
             float percent = npc.life / (float)npc.lifeMax;
             float lastPercent = (npc.life + damage) / (float)npc.lifeMax;
-            Main.NewText(percent);
-            Main.NewText(lastPercent, Color.Red);
             if ((percent <= 0.25f && lastPercent > 0.25f) || (percent <= 0.5f && lastPercent > 0.5f) || (percent <= 0.75f && lastPercent > 0.75f) || (percent < 1f && lastPercent >= 1f))
             {
                 var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
@@ -143,6 +204,23 @@ namespace RORMod.NPCs
                 ror.warbannerProgress_Enemies++;
                 //Main.NewText(ror.warbannerProgress_Enemies);
             }
+        }
+
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            npc.GetElitePrefixes(out var list);
+            foreach (var e in list)
+            {
+                var npcE = npc.GetGlobalNPC(e);
+                if (npcE.Active)
+                {
+                    spriteBatch.End();
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+                    npcE.Shader.Apply(npc);
+                    break;
+                }
+            }
+            return true;
         }
 
         public void Send(int whoAmI, BinaryWriter writer)

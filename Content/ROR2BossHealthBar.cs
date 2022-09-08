@@ -17,7 +17,7 @@ namespace RORMod.Content
         public const char LEFT_WHITE_CORNER_BRACKET = '「';
         public const char RIGHT_WHITE_CORNER_BRACKET = '」';
 
-        public enum HealthbarState
+        public enum State
         {
             Disabled,
             Enabled,
@@ -167,8 +167,8 @@ namespace RORMod.Content
 
         public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
         {
-            var state = ModContent.GetInstance<ClientConfig>().BossHealthbarActive;
-            if (state == HealthbarState.Enabled_AlwaysUse || (state == HealthbarState.Enabled && ((npc.boss && npc.BossBar == null) || BossDesc.ContainsKey(npc.netID))))
+            var state = ClientConfig.Instance.BossHealthbarActive;
+            if (state == State.Enabled_AlwaysUse || (state == State.Enabled && ((npc.boss && npc.BossBar == null) || BossDesc.ContainsKey(npc.netID))))
             {
                 if (lastBoss != npc.type)
                 {
@@ -208,14 +208,14 @@ namespace RORMod.Content
                     }
                 }
 
-                lastHPVisual = Math.Max(life, lastHPVisual);
+                lastHPVisual = Math.Min(Math.Max(life, lastHPVisual), lifeMax);
 
                 float middleX = Main.screenWidth / 2f;
                 float topY = 24f;
 
                 var pixel = TextureAssets.MagicPixel.Value;
 
-                var bottom = ModContent.GetInstance<ClientConfig>().BossHealthbarBottom;
+                var bottom = ClientConfig.Instance.BossHealthbarBottom;
                 if (bottom)
                 {
                     topY += 24;

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RORMod.Content.Artifacts;
+using RORMod.Content.Elites;
 using RORMod.NPCs;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -23,6 +25,42 @@ namespace RORMod
 
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
+
+        public static bool IsElite(this NPC npc)
+        {
+            foreach (var e in RORNPC.RegisteredElites)
+            {
+                if (npc.GetGlobalNPC(e).Active)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static void GetElitePrefixes(this NPC npc, out List<EliteNPC> prefixes)
+        {
+            prefixes = new List<EliteNPC>();
+            foreach (var e in RORNPC.RegisteredElites)
+            {
+                var npcE = npc.GetGlobalNPC(e);
+                if (npcE.Active)
+                {
+                    prefixes.Add(npcE);
+                }
+            }
+        }
+
+        public static void DrawRectangle(Rectangle rect, Color color)
+        {
+            Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rect, color);
+        }
+
+        public static void DrawRectangle(Rectangle rect, Vector2 offset, Color color)
+        {
+            rect.X += (int)offset.X;
+            rect.Y += (int)offset.Y;
+            DrawRectangle(rect, color);
+        }
 
         public static bool IsProbablyACritter(this NPC npc)
         {

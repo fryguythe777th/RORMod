@@ -161,17 +161,42 @@ Mods: {
 		}
 
 		Configuration: {
+			RORHealthbar: Enemy Healthbar (Not Boss Healthbars)
+			RORHealthbarTooltip: 
+				'''
+				Sets the state of the healthbar.
+				Do NOT confuse this with the boss healthbar, this is the normal healthbar 
+				which draws below NPCs when they're injured!
+				'''
+			RORHealthbarDrawBuff: Enemy Healthbar: Draw only supported buffs
+			RORHealthbarDrawBuffTooltip: 
+				'''
+				Whether or not to only draw supported buffs
+				Basically means if they don't have a special UI texture implemented,
+				the buff will not be rendered.
+				'''
+
 			PlayerHealthbarOverlay: Player Healthbar Overlays
 			PlayerHealthbarOverlayTooltip: Whether or not to have player healthbar overlays enabled, disable this if you have a mod which changes vanilla Healthbar UI
+			
 			BossHealthbarActive: Boss Healthbar State
 			BossHealthbarActiveTooltip: 
 				'''
 				Sets the state of the boss healthbar. 
 				'Enabled_AlwaysUse' forces the healthbar to be used at all times, even if the boss has a specialized healthbar.
 				'''
+
 			BossHealthbarBottom: Boss Healthbar: Place on Bottom
 			BossHealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
 		}
+
+		BlazingElite: Blazing
+		OverloadingElite: Overloading
+		GlacialElite: Glacial
+		MendingElite: Mending
+		VoidtouchedElite: Voidtouched
+		MalachiteElite: Malachite
+		CelestineElite: Celestine
 
 		Blocked: BLOCKED!
 	}

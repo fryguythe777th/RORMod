@@ -17,7 +17,7 @@ namespace RORMod.UI
         public static float MaxBarrier;
         public static float MaxGlass;
 
-        public static bool Enabled => ModContent.GetInstance<ClientConfig>().PlayerHealthbarOverlay;
+        public static bool Enabled => ClientConfig.Instance.PlayerHealthbarOverlay;
 
         public override void Load()
         {
