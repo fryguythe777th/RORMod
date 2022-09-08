@@ -51,7 +51,11 @@ namespace RORMod
         public bool accTougherTimes;
         public bool accTriTipDagger;
 
+        public int flatDebuffDamageReduction;
+
         public int timeNotHit;
+
+        public float bossDamageMultiplier;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -137,6 +141,8 @@ namespace RORMod
             accTougherTimes = false;
             accMonsterTooth = null;
             accTriTipDagger = false;
+            flatDebuffDamageReduction = 0;
+            bossDamageMultiplier = 1f;
         }
 
         public override void UpdateLifeRegen()
@@ -307,6 +313,14 @@ namespace RORMod
             Player.SetImmuneTimeForAllTypes(60);
         }
 
+        public override void UpdateBadLifeRegen()
+        {
+            if (flatDebuffDamageReduction > 0 && Player.lifeRegen < 0)
+            {
+                Player.lifeRegen = Math.Min(flatDebuffDamageReduction + Player.lifeRegen, -1);
+            }
+        }
+
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (Player.whoAmI == Main.myPlayer && accTougherTimes && Main.rand.NextBool(10))
@@ -388,6 +402,24 @@ namespace RORMod
             if (accTriTipDagger && Main.rand.NextBool(10))
             {
                 BleedingDebuff.AddStack(target, 180, 1);
+            }
+        }
+
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+        }
+
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+        }
+
+        public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (target.boss && bossDamageMultiplier != 1)
+            {
+                damage = (int)(damage * bossDamageMultiplier);
             }
         }
     }

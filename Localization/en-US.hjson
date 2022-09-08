@@ -14,6 +14,8 @@ Mods: {
 			Medkit: Medkit
 			SoldiersSyringe: Soldier's Syringe
 			TriTipDagger: Tri-Tip Dagger
+			RepulsionArmorPlate: Repulsion Armor Plate
+			ArmorPiercingRounds: Armor Piercing Rounds
 
 			DeathMark: Death Mark
 
@@ -68,6 +70,8 @@ Mods: {
 				12% decreased damage
 				'''
 			TriTipDagger: 10% chance to inflict Bleeding to enemies
+			RepulsionArmorPlate: 5 flat damage reduction against debuffs
+			ArmorPiercingRounds: 20% more damage against bosses
 
 			DeathMark:
 				'''
