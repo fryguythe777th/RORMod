@@ -51,6 +51,10 @@ namespace RORMod
         public bool accTougherTimes;
         public bool accTriTipDagger;
 
+        public bool accOddlyShapedOpal;
+        public int opalShieldTimer;
+        public bool opalShieldActive;
+
         public int flatDebuffDamageReduction;
 
         public int timeNotHit;
@@ -143,6 +147,7 @@ namespace RORMod
             accTriTipDagger = false;
             flatDebuffDamageReduction = 0;
             bossDamageMultiplier = 1f;
+            accOddlyShapedOpal = false;
         }
 
         public override void UpdateLifeRegen()
@@ -240,6 +245,15 @@ namespace RORMod
                 UpdateGoatFootsteps();
             }
             DangerEnemy();
+            if (opalShieldTimer != -1)
+            {
+                opalShieldTimer++;
+                if (opalShieldTimer == 420)
+                {
+                    opalShieldTimer = -1;
+                    opalShieldActive = true;
+                }
+            }
         }
 
         public void SpawnWarbanner()
@@ -362,6 +376,14 @@ namespace RORMod
                         SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
                     }
                 }
+            }
+            if (accOddlyShapedOpal && opalShieldActive)
+            {
+                opalShieldActive = false;
+            }
+            if (accOddlyShapedOpal && opalShieldTimer == -1)
+            {
+                opalShieldTimer = 0;
             }
         }
 
