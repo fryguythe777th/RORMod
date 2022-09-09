@@ -17,6 +17,7 @@ Mods: {
 			RepulsionArmorPlate: Repulsion Armor Plate
 			ArmorPiercingRounds: Armor Piercing Rounds
 			OddlyShapedOpal: Oddly-Shaped Opal
+			LensMakersGlasses: Lens-Maker's Glasses
 
 			DeathMark: Death Mark
 
@@ -74,6 +75,7 @@ Mods: {
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
 			ArmorPiercingRounds: 20% more damage against bosses
 			OddlyShapedOpal: After 7 seconds of not taking damage, gain 20 defense
+			LensMakersGlasses: 10% increased critical strike chance
 
 			DeathMark:
 				'''
