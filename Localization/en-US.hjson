@@ -18,6 +18,7 @@ Mods: {
 			ArmorPiercingRounds: Armor Piercing Rounds
 			OddlyShapedOpal: Oddly-Shaped Opal
 			LensMakersGlasses: Lens-Maker's Glasses
+			RollOfPennies: Roll of Pennies
 
 			DeathMark: Death Mark
 
@@ -76,6 +77,7 @@ Mods: {
 			ArmorPiercingRounds: 20% more damage against bosses
 			OddlyShapedOpal: After 7 seconds of not taking damage, gain 20 defense
 			LensMakersGlasses: 10% increased critical strike chance
+			RollOfPennies: When taking damage, receive 50 copper for each damage point taken
 
 			DeathMark:
 				'''

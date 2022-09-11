@@ -50,6 +50,7 @@ namespace RORMod
         public bool accMedkit;
         public bool accTougherTimes;
         public bool accTriTipDagger;
+        public bool accRollOfPennies;
 
         public bool accOddlyShapedOpal;
         public int opalShieldTimer;
@@ -148,6 +149,7 @@ namespace RORMod
             flatDebuffDamageReduction = 0;
             bossDamageMultiplier = 1f;
             accOddlyShapedOpal = false;
+            accRollOfPennies = false;
         }
 
         public override void UpdateLifeRegen()
@@ -384,6 +386,22 @@ namespace RORMod
             if (accOddlyShapedOpal && opalShieldTimer == -1)
             {
                 opalShieldTimer = 0;
+            }
+            if (accRollOfPennies)
+            {
+                int[] Coin = Utils.CoinsSplit(50 * (int)damage);
+
+                if (Coin[0] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.CopperCoin, Coin[0]);
+
+                if (Coin[1] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.SilverCoin, Coin[1]);
+
+                if (Coin[2] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.GoldCoin, Coin[2]);
+
+                if (Coin[3] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, Coin[3]);
             }
         }
 

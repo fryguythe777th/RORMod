@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class OddlyShapedOpal : ModItem
+    public class RollOfPennies : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,8 +13,8 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 28;
+            Item.width = 26;
+            Item.height = 26;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
@@ -22,11 +22,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accOddlyShapedOpal = true;
-            if (player.ROR().opalShieldActive)
-            {
-                player.statDefense += 20;
-            }
+            player.ROR().accRollOfPennies = true;
         }
     }
 }
