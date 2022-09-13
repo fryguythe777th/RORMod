@@ -138,6 +138,7 @@ namespace RORMod
                 player.ResetFloorFlags();
                 player.ResetVisibleAccessories();
 
+                player.slotsMinions = 0;
                 player.respawnTimer = Utils.Clamp(player.respawnTimer - 1, 0, 60);
                 if (player.respawnTimer <= 0 && Main.myPlayer == player.whoAmI)
                 {
@@ -154,9 +155,9 @@ namespace RORMod
                     player.Spawn(PlayerSpawnContext.ReviveFromDeath);
                     player.SpawnX = spawnX;
                     player.SpawnY = spawnY;
-                    //Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
-                    //player.ConsumeItem(player.inventory[0].type);
-                    //Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
+                    Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
+                    player.ConsumeItem(player.inventory[0].type);
+                    Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
                     Projectile.NewProjectile(player.GetSource_FromThis(), new Vector2(player.position.X + player.width / 2f, player.position.Y - 12f), new Vector2(0f, 0.1f), ModContent.ProjectileType<DioRevive>(), 0, 0f, player.whoAmI);
                     ror.dioDead = false;
                     SpawnHack = false;
