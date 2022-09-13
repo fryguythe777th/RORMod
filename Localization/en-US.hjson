@@ -76,7 +76,7 @@ Mods: {
 				'''
 			TriTipDagger: 10% chance to inflict Bleeding to enemies
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
-			ArmorPiercingRounds: 20% more damage against bosses
+			ArmorPiercingRounds: 10% increased damage against boss enemies
 
 			DeathMark:
 				'''

@@ -22,7 +22,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accOddlyShapedOpal = true;
+            player.ROR().accOpal = true;
             if (player.ROR().opalShieldActive)
             {
                 player.statDefense += 20;

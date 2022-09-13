@@ -22,7 +22,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accRollOfPennies = true;
+            player.ROR().accPennies = true;
         }
     }
 }
