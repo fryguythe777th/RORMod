@@ -224,6 +224,7 @@ Mods: {
 		MalachiteElite: Malachite
 		CelestineElite: Celestine
 
+		Revived: REVIVED!
 		Blocked: BLOCKED!
 	}
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
@@ -88,7 +89,7 @@ namespace RORMod.Projectiles.Misc
             if ((int)Projectile.ai[0] > 2)
             {
                 var font = FontAssets.MouseText.Value;
-                string text = "REVIVED!";
+                string text = Language.GetTextValue("Mods.RORMod.Revived");
                 var measurement = font.MeasureString(text);
                 lightColor *= Main.cursorAlpha;
                 ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, text, Projectile.Center - Main.screenPosition, lightColor, Color.Gray * 0.5f * Projectile.Opacity, 0f, measurement / 2f, new Vector2(Projectile.scale));
