@@ -24,6 +24,7 @@ Mods: {
 
 			Shatterspleen: Shatterspleen
 
+			RustedKey: Rusted Key
 			PowerElixir: Power Elixir
 
 			Chaos: Artifact of Chaos
@@ -74,9 +75,15 @@ Mods: {
 				20% increased attack speed
 				12% decreased damage
 				'''
-			TriTipDagger: 10% chance to inflict Bleeding to enemies
+			TriTipDagger: 10% chance to inflict bleeding to enemies
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
-			ArmorPiercingRounds: 10% increased damage against boss enemies
+			ArmorPiercingRounds: 10% increased damage against bosses
+			RollOfPennies: Recieve money when damaged
+			OddlyShapedOpal: 
+				'''
+				Take reduced damage
+				When hit, recieve a 5 second cooldown on this effect
+				'''
 
 			DeathMark:
 				'''
@@ -91,10 +98,11 @@ Mods: {
 				Any enemy that dies with this Bleeding will erupt into a bloody explosion
 				'''
 			
+			RustedKey: Unlocks rusty lockboxes, keep in your inventory to reveal them
 			PowerElixir: 
 				'''
 				Automatically consumed when taking damage below 50% life
-				Increased potion sickness time
+				25% increased potion sickness time
 				'''
 			
 			Chaos: Friendly fire is enabled for both players and monsters alike

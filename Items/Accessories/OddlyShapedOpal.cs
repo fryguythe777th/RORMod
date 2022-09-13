@@ -9,6 +9,7 @@ namespace RORMod.Items.Accessories
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            RORItem.WhiteTier.Add(Type);
         }
 
         public override void SetDefaults()
@@ -16,14 +17,15 @@ namespace RORMod.Items.Accessories
             Item.width = 24;
             Item.height = 28;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(silver: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accOpal = true;
-            if (player.ROR().opalShieldActive)
+            var ror = player.ROR();
+            ror.accOpal = true;
+            if (ror.opalShieldActive)
             {
                 player.statDefense += 20;
             }

@@ -9,6 +9,7 @@ namespace RORMod.Items.Accessories
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            RORItem.BossTier.Add(Type);
         }
 
         public override void SetDefaults()

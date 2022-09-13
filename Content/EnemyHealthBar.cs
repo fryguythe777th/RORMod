@@ -189,7 +189,6 @@ namespace RORMod.Content
             npcContext = npc;
             instanceContext = this;
 
-
             var old = position;
             var lowestY = npc.position.Y + (int)(npc.frame.Height * -0.25f) - 10;
             if (position.Y > lowestY)

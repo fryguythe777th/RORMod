@@ -22,6 +22,7 @@ namespace RORMod
     {
         public const int ShieldRegenerationTime = 300;
 
+        public bool checkRustedKey;
         public int checkElixir;
 
         public Item accMonsterTooth;
@@ -128,6 +129,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            checkRustedKey = false;
             checkElixir = ItemID.None;
             accWarbanner = null;
             timeNotHit++;
@@ -240,11 +242,31 @@ namespace RORMod
             Player.statLifeMax2 += add;
         }
 
+        public void SpawnRustedLockbox()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
+                if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<RustyLockbox>(), 0, 0f, Player.whoAmI);
+                    break;
+                }
+            }
+        }
+
         public override void PostUpdate()
         {
-            if (warbannerProgress_Enemies > 15)
+            if (Main.myPlayer == Player.whoAmI)
             {
-                SpawnWarbanner();
+                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Main.rand.NextBool(120))
+                {
+                    SpawnRustedLockbox();
+                }
+                if (warbannerProgress_Enemies > 15)
+                {
+                    SpawnWarbanner();
+                }
             }
             if (gLegSounds)
             {
@@ -254,7 +276,7 @@ namespace RORMod
             if (opalShieldTimer != -1)
             {
                 opalShieldTimer++;
-                if (opalShieldTimer == 420)
+                if (opalShieldTimer == 300)
                 {
                     opalShieldTimer = -1;
                     opalShieldActive = true;
