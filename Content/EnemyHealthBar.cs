@@ -203,7 +203,6 @@ namespace RORMod.Content
                 position += offset;
             }
 
-
             if (ClientConfig.Instance.NPCDrawBuff)
             {
                 if (ClientConfig.Instance.EnemyHBState == State.Vanilla)
