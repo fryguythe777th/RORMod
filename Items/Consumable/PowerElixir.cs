@@ -18,5 +18,13 @@ namespace RORMod.Items.Consumable
             player.AddBuff(BuffID.PotionSickness, player.potionDelay);
             return true;
         }
+
+        public override void UpdateInventory(Player player)
+        {
+            var ror = player.ROR();
+            if (ror.checkElixir == ItemID.None)
+                ror.checkElixir = Type;
+
+        }
     }
 }

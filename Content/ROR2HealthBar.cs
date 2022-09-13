@@ -72,6 +72,9 @@ namespace RORMod.Content
             var position = new Vector2(X, Y);
             var drawCoords = new Point((int)(position.X - Main.screenPosition.X) - (int)(HPBarWidth / 2 * scale), (int)(position.Y - Main.screenPosition.Y));
 
+            if (Main.LocalPlayer.gravDir == -1)
+                drawCoords.Y = Main.screenHeight - drawCoords.Y;
+
             var color = (npcContext.boss || RORNPC.CountsAsBoss.Contains(npcContext.type)) ? Color.Red : Color.Yellow;
             int outSize = (int)Math.Max(2f * scale, 2f) * 2;
 
@@ -212,7 +215,10 @@ namespace RORMod.Content
                 buffScale = 12f / lw;
             }
             buffScale *= scale;
-            Main.spriteBatch.Draw(t, position + new Vector2(-width / 2f * scale + width / NPC.maxBuffs * i * scale, -16f * scale) - Main.screenPosition,
+            position += new Vector2(-width / 2f * scale + width / NPC.maxBuffs * i * scale, -16f * scale) - Main.screenPosition;
+            if (Main.LocalPlayer.gravDir == -1)
+                position.Y = Main.screenHeight - position.Y;
+            Main.spriteBatch.Draw(t, position,
                 null, Color.White, 0f, t.Size() / 2f, buffScale, SpriteEffects.None, 0f);
         }
     }

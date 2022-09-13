@@ -93,7 +93,7 @@ Mods: {
 			
 			PowerElixir: 
 				'''
-				Automatically consumed when you take damage below 50% life
+				Automatically consumed when taking damage below 50% life
 				Increased potion sickness time
 				'''
 			

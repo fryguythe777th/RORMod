@@ -22,7 +22,7 @@ namespace RORMod
     {
         public const int ShieldRegenerationTime = 300;
 
-        public bool checkElixir;
+        public int checkElixir;
 
         public Item accMonsterTooth;
 
@@ -128,7 +128,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
-            checkElixir = false;
+            checkElixir = ItemID.None;
             accWarbanner = null;
             timeNotHit++;
             maxShield = 0f;
@@ -367,7 +367,10 @@ namespace RORMod
             {
                 if (!Player.inventory[i].IsAir && Player.inventory[i].type == ModContent.ItemType<PowerElixir>())
                 {
-
+                    Utils.Swap(ref Player.inventory[0], ref Player.inventory[i]);
+                    Player.QuickHeal();
+                    Utils.Swap(ref Player.inventory[0], ref Player.inventory[i]);
+                    break;
                 }
             }
         }
@@ -422,7 +425,7 @@ namespace RORMod
                 if (coins[3] > 0)
                     Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, coins[3]);
             }
-            if (checkElixir && Player.statLife * 2 < Player.statLifeMax2)
+            if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
             {
                 CheckElixir();
             }
