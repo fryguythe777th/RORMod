@@ -178,7 +178,7 @@ namespace RORMod.Content
             int width = HPBarWidth + 20;
             for (int i = 0; i < NPC.maxBuffs; i++)
             {
-                if ((npc.buffTime[i] <= 0 && npc.buffType[i] <= 0) || BuffID.Sets.IsAnNPCWhipDebuff[npc.buffType[i]])
+                if (npc.buffTime[i] <= 0 && npc.buffType[i] <= 0)
                 {
                     continue;
                 }
@@ -198,20 +198,22 @@ namespace RORMod.Content
                     }
                 }
 
-                var t = ModContent.Request<Texture2D>(texture, AssetRequestMode.ImmediateLoad).Value;
-
-                float buffScale = 1f;
-                int lw = t.Width > t.Height ? t.Width : t.Height;
-                if (lw > 16)
-                {
-                    buffScale = 12f / lw;
-                }
-                buffScale *= scale;
-                Main.spriteBatch.Draw(t, position + new Vector2(-width / 2f * scale + width / NPC.maxBuffs * buffsDrawn * scale, -16f * scale) - Main.screenPosition,
-                    null, Color.White, 0f, t.Size() / 2f, buffScale, SpriteEffects.None, 0f);
+                DrawDebuff(ModContent.Request<Texture2D>(texture, AssetRequestMode.ImmediateLoad).Value, scale, position, width, i);
 
                 buffsDrawn++;
             }
+        }
+        public void DrawDebuff(Texture2D t, float scale, Vector2 position, int width, int i)
+        {
+            float buffScale = 1f;
+            int lw = t.Width > t.Height ? t.Width : t.Height;
+            if (lw > 16)
+            {
+                buffScale = 12f / lw;
+            }
+            buffScale *= scale;
+            Main.spriteBatch.Draw(t, position + new Vector2(-width / 2f * scale + width / NPC.maxBuffs * i * scale, -16f * scale) - Main.screenPosition,
+                null, Color.White, 0f, t.Size() / 2f, buffScale, SpriteEffects.None, 0f);
         }
     }
 }

@@ -2,6 +2,7 @@
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
+using RORMod.Items.Consumable;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
 using RORMod.UI;
@@ -20,6 +21,8 @@ namespace RORMod
     public class RORPlayer : ModPlayer
     {
         public const int ShieldRegenerationTime = 300;
+
+        public bool checkElixir;
 
         public Item accMonsterTooth;
 
@@ -120,6 +123,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            checkElixir = false;
             accWarbanner = null;
             timeNotHit++;
             maxShield = 0f;
@@ -336,6 +340,22 @@ namespace RORMod
             return true;
         }
 
+        public void CheckElixir()
+        {
+            if (Player.cursed || Player.CCed || Player.dead || Player.statLife == Player.statLifeMax2 || Player.potionDelay > 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < Main.InventoryItemSlotsCount; i++)
+            {
+                if (!Player.inventory[i].IsAir && Player.inventory[i].type == ModContent.ItemType<PowerElixir>())
+                {
+
+                }
+            }
+        }
+
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             timeNotHit = 0;
@@ -362,6 +382,10 @@ namespace RORMod
                         SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
                     }
                 }
+            }
+            if (checkElixir && Player.statLife * 2 < Player.statLifeMax2)
+            {
+                CheckElixir();
             }
         }
 
@@ -417,7 +441,7 @@ namespace RORMod
 
         public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if (target.boss && bossDamageMultiplier != 1)
+            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
             {
                 damage = (int)(damage * bossDamageMultiplier);
             }

@@ -21,6 +21,8 @@ Mods: {
 
 			Shatterspleen: Shatterspleen
 
+			PowerElixir: Power Elixir
+
 			Chaos: Artifact of Chaos
 			Command: Artifact of Command
 			Death: Artifact of Death
@@ -71,7 +73,7 @@ Mods: {
 				'''
 			TriTipDagger: 10% chance to inflict Bleeding to enemies
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
-			ArmorPiercingRounds: 20% more damage against bosses
+			ArmorPiercingRounds: 10% increased damage against bosses
 
 			DeathMark:
 				'''
@@ -84,6 +86,12 @@ Mods: {
 				5% increased critical strike chance
 				All critical strikes will inflict Bleeding to enemies
 				Any enemy that dies with this Bleeding will erupt into a bloody explosion
+				'''
+			
+			PowerElixir: 
+				'''
+				Automatically consumed when you take damage below 50% life
+				Increased potion sickness time
 				'''
 			
 			Chaos: Friendly fire is enabled for both players and monsters alike
