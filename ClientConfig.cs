@@ -23,17 +23,23 @@ namespace RORMod
         [DefaultValue(false)]
         public bool BossHealthbarBottom;
 
-        [Name("RORHealthbar")]
-        [Desc("RORHealthbar")]
+        [Name("EnemyHB")]
+        [Desc("EnemyHB")]
         [MemberBGColor]
-        [DefaultValue(typeof(ROR2HealthBar.State), "Enabled")]
-        public ROR2HealthBar.State RORHealthbar;
+        [DefaultValue(typeof(EnemyHealthBar.State), nameof(EnemyHealthBar.State.RORTheme))]
+        public EnemyHealthBar.State EnemyHBState;
 
-        [Name("RORHealthbarDrawBuff")]
-        [Desc("RORHealthbarDrawBuff")]
+        [Name("NPCDrawBuff")]
+        [Desc("NPCDrawBuff")]
+        [MemberBGColor]
+        [DefaultValue(false)]
+        public bool NPCDrawBuff;
+
+        [Name("NPCDrawBuff_All")]
+        [Desc("NPCDrawBuff_All")]
         [MemberBGColor_Secondary]
         [DefaultValue(false)]
-        public bool RORHealthbarDrawBuff;
+        public bool NPCDrawBuff_All;
 
         [Name("PlayerHealthbarOverlay")]
         [Desc("PlayerHealthbarOverlay")]

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using RORMod.Content;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,6 +13,7 @@ namespace RORMod.Buffs.Debuff
         {
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
+            EnemyHealthBar.BuffIconData.Add(Type, "RORMod/Buffs/Mini/Buff_30");
         }
 
         public override void Update(NPC npc, ref int buffIndex)

@@ -176,20 +176,18 @@ Mods: {
 		}
 
 		Configuration: {
-			RORHealthbar: Enemy Healthbar (Not Boss Healthbars)
-			RORHealthbarTooltip: 
+			EnemyHB: Enemy Healthbars
+			EnemyHBTooltip: 
 				'''
 				Sets the state of the healthbar.
 				Do NOT confuse this with the boss healthbar, this is the normal healthbar 
 				which draws below NPCs when they're injured!
 				'''
-			RORHealthbarDrawBuff: Enemy Healthbar: Draw only supported buffs
-			RORHealthbarDrawBuffTooltip: 
-				'''
-				Whether or not to only draw supported buffs
-				Basically means if they don't have a special UI texture implemented,
-				the buff will not be rendered.
-				'''
+
+			NPCDrawBuff: Draw Buffs
+			NPCDrawBuffTooltip: Whether or not to draw debuffs above NPC's heads
+			NPCDrawBuff_All: > Draw All Buffs
+			NPCDrawBuff_AllTooltip: Buffs without a special UI texture will not be rendered.
 
 			PlayerHealthbarOverlay: Player Healthbar Overlays
 			PlayerHealthbarOverlayTooltip: Whether or not to have player healthbar overlays enabled, disable this if you have a mod which changes vanilla Healthbar UI
