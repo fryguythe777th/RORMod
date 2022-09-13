@@ -23,7 +23,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetCritChance(DamageClass.Generic) += 5;
         }
     }
 }
