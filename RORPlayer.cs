@@ -24,6 +24,8 @@ namespace RORMod
 
         public static bool SpawnHack;
 
+        public float procRate;
+
         public bool accStickyBomb;
 
         public int accDiosBestFriend;
@@ -205,6 +207,11 @@ namespace RORMod
             orig(player);
         }
 
+        public bool ProcRate()
+        {
+            return Main.rand.NextFloat(1f) < procRate;
+        }
+
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = (RORPlayer)clientClone;
@@ -265,6 +272,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            procRate = 1f;
             accStickyBomb = false;
             if (diosCooldown > 0)
             {
@@ -405,7 +413,7 @@ namespace RORMod
         {
             if (Main.myPlayer == Player.whoAmI)
             {
-                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Main.rand.NextBool(120))
+                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(120) == 0)
                 {
                     SpawnRustedLockbox();
                 }
@@ -511,7 +519,7 @@ namespace RORMod
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
-            if (Player.whoAmI == Main.myPlayer && accTougherTimes && Main.rand.NextBool(10))
+            if (Player.whoAmI == Main.myPlayer && accTougherTimes && Player.RollLuck(10) == 0)
             {
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
@@ -620,7 +628,7 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (accStickyBomb)
+            if (accStickyBomb && ProcRate() && Player.RollLuck(10) == 0)
             {
                 Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, 
                     ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
@@ -647,7 +655,7 @@ namespace RORMod
                 BleedingDebuff.AddStack(target, 300, 1);
                 target.netUpdate = true;
             }
-            if (accTriTipDagger && Main.rand.NextBool(10))
+            if (accTriTipDagger && Player.RollLuck(10) == 0)
             {
                 BleedingDebuff.AddStack(target, 180, 1);
             }

@@ -63,5 +63,10 @@ namespace RORMod.Projectiles.Misc
             Main.spriteBatch.Draw(texture, Projectile.position + offset - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
+
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            Main.player[Projectile.owner].ROR().procRate = 0f;
+        }
     }
 }
