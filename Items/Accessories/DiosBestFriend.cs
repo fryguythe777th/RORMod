@@ -1,5 +1,7 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
@@ -21,9 +23,24 @@ namespace RORMod.Items.Accessories
             Item.value = Item.sellPrice(gold: 5);
         }
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (Main.LocalPlayer.difficulty == PlayerDifficultyID.Hardcore)
+            {
+                int line = RORItem.GetIndex(tooltips, "Consumable");
+                tooltips.Insert(line, new TooltipLine(Mod, "Consumable", Language.GetTextValue("LegacyTooltip.35")));
+            }
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accDiosBestFriend = 36000;
+            var ror = player.ROR();
+            if (ror.diosCooldown > 0 && player.difficulty == PlayerDifficultyID.Hardcore)
+            {
+                Item.TurnToAir();
+                ror.diosCooldown = 0;
+            }
+            ror.accDiosBestFriend = 36000;
         }
     }
 }

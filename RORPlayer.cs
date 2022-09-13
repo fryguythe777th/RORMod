@@ -23,6 +23,7 @@ namespace RORMod
         public const int ShieldRegenerationTime = 300;
 
         public static bool SpawnHack;
+        public static byte DifficultyHack;
 
         public float procRate;
 
@@ -607,12 +608,23 @@ namespace RORMod
             }
         }
 
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (accDiosBestFriend > 0 && diosCooldown <= 0)
+            {
+                DifficultyHack = Player.difficulty;
+                Player.difficulty = PlayerDifficultyID.SoftCore;
+            }
+            return true;
+        }
+
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
             if (accDiosBestFriend > 0 && diosCooldown <= 0)
             {
                 diosDead = true;
                 Player.dead = false;
+                Player.difficulty = DifficultyHack;
             }
         }
 
