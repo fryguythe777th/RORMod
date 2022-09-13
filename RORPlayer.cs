@@ -53,6 +53,11 @@ namespace RORMod
         public bool accMedkit;
         public bool accTougherTimes;
         public bool accTriTipDagger;
+        public bool accRollOfPennies;
+
+        public bool accOddlyShapedOpal;
+        public int opalShieldTimer;
+        public bool opalShieldActive;
 
         public int flatDebuffDamageReduction;
 
@@ -147,6 +152,8 @@ namespace RORMod
             accTriTipDagger = false;
             flatDebuffDamageReduction = 0;
             bossDamageMultiplier = 1f;
+            accOddlyShapedOpal = false;
+            accRollOfPennies = false;
         }
 
         public override void UpdateLifeRegen()
@@ -244,6 +251,15 @@ namespace RORMod
                 UpdateGoatFootsteps();
             }
             DangerEnemy();
+            if (opalShieldTimer != -1)
+            {
+                opalShieldTimer++;
+                if (opalShieldTimer == 420)
+                {
+                    opalShieldTimer = -1;
+                    opalShieldActive = true;
+                }
+            }
         }
 
         public void SpawnWarbanner()
@@ -382,6 +398,30 @@ namespace RORMod
                         SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
                     }
                 }
+            }
+            if (accOddlyShapedOpal && opalShieldActive)
+            {
+                opalShieldActive = false;
+            }
+            if (accOddlyShapedOpal && opalShieldTimer == -1)
+            {
+                opalShieldTimer = 0;
+            }
+            if (accRollOfPennies)
+            {
+                int[] Coin = Utils.CoinsSplit(50 * (int)damage);
+
+                if (Coin[0] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.CopperCoin, Coin[0]);
+
+                if (Coin[1] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.SilverCoin, Coin[1]);
+
+                if (Coin[2] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.GoldCoin, Coin[2]);
+
+                if (Coin[3] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, Coin[3]);
             }
             if (checkElixir && Player.statLife * 2 < Player.statLifeMax2)
             {

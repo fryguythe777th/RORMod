@@ -16,6 +16,9 @@ Mods: {
 			TriTipDagger: Tri-Tip Dagger
 			RepulsionArmorPlate: Repulsion Armor Plate
 			ArmorPiercingRounds: Armor Piercing Rounds
+			OddlyShapedOpal: Oddly-Shaped Opal
+			LensMakersGlasses: Lens-Maker's Glasses
+			RollOfPennies: Roll of Pennies
 
 			DeathMark: Death Mark
 
@@ -73,7 +76,7 @@ Mods: {
 				'''
 			TriTipDagger: 10% chance to inflict Bleeding to enemies
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
-			ArmorPiercingRounds: 10% increased damage against bosses
+			ArmorPiercingRounds: 20% more damage against bosses
 
 			DeathMark:
 				'''

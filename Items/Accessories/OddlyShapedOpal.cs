@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class DeathMark : ModItem
+    public class OddlyShapedOpal : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,8 +13,8 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 24;
+            Item.width = 24;
+            Item.height = 28;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
@@ -22,7 +22,11 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accDeathMark = true;
+            player.ROR().accOddlyShapedOpal = true;
+            if (player.ROR().opalShieldActive)
+            {
+                player.statDefense += 20;
+            }
         }
     }
 }
