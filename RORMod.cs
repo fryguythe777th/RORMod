@@ -15,7 +15,7 @@ namespace RORMod
     public class RORMod : Mod
     {
         public const string VanillaTexture = "Terraria/Images/";
-        public const string BlankTexture = "RORMod/Assets/None";
+        public const string BlankTexture = AssetsPath + "None";
         public const string AssetsPath = "RORMod/Assets/";
         public const string SoundsPath = AssetsPath + "Sounds/";
 

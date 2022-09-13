@@ -22,6 +22,8 @@ Mods: {
 
 			DeathMark: Death Mark
 
+			DiosBestFriend: Dio's Best Friend
+
 			Shatterspleen: Shatterspleen
 
 			RustedKey: Rusted Key
@@ -91,6 +93,8 @@ Mods: {
 				Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds
 				Enemies marked for death will take 10% more damage
 				'''
+
+			DiosBestFriend: Cheat death, consumed when used
 
 			Shatterspleen:
 				'''

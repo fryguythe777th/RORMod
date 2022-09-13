@@ -22,6 +22,11 @@ namespace RORMod
     {
         public const int ShieldRegenerationTime = 300;
 
+        public static bool SpawnHack;
+
+        public Item accDiosBestFriend;
+        public bool dioDead;
+
         public bool checkRustedKey;
         public int checkElixir;
 
@@ -77,6 +82,121 @@ namespace RORMod
         /// </summary>
         public bool InDanger => dangerEnemy != -1;
 
+        public override void Load()
+        {
+            On.Terraria.Player.UpdateDead += Player_UpdateDead;
+            On.Terraria.Player.CheckSpawn += Player_CheckSpawn;
+            On.Terraria.Player.FindSpawn += Player_FindSpawn;
+            On.Terraria.Player.DropTombstone += Player_DropTombstone;
+            On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
+        }
+
+        private static void LegacyPlayerRenderer_DrawPlayers(On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.orig_DrawPlayers orig, Terraria.Graphics.Renderers.LegacyPlayerRenderer self, Terraria.Graphics.Camera camera, System.Collections.Generic.IEnumerable<Player> players)
+        {
+            foreach (var p in players)
+            {
+                var ror = p.ROR();
+                if (ror.dioDead)
+                    p.dead = true;
+            }
+            orig(self, camera, players);
+            foreach (var p in players)
+            {
+                var ror = p.ROR();
+                if (ror.dioDead)
+                    p.dead = false;
+            }
+        }
+
+        private static void Player_DropTombstone(On.Terraria.Player.orig_DropTombstone orig, Player self, int coinsOwned, NetworkText deathText, int hitDirection)
+        {
+            if (self.ROR().accDiosBestFriend != null)
+                return;
+            orig(self, coinsOwned, deathText, hitDirection);
+        }
+
+        private static void Player_FindSpawn(On.Terraria.Player.orig_FindSpawn orig, Player self)
+        {
+            if (SpawnHack)
+                return;
+            orig(self);
+        }
+
+        private static bool Player_CheckSpawn(On.Terraria.Player.orig_CheckSpawn orig, int x, int y)
+        {
+            if (SpawnHack)
+                return true;
+
+            return orig(x, y);
+        }
+
+        private static void Player_UpdateDead(On.Terraria.Player.orig_UpdateDead orig, Player player)
+        {
+            var ror = player.ROR();
+            if (ror.accDiosBestFriend != null)
+            {
+                player.ResetFloorFlags();
+                player.ResetVisibleAccessories();
+
+                player.respawnTimer = Utils.Clamp(player.respawnTimer - 1, 0, 60);
+                if (player.respawnTimer <= 0 && Main.myPlayer == player.whoAmI)
+                {
+                    if (Main.mouseItem.type > ItemID.None)
+                    {
+                        Main.playerInventory = true;
+                    }
+                    SpawnHack = true;
+                    var tileCoords = player.Center.ToTileCoordinates();
+                    int spawnX = player.SpawnX;
+                    int spawnY = player.SpawnY;
+                    player.SpawnX = tileCoords.X;
+                    player.SpawnY = tileCoords.Y + 2;
+                    player.Spawn(PlayerSpawnContext.ReviveFromDeath);
+                    player.SpawnX = spawnX;
+                    player.SpawnY = spawnY;
+                    //Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
+                    //player.ConsumeItem(player.inventory[0].type);
+                    //Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
+                    Projectile.NewProjectile(player.GetSource_FromThis(), new Vector2(player.position.X + player.width / 2f, player.position.Y - 12f), new Vector2(0f, 0.1f), ModContent.ProjectileType<DioRevive>(), 0, 0f, player.whoAmI);
+                    ror.dioDead = false;
+                    SpawnHack = false;
+                    return;
+                }
+                ror.dioDead = true;
+                player.immuneTime = 300;
+                player.immuneNoBlink = false;
+                player.dead = false;
+                player.gravDir = 1f;
+                player.grappling[0] = -1;
+                player.SetTalkNPC(-1);
+                player.chest = -1;
+                player.sign = -1;
+                player.statLife = 0;
+                player.changeItem = -1;
+                player.itemAnimation = 0;
+                player.immuneAlpha += 2;
+                if (player.immuneAlpha > 255)
+                {
+                    player.immuneAlpha = 255;
+                }
+
+                player.headPosition += player.headVelocity;
+                player.bodyPosition += player.bodyVelocity;
+                player.legPosition += player.legVelocity;
+                player.headRotation += player.headVelocity.X * 0.1f;
+                player.bodyRotation += player.bodyVelocity.X * 0.1f;
+                player.legRotation += player.legVelocity.X * 0.1f;
+                player.headVelocity.Y += 0.1f;
+                player.bodyVelocity.Y += 0.1f;
+                player.legVelocity.Y += 0.1f;
+                player.headVelocity.X *= 0.99f;
+                player.bodyVelocity.X *= 0.99f;
+                player.legVelocity.X *= 0.99f;
+                return;
+            }
+            orig(player);
+        }
+
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = (RORPlayer)clientClone;
@@ -127,8 +247,17 @@ namespace RORMod
             }
         }
 
+        public override void PreUpdate()
+        {
+            if (dioDead)
+            {
+                Player.dead = true;
+            }
+        }
+
         public override void ResetEffects()
         {
+            accDiosBestFriend = null;
             checkRustedKey = false;
             checkElixir = ItemID.None;
             accWarbanner = null;
@@ -156,6 +285,8 @@ namespace RORMod
             bossDamageMultiplier = 1f;
             accOpal = false;
             accPennies = false;
+
+            SpawnHack = false;
         }
 
         public override void UpdateLifeRegen()
@@ -450,6 +581,15 @@ namespace RORMod
             if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
             {
                 CheckElixir();
+            }
+        }
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            if (accDiosBestFriend != null)
+            {
+                dioDead = true;
+                Player.dead = false;
             }
         }
 

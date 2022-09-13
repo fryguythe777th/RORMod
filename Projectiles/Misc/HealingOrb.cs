@@ -27,6 +27,7 @@ namespace RORMod.Projectiles.Misc
             Projectile.height = 16;
             Projectile.timeLeft = 600;
             Projectile.tileCollide = true;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()

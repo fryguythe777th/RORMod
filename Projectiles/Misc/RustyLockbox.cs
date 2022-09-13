@@ -29,6 +29,7 @@ namespace RORMod.Projectiles.Misc
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 100;
             Projectile.hide = true;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
@@ -56,15 +57,11 @@ namespace RORMod.Projectiles.Misc
                     float proc = Main.rand.NextFloat();
                     switch (proc) 
                     {
-                        default:
-                            Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.WhiteTier));
+                        case >= 0.8f:
+                            Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.RedTier));
                             break;
 
-                        case >= 0.9f:
-                            //Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.RedTier));
-                        //break;
-
-                        case >= 0.7f:
+                        default:
                             Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.GreenTier));
                             break;
                     }

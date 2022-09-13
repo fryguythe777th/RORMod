@@ -26,6 +26,7 @@ namespace RORMod.Projectiles.Misc
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 100;
             Projectile.hide = true;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
