@@ -69,13 +69,16 @@ namespace RORMod.Content
                 [BuffID.FlameWhipEnemyDebuff] = $"{t}{BuffID.FlameWhipEnemyDebuff}",
                 [BuffID.RainbowWhipNPCDebuff] = $"{t}{BuffID.RainbowWhipNPCDebuff}",
                 [BuffID.GelBalloonBuff] = $"{t}{BuffID.GelBalloonBuff}",
+                [BuffID.ThornWhipNPCDebuff] = $"{t}{BuffID.BlandWhipEnemyDebuff}",
+                [BuffID.BoneWhipNPCDebuff] = $"{t}{BuffID.BlandWhipEnemyDebuff}",
+                [BuffID.MaceWhipNPCDebuff] = $"{t}{BuffID.BlandWhipEnemyDebuff}",
             };
             TopOffset = new Dictionary<int, Vector2>()
             {
                 [NPCID.MoonLordHead] = new Vector2(0f, 70f),
                 [NPCID.MoonLordHand] = new Vector2(0f, 40f),
             };
-            On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
+            //On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
         }
 
         public override void Unload()
@@ -122,7 +125,7 @@ namespace RORMod.Content
             if (instanceContext.hpBarLife > 0)
             {
                 Main.spriteBatch.Draw(MixedStyleBarFill.Value, drawCoords, new Rectangle(fillSpritePadding, 0, (int)((MixedStyleBarFill.Value.Width - fillSpritePadding * 2)
-                * (instanceContext.hpBarLife / (float)npcContext.lifeMax)), MixedStyleBarFill.Value.Height), Color.DarkRed * 2f, 0f, origin, scale, SpriteEffects.None, 0f);
+                * (instanceContext.hpBarLife / (float)npcContext.lifeMax)), MixedStyleBarFill.Value.Height), Color.DarkRed, 0f, origin, scale, SpriteEffects.None, 0f);
             }
             Main.spriteBatch.Draw(MixedStyleBarFill.Value, drawCoords, new Rectangle(fillSpritePadding, 0, (int)((MixedStyleBarFill.Value.Width - fillSpritePadding * 2)
                 * (npcContext.life / (float)npcContext.lifeMax)), MixedStyleBarFill.Value.Height), color, 0f, origin, scale, SpriteEffects.None, 0f);
@@ -216,6 +219,7 @@ namespace RORMod.Content
 
         public void DrawDebuffs(NPC npc, byte hbPosition, ref float scale, ref Vector2 position, bool renderAll)
         {
+            Load();
             var buffsToDraw = new List<Texture2D>();
             for (int i = 0; i < NPC.maxBuffs; i++)
             {

@@ -217,7 +217,7 @@ namespace RORMod.Graphics.Primitives
         {
             if (!Main.dedServ)
             {
-                shader = ModContent.Request<Effect>("Aequus/Assets/Effects/Prims/Trailshader");
+                shader = ModContent.Request<Effect>("RORMod/Assets/Effects/Trailshader");
             }
         }
 

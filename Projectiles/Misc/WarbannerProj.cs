@@ -50,6 +50,11 @@ namespace RORMod.Projectiles.Misc
                     }
                 }
 
+                if (Main.player[Projectile.owner].ROR().accWarbanner == null)
+                {
+                    Projectile.Kill();
+                }
+
                 if (Projectile.scale > 0.66f)
                 {
                     for (int i = 0; i < 40 * Projectile.scale; i++)

@@ -19,6 +19,7 @@ Mods: {
 			OddlyShapedOpal: Oddly-Shaped Opal
 			LensMakersGlasses: Lens-Maker's Glasses
 			RollOfPennies: Roll of Pennies
+			StickyExplosives: Sticky Explosives
 
 			DeathMark: Death Mark
 
@@ -87,6 +88,11 @@ Mods: {
 				Take reduced damage
 				When hit, recieve a 5 second cooldown on this effect
 				'''
+			StickyExplosives: 
+				'''
+				Randomly apply a sticky bomb to enemies
+				Deals 125% extra damage
+				'''
 
 			DeathMark:
 				'''
@@ -94,7 +100,7 @@ Mods: {
 				Enemies marked for death will take 10% more damage
 				'''
 
-			DiosBestFriend: Cheat death, consumed when used
+			DiosBestFriend: Cheats death, when used recieve a 10 minute cooldown
 
 			Shatterspleen:
 				'''
@@ -143,12 +149,14 @@ Mods: {
 		}
 
 		BuffName: {
-			Warbanner: Warbanner
+			DiosCooldown: Dio's Best Friend
+			WarbannerBuff: Warbanner
 			MedkitBuff: Medkit
 		}
 
 		BuffDescription: {
-			Warbanner: Increased movement and weapon speed
+			DiosCooldown: You cannot use Dio's Best Friend to revive!
+			WarbannerBuff: Increased movement and weapon speed
 			MedkitBuff: Heal a small amount of health after this buff is cleared
 		}
 

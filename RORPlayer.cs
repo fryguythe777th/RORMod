@@ -24,8 +24,11 @@ namespace RORMod
 
         public static bool SpawnHack;
 
-        public Item accDiosBestFriend;
-        public bool dioDead;
+        public bool accStickyBomb;
+
+        public int accDiosBestFriend;
+        public int diosCooldown;
+        public bool diosDead;
 
         public bool checkRustedKey;
         public int checkElixir;
@@ -96,21 +99,21 @@ namespace RORMod
             foreach (var p in players)
             {
                 var ror = p.ROR();
-                if (ror.dioDead)
+                if (ror.diosDead)
                     p.dead = true;
             }
             orig(self, camera, players);
             foreach (var p in players)
             {
                 var ror = p.ROR();
-                if (ror.dioDead)
+                if (ror.diosDead)
                     p.dead = false;
             }
         }
 
         private static void Player_DropTombstone(On.Terraria.Player.orig_DropTombstone orig, Player self, int coinsOwned, NetworkText deathText, int hitDirection)
         {
-            if (self.ROR().accDiosBestFriend != null)
+            if (self.ROR().accDiosBestFriend > 0)
                 return;
             orig(self, coinsOwned, deathText, hitDirection);
         }
@@ -133,7 +136,7 @@ namespace RORMod
         private static void Player_UpdateDead(On.Terraria.Player.orig_UpdateDead orig, Player player)
         {
             var ror = player.ROR();
-            if (ror.accDiosBestFriend != null)
+            if (ror.accDiosBestFriend > 0 && ror.diosCooldown <= 0)
             {
                 player.ResetFloorFlags();
                 player.ResetVisibleAccessories();
@@ -155,15 +158,16 @@ namespace RORMod
                     player.Spawn(PlayerSpawnContext.ReviveFromDeath);
                     player.SpawnX = spawnX;
                     player.SpawnY = spawnY;
-                    Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
-                    player.ConsumeItem(player.inventory[0].type);
-                    Utils.Swap(ref player.inventory[0], ref ror.accDiosBestFriend);
+
+                    player.statLife = player.statLifeMax2;
+                    ror.diosCooldown = ror.accDiosBestFriend;
+                    player.AddBuff(ModContent.BuffType<DiosCooldown>(), ror.diosCooldown - 1);
                     Projectile.NewProjectile(player.GetSource_FromThis(), new Vector2(player.position.X + player.width / 2f, player.position.Y - 12f), new Vector2(0f, 0.1f), ModContent.ProjectileType<DioRevive>(), 0, 0f, player.whoAmI);
-                    ror.dioDead = false;
+                    ror.diosDead = false;
                     SpawnHack = false;
                     return;
                 }
-                ror.dioDead = true;
+                ror.diosDead = true;
                 player.immuneTime = 300;
                 player.immuneNoBlink = false;
                 player.dead = false;
@@ -195,6 +199,9 @@ namespace RORMod
                 player.legVelocity.X *= 0.99f;
                 return;
             }
+
+            ror.diosCooldown = 0;
+            ror.accDiosBestFriend = 0;
             orig(player);
         }
 
@@ -250,7 +257,7 @@ namespace RORMod
 
         public override void PreUpdate()
         {
-            if (dioDead)
+            if (diosDead)
             {
                 Player.dead = true;
             }
@@ -258,7 +265,14 @@ namespace RORMod
 
         public override void ResetEffects()
         {
-            accDiosBestFriend = null;
+            accStickyBomb = false;
+            if (diosCooldown > 0)
+            {
+                if (!Player.HasBuff<DiosCooldown>())
+                    Player.AddBuff(ModContent.BuffType<DiosCooldown>(), diosCooldown);
+                diosCooldown--;
+            }
+            accDiosBestFriend = 0;
             checkRustedKey = false;
             checkElixir = ItemID.None;
             accWarbanner = null;
@@ -587,9 +601,9 @@ namespace RORMod
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if (accDiosBestFriend != null)
+            if (accDiosBestFriend > 0 && diosCooldown <= 0)
             {
-                dioDead = true;
+                diosDead = true;
                 Player.dead = false;
             }
         }

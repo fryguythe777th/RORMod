@@ -4,26 +4,26 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class DiosBestFriend : ModItem
+    public class StickyExplosives : ModItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.RedTier.Add(Type);
+            RORItem.WhiteTier.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 22;
+            Item.width = 26;
+            Item.height = 26;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.sellPrice(gold: 5);
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accDiosBestFriend = 36000;
+            player.ROR().accStickyBomb = true;
         }
     }
 }

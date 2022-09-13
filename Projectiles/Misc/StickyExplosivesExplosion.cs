@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Projectiles.Misc
 {
-    public class ShatterspleenExplosion : ModProjectile
+    public class StickyExplosivesExplosion : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,6 @@ namespace RORMod.Projectiles.Misc
         public override void SetDefaults()
         {
             Projectile.DefaultToExplosion(200, DamageClass.Generic, 20);
-            Projectile.scale = 1.5f;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -32,7 +31,6 @@ namespace RORMod.Projectiles.Misc
                 if (Projectile.frameCounter == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item14.WithVolumeScale(0.5f), Projectile.Center);
-                    SoundEngine.PlaySound(SoundID.NPCDeath1.WithPitchOffset(-0.65f).WithVolumeScale(1.25f), Projectile.Center);
                 }
                 for (int i = 0; i < 135; i++)
                 {
