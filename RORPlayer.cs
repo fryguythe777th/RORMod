@@ -620,6 +620,11 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
+            if (accStickyBomb)
+            {
+                Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, 
+                    ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
+            }
             if (accDeathMark)
             {
                 int buffCount = 0;

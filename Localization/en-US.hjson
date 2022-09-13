@@ -100,7 +100,11 @@ Mods: {
 				Enemies marked for death will take 10% more damage
 				'''
 
-			DiosBestFriend: Cheats death, when used recieve a 10 minute cooldown
+			DiosBestFriend: 
+				'''
+				Cheats death, when used recieve a 10 minute cooldown
+				'Please live a long life - I'm needy too'
+				'''
 
 			Shatterspleen:
 				'''
