@@ -17,6 +17,7 @@ namespace RORMod.Projectiles.Misc
         public override void SetDefaults()
         {
             Projectile.DefaultToExplosion(200, DamageClass.Generic, 20);
+            Projectile.ROR().procRate = 0f;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -62,11 +63,6 @@ namespace RORMod.Projectiles.Misc
             Projectile.GetDrawInfo(out var texture, out var offset, out var frame, out var origin, out int _);
             Main.spriteBatch.Draw(texture, Projectile.position + offset - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
             return false;
-        }
-
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Main.player[Projectile.owner].ROR().procRate = 0f;
         }
     }
 }

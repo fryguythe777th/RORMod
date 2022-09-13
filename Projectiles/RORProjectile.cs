@@ -1,14 +1,21 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RORMod.Projectiles
 {
-    internal class RORProjectile : GlobalProjectile
+    public class RORProjectile : GlobalProjectile
     {
-        public override bool PreAI(Projectile projectile)
+        public float procRate = 1f;
+
+        public override bool InstancePerEntity => true;
+        protected override bool CloneNewInstances => true;
+
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            return true;
+            if (projectile.friendly && !projectile.npcProj)
+            {
+                Main.player[projectile.owner].ROR().procRate = procRate;
+            }
         }
     }
 }

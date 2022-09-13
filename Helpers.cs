@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RORMod.Content.Artifacts;
 using RORMod.Content.Elites;
 using RORMod.NPCs;
+using RORMod.Projectiles;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -121,10 +122,10 @@ namespace RORMod
         {
             return npc.GetGlobalProjectile<ArtifactProj>();
         }
-        //public static RORProjectile ROR(this Projectile npc)
-        //{
-        //    return npc.GetGlobalProjectile<RORProjectile>();
-        //}
+        public static RORProjectile ROR(this Projectile projectile)
+        {
+            return projectile.GetGlobalProjectile<RORProjectile>();
+        }
 
         public static ArtifactNPC Artifacts(this NPC npc)
         {
