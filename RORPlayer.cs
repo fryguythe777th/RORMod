@@ -655,7 +655,7 @@ namespace RORMod
                 BleedingDebuff.AddStack(target, 300, 1);
                 target.netUpdate = true;
             }
-            if (accTriTipDagger && Player.RollLuck(10) == 0)
+            if (accTriTipDagger && ProcRate() && Player.RollLuck(10) == 0)
             {
                 BleedingDebuff.AddStack(target, 180, 1);
             }
