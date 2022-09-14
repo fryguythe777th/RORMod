@@ -20,6 +20,7 @@ Mods: {
 			LensMakersGlasses: Lens-Maker's Glasses
 			RollOfPennies: Roll of Pennies
 			StickyExplosives: Sticky Explosives
+			BackupMagazine: Backup Magazine
 
 			DeathMark: Death Mark
 
@@ -27,6 +28,7 @@ Mods: {
 
 			Shatterspleen: Shatterspleen
 
+			BisonSteak: Bison Steak
 			RustedKey: Rusted Key
 			PowerElixir: Power Elixir
 
@@ -93,6 +95,10 @@ Mods: {
 				Randomly apply a sticky bomb to enemies
 				Deals 125% extra damage
 				'''
+			BackupMagazine: {
+				$parentVal: 10% chance to not consume ammo
+				KeybindTooltip: Allows you to swap between ammo using {Keybind}
+			}
 
 			DeathMark:
 				'''
@@ -113,6 +119,7 @@ Mods: {
 				Any enemy that dies with this Bleeding will erupt into a bloody explosion
 				'''
 			
+			BisonSteak: "{$CommonItemTooltip.MajorStats}"
 			RustedKey: Unlocks rusty lockboxes, keep in your inventory to reveal them
 			PowerElixir: 
 				'''
@@ -236,6 +243,7 @@ Mods: {
 		MalachiteElite: Malachite
 		CelestineElite: Celestine
 
+		UnboundKey: Unbound Key
 		Revived: REVIVED!
 		Blocked: BLOCKED!
 	}

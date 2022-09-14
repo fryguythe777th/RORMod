@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RORMod
@@ -26,6 +28,25 @@ namespace RORMod
 
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
+
+        public static string GetKeyName(ModKeybind keybind)
+        {
+            var s = keybind.GetAssignedKeys();
+            if (s.Count == 0)
+            {
+                return Language.GetTextValue("Mods.RORMod.UnboundKey");
+            }
+            return s[0];
+        }
+
+        public static void GetItemDrawData(int item, out Rectangle frame)
+        {
+            frame = Main.itemAnimations[item] == null ? TextureAssets.Item[item].Value.Frame() : Main.itemAnimations[item].GetFrame(TextureAssets.Item[item].Value);
+        }
+        public static void GetItemDrawData(this Item item, out Rectangle frame)
+        {
+            GetItemDrawData(item.type, out frame);
+        }
 
         public static bool IsElite(this NPC npc)
         {

@@ -18,7 +18,7 @@ namespace RORMod.Projectiles.Misc
             Projectile.width = 8;
             Projectile.height = 8;
             Projectile.aiStyle = -1;
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 120;
             Projectile.tileCollide = false;
         }
 
@@ -26,6 +26,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (AttatchedNPC == -1 || !Main.npc[AttatchedNPC].active)
             {
+                Projectile.Kill();
                 Projectile.ai[0] = -1f;
                 if (Projectile.ai[1] != 0f)
                 {
@@ -43,8 +44,8 @@ namespace RORMod.Projectiles.Misc
             {
                 Projectile.ai[1] = Vector2.Normalize(npcCenter - Projectile.Center).ToRotation();
             }
-            Projectile.Center = npcCenter - Projectile.ai[1].ToRotationVector2() * Main.npc[AttatchedNPC].frame.Size() / 2f;
-            Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver2;
+            Projectile.Center = npcCenter - ((Projectile.ai[1]).ToRotationVector2() * Main.npc[AttatchedNPC].frame.Size() / 2f).RotatedBy(Main.npc[AttatchedNPC].rotation);
+            Projectile.rotation = Projectile.ai[1] + Main.npc[AttatchedNPC].rotation - MathHelper.PiOver2;
             Projectile.frameCounter++;
             if (Projectile.frameCounter > Projectile.timeLeft / 4)
             {
@@ -55,7 +56,12 @@ namespace RORMod.Projectiles.Misc
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, new Vector2(-Main.npc[AttatchedNPC].direction * 0.01f, 0f), ModContent.ProjectileType<StickyExplosivesExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            var velo = Vector2.Zero;
+            if (AttatchedNPC != -1)
+            {
+                velo = new Vector2(-Main.npc[AttatchedNPC].direction * 0.01f, 0f);
+            }
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, velo, ModContent.ProjectileType<StickyExplosivesExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

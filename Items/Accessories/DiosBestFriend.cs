@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -23,12 +24,21 @@ namespace RORMod.Items.Accessories
             Item.value = Item.sellPrice(gold: 5);
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            if (Main.LocalPlayer.ROR().diosCooldown > 0)
+            {
+                byte a = lightColor.A;
+                return (lightColor * 0.5f).UseA(a);
+            }
+            return null;
+        }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Main.LocalPlayer.difficulty == PlayerDifficultyID.Hardcore)
             {
-                int line = RORItem.GetIndex(tooltips, "Consumable");
-                tooltips.Insert(line, new TooltipLine(Mod, "Consumable", Language.GetTextValue("LegacyTooltip.35")));
+                tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable", Language.GetTextValue("LegacyTooltip.35")));
             }
         }
 

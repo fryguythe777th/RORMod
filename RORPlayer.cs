@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
@@ -7,11 +8,13 @@ using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
 using RORMod.UI;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -22,10 +25,17 @@ namespace RORMod
     {
         public const int ShieldRegenerationTime = 300;
 
+        public static ModKeybind AmmoSwapKey { get; private set; }
+
         public static bool SpawnHack;
         public static byte DifficultyHack;
 
         public float procRate;
+
+        public float backupMagazine;
+
+        public bool ammoSwap;
+        public bool ammoSwapVisible;
 
         public bool accStickyBomb;
 
@@ -90,11 +100,36 @@ namespace RORMod
 
         public override void Load()
         {
+            AmmoSwapKey = RegisterKeybind("Backup Magazine Swap", "MouseRight");
             On.Terraria.Player.UpdateDead += Player_UpdateDead;
             On.Terraria.Player.CheckSpawn += Player_CheckSpawn;
             On.Terraria.Player.FindSpawn += Player_FindSpawn;
             On.Terraria.Player.DropTombstone += Player_DropTombstone;
             On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
+        }
+
+        private ModKeybind RegisterKeybind(string name, string defaultKey)
+        {
+            var key = KeybindLoader.RegisterKeybind(Mod, name, defaultKey);
+            return key;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                //AutoAssignTest("Backup Magazine Swap", "MouseRight");
+            }
+        }
+
+        private void AutoAssignTest(string name, string defaultKey)
+        {
+            var fullName = $"{Mod.Name}: {name}";
+            var keyboardInputMode = PlayerInput.CurrentProfile.InputModes[InputMode.Keyboard];
+            if (!keyboardInputMode.KeyStatus.ContainsKey(fullName) || keyboardInputMode.KeyStatus[fullName] == null || keyboardInputMode.KeyStatus[fullName].Count == 0)
+            {
+                keyboardInputMode.KeyStatus[fullName] = new List<string> { defaultKey.ToString() };
+            }
         }
 
         private static void LegacyPlayerRenderer_DrawPlayers(On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.orig_DrawPlayers orig, Terraria.Graphics.Renderers.LegacyPlayerRenderer self, Terraria.Graphics.Camera camera, System.Collections.Generic.IEnumerable<Player> players)
@@ -273,6 +308,9 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            backupMagazine = 0f;
+            ammoSwap = false;
+            ammoSwapVisible = false;
             procRate = 1f;
             accStickyBomb = false;
             if (diosCooldown > 0)
@@ -311,6 +349,53 @@ namespace RORMod
             accPennies = false;
 
             SpawnHack = false;
+        }
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (ammoSwap && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
+            {
+                ProcessAmmoSwap();
+            }
+        }
+
+        public void ProcessAmmoSwap()
+        {
+            var heldItem = Player.HeldItem;
+
+            if (heldItem.useAmmo == 0)
+            {
+                return;
+            }
+
+            Item siftDownItem = null;
+            for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
+            {
+                if (Player.inventory[i].IsAir || Player.inventory[i].ammo != heldItem.useAmmo)
+                    continue;
+
+                if (siftDownItem == null)
+                {
+                    siftDownItem = Player.inventory[i];
+                    continue;
+                }
+                Utils.Swap(ref Player.inventory[i], ref siftDownItem);
+            }
+
+            if (siftDownItem == null)
+                return;
+
+            SoundEngine.PlaySound(RORMod.GetSound("backupmagazine"), Player.Center);
+
+            for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
+            {
+                if (Player.inventory[i].IsAir || Player.inventory[i].ammo != heldItem.useAmmo)
+                    continue;
+                Utils.Swap(ref Player.inventory[i], ref siftDownItem);
+                break;
+            }
+            ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
+            ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
         }
 
         public override void UpdateLifeRegen()
@@ -404,6 +489,19 @@ namespace RORMod
                 var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
                 if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
                 {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<SmallChest>(), 0, 0f, Player.whoAmI);
+                    break;
+                }
+            }
+        }
+
+        public void SpawnSmallChest()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
+                if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
+                {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<RustyLockbox>(), 0, 0f, Player.whoAmI);
                     break;
                 }
@@ -414,6 +512,10 @@ namespace RORMod
         {
             if (Main.myPlayer == Player.whoAmI)
             {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(200) == 0)
+                {
+                    SpawnSmallChest();
+                }
                 if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(120) == 0)
                 {
                     SpawnRustedLockbox();
@@ -628,6 +730,11 @@ namespace RORMod
             }
         }
 
+        public override bool CanConsumeAmmo(Item weapon, Item ammo)
+        {
+            return Player.RollLuck(100) > (int)(backupMagazine * 100f);
+        }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             OnHitEffects(target, damage, knockback, crit);
@@ -640,7 +747,7 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (accStickyBomb && ProcRate() && Player.RollLuck(10) == 0)
+            if (accStickyBomb && ProcRate() )
             {
                 Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, 
                     ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);

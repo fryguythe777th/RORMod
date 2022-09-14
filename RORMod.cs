@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using RORMod.Content;
 using RORMod.NPCs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -21,15 +22,41 @@ namespace RORMod
 
         public static RORMod Instance { get; private set; }
 
+        public static List<(Func<bool>, float)> PriceModifiers { get; private set; }
+
         public static Color BossSummonMessage => new Color(175, 75, 255, 255);
 
         public override void Load()
         {
             Instance = this;
+            PriceModifiers = new List<(Func<bool>, float)>()
+            {
+                (() => NPC.downedBoss1, 2f),
+                (() => NPC.downedBoss2, 2f),
+                (() => NPC.downedBoss3, 2f),
+                (() => NPC.downedQueenBee, 1.5f),
+                (() => NPC.downedSlimeKing, 1.5f),
+                (() => NPC.downedDeerclops, 1.5f),
+                (() => NPC.downedMechBossAny, 2f),
+                (() => NPC.downedMechBoss1, 2f),
+                (() => NPC.downedMechBoss2, 2f),
+                (() => NPC.downedMechBoss3, 2f),
+                (() => NPC.downedQueenSlime, 2f),
+                (() => NPC.downedPlantBoss, 4f),
+                (() => NPC.downedGolemBoss, 2f),
+                (() => NPC.downedFishron, 2f),
+                (() => NPC.downedEmpressOfLight, 2f),
+                (() => NPC.downedAncientCultist, 2f),
+                (() => NPC.downedGoblins, 1.25f),
+                (() => NPC.downedPirates, 1.25f),
+                (() => NPC.downedMartians, 2f),
+            };
         }
 
         public override void Unload()
         {
+            PriceModifiers?.Clear();
+            PriceModifiers = null;
             Instance = null;
         }
 
