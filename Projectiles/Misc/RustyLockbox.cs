@@ -4,7 +4,9 @@ using ReLogic.Content;
 using RORMod.Items;
 using RORMod.Items.Consumable;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RORMod.Projectiles.Misc
@@ -15,6 +17,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (Main.mouseRight && Main.mouseRightRelease && player.ConsumeItem(ModContent.ItemType<RustedKey>()))
             {
+                SoundEngine.PlaySound(SoundID.Unlock, Main.MouseWorld);
                 OpenChest(player);
                 return;
             }
@@ -63,6 +66,20 @@ namespace RORMod.Projectiles.Misc
             {
                 Main.EntitySpriteDraw(ModContent.Request<Texture2D>($"{Texture}Aura", AssetRequestMode.ImmediateLoad).Value, drawCoords, null, lightColor * 2f, Projectile.rotation,
                     origin, Projectile.scale, effects, 0);
+            }
+
+            if (Projectile.localAI[0] > 0f)
+            {
+                Main.spriteBatch.End();
+                Helpers.BeginShader_GeneralEntities(Main.spriteBatch);
+                Helpers.ColorOnlyShader.Apply(Projectile);
+                foreach (var c in Helpers.CircularVector(4, Projectile.rotation))
+                {
+                    Main.spriteBatch.Draw(texture, drawCoords + c * 2f, frame, Main.OurFavoriteColor * 0.8f, Projectile.rotation,
+                        origin, Projectile.scale, effects, 0);
+                }
+                Main.spriteBatch.End();
+                Helpers.Begin_GeneralEntities(Main.spriteBatch);
             }
 
             Main.EntitySpriteDraw(texture, drawCoords, frame, lightColor, Projectile.rotation,

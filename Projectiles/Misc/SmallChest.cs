@@ -6,9 +6,11 @@ using RORMod.Items.Consumable;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace RORMod.Projectiles.Misc
 {
@@ -44,7 +46,7 @@ namespace RORMod.Projectiles.Misc
 
         public virtual int GetCoinPrice()
         {
-            int basePrice = Item.sellPrice(silver: 25);
+            int basePrice = Item.buyPrice(silver: 25);
             if (Main.expertMode)
             {
                 basePrice *= 2;
@@ -71,8 +73,10 @@ namespace RORMod.Projectiles.Misc
         public virtual void UpdateHover(Player player)
         {
             int price = GetCoinPrice();
-            if (Main.mouseRight && Main.mouseRightRelease && player.ConsumeItem(ModContent.ItemType<RustedKey>()))
+            if (Main.mouseRight && Main.mouseRightRelease && player.BuyItem(price))
             {
+                SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-0.5f), Main.MouseWorld);
+                SoundEngine.PlaySound(SoundID.Coins, Main.MouseWorld);
                 OpenChest(player);
                 return;
             }
@@ -111,6 +115,16 @@ namespace RORMod.Projectiles.Misc
             Projectile.velocity.Y += 0.3f;
             if ((int)Projectile.ai[0] == 3)
             {
+                if (Projectile.localAI[0] > 2f)
+                {
+                    Projectile.localAI[0] = 2f;
+                }
+                else if (Projectile.localAI[0] > 0f)
+                {
+                    Projectile.localAI[0]--;
+                    if (Projectile.localAI[0] < 0f)
+                        Projectile.localAI[0] = 0f;
+                }
                 Projectile.frameCounter++;
                 Projectile.ai[1]++;
 
@@ -140,6 +154,8 @@ namespace RORMod.Projectiles.Misc
 
             if (Projectile.extraUpdates == 0 && Projectile.numUpdates == -1)
             {
+                Projectile.CollideWithOthers();
+                Projectile.velocity.X *= 0.9f;
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
                     if (Main.player[i].active && Projectile.Distance(Main.player[i].Center) < 2000f)
@@ -172,15 +188,31 @@ namespace RORMod.Projectiles.Misc
                 var hitbox = Projectile.getRect();
                 hitbox.X -= (int)Main.screenPosition.X;
                 hitbox.Y -= (int)Main.screenPosition.Y;
+                hitbox.Height += 12;
                 var tileCoords = Projectile.Center.ToTileCoordinates();
                 var plr = Main.LocalPlayer;
-                hovering = !plr.lastMouseInterface && !plr.mouseInterface && hitbox.Contains(Main.mouseX, Main.mouseY) && plr.IsInTileInteractionRange(tileCoords.X, tileCoords.Y);
+                hovering = !plr.mouseInterface && hitbox.Contains(Main.mouseX, Main.mouseY) && plr.IsInTileInteractionRange(tileCoords.X, tileCoords.Y);
                 if (hovering)
                 {
+                    plr.mouseInterface = true;
                     UpdateHover(plr);
                 }
-            }
 
+                if (hovering || Projectile.Distance(Main.LocalPlayer.Center) < 72f)
+                {
+                    Projectile.localAI[0]++;
+                }
+                else if (Projectile.localAI[0] > 2f)
+                {
+                    Projectile.localAI[0] = 2f;
+                }
+                else if (Projectile.localAI[0] > 0f)
+                {
+                    Projectile.localAI[0]--;
+                    if (Projectile.localAI[0] < 0f)
+                        Projectile.localAI[0] = 0f;
+                }
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -191,6 +223,11 @@ namespace RORMod.Projectiles.Misc
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
+            if (Projectile.localAI[0] > 0f)
+            {
+                overWiresUI.Add(index);
+                return;
+            }
             behindNPCsAndTiles.Add(index);
         }
 
@@ -203,11 +240,62 @@ namespace RORMod.Projectiles.Misc
             var effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             lightColor = Lighting.GetColor(Projectile.Center.ToTileCoordinates()) * Projectile.Opacity;
 
+            if (Projectile.localAI[0] > 0f)
+            {
+                Main.spriteBatch.End();
+                Helpers.BeginShader_GeneralEntities(Main.spriteBatch);
+                Helpers.ColorOnlyShader.Apply(Projectile);
+                foreach (var c in Helpers.CircularVector(4, Projectile.rotation))
+                {
+                    Main.spriteBatch.Draw(texture, drawCoords + c * 2f, frame, Main.OurFavoriteColor * 0.8f, Projectile.rotation,
+                        origin, Projectile.scale, effects, 0);
+                }
+                Main.spriteBatch.End();
+                Helpers.Begin_GeneralEntities(Main.spriteBatch);
+            }
+
             Main.EntitySpriteDraw(texture, drawCoords, frame, lightColor, Projectile.rotation,
                 origin, Projectile.scale, effects, 0);
-            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Glow", AssetRequestMode.ImmediateLoad).Value, drawCoords, frame, Color.White, Projectile.rotation,
+            Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Glow", AssetRequestMode.ImmediateLoad).Value, drawCoords, frame, Color.White * Projectile.Opacity, Projectile.rotation,
                 origin, Projectile.scale, effects, 0);
+
+            if (Projectile.localAI[0] > 0f)
+            {
+                var scale = new Vector2(1f);
+                var font = FontAssets.ItemStack.Value;
+                int price = GetCoinPrice();
+                var l = new List<string>();
+                if (price >= Item.platinum)
+                {
+                    l.Add($"{price / Item.platinum} platinum");
+                    price %= Item.platinum;
+                }
+                if (price >= Item.gold)
+                {
+                    l.Add($"{price / Item.gold} gold");
+                    price %= Item.gold;
+                }
+                if (price >= Item.silver)
+                {
+                    l.Add($"{price / Item.silver} silver");
+                    price %= Item.silver;
+                }
+                if (price >= Item.copper)
+                {
+                    l.Add($"{price} copper");
+                }
+                for (int i = 0; i < l.Count; i++)
+                {
+                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, l[i], 
+                        drawCoords - new Vector2(0f, frame.Height * 1.25f + 20f * (l.Count - i - 1)), Color.Yellow, (Color.Yellow * 0.2f).UseA(100), 0f, font.MeasureString(l[i]) / 2f, Vector2.One);
+                }
+            }
             return false;
+        }
+
+        public void DrawPriceText()
+        {
+
         }
     }
 }

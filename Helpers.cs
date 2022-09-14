@@ -4,11 +4,11 @@ using RORMod.Content.Artifacts;
 using RORMod.Content.Elites;
 using RORMod.NPCs;
 using RORMod.Projectiles;
+using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
-using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -17,6 +17,9 @@ namespace RORMod
 {
     public static class Helpers
     {
+        public static int ColorOnlyShaderIndex => ContentSamples.CommonlyUsedContentSamples.ColorOnlyShaderIndex;
+        public static ArmorShaderData ColorOnlyShader => GameShaders.Armor.GetSecondaryShader(ColorOnlyShaderIndex, Main.LocalPlayer);
+
         public static Color UseR(this Color color, int R) => new Color(R, color.G, color.B, color.A);
         public static Color UseR(this Color color, float R) => new Color((int)(R * 255), color.G, color.B, color.A);
 
@@ -28,6 +31,39 @@ namespace RORMod
 
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
+
+        public static void Begin_GeneralEntities(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+        }
+        public static void BeginShader_GeneralEntities(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+        }
+
+        public static void Begin_GeneralEntities(SpriteBatch spriteBatch, Matrix matrix)
+        {
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, matrix);
+        }
+        public static void BeginShader_GeneralEntities(SpriteBatch spriteBatch, Matrix matrix)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, matrix);
+        }
+
+        public static Vector2[] CircularVector(int amt, float angleAddition = 0f)
+        {
+            return Array.ConvertAll(Circular(amt, angleAddition), (f) => f.ToRotationVector2());
+        }
+        public static float[] Circular(int amt, float angleAddition = 0f)
+        {
+            var v = new float[amt];
+            float f = MathHelper.TwoPi / amt;
+            for (int i = 0; i < amt; i++)
+            {
+                v[i] = (f * i + angleAddition) % MathHelper.TwoPi;
+            }
+            return v;
+        }
 
         public static string GetKeyName(ModKeybind keybind)
         {
@@ -94,6 +130,15 @@ namespace RORMod
             return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
         }
 
+        public static float UnNaN(this float value, float set)
+        {
+            return float.IsNaN(value) ? set : value;
+        }
+        public static Vector2 UnNaN(this Vector2 value, float set)
+        {
+            return new Vector2(UnNaN(value.X, set), UnNaN(value.Y, set));
+        }
+
         public static float UnNaN(this float value)
         {
             return float.IsNaN(value) ? 0f : value;
@@ -111,7 +156,7 @@ namespace RORMod
                 if (Main.projectile[i].active && i != projectile.whoAmI && projectile.type == Main.projectile[i].type && projectile.owner == Main.projectile[i].owner
                     && projectile.Colliding(rect, Main.projectile[i].getRect()))
                 {
-                    projectile.velocity += Main.projectile[i].DirectionTo(projectile.Center).UnNaN() * speed;
+                    projectile.velocity += Main.projectile[i].DirectionTo(projectile.Center).UnNaN(1f) * speed;
                 }
             }
         }

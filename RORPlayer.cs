@@ -353,7 +353,7 @@ namespace RORMod
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (ammoSwap && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
+            if (ammoSwap && !Player.mouseInterface && !Player.lastMouseInterface && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
             {
                 ProcessAmmoSwap();
             }
@@ -368,6 +368,7 @@ namespace RORMod
                 return;
             }
 
+            int count = 0;
             Item siftDownItem = null;
             for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
             {
@@ -379,21 +380,24 @@ namespace RORMod
                     siftDownItem = Player.inventory[i];
                     continue;
                 }
+                count++;
                 Utils.Swap(ref Player.inventory[i], ref siftDownItem);
             }
 
-            if (siftDownItem == null)
+            if (count == 0)
                 return;
-
-            SoundEngine.PlaySound(RORMod.GetSound("backupmagazine"), Player.Center);
 
             for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
             {
                 if (Player.inventory[i].IsAir || Player.inventory[i].ammo != heldItem.useAmmo)
                     continue;
+                count++;
                 Utils.Swap(ref Player.inventory[i], ref siftDownItem);
                 break;
             }
+
+            SoundEngine.PlaySound(RORMod.GetSound("backupmagazine"), Player.Center);
+
             ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
             ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
         }
@@ -502,7 +506,7 @@ namespace RORMod
                 var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
                 if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<RustyLockbox>(), 0, 0f, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<SmallChest>(), 0, 0f, Player.whoAmI);
                     break;
                 }
             }
@@ -512,11 +516,11 @@ namespace RORMod
         {
             if (Main.myPlayer == Player.whoAmI)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(200) == 0)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(2400) == 0)
                 {
                     SpawnSmallChest();
                 }
-                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(120) == 0)
+                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(1200) == 0)
                 {
                     SpawnRustedLockbox();
                 }
