@@ -751,7 +751,7 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (accStickyBomb && ProcRate() )
+            if (accStickyBomb && !target.immortal && ProcRate() && Player.RollLuck(10) == 0)
             {
                 Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, 
                     ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);

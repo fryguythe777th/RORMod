@@ -78,7 +78,7 @@ namespace RORMod.Content
                 [NPCID.MoonLordHead] = new Vector2(0f, 70f),
                 [NPCID.MoonLordHand] = new Vector2(0f, 40f),
             };
-            //On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
+            On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
         }
 
         public override void Unload()
