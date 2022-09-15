@@ -21,6 +21,7 @@ Mods: {
 			RollOfPennies: Roll of Pennies
 			StickyExplosives: Sticky Explosives
 			BackupMagazine: Backup Magazine
+			Fireworks: Bundle of Fireworks
 
 			DeathMark: Death Mark
 
@@ -85,16 +86,13 @@ Mods: {
 			ArmorPiercingRounds: 10% increased damage against bosses
 			LensMakersGlasses: 5% increased critical strike chance
 			RollOfPennies: Recieve money when damaged
+			Fireworks: On kill, spawn a homing firework
 			OddlyShapedOpal: 
 				'''
 				Take reduced damage
 				When hit, recieve a 5 second cooldown on this effect
 				'''
-			StickyExplosives: 
-				'''
-				Randomly apply a sticky bomb to enemies
-				Deals 125% extra damage
-				'''
+			StickyExplosives: 10% chance to apply a sticky bomb to enemies
 			BackupMagazine: {
 				$parentVal: 10% chance to not consume ammo
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}
@@ -118,7 +116,7 @@ Mods: {
 				All critical strikes will inflict Bleeding to enemies
 				Any enemy that dies with this Bleeding will erupt into a bloody explosion
 				'''
-			
+
 			BisonSteak: "{$CommonItemTooltip.MajorStats}"
 			RustedKey: Unlocks rusty lockboxes, keep in your inventory to reveal them
 			PowerElixir: 

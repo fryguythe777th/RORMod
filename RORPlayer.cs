@@ -310,10 +310,6 @@ namespace RORMod
 
         public override void ResetEffects()
         {
-            backupMagazine = 0f;
-            ammoSwap = false;
-            ammoSwapVisible = false;
-            procRate = 1f;
             accStickyBomb = false;
             accTopazBrooch = false;
             accShieldGenerator = false;
@@ -331,6 +327,11 @@ namespace RORMod
 
             accWarbanner = null;
             accMonsterTooth = null;
+
+            backupMagazine = 0f;
+            ammoSwap = false;
+            ammoSwapVisible = false;
+            procRate = 1f;
 
             if (diosCooldown > 0)
             {
