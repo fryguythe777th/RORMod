@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Elites;
+using RORMod.Items.Accessories;
 using RORMod.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
@@ -203,6 +204,10 @@ namespace RORMod.NPCs
             {
                 ror.warbannerProgress_Enemies++;
                 //Main.NewText(ror.warbannerProgress_Enemies);
+            }
+            if (ror.accFireworks)
+            {
+                Projectile.NewProjectile(closest.GetSource_FromThis(), closest.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProjectile>(), Math.Clamp((int)(npc.lifeMax * 0.05), 20, 80), 0, closest.whoAmI, 40);
             }
         }
 
