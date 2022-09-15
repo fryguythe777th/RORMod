@@ -22,6 +22,7 @@ Mods: {
 			StickyExplosives: Sticky Explosives
 			BackupMagazine: Backup Magazine
 			Fireworks: Bundle of Fireworks
+			Crowbar: Crowbar
 
 			DeathMark: Death Mark
 
@@ -66,6 +67,7 @@ Mods: {
 			PaulsGoatHoof: Increased horizontal and vertical movement speed
 			CautiousSlug: Increases life regen when outside of battle
 			TougherTimes: 10% chance to dodge attacks
+			Crowbar: Deal more damage to enemies above 90% HP
 			Medkit:
 				'''
 				After getting hurt, recieve a delayed heal

@@ -78,6 +78,7 @@ namespace RORMod
         public bool accTriTipDagger;
         public bool accPennies;
         public bool accFireworks;
+        public bool accCrowbar;
 
         public bool accOpal;
         public int opalShieldTimer;
@@ -322,6 +323,7 @@ namespace RORMod
             accOpal = false;
             accPennies = false;
             accFireworks = false;
+            accCrowbar = false;
 
             accDiosBestFriend = 0;
 
@@ -806,6 +808,10 @@ namespace RORMod
             if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
             {
                 damage = (int)(damage * bossDamageMultiplier);
+            }
+            if (accCrowbar && target.life * 10 < target.lifeMax * 9)
+            {
+                damage = (int)(damage * 1.25);
             }
         }
     }
