@@ -13,7 +13,7 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 26;
+            Item.width = 28;
             Item.height = 24;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
