@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class Crowbar : ModItem
+    public class DelicateWatch : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -22,7 +22,11 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accCrowbar = true;
+            player.accWatch = 3;
+            if (player.statLife > (player.statLifeMax / 2))
+            {
+                player.GetDamage(DamageClass.Generic) *= 1.2f;
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ Mods: {
 			BackupMagazine: Backup Magazine
 			Fireworks: Bundle of Fireworks
 			Crowbar: Crowbar
+			DelicateWatch: Delicate Watch
 
 			DeathMark: Death Mark
 
@@ -89,6 +90,7 @@ Mods: {
 			LensMakersGlasses: 5% increased critical strike chance
 			RollOfPennies: Recieve money when damaged
 			Fireworks: On kill, spawn a homing firework
+			DelicateWatch: Increased damage when above half health
 			OddlyShapedOpal: 
 				'''
 				Take reduced damage
