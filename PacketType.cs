@@ -5,5 +5,6 @@
         SyncRORNPC,
         TougherTimesDodge,
         SyncRORPlayer,
+        OnKillEffect,
     }
 }

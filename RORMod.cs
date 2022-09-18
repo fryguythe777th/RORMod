@@ -100,6 +100,12 @@ namespace RORMod
                         Main.player[reader.ReadInt32()].ROR().RecieveChanges(reader);
                     }
                     break;
+
+                case PacketType.OnKillEffect:
+                    {
+                        Main.player[reader.ReadInt32()].ROR().OnKillEffect(reader.ReadInt32(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadByte());
+                    }
+                    break;
             }
         }
 

@@ -153,6 +153,8 @@ namespace RORMod.Content
                     DrawMixedThemeHB(npcContext, new Vector2(X, Y), scale);
                     break;
             }
+            npcContext = null;
+            instanceContext = null;
         }
 
         public override void AI(NPC npc)

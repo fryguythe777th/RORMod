@@ -1,33 +1,11 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Projectiles.Misc
 {
-    public class Fireworks : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            SacrificeTotal = 1;
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 24;
-            Item.height = 38;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
-        }
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.ROR().accFireworks = true;
-        }
-    }
-
-    public class FireworksProjectile : ModProjectile
+    public class FireworksProj : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -68,8 +46,11 @@ namespace RORMod.Items.Accessories
 
         public override void Kill(int timeLeft)
         {
-            int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.RocketFireworkRed, Projectile.damage, 1);
-            Main.projectile[p].timeLeft = 1;
+            if (Main.myPlayer == Projectile.owner)
+            {
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.RocketFireworkRed + Main.rand.Next(4), Projectile.damage, 1);
+                Main.projectile[p].timeLeft = 1;
+            }
         }
     }
 }

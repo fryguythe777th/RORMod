@@ -18,8 +18,11 @@ namespace RORMod.Content.Elites
         protected bool active;
         public virtual bool Active { get => active; set => active = value; }
 
+        public byte NetID { get; private set; }
+
         public override void SetStaticDefaults()
         {
+            NetID = (byte)RORNPC.RegisteredElites.Count;
             RORNPC.RegisteredElites.Add(this);
         }
 

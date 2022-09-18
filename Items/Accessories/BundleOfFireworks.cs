@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories
 {
-    public class DelicateWatch : ModItem
+    public class BundleOfFireworks : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,8 +13,8 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 24;
+            Item.width = 24;
+            Item.height = 38;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
@@ -22,11 +22,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.accWatch = 3;
-            if (player.statLife > (player.statLifeMax / 2))
-            {
-                player.GetDamage(DamageClass.Generic) += 0.2f;
-            }
+            player.ROR().accFireworks = Item;
         }
     }
 }

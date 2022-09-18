@@ -19,6 +19,7 @@ namespace RORMod.NPCs
     {
         public byte bleedingStacks;
         public bool bleedShatterspleen;
+        public bool syncLifeMax;
 
         public int statDefense;
 
@@ -189,29 +190,35 @@ namespace RORMod.NPCs
                 return;
 
             var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
-            var ror = closest.ROR();
-            if (bleedShatterspleen)
+
+            var bb = new BitsByte(bleedShatterspleen);
+            for (int i = 0; i < Main.maxPlayers; i++)
             {
-                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionFrom(closest.Center) * 0.1f,
-                    ModContent.ProjectileType<ShatterspleenExplosion>(), npc.lifeMax / 4, 6f, closest.whoAmI);
-            }
-            if (ror.accMonsterTooth != null)
-            {
-                Projectile.NewProjectile(closest.GetSource_Accessory(ror.accMonsterTooth), npc.Center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, closest.whoAmI);
-            }
-            if (ror.accTopazBrooch)
-            {
-                ror.barrier = Math.Min(ror.barrier + 15f / closest.statLifeMax2, 1f);
-                closest.statLife += 15;
-            }
-            if (ror.accWarbanner != null)
-            {
-                ror.warbannerProgress_Enemies++;
-                //Main.NewText(ror.warbannerProgress_Enemies);
-            }
-            if (ror.accFireworks)
-            {
-                Projectile.NewProjectile(closest.GetSource_FromThis(), closest.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProjectile>(), Math.Clamp((int)(npc.lifeMax * 0.05), 20, 80), 0, closest.whoAmI, 40);
+                if (npc.playerInteraction[i])
+                {
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, bb);
+                        continue;
+                    }
+
+                    var p = RORMod.GetPacket(PacketType.OnKillEffect);
+                    p.Write(i);
+                    p.Write(npc.netID);
+                    p.WriteVector2(npc.position);
+                    p.Write(npc.width);
+                    p.Write(npc.height);
+                    p.Write(npc.lifeMax);
+                    if (closest.whoAmI == i)
+                    {
+                        p.Write(bb);
+                    }
+                    else
+                    {
+                        p.Write((byte)0);
+                    }
+                    p.Send(toClient: i);
+                }
             }
         }
 
@@ -222,7 +229,6 @@ namespace RORMod.NPCs
                 drawConfused = npc.confused;
                 npc.confused = false; // Disables the confused debuff from drawing
             }
-
             return true;
         }
 
@@ -238,8 +244,20 @@ namespace RORMod.NPCs
         {
             writer.Write(bleedingStacks);
 
-            var bb = new BitsByte(bleedShatterspleen);
+            var bb = new BitsByte(bleedShatterspleen, syncLifeMax);
             writer.Write(bb);
+
+            if (syncLifeMax)
+            {
+                writer.Write(Main.npc[whoAmI].lifeMax);
+            }
+
+            Main.npc[whoAmI].GetElitePrefixes(out var prefixes);
+            writer.Write((byte)prefixes.Count);
+            for (int i = 0; i < prefixes.Count; i++)
+            {
+                writer.Write(prefixes[i].NetID);
+            }
         }
 
         public void Receive(int whoAmI, BinaryReader reader)
@@ -248,6 +266,17 @@ namespace RORMod.NPCs
 
             var bb = (BitsByte)reader.ReadByte();
             bleedShatterspleen = bb[0];
+
+            if (bb[1])
+            {
+                Main.npc[whoAmI].lifeMax = reader.ReadInt32();
+            }
+
+            int elitePrefixesCount = reader.ReadByte();
+            for (int i = 0; i < elitePrefixesCount; i++)
+            {
+                Main.npc[whoAmI].GetGlobalNPC(RegisteredElites[reader.ReadByte()]).Active = true;
+            }
         }
 
         public static void Sync(int npc)

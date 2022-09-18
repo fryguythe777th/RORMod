@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using RORMod.NPCs;
+﻿using RORMod.NPCs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -60,7 +58,7 @@ namespace RORMod.Content.Elites
                     npc.GetGlobalNPC(p).Active = true;
                 }
             }
-            else if (!npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())
+            else if (Main.netMode != NetmodeID.MultiplayerClient && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())
             {
                 var l = new List<EliteNPC>(RORNPC.RegisteredElites);
                 while (l.Count > 0)
@@ -75,6 +73,11 @@ namespace RORMod.Content.Elites
                 }
             }
             npc.GetElitePrefixes(out var myPrefixes);
+            if (myPrefixes.Count > 0)
+            {
+                npc.netUpdate = true;
+                npc.ROR().syncLifeMax = true;
+            }
             foreach (var p in myPrefixes)
             {
                 p.OnBecomeElite(npc);

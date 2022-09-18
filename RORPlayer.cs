@@ -73,12 +73,12 @@ namespace RORMod
         public bool accTopazBrooch;
         public bool accShieldGenerator;
         public bool accDeathMark;
-        public bool accShatterspleen;
+        public Item accShatterspleen;
         public bool accMedkit;
         public bool accTougherTimes;
         public bool accTriTipDagger;
         public bool accPennies;
-        public bool accFireworks;
+        public Item accFireworks;
         public bool accCrowbar;
 
         public bool accOpal;
@@ -318,13 +318,13 @@ namespace RORMod
             accShieldGenerator = false;
             accGlubby = false;
             accDeathMark = false;
-            accShatterspleen = false;
+            accShatterspleen = null;
             accMedkit = false;
             accTougherTimes = false;
             accTriTipDagger = false;
             accOpal = false;
             accPennies = false;
-            accFireworks = false;
+            accFireworks = null;
             accCrowbar = false;
 
             accDiosBestFriend = 0;
@@ -703,22 +703,6 @@ namespace RORMod
                 if (opalShieldTimer == -1)
                     opalShieldTimer = 0;
             }
-            if (accPennies)
-            {
-                int[] coins = Utils.CoinsSplit(50 * (int)damage);
-
-                if (coins[0] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.CopperCoin, coins[0]);
-
-                if (coins[1] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.SilverCoin, coins[1]);
-
-                if (coins[2] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.GoldCoin, coins[2]);
-
-                if (coins[3] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, coins[3]);
-            }
             if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
             {
                 CheckElixir();
@@ -748,6 +732,28 @@ namespace RORMod
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
             return Player.RollLuck(100) > (int)(backupMagazine * 100f);
+        }
+
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+        }
+
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+        }
+
+        public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
+            {
+                damage = (int)(damage * bossDamageMultiplier);
+            }
+            if (accCrowbar && target.life * 10 < target.lifeMax * 9)
+            {
+                damage = (int)(damage * 1.25);
+            }
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -792,7 +798,7 @@ namespace RORMod
                     }
                 }
             }
-            if (accShatterspleen && crit)
+            if (accShatterspleen != null && crit)
             {
                 target.GetGlobalNPC<RORNPC>().bleedShatterspleen = true;
                 BleedingDebuff.AddStack(target, 300, 1);
@@ -804,25 +810,60 @@ namespace RORMod
             }
         }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+            UseRollOfPennies(damage);
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+            UseRollOfPennies(damage);
         }
 
-        public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
+        public void UseRollOfPennies(int damage)
         {
-            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
+            if (accPennies)
             {
-                damage = (int)(damage * bossDamageMultiplier);
+                int[] coins = Utils.CoinsSplit(50 * (int)damage);
+
+                if (coins[0] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.CopperCoin, coins[0]);
+
+                if (coins[1] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.SilverCoin, coins[1]);
+
+                if (coins[2] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.GoldCoin, coins[2]);
+
+                if (coins[3] > 0)
+                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, coins[3]);
             }
-            if (accCrowbar && target.life * 10 < target.lifeMax * 9)
+        }
+
+        public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, BitsByte miscInfo)
+        {
+            var center = position + new Vector2(width, height) / 2f;
+            if (accMonsterTooth != null)
             {
-                damage = (int)(damage * 1.25);
+                Projectile.NewProjectile(Player.GetSource_Accessory(accMonsterTooth), center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, Player.whoAmI);
+            }
+            if (accTopazBrooch)
+            {
+                barrier = Math.Min(barrier + 15f / Player.statLifeMax2, 1f);
+                Player.statLife += 15;
+            }
+            if (accWarbanner != null)
+            {
+                warbannerProgress_Enemies++;
+            }
+            if (accFireworks != null)
+            {
+                Projectile.NewProjectile(Player.GetSource_Accessory(accFireworks), Player.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProj>(), Math.Clamp((int)(lifeMax * 0.05), 20, 80), 0, Player.whoAmI, 40);
+            }
+            if (miscInfo[0])
+            {
+                Projectile.NewProjectile(Player.GetSource_Accessory(accShatterspleen), center, Vector2.Normalize(center - Player.Center) * 0.1f,
+                    ModContent.ProjectileType<ShatterspleenExplosion>(), lifeMax / 4, 6f, Player.whoAmI);
             }
         }
     }

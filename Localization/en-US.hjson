@@ -90,9 +90,9 @@ Mods: {
 			ArmorPiercingRounds: 10% increased damage against bosses
 			LensMakersGlasses: 5% increased critical strike chance
 			RollOfPennies: Recieve money when damaged
-			Fireworks: On kill, spawn a homing firework
-			DelicateWatch: Increased damage when above half health
-			OddlyShapedOpal: 
+			BundleOfFireworks: Release a homing firework when killing an enemy
+			DelicateWatch: 20% increased damage when above half health
+			OddlyShapedOpal:
 				'''
 				Take reduced damage
 				When hit, recieve a 5 second cooldown on this effect

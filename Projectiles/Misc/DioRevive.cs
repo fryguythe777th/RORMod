@@ -50,7 +50,10 @@ namespace RORMod.Projectiles.Misc
             }
             if ((int)Projectile.ai[0] == 0)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - new Vector2(0f, 240f), new Vector2(0f, 0f), Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 1f);                
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - new Vector2(0f, 240f), new Vector2(0f, 0f), Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 1f);
+                }                
                 Projectile.velocity = new Vector2(0f, -3.5f);
                 Projectile.position.Y += 20f;
                 Projectile.ai[0] = 2f;
