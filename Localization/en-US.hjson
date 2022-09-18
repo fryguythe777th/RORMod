@@ -24,6 +24,7 @@ Mods: {
 			Fireworks: Bundle of Fireworks
 			Crowbar: Crowbar
 			DelicateWatch: Delicate Watch
+			StunGrenade: Stun Grenade
 
 			DeathMark: Death Mark
 
@@ -97,6 +98,7 @@ Mods: {
 				When hit, recieve a 5 second cooldown on this effect
 				'''
 			StickyExplosives: 10% chance to apply a sticky bomb to enemies
+			StunGrenade: 10% chance to encompass enemies in defense reducing smoke
 			BackupMagazine: {
 				$parentVal: 10% chance to not consume ammo
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}

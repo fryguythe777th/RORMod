@@ -62,8 +62,12 @@ namespace RORMod.NPCs
                 NPCID.DD2OgreT2,
                 NPCID.DD2OgreT3,
             };
-            RegisteredElites = new List<EliteNPC>();
-            On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
+
+            if (Main.gameMenu)
+            {
+                RegisteredElites = new List<EliteNPC>();
+                On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
+            }
         }
 
         public static int NPC_checkArmorPenetration(On.Terraria.NPC.orig_checkArmorPenetration orig, NPC self, int armorPenetration)
@@ -101,7 +105,7 @@ namespace RORMod.NPCs
             {
                 if (Main.GameUpdateCount % 20 == 0)
                 {
-                    var d =Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
+                    var d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
                     d.velocity.X *= 0.5f;
                     SoundEngine.PlaySound(RORMod.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
                 }
@@ -134,19 +138,6 @@ namespace RORMod.NPCs
             }
         }
 
-        public override void ModifyTypeName(NPC npc, ref string typeName)
-        {
-            string prefixes = "";
-            npc.GetElitePrefixes(out var list);
-            foreach (var e in list)
-            {
-                if (!string.IsNullOrEmpty(prefixes))
-                    prefixes += ", ";
-                prefixes += e.Prefix;
-            }
-            typeName = prefixes + " " + typeName;
-        }
-
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             ModifiyHit(npc, ref damage, ref knockback, ref crit);
@@ -172,7 +163,7 @@ namespace RORMod.NPCs
         {
             CheckWarbannerBossProgress(npc, damage);
         }
-
+        
         public void CheckWarbannerBossProgress(NPC npc, int damage)
         {
             if (!npc.boss)
@@ -201,7 +192,7 @@ namespace RORMod.NPCs
             var ror = closest.ROR();
             if (bleedShatterspleen)
             {
-                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionFrom(closest.Center) * 0.1f, 
+                Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, npc.DirectionFrom(closest.Center) * 0.1f,
                     ModContent.ProjectileType<ShatterspleenExplosion>(), npc.lifeMax / 4, 6f, closest.whoAmI);
             }
             if (ror.accMonsterTooth != null)
@@ -226,23 +217,12 @@ namespace RORMod.NPCs
 
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            npc.GetElitePrefixes(out var list);
-            foreach (var e in list)
-            {
-                var npcE = npc.GetGlobalNPC(e);
-                if (npcE.Active)
-                {
-                    spriteBatch.End();
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
-                    npcE.Shader.Apply(npc);
-                    break;
-                }
-            }
             if (ClientConfig.Instance.EnemyHBState != EnemyHealthBar.State.Vanilla)
             {
                 drawConfused = npc.confused;
                 npc.confused = false; // Disables the confused debuff from drawing
             }
+
             return true;
         }
 

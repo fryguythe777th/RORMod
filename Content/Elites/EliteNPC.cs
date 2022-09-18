@@ -1,4 +1,5 @@
 ﻿using RORMod.NPCs;
+using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -20,6 +21,24 @@ namespace RORMod.Content.Elites
         public override void SetStaticDefaults()
         {
             RORNPC.RegisteredElites.Add(this);
+        }
+
+        public virtual bool CanRoll(NPC npc)
+        {
+            return true;
+        }
+
+        public virtual int RollChance(NPC npc)
+        {
+            return (Main.hardMode ? 25 : 50) * (!Main.expertMode ? 2 : 1);
+        }
+
+        public void OnBecomeElite(NPC npc)
+        {
+            npc.lifeMax = (int)(npc.lifeMax * 4f);
+            npc.life = (int)(npc.life * 4f);
+            npc.damage = (int)(npc.damage * 2f);
+            npc.npcSlots *= 4f;
         }
     }
 }

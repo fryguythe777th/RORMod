@@ -7,6 +7,7 @@ using RORMod.Projectiles;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -82,6 +83,36 @@ namespace RORMod
         public static void GetItemDrawData(this Item item, out Rectangle frame)
         {
             GetItemDrawData(item.type, out frame);
+        }
+
+        public static bool HereditarySource(IEntitySource source, out Entity entity)
+        {
+            entity = null;
+            if (source == null)
+            {
+                return false;
+            }
+            if (source is EntitySource_OnHit onHit)
+            {
+                entity = onHit.EntityStruck;
+                return true;
+            }
+            else if (source is EntitySource_Parent parent)
+            {
+                entity = parent.Entity;
+                return true;
+            }
+            else if (source is EntitySource_HitEffect hitEffect)
+            {
+                entity = hitEffect.Entity;
+                return true;
+            }
+            else if (source is EntitySource_Death death)
+            {
+                entity = death.Entity;
+                return true;
+            }
+            return false;
         }
 
         public static bool IsElite(this NPC npc)

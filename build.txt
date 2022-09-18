@@ -1,6 +1,6 @@
-displayName = Risk of Rain Mod
-author = Nalyd T, fryguythe777th, Triangle, and niker
-version = 0.1
+displayName = [c/f9b2fc:Risk of Terrain]
+author = The ROT Dev Team
+version = 1.0
 homepage = https://discord.gg/kQaA5kY9BA
 hideResources = true
 hideCode = false

@@ -527,11 +527,11 @@ namespace RORMod
         {
             if (Main.myPlayer == Player.whoAmI)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(2400) == 0)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(4800) == 0)
                 {
                     SpawnSmallChest();
                 }
-                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(1200) == 0)
+                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(2000) == 0)
                 {
                     SpawnRustedLockbox();
                 }

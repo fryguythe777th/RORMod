@@ -13,7 +13,7 @@ namespace RORMod.Buffs.Debuff
         {
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            EnemyHealthBar.BuffIconData.Add(Type, "RORMod/Buffs/Mini/Buff_30");
+            EnemyHealthBar.BuffIconData.Add(Type, $"{Texture}_Mini");
         }
 
         public override void Update(NPC npc, ref int buffIndex)
