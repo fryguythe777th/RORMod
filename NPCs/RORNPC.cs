@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RORMod.Buffs.Debuff;
+using RORMod.Content;
 using RORMod.Content.Elites;
 using RORMod.Projectiles.Misc;
 using System;
@@ -17,6 +18,10 @@ namespace RORMod.NPCs
     {
         public byte bleedingStacks;
         public bool bleedShatterspleen;
+
+        public int statDefense;
+
+        private bool drawConfused;
 
         public override bool InstancePerEntity => true;
 
@@ -57,6 +62,13 @@ namespace RORMod.NPCs
                 NPCID.DD2OgreT3,
             };
             RegisteredElites = new List<EliteNPC>();
+            On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
+        }
+
+        public static int NPC_checkArmorPenetration(On.Terraria.NPC.orig_checkArmorPenetration orig, NPC self, int armorPenetration)
+        {
+            armorPenetration -= self.ROR().statDefense;
+            return orig(self, armorPenetration);
         }
 
         public override void Unload()
@@ -73,6 +85,7 @@ namespace RORMod.NPCs
             {
                 bleedShatterspleen = false;
             }
+            statDefense = 0;
         }
 
         public override void PostAI(NPC npc)
@@ -220,7 +233,20 @@ namespace RORMod.NPCs
                     break;
                 }
             }
+            if (ClientConfig.Instance.EnemyHBState != EnemyHealthBar.State.Vanilla)
+            {
+                drawConfused = npc.confused;
+                npc.confused = false; // Disables the confused debuff from drawing
+            }
             return true;
+        }
+
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (drawConfused)
+            {
+                npc.confused = true;
+            }
         }
 
         public void Send(int whoAmI, BinaryWriter writer)

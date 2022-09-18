@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
@@ -31,6 +30,8 @@ namespace RORMod
         public static byte DifficultyHack;
 
         public float procRate;
+
+        public bool accStunGrenade;
 
         public float backupMagazine;
 
@@ -308,6 +309,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            accStunGrenade = false;
             backupMagazine = 0f;
             ammoSwap = false;
             ammoSwapVisible = false;
@@ -751,17 +753,26 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (accStickyBomb && !target.immortal && ProcRate() && Player.RollLuck(10) == 0)
+            if (!target.immortal)
             {
-                Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, 
-                    ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
+                if (accStunGrenade && ProcRate() && Player.RollLuck(10) == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center, Vector2.Zero,
+                        ModContent.ProjectileType<StunGrenadeProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
+                }
+
+                if (accStickyBomb && ProcRate() && Player.RollLuck(10) == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero,
+                        ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
+                }
             }
             if (accDeathMark)
             {
                 int buffCount = 0;
                 for (int i = 0; i < NPC.maxBuffs; i++)
                 {
-                    if (target.buffType[i] != 0 && Main.debuff[target.buffType[i]])
+                    if (target.buffType[i] != 0 && Main.debuff[target.buffType[i]] && target.buffType[i] != ModContent.BuffType<DeathMarkDebuff>())
                     {
                         buffCount++;
                     }

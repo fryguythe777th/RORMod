@@ -219,7 +219,6 @@ namespace RORMod.Content
 
         public void DrawDebuffs(NPC npc, byte hbPosition, ref float scale, ref Vector2 position, bool renderAll)
         {
-            Load();
             var buffsToDraw = new List<Texture2D>();
             for (int i = 0; i < NPC.maxBuffs; i++)
             {
