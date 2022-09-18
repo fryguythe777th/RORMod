@@ -156,6 +156,44 @@ namespace RORMod
             return NPCID.Sets.CountsAsCritter[npc.type] || (npc.lifeMax < 5 && npc.lifeMax != 1);
         }
 
+        /// <summary>
+        /// Attempts to find a projectile index using the identity and owner provided. Returns -1 otherwise.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        public static int FindProjectileIdentity(int owner, int identity)
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                if (Main.projectile[i].owner == owner && Main.projectile[i].identity == identity && Main.projectile[i].active)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        public static int FindProjectileIdentity_OtherwiseFindPotentialSlot(int owner, int identity)
+        {
+            int projectile = FindProjectileIdentity(owner, identity);
+            if (projectile == -1)
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    if (!Main.projectile[i].active)
+                    {
+                        projectile = i;
+                        break;
+                    }
+                }
+            }
+            if (projectile == 1000)
+            {
+                projectile = Projectile.FindOldestProjectile();
+            }
+            return projectile;
+        }
+
         public static Rectangle Frame(this Projectile projectile)
         {
             return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);

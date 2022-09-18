@@ -23,7 +23,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accShatterspleen = true;
+            player.ROR().accShatterspleen = Item;
             player.GetCritChance<GenericDamageClass>() += 5;
         }
     }

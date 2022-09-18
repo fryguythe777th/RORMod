@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using RORMod.Content;
 using RORMod.NPCs;
+using RORMod.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -104,6 +105,19 @@ namespace RORMod
                 case PacketType.OnKillEffect:
                     {
                         Main.player[reader.ReadInt32()].ROR().OnKillEffect(reader.ReadInt32(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadByte());
+                    }
+                    break;
+
+                case PacketType.OpenChest:
+                    {
+                        int proj = Helpers.FindProjectileIdentity(Main.myPlayer, reader.ReadInt32());
+                        if (proj == -1)
+                        {
+                            break;
+                        }
+                        Main.projectile[proj].ai[0] = SmallChest.STATE_OPENING;
+                        Main.projectile[proj].scale = 1f;
+                        Main.projectile[proj].netUpdate = true;
                     }
                     break;
             }

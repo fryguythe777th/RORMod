@@ -39,9 +39,17 @@ namespace RORMod.Projectiles.Misc
 
         public virtual void OpenChest(Player player)
         {
-            Projectile.ai[0] = STATE_OPENING;
-            Projectile.scale = 1f;
-            Projectile.netUpdate = true;
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Projectile.ai[0] = STATE_OPENING;
+                Projectile.scale = 1f;
+                Projectile.netUpdate = true;
+                return;
+            }
+
+            var p = RORMod.GetPacket(PacketType.OpenChest);
+            p.Write(Projectile.identity);
+            p.Send(toClient: Projectile.owner);
         }
 
         public virtual int GetCoinPrice()
@@ -261,41 +269,41 @@ namespace RORMod.Projectiles.Misc
 
             if (Projectile.localAI[0] > 0f)
             {
-                var scale = new Vector2(1f);
-                var font = FontAssets.ItemStack.Value;
-                int price = GetCoinPrice();
-                var l = new List<string>();
-                if (price >= Item.platinum)
-                {
-                    l.Add($"{price / Item.platinum} platinum");
-                    price %= Item.platinum;
-                }
-                if (price >= Item.gold)
-                {
-                    l.Add($"{price / Item.gold} gold");
-                    price %= Item.gold;
-                }
-                if (price >= Item.silver)
-                {
-                    l.Add($"{price / Item.silver} silver");
-                    price %= Item.silver;
-                }
-                if (price >= Item.copper)
-                {
-                    l.Add($"{price} copper");
-                }
-                for (int i = 0; i < l.Count; i++)
-                {
-                    ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, l[i], 
-                        drawCoords - new Vector2(0f, frame.Height * 1.25f + 20f * (l.Count - i - 1)), Color.Yellow, (Color.Yellow * 0.2f).UseA(100), 0f, font.MeasureString(l[i]) / 2f, Vector2.One);
-                }
+                DrawPriceText(drawCoords, frame);
             }
             return false;
         }
 
-        public void DrawPriceText()
+        public void DrawPriceText(Vector2 drawCoords, Rectangle frame)
         {
-
+            var scale = new Vector2(1f);
+            var font = FontAssets.ItemStack.Value;
+            int price = GetCoinPrice();
+            var l = new List<string>();
+            if (price >= Item.platinum)
+            {
+                l.Add($"{price / Item.platinum} platinum");
+                price %= Item.platinum;
+            }
+            if (price >= Item.gold)
+            {
+                l.Add($"{price / Item.gold} gold");
+                price %= Item.gold;
+            }
+            if (price >= Item.silver)
+            {
+                l.Add($"{price / Item.silver} silver");
+                price %= Item.silver;
+            }
+            if (price >= Item.copper)
+            {
+                l.Add($"{price} copper");
+            }
+            for (int i = 0; i < l.Count; i++)
+            {
+                ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, l[i],
+                    drawCoords - new Vector2(0f, frame.Height * 1.25f + 20f * (l.Count - i - 1)), Color.Yellow, (Color.Yellow * 0.2f).UseA(100), 0f, font.MeasureString(l[i]) / 2f, Vector2.One);
+            }
         }
     }
 }
