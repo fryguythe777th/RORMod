@@ -3,6 +3,7 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Items.Consumable;
+using RORMod.Items.Accessories;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
 using RORMod.UI;
@@ -77,6 +78,8 @@ namespace RORMod
         public bool accTougherTimes;
         public bool accTriTipDagger;
         public bool accPennies;
+        public bool accFireworks;
+        public bool accCrowbar;
 
         public bool accOpal;
         public int opalShieldTimer;
@@ -310,21 +313,38 @@ namespace RORMod
         public override void ResetEffects()
         {
             accStunGrenade = false;
+            accStickyBomb = false;
+            accTopazBrooch = false;
+            accShieldGenerator = false;
+            accGlubby = false;
+            accDeathMark = false;
+            accShatterspleen = false;
+            accMedkit = false;
+            accTougherTimes = false;
+            accTriTipDagger = false;
+            accOpal = false;
+            accPennies = false;
+            accFireworks = false;
+            accCrowbar = false;
+
+            accDiosBestFriend = 0;
+
+            accWarbanner = null;
+            accMonsterTooth = null;
+
             backupMagazine = 0f;
             ammoSwap = false;
             ammoSwapVisible = false;
             procRate = 1f;
-            accStickyBomb = false;
+
             if (diosCooldown > 0)
             {
                 if (!Player.HasBuff<DiosCooldown>())
                     Player.AddBuff(ModContent.BuffType<DiosCooldown>(), diosCooldown);
                 diosCooldown--;
             }
-            accDiosBestFriend = 0;
             checkRustedKey = false;
             checkElixir = ItemID.None;
-            accWarbanner = null;
             timeNotHit++;
             maxShield = 0f;
             if (barrier > 0f)
@@ -334,21 +354,10 @@ namespace RORMod
                     barrier = 0f;
             }
             glass = ArtifactSystem.glass ? 0.9f : 0f;
-            accTopazBrooch = false;
-            accShieldGenerator = false;
-            accGlubby = false;
             bootSpeed = 0f;
             gLegSounds = false;
-            accDeathMark = false;
-            accShatterspleen = false;
-            accMedkit = false;
-            accTougherTimes = false;
-            accMonsterTooth = null;
-            accTriTipDagger = false;
             flatDebuffDamageReduction = 0;
             bossDamageMultiplier = 1f;
-            accOpal = false;
-            accPennies = false;
 
             SpawnHack = false;
         }
@@ -810,6 +819,10 @@ namespace RORMod
             if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
             {
                 damage = (int)(damage * bossDamageMultiplier);
+            }
+            if (accCrowbar && target.life * 10 < target.lifeMax * 9)
+            {
+                damage = (int)(damage * 1.25);
             }
         }
     }
