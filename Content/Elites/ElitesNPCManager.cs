@@ -13,6 +13,8 @@ namespace RORMod.Content.Elites
     {
         public static HashSet<int> EliteBlacklist { get; private set; }
 
+        public static bool DrawingElite;
+
         public override void Load()
         {
             EliteBlacklist = new HashSet<int>()
@@ -60,7 +62,7 @@ namespace RORMod.Content.Elites
                     npc.GetGlobalNPC(p).Active = true;
                 }
             }
-            else if (Main.netMode != NetmodeID.MultiplayerClient && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())
+            else if (Main.netMode != NetmodeID.MultiplayerClient && !npc.townNPC && !npc.friendly && !NPCID.Sets.CountsAsCritter[npc.type] && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())
             {
                 var l = new List<EliteNPC>(RORNPC.RegisteredElites);
                 while (l.Count > 0)
@@ -109,8 +111,16 @@ namespace RORMod.Content.Elites
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
                     e.Shader.Apply(npc);
-                    break;
+                    DrawingElite = true;
+                    return true;
                 }
+            }
+            Terraria.Cinematics.DSTFilm
+            if (DrawingElite)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+                DrawingElite = false;
             }
             return true;
         }

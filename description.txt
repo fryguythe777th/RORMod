@@ -1,7 +1,7 @@
 [c/f9b2fc:[Overview][c/f9b2fc:]]
 Risk of Terrain is an in-development mod which re-imagines Risk of Rain content into the world of Terraria!
 
-Report bugs on the Steam Workshop page or in the Risk of Terrarin Discord server.
+Report bugs on the Steam Workshop page or in the Risk of Terrain Discord server.
 
 [c/f9b2fc:[Content][c/f9b2fc:]]
 [c/f9b2fc:>] 30+ Items
