@@ -115,7 +115,6 @@ namespace RORMod.Content.Elites
                     return true;
                 }
             }
-            Terraria.Cinematics.DSTFilm
             if (DrawingElite)
             {
                 spriteBatch.End();
