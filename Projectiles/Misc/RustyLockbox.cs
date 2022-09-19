@@ -37,6 +37,11 @@ namespace RORMod.Projectiles.Misc
             }
         }
 
+        public override void DropItem()
+        {
+            Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), item);
+        }
+
         public override void HandleDissapearingAfterBeingOpened()
         {
             if (Projectile.ai[1] < 30f)

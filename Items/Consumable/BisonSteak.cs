@@ -26,7 +26,7 @@ namespace RORMod.Items.Consumable
         {
             Item.DefaultToFood(20, 20, BuffID.WellFed3, 36000);
             Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(silver: 50);
+            Item.value = Item.buyPrice(gold: 1);
         }
 
         public override bool? UseItem(Player player)

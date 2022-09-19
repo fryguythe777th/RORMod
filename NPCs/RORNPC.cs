@@ -4,6 +4,7 @@ using RORMod.Buffs.Debuff;
 using RORMod.Content;
 using RORMod.Content.Elites;
 using RORMod.Items.Accessories;
+using RORMod.Items.Consumable;
 using RORMod.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
@@ -291,6 +292,11 @@ namespace RORMod.NPCs
                 ror.Send(npc, p);
                 p.Send();
             }
+        }
+
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            shop[nextSlot++] = Main.rand.Next(new int[] { ModContent.ItemType<PowerElixir>(), ModContent.ItemType<BisonSteak>(), });
         }
     }
 }

@@ -10,6 +10,7 @@ namespace RORMod.Items.Consumable
         {
             Item.CloneDefaults(ItemID.HealingPotion);
             Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(gold: 1, silver: 25);
         }
 
         public override bool? UseItem(Player player)

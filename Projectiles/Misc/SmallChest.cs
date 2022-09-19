@@ -115,6 +115,10 @@ namespace RORMod.Projectiles.Misc
         public virtual void DropItem()
         {
             Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), item);
+            if (Main.player[Player.FindClosest(Projectile.position, Projectile.width, Projectile.height)].RollLuck(5) == 0)
+            {
+                Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), ModContent.ItemType<RustedKey>());
+            }
         }
 
         public virtual void HandleDissapearingAfterBeingOpened()
