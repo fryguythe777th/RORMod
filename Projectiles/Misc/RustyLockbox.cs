@@ -25,17 +25,15 @@ namespace RORMod.Projectiles.Misc
             player.cursorItemIconID = ModContent.ItemType<RustedKey>();
         }
 
-        public override void DropItems(float proc)
+        public override int ChooseItem(float proc)
         {
             switch (proc)
             {
                 case >= 0.8f:
-                    Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.RedTier));
-                    break;
+                    return Main.rand.Next(RORItem.RedTier);
 
                 default:
-                    Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.GreenTier));
-                    break;
+                    return Main.rand.Next(RORItem.GreenTier);
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using RORMod.NPCs;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RORMod.NPCs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -95,6 +97,22 @@ namespace RORMod.Content.Elites
                 prefixes += e.Prefix;
             }
             typeName = prefixes + " " + typeName;
+        }
+
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            npc.GetElitePrefixes(out var list);
+            foreach (var e in list)
+            {
+                if (e.Shader != null)
+                {
+                    spriteBatch.End();
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+                    e.Shader.Apply(npc);
+                    break;
+                }
+            }
+            return true;
         }
     }
 }

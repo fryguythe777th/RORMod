@@ -110,10 +110,21 @@ namespace RORMod
 
                 case PacketType.OpenChest:
                     {
-                        int proj = Helpers.FindProjectileIdentity(Main.myPlayer, reader.ReadInt32());
+                        int owner = reader.ReadInt32();
+                        int identity = reader.ReadInt32();
+                        int proj = Helpers.FindProjectileIdentity(owner, identity);
+                        byte val = reader.ReadByte();
                         if (proj == -1)
                         {
                             break;
+                        }
+                        if (Main.netMode == NetmodeID.Server && val != 1)
+                        {
+                            var p = GetPacket(PacketType.OpenChest);
+                            p.Write(owner);
+                            p.Write(identity);
+                            p.Write((byte)1);
+                            p.Send(toClient: owner);
                         }
                         Main.projectile[proj].ai[0] = SmallChest.STATE_OPENING;
                         Main.projectile[proj].scale = 1f;

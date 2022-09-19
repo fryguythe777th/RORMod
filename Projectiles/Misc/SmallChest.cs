@@ -5,6 +5,7 @@ using RORMod.Items;
 using RORMod.Items.Consumable;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -19,6 +20,7 @@ namespace RORMod.Projectiles.Misc
         public const int STATE_OPENING = 3;
 
         public bool hovering;
+        public int item;
 
         public override void SetStaticDefaults()
         {
@@ -39,17 +41,20 @@ namespace RORMod.Projectiles.Misc
 
         public virtual void OpenChest(Player player)
         {
+            Projectile.ai[0] = STATE_OPENING;
+            Projectile.scale = 1f;
+            Projectile.netUpdate = true;
+
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.ai[0] = STATE_OPENING;
-                Projectile.scale = 1f;
-                Projectile.netUpdate = true;
                 return;
             }
 
             var p = RORMod.GetPacket(PacketType.OpenChest);
+            p.Write(Projectile.owner);
             p.Write(Projectile.identity);
-            p.Send(toClient: Projectile.owner);
+            p.Write((byte)0);
+            p.Send();
         }
 
         public virtual int GetCoinPrice()
@@ -92,22 +97,24 @@ namespace RORMod.Projectiles.Misc
             player.cursorItemIconID = ItemID.GoldCoin;
         }
 
-        public virtual void DropItems(float proc)
+        public virtual int ChooseItem(float proc)
         {
             switch (proc)
             {
                 case <= 0.19f:
-                    Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.GreenTier));
-                    break;
+                    return Main.rand.Next(RORItem.GreenTier);
 
                 case <= 0.20f:
-                    Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.RedTier));
-                    break;
+                    return Main.rand.Next(RORItem.RedTier);
 
                 default:
-                    Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), Main.rand.Next(RORItem.WhiteTier));
-                    break;
+                    return Main.rand.Next(RORItem.WhiteTier);
             }
+        }
+
+        public virtual void DropItem()
+        {
+            Item.NewItem(Projectile.GetSource_FromThis(), Projectile.getRect(), item);
         }
 
         public virtual void HandleDissapearingAfterBeingOpened()
@@ -120,6 +127,11 @@ namespace RORMod.Projectiles.Misc
 
         public override void AI()
         {
+            if (item == 0 && Main.myPlayer == Projectile.owner)
+            {
+                item = ChooseItem(Main.rand.NextFloat());
+                Projectile.netUpdate = true;
+            }
             Projectile.velocity.Y += 0.3f;
             if ((int)Projectile.ai[0] == 3)
             {
@@ -145,10 +157,9 @@ namespace RORMod.Projectiles.Misc
 
                 HandleDissapearingAfterBeingOpened();
 
-                if ((int)Projectile.ai[1] == 8 && Main.myPlayer == Projectile.owner)
+                if ((int)Projectile.ai[1] == 8 && Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float proc = Main.rand.NextFloat();
-                    DropItems(proc);
+                    DropItem();
                 }
                 return;
             }
@@ -237,6 +248,16 @@ namespace RORMod.Projectiles.Misc
                 return;
             }
             behindNPCsAndTiles.Add(index);
+        }
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(item);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            item = reader.ReadInt32();
         }
 
         public override bool PreDraw(ref Color lightColor)

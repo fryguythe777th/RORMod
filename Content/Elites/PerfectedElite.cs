@@ -4,9 +4,9 @@ using Terraria.ID;
 
 namespace RORMod.Content.Elites
 {
-    public class OverloadingElite : EliteNPC
+    public class PerfectedElite : EliteNPC
     {
-        public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.BlueDye);
+        public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.BlueAcidDye);
 
         public override void SetStaticDefaults()
         {

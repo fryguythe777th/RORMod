@@ -3,7 +3,6 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Items.Consumable;
-using RORMod.Items.Accessories;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
 using RORMod.UI;
@@ -527,11 +526,11 @@ namespace RORMod
         {
             if (Main.myPlayer == Player.whoAmI)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(4800) == 0)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(15000) == 0)
                 {
                     SpawnSmallChest();
                 }
-                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(2000) == 0)
+                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
                 {
                     SpawnRustedLockbox();
                 }

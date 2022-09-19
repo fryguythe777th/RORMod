@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using RORMod.NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,26 @@ namespace RORMod.Items.Consumable
             Item.DefaultToFood(20, 20, BuffID.WellFed3, 36000);
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(silver: 50);
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            return null;
+
+            for (int i = 0; i < RORNPC.RegisteredElites.Count; i++)
+            {
+                int x = i % 4;
+                int y = i / 4;
+
+                var n =NPC.NewNPCDirect(player.GetSource_ItemUse(Item), player.Center + new Vector2(80f * x, 80f * y), NPCID.EaterofSouls);
+                n.aiStyle = -1;
+                n.rotation = 0f;
+                n.velocity = Vector2.Zero;
+                n.damage = 0;
+                n.dontTakeDamage = true;
+                n.friendly = true;
+                n.GetGlobalNPC(RORNPC.RegisteredElites[i]).Active = true;
+            }
         }
     }
 }
