@@ -2,6 +2,7 @@
 using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
+using RORMod.Graphics;
 using RORMod.Items.Consumable;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
@@ -31,6 +32,7 @@ namespace RORMod
 
         public float procRate;
 
+        public Item accGasoline;
         public bool accStunGrenade;
 
         public float backupMagazine;
@@ -251,6 +253,11 @@ namespace RORMod
             return Main.rand.NextFloat(1f) < procRate;
         }
 
+        public override void ModifyScreenPosition()
+        {
+            ROREffects.UpdateScreenPosition();
+        }
+
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = (RORPlayer)clientClone;
@@ -311,6 +318,7 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            accGasoline = null;
             accStunGrenade = false;
             accStickyBomb = false;
             accTopazBrooch = false;
@@ -842,6 +850,10 @@ namespace RORMod
         public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, BitsByte miscInfo)
         {
             var center = position + new Vector2(width, height) / 2f;
+            if (accGasoline != null)
+            {
+                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), 0, 0, Player.whoAmI);
+            }
             if (accMonsterTooth != null)
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accMonsterTooth), center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, Player.whoAmI);

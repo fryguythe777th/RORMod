@@ -25,6 +25,7 @@ Mods: {
 			Crowbar: Crowbar
 			DelicateWatch: Delicate Watch
 			StunGrenade: Stun Grenade
+			Gasoline: Gasoline
 
 			DeathMark: Death Mark
 
@@ -99,6 +100,7 @@ Mods: {
 				'''
 			StickyExplosives: 10% chance to apply a sticky bomb to enemies
 			StunGrenade: 10% chance to encompass enemies in defense reducing smoke
+			Gasoline: Killing an enemy ignites other nearby enemies
 			BackupMagazine: {
 				$parentVal: 10% chance to not consume ammo
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}

@@ -40,6 +40,10 @@ namespace RORMod.Items.Accessories
             {
                 tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable", Language.GetTextValue("LegacyTooltip.35")));
             }
+            if (Main.netMode != NetmodeID.SinglePlayer)
+            {
+                tooltips.Add(new TooltipLine(Mod, "Consumable", $"[c/{Colors.AlphaDarken(new Color(235, 20, 20, 255)).Hex3()}:Warning: Buggy in Multiplayer!]"));
+            }
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

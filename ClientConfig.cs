@@ -11,6 +11,13 @@ namespace RORMod
 
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
+        [Name("ScreenShake")]
+        [Desc("ScreenShake")]
+        [MemberBGColor]
+        [Range(0f, 1f)]
+        [DefaultValue(1f)]
+        public float ScreenShake;
+
         [Name("BossHealthbarActive")]
         [Desc("BossHealthbarActive")]
         [MemberBGColor]
