@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
     public class FocusCrystal : ModItem, ItemHooks.IUpdateItemDye
     {

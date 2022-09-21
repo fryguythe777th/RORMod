@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    [AutoloadEquip(EquipType.Waist)]
-    public class Medkit : ModItem
+    [AutoloadEquip(EquipType.Shoes)]
+    public class SoldiersSyringe : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,8 +15,8 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 28;
+            Item.width = 18;
+            Item.height = 36;
             Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(silver: 50);
@@ -24,7 +24,8 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accMedkit = true;
+            player.GetDamage(DamageClass.Generic) -= 0.12f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.2f;
         }
     }
 }

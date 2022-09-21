@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Front)]
     public class CautiousSlug : ModItem
@@ -32,7 +32,7 @@ namespace RORMod.Items.Accessories
             player.ROR().accGlubby = true;
             if (Main.netMode != NetmodeID.Server)
             {
-                Item.frontSlot = (player.ROR().glubbyActive > 120) ? (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug", EquipType.Front) : (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug_Hide", EquipType.Front);
+                Item.frontSlot = player.ROR().glubbyActive > 120 ? (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug", EquipType.Front) : (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug_Hide", EquipType.Front);
             }
             player.ROR().glubbyHide = hideVisual;
         }

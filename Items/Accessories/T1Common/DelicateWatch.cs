@@ -2,19 +2,19 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class DeathMark : ModItem
+    public class DelicateWatch : ModItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.GreenTier.Add(Type);
+            RORItem.WhiteTier.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 26;
+            Item.width = 28;
             Item.height = 24;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
@@ -23,7 +23,11 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accDeathMark = true;
+            player.accWatch = 3;
+            if (player.statLife > player.statLifeMax / 2)
+            {
+                player.GetDamage(DamageClass.Generic) += 0.2f;
+            }
         }
     }
 }

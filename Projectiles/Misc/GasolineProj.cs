@@ -23,6 +23,7 @@ namespace RORMod.Projectiles.Misc
             Projectile.penetrate = -1;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 60;
+            Projectile.ArmorPenetration = 25;
         }
 
         public override void AI()
@@ -60,7 +61,7 @@ namespace RORMod.Projectiles.Misc
                 {
                     Main.npc[i].AddBuff(BuffID.OnFire, 180);
                     var ror = Main.npc[i].ROR();
-                    ror.gasolineDamage = Math.Max(ror.gasolineDamage, (int)(Projectile.damage * 1.5f)); 
+                    ror.gasolineDamage = Math.Max(ror.gasolineDamage, (int)(Projectile.damage * 1.5f));
                     Main.npc[i].netUpdate = true;
                 }
             }

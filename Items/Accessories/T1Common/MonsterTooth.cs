@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class LensMakersGlasses : ModItem
+    public class MonsterTooth : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,16 +14,16 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 26;
+            Item.width = 24;
+            Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(silver: 50);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetCritChance(DamageClass.Generic) += 5;
+            player.ROR().accMonsterTooth = Item;
         }
     }
 }

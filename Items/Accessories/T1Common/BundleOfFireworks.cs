@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class OddlyShapedOpal : ModItem
+    public class BundleOfFireworks : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,20 +15,15 @@ namespace RORMod.Items.Accessories
         public override void SetDefaults()
         {
             Item.width = 24;
-            Item.height = 28;
+            Item.height = 38;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(silver: 50);
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var ror = player.ROR();
-            ror.accOpal = true;
-            if (ror.opalShieldActive)
-            {
-                player.statDefense += 20;
-            }
+            player.ROR().accFireworks = Item;
         }
     }
 }

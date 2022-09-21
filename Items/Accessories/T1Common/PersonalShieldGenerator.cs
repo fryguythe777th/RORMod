@@ -1,10 +1,12 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class StickyExplosives : ModItem
+    [AutoloadEquip(EquipType.Neck)]
+    public class PersonalShieldGenerator : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,8 +16,8 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 26;
+            Item.width = 24;
+            Item.height = 22;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
@@ -23,7 +25,9 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accStickyBomb = true;
+            var ror = player.ROR();
+            ror.accShieldGenerator = !hideVisual;
+            ror.maxShield += 0.12f;
         }
     }
 }

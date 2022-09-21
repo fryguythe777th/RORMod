@@ -2,14 +2,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T4Boss
 {
-    public class RepulsionArmorPlate : ModItem
+    public class Shatterspleen : ModItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
+            RORItem.BossTier.Add(Type);
         }
 
         public override void SetDefaults()
@@ -17,14 +17,14 @@ namespace RORMod.Items.Accessories
             Item.width = 24;
             Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(gold: 1);
-            Item.defense = 10;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(gold: 5);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().flatDebuffDamageReduction += 5;
+            player.ROR().accShatterspleen = Item;
+            player.GetCritChance<GenericDamageClass>() += 5;
         }
     }
 }

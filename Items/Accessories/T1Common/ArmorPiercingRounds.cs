@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class MonsterTooth : ModItem
+    public class ArmorPiercingRounds : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -18,12 +18,12 @@ namespace RORMod.Items.Accessories
             Item.height = 22;
             Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(silver: 50);
+            Item.value = Item.sellPrice(gold: 1);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accMonsterTooth = Item;
+            player.ROR().bossDamageMultiplier += 0.1f;
         }
     }
 }

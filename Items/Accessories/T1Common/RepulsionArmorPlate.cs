@@ -2,10 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    [AutoloadEquip(EquipType.Face)]
-    public class TriTipDagger : ModItem
+    public class RepulsionArmorPlate : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,16 +14,17 @@ namespace RORMod.Items.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 26;
+            Item.width = 24;
+            Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(gold: 1);
+            Item.defense = 10;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accTriTipDagger = true;
+            player.ROR().flatDebuffDamageReduction += 5;
         }
     }
 }

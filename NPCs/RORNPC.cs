@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RORMod.Buffs.Debuff;
 using RORMod.Content;
 using RORMod.Content.Elites;
-using RORMod.Items.Accessories;
+using RORMod.Items.Accessories.T1Common;
 using RORMod.Items.Consumable;
 using System;
 using System.Collections.Generic;

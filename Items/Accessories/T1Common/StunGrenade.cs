@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RORMod.Items.Accessories.T1Common
 {
-    public class ArmorPiercingRounds : ModItem
+    public class StunGrenade : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -23,7 +23,7 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().bossDamageMultiplier += 0.1f;
+            player.ROR().accStunGrenade = true;
         }
     }
 }

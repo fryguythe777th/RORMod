@@ -3,7 +3,7 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Graphics;
-using RORMod.Items.Accessories;
+using RORMod.Items.Accessories.T1Common;
 using RORMod.Items.Consumable;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
@@ -85,7 +85,7 @@ namespace RORMod
 
         public bool accTopazBrooch;
         public bool accShieldGenerator;
-        public bool accDeathMark;
+        public Item accDeathMark;
         public Item accShatterspleen;
         public bool accMedkit;
         public bool accTougherTimes;
@@ -346,7 +346,7 @@ namespace RORMod
             accTopazBrooch = false;
             accShieldGenerator = false;
             accGlubby = false;
-            accDeathMark = false;
+            accDeathMark = null;
             accShatterspleen = null;
             accMedkit = false;
             accTougherTimes = false;
@@ -835,7 +835,7 @@ namespace RORMod
                         ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
                 }
             }
-            if (accDeathMark)
+            if (accDeathMark != null)
             {
                 int buffCount = 0;
                 for (int i = 0; i < NPC.maxBuffs; i++)
@@ -846,6 +846,11 @@ namespace RORMod
                     }
                     if (buffCount >= 2)
                     {
+                        if (!target.HasBuff<DeathMarkDebuff>())
+                        {
+                            Projectile.NewProjectile(Player.GetSource_Accessory(accDeathMark), new Vector2(target.position.X + target.width / 2f, target.position.Y - 100f), 
+                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, Player.whoAmI);
+                        }
                         target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
                         break;
                     }
@@ -898,7 +903,7 @@ namespace RORMod
             var center = position + new Vector2(width, height) / 2f;
             if (accGasoline != null)
             {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), (int)(lastHitDamage * 1f), 3f, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), Math.Clamp((int)(lastHitDamage * 0.5f), 10, 200), 3f, Player.whoAmI);
             }
             if (accMonsterTooth != null)
             {
