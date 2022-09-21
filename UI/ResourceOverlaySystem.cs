@@ -146,7 +146,7 @@ namespace RORMod.UI
                         int amt = (int)(frame.Width * (life / 20f));
                         frame2.Width = amt;
                     }
-                    Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i + hpTexture.Width / 20f * glassLife, y), frame2, Color.White * Main.cursorAlpha * 0.5f, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture, new Vector2(x + hpTexture.Width * i + hpTexture.Width / 20f * glassLife, y), frame2, new Color(150, 150 - (int)(Math.Sin((Main.GlobalTimeWrappedHourly * 3.5f - i * 0.75f) % Math.PI) * 50f), 125, 100), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }
@@ -227,8 +227,8 @@ namespace RORMod.UI
                     int heartY = 1 - i / 10;
                     float scale = 1f;
                     if (life < 20f)
-                        scale = life / 20f * Main.cursorAlpha;
-                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 2) * heartX, drawLoc.Y + heartY * 28f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                        scale = life / 20f;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 2) * heartX, drawLoc.Y + heartY * 28f) + frame.Size() / 2f, frame, new Color(150, 150 - (int)(Math.Sin((Main.GlobalTimeWrappedHourly * 3.5f - i *0.75f) % Math.PI) * 50f), 125, 100), 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }
@@ -288,7 +288,7 @@ namespace RORMod.UI
                     int heartY = 1 - i / 10;
                     float scale = 1f;
                     if (life < 20f)
-                        scale = life / 20f * Main.cursorAlpha;
+                        scale = life / 20f;
                     Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
                     i--;
                     life -= 20;
@@ -311,8 +311,9 @@ namespace RORMod.UI
                     int heartY = 1 - i / 10;
                     float scale = 1f;
                     if (life < 20f)
-                        scale = life / 20f * Main.cursorAlpha;
-                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame, Color.White * Main.cursorAlpha, 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+                        scale = life / 20f;
+                    Main.spriteBatch.Draw(texture, new Vector2(drawLoc.X + (hpTexture.Width + 4) * heartX, drawLoc.Y + heartY * 26f) + frame.Size() / 2f, frame,
+                        new Color(150, 150 - (int)(Math.Sin((Main.GlobalTimeWrappedHourly * 3.5f - i * 0.75f) % Math.PI) * 50f), 125, 100), 0f, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
                     i++;
                     life -= 20;
                 }

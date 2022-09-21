@@ -32,6 +32,7 @@ Mods: {
 			ReloadingShurikens: Reloading Shurikens
 			HarvestersScythe: Harvester's Scythe
 
+			Aegis: Aegis
 			DiosBestFriend: Dio's Best Friend
 
 			Shatterspleen: Shatterspleen
@@ -71,9 +72,9 @@ Mods: {
 				This shield will recharge after 5 seconds of not taking damage
 				'''
 			PaulsGoatHoof: Increased horizontal and vertical movement speed
-			CautiousSlug: Increases life regen when outside of battle
+			CautiousSlug: Increased life regen when outside of battle
 			TougherTimes: 10% chance to dodge attacks
-			Crowbar: Deal more damage to enemies above 90% HP
+			Crowbar: 25% increased damage to enemies above 90% life
 			Medkit:
 				'''
 				After getting hurt, recieve a delayed heal
@@ -123,6 +124,11 @@ Mods: {
 				'''
 			HarvestersScythe: Heal 12 life on critical hits
 
+			Aegis: 
+				'''
+				Half of all healing is added as barrier
+				The last 10% of barrier will not naturally decay
+				'''
 			DiosBestFriend: 
 				'''
 				Cheats death, when used recieve a 10 minute cooldown

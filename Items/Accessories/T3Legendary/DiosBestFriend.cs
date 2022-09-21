@@ -20,7 +20,7 @@ namespace RORMod.Items.Accessories.T3Legendary
             Item.width = 24;
             Item.height = 22;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(gold: 5);
         }
 

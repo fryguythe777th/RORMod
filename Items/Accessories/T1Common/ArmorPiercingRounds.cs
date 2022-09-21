@@ -23,7 +23,7 @@ namespace RORMod.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().bossDamageMultiplier += 0.1f;
+            player.ROR().accArmorPiercingRounds += 0.1f;
         }
     }
 }

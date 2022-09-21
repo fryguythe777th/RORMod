@@ -14,7 +14,7 @@ namespace RORMod.Items.Consumable
 
         public override void UpdateInventory(Player player)
         {
-            player.ROR().checkRustedKey = true;
+            player.ROR().spawnRustyChest = true;
         }
     }
 }

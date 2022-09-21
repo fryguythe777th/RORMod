@@ -130,7 +130,7 @@ namespace RORMod.Items
         public override bool? UseItem(Item item, Player player)
         {
             var ror = player.ROR();
-            if (Main.myPlayer == player.whoAmI && !player.HeldItem.IsAir && player.HeldItem.damage > 0 && ror.accShuriken != null && ror.shurikenCharges > 0 && (ror.shurikenRechargeTime > 20 || ror.shurikenCharges == ror.shurikenChargesMax))
+            if (Main.myPlayer == player.whoAmI && !item.IsAir && item.damage > 0 && ror.accShuriken != null && ror.shurikenCharges > 0 && (ror.shurikenRechargeTime > 20 || ror.shurikenCharges == ror.shurikenChargesMax))
             {
                 ror.shurikenCharges--;
                 ror.shurikenRechargeTime = 0;
@@ -139,8 +139,8 @@ namespace RORMod.Items
                     player.ClearBuff(ModContent.BuffType<ShurikenBuff>());
                 }
                 var p = Projectile.NewProjectileDirect(player.GetSource_Accessory(ror.accShuriken), player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * 20f, 
-                    ModContent.ProjectileType<ReloadingShurikenProj>(), Math.Clamp(player.GetWeaponDamage(player.HeldItem) * 2, 10, 200), 1f, player.whoAmI);
-                p.DamageType = player.HeldItem.DamageType;
+                    ModContent.ProjectileType<ReloadingShurikenProj>(), Math.Clamp(player.GetWeaponDamage(item) * 2, 10, 200), 1f, player.whoAmI);
+                p.DamageType = item.DamageType;
             }
             return null;
         }

@@ -33,6 +33,10 @@ namespace RORMod
 
         public float procRate;
         public int increasedRegen;
+        public int aegisLifeCheck;
+
+        public bool accAegis;
+        public float aegisBarrier;
 
         public int accHarvestersScythe;
 
@@ -66,7 +70,7 @@ namespace RORMod
         public int diosCooldown;
         public bool diosDead;
 
-        public bool checkRustedKey;
+        public bool spawnRustyChest;
         public int checkElixir;
 
         public Item accMonsterTooth;
@@ -106,12 +110,12 @@ namespace RORMod
         public int opalShieldTimer;
         public bool opalShieldActive;
 
-        public int flatDebuffDamageReduction;
+        public int accRepulsionPlate;
 
         public int timeSinceLastHit;
         public int idleTime;
 
-        public float bossDamageMultiplier;
+        public float accArmorPiercingRounds;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -123,6 +127,8 @@ namespace RORMod
         /// Helper for whether or not the player is in danger
         /// </summary>
         public bool InDanger => dangerEnemy != -1;
+
+        #region Loading Stuffs
 
         public override void Load()
         {
@@ -269,6 +275,8 @@ namespace RORMod
             orig(player);
         }
 
+        #endregion
+
         public bool ProcRate()
         {
             return Main.rand.NextFloat(1f) < procRate;
@@ -285,6 +293,12 @@ namespace RORMod
             clone.warbannerProgress_Enemies = warbannerProgress_Enemies;
             clone.barrier = barrier;
             clone.shield = shield;
+            clone.diosCooldown = diosCooldown;
+            clone.diosDead = diosDead;
+            clone.opalShieldTimer = opalShieldTimer;
+            clone.shurikenCharges = shurikenCharges;
+            clone.shurikenRechargeTime = shurikenRechargeTime;
+            clone.timeSinceLastHit = timeSinceLastHit;
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
@@ -294,7 +308,10 @@ namespace RORMod
             var bb = new BitsByte(
                 client.warbannerProgress_Enemies != warbannerProgress_Enemies,
                 client.barrier != barrier,
-                client.shield != shield);
+                client.shield != shield, 
+                client.diosCooldown != diosCooldown || client.diosDead != diosDead,
+                client.timeSinceLastHit != timeSinceLastHit, 
+                client.shurikenCharges != shurikenCharges);
 
             p.Write(Player.whoAmI);
             p.Write(bb);
@@ -309,6 +326,19 @@ namespace RORMod
             if (bb[2])
             {
                 p.Write(shield);
+            }
+            if (bb[3])
+            {
+                p.Write(diosCooldown);
+                p.Write(diosDead);
+            }
+            if (bb[4])
+            {
+                p.Write(timeSinceLastHit);
+            }
+            if (bb[5])
+            {
+                p.Write(shurikenCharges);
             }
         }
 
@@ -327,6 +357,19 @@ namespace RORMod
             {
                 shield = reader.ReadSingle();
             }
+            if (bb[3])
+            {
+                diosCooldown = reader.ReadInt32();
+                diosDead = reader.ReadBoolean();
+            }
+            if (bb[4])
+            {
+                timeSinceLastHit = reader.ReadInt32();
+            }
+            if (bb[5])
+            {
+                shurikenCharges = reader.ReadInt32();
+            }
         }
 
         public override void PreUpdate()
@@ -337,10 +380,36 @@ namespace RORMod
             }
         }
 
-        public override void ResetEffects()
+        public override void UpdateDead()
         {
-            increasedRegen = 0;
-            accHarvestersScythe = 0;
+            aegisLifeCheck = 0;
+        }
+
+        public void UpdateAegis()
+        {
+            if (accAegis)
+            {
+                if (aegisLifeCheck <= 0)
+                    aegisLifeCheck = Player.statLife;
+                aegisLifeCheck = Math.Min(aegisLifeCheck, Player.statLife);
+
+                if (aegisLifeCheck / 2 < Player.statLife / 2)
+                {
+                    if (barrier < 1f)
+                    {
+                        barrier += 1f / Player.statLifeMax * (Player.statLife - aegisLifeCheck) / 2;
+                        if (barrier > 1f)
+                            barrier = 1f;
+                    }
+                    aegisLifeCheck = Player.statLife / 2 * 2;
+                }
+            }
+            aegisBarrier = 0f;
+            accAegis = false;
+        }
+
+        public void UpdateShuriken()
+        {
             if (accShuriken == null)
             {
                 if (shurikenCharges != 0)
@@ -370,6 +439,38 @@ namespace RORMod
             shurikenReloadBuffDisplayBrightness *= 0.95f;
             shurikenChargesMax = 0;
             accShuriken = null;
+        }
+
+        public void UpdateDios()
+        {
+            accDiosBestFriend = 0;
+            if (diosCooldown > 0)
+            {
+                if (!Player.HasBuff<DiosCooldown>())
+                    Player.AddBuff(ModContent.BuffType<DiosCooldown>(), diosCooldown);
+                diosCooldown--;
+            }
+        }
+
+        public void UpdateIdleTime()
+        {
+            if (Player.velocity.Length() < 1f)
+            {
+                idleTime++;
+            }
+            else
+            {
+                idleTime = 0;
+            }
+        }
+
+        public override void ResetEffects()
+        {
+            UpdateAegis();
+            UpdateShuriken();
+            UpdateDios();
+
+            accHarvestersScythe = 0;
             accFocusCrystal = null;
             focusCrystalDamage = 0f;
             focusCrystalDiameter = 0f;
@@ -394,47 +495,27 @@ namespace RORMod
             accPennies = false;
             accFireworks = null;
             accCrowbar = false;
-
-            accDiosBestFriend = 0;
-
+            accRepulsionPlate = 0;
+            accArmorPiercingRounds = 1f;
             accWarbanner = null;
             accMonsterTooth = null;
-
-            backupMagAmmoReduction = 0f;
             accBackupMagazine = false;
+            backupMagAmmoReduction = 0f;
             backupMagVisible = false;
+
+            gLegSounds = false;
+
+            glass = ArtifactSystem.glass ? 0.9f : 0f;
+            maxShield = 0f;
+
+            spawnRustyChest = false;
+            checkElixir = ItemID.None;
+            bootSpeed = 0f;
+            increasedRegen = 0;
             procRate = 1f;
 
-            if (diosCooldown > 0)
-            {
-                if (!Player.HasBuff<DiosCooldown>())
-                    Player.AddBuff(ModContent.BuffType<DiosCooldown>(), diosCooldown);
-                diosCooldown--;
-            }
-            checkRustedKey = false;
-            checkElixir = ItemID.None;
             timeSinceLastHit++;
-            maxShield = 0f;
-            if (barrier > 0f)
-            {
-                barrier -= 0.05f / Player.statLifeMax2 + barrier * 0.001f;
-                if (barrier < 0f)
-                    barrier = 0f;
-            }
-            glass = ArtifactSystem.glass ? 0.9f : 0f;
-            bootSpeed = 0f;
-            gLegSounds = false;
-            flatDebuffDamageReduction = 0;
-            bossDamageMultiplier = 1f;
-
-            if (Player.velocity.Length() < 1f)
-            {
-                idleTime++;
-            }
-            else
-            {
-                idleTime = 0;
-            }
+            UpdateIdleTime();
 
             FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = null;
             SpawnHack = false;
@@ -602,15 +683,26 @@ namespace RORMod
             }
         }
 
+        public void UpdateBarrierDrainage()
+        {
+            if (barrier > aegisBarrier)
+            {
+                barrier -= 0.05f / Player.statLifeMax2 + barrier * 0.001f;
+                if (barrier < aegisBarrier)
+                    barrier = aegisBarrier;
+            }
+        }
+
         public override void PostUpdate()
         {
+            UpdateBarrierDrainage();
             if (Main.myPlayer == Player.whoAmI)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(15000) == 0)
                 {
                     SpawnSmallChest();
                 }
-                if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
+                if (spawnRustyChest && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
                 {
                     SpawnRustedLockbox();
                 }
@@ -626,6 +718,13 @@ namespace RORMod
                 {
                     SpawnWarbanner();
                 }
+            }
+            if (Player.statLife == Player.statLifeMax2 && accAegis && barrier < aegisBarrier)
+            {
+                barrier += 1f / Player.statLifeMax * Player.lifeRegen;
+                Player.statLife += Player.lifeRegen;
+                if (barrier > aegisBarrier)
+                    barrier = aegisBarrier;
             }
             if (gLegSounds)
             {
@@ -716,9 +815,9 @@ namespace RORMod
 
         public override void UpdateBadLifeRegen()
         {
-            if (flatDebuffDamageReduction > 0 && Player.lifeRegen < 0)
+            if (accRepulsionPlate > 0 && Player.lifeRegen < 0)
             {
-                Player.lifeRegen = Math.Min(flatDebuffDamageReduction + Player.lifeRegen, -1);
+                Player.lifeRegen = Math.Min(accRepulsionPlate + Player.lifeRegen, -1);
             }
         }
 
@@ -833,9 +932,9 @@ namespace RORMod
 
         public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && bossDamageMultiplier != 1)
+            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && accArmorPiercingRounds != 1)
             {
-                damage = (int)(damage * bossDamageMultiplier);
+                damage = (int)(damage * accArmorPiercingRounds);
             }
             if (accCrowbar && target.life * 10 < target.lifeMax * 9)
             {
@@ -974,7 +1073,7 @@ namespace RORMod
             }
             if (accFireworks != null)
             {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accFireworks), Player.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProj>(), Math.Clamp((int)(lifeMax * 0.05), 20, 80), 0, Player.whoAmI, 40);
+                Projectile.NewProjectile(Player.GetSource_Accessory(accFireworks), Player.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProj>(), Math.Clamp((int)(lastHitDamage * 0.5f), 10, 200), 0, Player.whoAmI, 40);
             }
             if (miscInfo[0])
             {
