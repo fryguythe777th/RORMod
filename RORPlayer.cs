@@ -34,6 +34,14 @@ namespace RORMod
         public float procRate;
         public int increasedRegen;
 
+        public int accHarvestersScythe;
+
+        public Item accShuriken;
+        public int shurikenCharges;
+        public int shurikenChargesMax;
+        public int shurikenRechargeTime;
+        public float shurikenReloadBuffDisplayBrightness;
+
         public Item accFocusCrystal;
         public bool focusCrystalVisible;
         public int cFocusCrystal;
@@ -331,6 +339,37 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            increasedRegen = 0;
+            accHarvestersScythe = 0;
+            if (accShuriken == null)
+            {
+                if (shurikenCharges != 0)
+                {
+                    Player.ClearBuff(ModContent.BuffType<ShurikenBuff>());
+                }
+                shurikenCharges = 0;
+                shurikenRechargeTime = 0;
+            }
+            else
+            {
+                if (shurikenCharges != 0)
+                {
+                    Player.AddBuff(ModContent.BuffType<ShurikenBuff>(), 2, quiet: true);
+                }
+                if (shurikenCharges < shurikenChargesMax)
+                {
+                    shurikenRechargeTime++;
+                    if (shurikenRechargeTime > 120)
+                    {
+                        shurikenReloadBuffDisplayBrightness = 0.75f;
+                        shurikenRechargeTime = 0;
+                        shurikenCharges++;
+                    }
+                }
+            }
+            shurikenReloadBuffDisplayBrightness *= 0.95f;
+            shurikenChargesMax = 0;
+            accShuriken = null;
             accFocusCrystal = null;
             focusCrystalDamage = 0f;
             focusCrystalDiameter = 0f;
@@ -821,6 +860,21 @@ namespace RORMod
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
+            if (crit && accHarvestersScythe > 0)
+            {
+                int heal = accHarvestersScythe;
+                if (Player.statLife + heal > Player.statLifeMax2)
+                {
+                    heal = Player.statLifeMax2 - Player.statLife;
+                }
+                heal = Math.Min(heal, (int)Player.lifeSteal);
+                if (heal > 0)
+                {
+                    Player.HealEffect(heal);
+                    Player.statLife += heal;
+                    Player.lifeSteal -= heal * 1.5f;
+                }
+            }
             if (!target.immortal)
             {
                 if (accStunGrenade && ProcRate() && Player.RollLuck(10) == 0)

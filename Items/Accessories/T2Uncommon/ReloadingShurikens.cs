@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories.T2Uncommon
 {
-    public class DeathMark : ModItem
+    public class ReloadingShurikens : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,8 +14,8 @@ namespace RORMod.Items.Accessories.T2Uncommon
 
         public override void SetDefaults()
         {
-            Item.width = 26;
-            Item.height = 24;
+            Item.width = 20;
+            Item.height = 20;
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
             Item.value = Item.sellPrice(gold: 2);
@@ -23,7 +23,9 @@ namespace RORMod.Items.Accessories.T2Uncommon
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accDeathMark = Item;
+            var ror = player.ROR();
+            ror.accShuriken = Item;
+            ror.shurikenChargesMax = 3;
         }
     }
 }

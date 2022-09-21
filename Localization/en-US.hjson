@@ -29,6 +29,8 @@ Mods: {
 			FocusCrystal: Focus Crystal
 
 			DeathMark: Death Mark
+			ReloadingShurikens: Reloading Shurikens
+			HarvestersScythe: Harvester's Scythe
 
 			DiosBestFriend: Dio's Best Friend
 
@@ -114,6 +116,12 @@ Mods: {
 				Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds
 				Enemies marked for death will take 10% more damage
 				'''
+			ReloadingShurikens:
+				'''
+				Shoots shurikens at enemies while you are attacking
+				Recharges over time
+				'''
+			HarvestersScythe: Heal 12 life on critical hits
 
 			DiosBestFriend: 
 				'''
@@ -169,6 +177,7 @@ Mods: {
 		}
 
 		BuffName: {
+			ShurikenBuff: Reloading Shurikens
 			BustlingFungusBuff: Bustling Fungus
 			DiosCooldown: Dio's Best Friend
 			WarbannerBuff: Warbanner
@@ -176,6 +185,7 @@ Mods: {
 		}
 
 		BuffDescription: {
+			ShurikenBuff: You can throw shurikens while attacking!
 			BustlingFungusBuff: Recieve healing by an ally
 			DiosCooldown: You cannot use Dio's Best Friend to revive!
 			WarbannerBuff: Increased movement and weapon speed

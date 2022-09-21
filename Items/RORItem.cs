@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using RORMod.Buffs;
+using RORMod.Projectiles.Misc;
+using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace RORMod.Items
@@ -120,6 +125,24 @@ namespace RORMod.Items
                 }
             }
             return -1;
+        }
+
+        public override bool? UseItem(Item item, Player player)
+        {
+            var ror = player.ROR();
+            if (Main.myPlayer == player.whoAmI && !player.HeldItem.IsAir && player.HeldItem.damage > 0 && ror.accShuriken != null && ror.shurikenCharges > 0 && (ror.shurikenRechargeTime > 20 || ror.shurikenCharges == ror.shurikenChargesMax))
+            {
+                ror.shurikenCharges--;
+                ror.shurikenRechargeTime = 0;
+                if (ror.shurikenCharges <= 0)
+                {
+                    player.ClearBuff(ModContent.BuffType<ShurikenBuff>());
+                }
+                var p = Projectile.NewProjectileDirect(player.GetSource_Accessory(ror.accShuriken), player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * 20f, 
+                    ModContent.ProjectileType<ReloadingShurikenProj>(), Math.Clamp(player.GetWeaponDamage(player.HeldItem) * 2, 10, 200), 1f, player.whoAmI);
+                p.DamageType = player.HeldItem.DamageType;
+            }
+            return null;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace RORMod.Projectiles.Misc
         {
             Projectile.velocity *= 0.85f;
             Projectile.frameCounter++;
-            if (Projectile.frameCounter > 2)
+            if (Projectile.frameCounter > 3)
             {
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
