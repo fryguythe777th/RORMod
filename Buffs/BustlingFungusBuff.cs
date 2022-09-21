@@ -11,10 +11,6 @@ namespace RORMod.Buffs
             Main.buffNoTimeDisplay[Type] = true;
         }
 
-        public override void Update(Player player, ref int buffIndex)
-        {
-        }
-
         public override bool RightClick(int buffIndex)
         {
             return false; // Prevents removing manually

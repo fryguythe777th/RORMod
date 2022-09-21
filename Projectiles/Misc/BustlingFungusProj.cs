@@ -203,7 +203,7 @@ namespace RORMod.Projectiles.Misc
                 scale *= 1f + (float)(Math.Sin(x) * 0.2f);
 
                 Main.EntitySpriteDraw(fungus, new Vector2(x, y) - Main.screenPosition, null,
-                    new Color(70, 255, 100, 80) * Projectile.Opacity * opacity, (float)Math.Sin(x + f.Z * 0.01f) * 0.2f, new Vector2(fungus.Width / 2f, fungus.Height - 6f), scale, SpriteEffects.None, 0);
+                    Color.White * Projectile.Opacity * opacity, (float)Math.Sin(x + f.Z * 0.01f) * 0.2f, new Vector2(fungus.Width / 2f, fungus.Height - 6f), scale, SpriteEffects.None, 0);
             }
             return false;
         }

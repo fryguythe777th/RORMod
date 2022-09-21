@@ -105,6 +105,7 @@ Mods: {
 				$parentVal: 10% chance to not consume ammo
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}
 			}
+			BustlingFungus: Heal nearby allies while standing still
 
 			DeathMark:
 				'''
@@ -166,12 +167,14 @@ Mods: {
 		}
 
 		BuffName: {
+			BustlingFungusBuff: Bustling Fungus
 			DiosCooldown: Dio's Best Friend
 			WarbannerBuff: Warbanner
 			MedkitBuff: Medkit
 		}
 
 		BuffDescription: {
+			BustlingFungusBuff: Recieve healing by an ally
 			DiosCooldown: You cannot use Dio's Best Friend to revive!
 			WarbannerBuff: Increased movement and weapon speed
 			MedkitBuff: Heal a small amount of health after this buff is cleared
