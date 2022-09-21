@@ -3,6 +3,7 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Graphics;
+using RORMod.Items.Accessories;
 using RORMod.Items.Consumable;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
@@ -33,9 +34,15 @@ namespace RORMod
         public float procRate;
         public int increasedRegen;
 
+        public Item accFocusCrystal;
+        public bool focusCrystalVisible;
+        public int cFocusCrystal;
+        public float focusCrystalDiameter;
+        public float focusCrystalDamage;
+
         public Item accBustlingFungus;
         public int cBungus;
-        public float bungusRadius;
+        public float bungusDiameter;
         public float bungusHealingPercent;
 
         public Item accGasoline;
@@ -324,10 +331,15 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            accFocusCrystal = null;
+            focusCrystalDamage = 0f;
+            focusCrystalDiameter = 0f;
+            focusCrystalVisible = true;
+            cFocusCrystal = 0;
             cBungus = 0;
             accBustlingFungus = null;
             bungusHealingPercent = 0f;
-            bungusRadius = 0f;
+            bungusDiameter = 0f;
             accGasoline = null;
             accStunGrenade = false;
             accStickyBomb = false;
@@ -385,6 +397,7 @@ namespace RORMod
                 idleTime = 0;
             }
 
+            FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = null;
             SpawnHack = false;
         }
 
@@ -561,6 +574,10 @@ namespace RORMod
                 if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
                 {
                     SpawnRustedLockbox();
+                }
+                if (accFocusCrystal != null && focusCrystalVisible && Player.ownedProjectileCounts[ModContent.ProjectileType<FocusCrystalProj>()] == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_Accessory(accFocusCrystal), Player.Center, Vector2.Zero, ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, Player.whoAmI);
                 }
                 if (accBustlingFungus != null && idleTime > 60 && Player.ownedProjectileCounts[ModContent.ProjectileType<BustlingFungusProj>()] == 0)
                 {
@@ -784,6 +801,11 @@ namespace RORMod
             if (accCrowbar && target.life * 10 < target.lifeMax * 9)
             {
                 damage = (int)(damage * 1.25);
+            }
+            if (focusCrystalDiameter > 0f && Player.Distance(target.getRect().ClosestDistance(Player.Center)) < focusCrystalDiameter / 2f)
+            {
+                damage = (int)(damage * (1f + focusCrystalDamage));
+                FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = target;
             }
         }
 

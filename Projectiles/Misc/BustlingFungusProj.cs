@@ -51,7 +51,7 @@ namespace RORMod.Projectiles.Misc
                         Main.player[i].AddBuff(ModContent.BuffType<BustlingFungusBuff>(), 4, quiet: true);
                     }
                 }
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, ror.bungusRadius, 0.2f);
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, ror.bungusDiameter, 0.2f);
             }
             else
             {

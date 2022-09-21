@@ -33,6 +33,15 @@ namespace RORMod
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
 
+        public static Vector2 ClosestDistance(this Rectangle rect, Vector2 other)
+        {
+            var center = rect.Center.ToVector2();
+            var n = Vector2.Normalize(other - center);
+            float x = Math.Min(Math.Abs(other.X - center.X), rect.Width / 2f);
+            float y = Math.Min(Math.Abs(other.Y - center.Y), rect.Height / 2f);
+            return center + n * new Vector2(x, y);
+        }
+
         public static void Begin_GeneralEntities(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);

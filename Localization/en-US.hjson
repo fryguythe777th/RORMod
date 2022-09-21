@@ -26,6 +26,7 @@ Mods: {
 			DelicateWatch: Delicate Watch
 			StunGrenade: Stun Grenade
 			Gasoline: Gasoline
+			FocusCrystal: Focus Crystal
 
 			DeathMark: Death Mark
 
@@ -106,6 +107,7 @@ Mods: {
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}
 			}
 			BustlingFungus: Heal nearby allies while standing still
+			FocusCrystal: Nearby enemies take 25% extra damage
 
 			DeathMark:
 				'''

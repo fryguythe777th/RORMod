@@ -25,7 +25,7 @@ namespace RORMod.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.ROR().accBustlingFungus = Item;
-            player.ROR().bungusRadius += 280f;
+            player.ROR().bungusDiameter += 280f;
             player.ROR().bungusHealingPercent += 0.075f;
         }
 
