@@ -5,6 +5,7 @@ using RORMod.Buffs;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -15,6 +16,7 @@ namespace RORMod.Projectiles.Misc
     public class BustlingFungusProj : ModProjectile
     {
         public List<Vector3> fungusInfo;
+        public bool playedSound;
 
         protected override bool CloneNewInstances => base.CloneNewInstances;
 
@@ -27,10 +29,16 @@ namespace RORMod.Projectiles.Misc
             Projectile.hide = true;
             Projectile.timeLeft = 20;
             fungusInfo = new List<Vector3>();
+            playedSound = false;
         }
 
         public override void AI()
         {
+            if (!playedSound)
+            {
+                SoundEngine.PlaySound(RORMod.GetSound("bungus", volume: 0.3f), Projectile.Center);
+                playedSound = true;
+            }
             float scale = Projectile.scale;
             Projectile.Center = Main.player[Projectile.owner].Center;
             var ror = Main.player[Projectile.owner].ROR();
