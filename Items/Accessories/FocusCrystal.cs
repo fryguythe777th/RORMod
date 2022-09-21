@@ -15,7 +15,7 @@ namespace RORMod.Items.Accessories
         public override void Load()
         {
             HitColor = new Color(244, 105, 200, 255);
-            HitColor = HitColor * 1.4f;
+            HitColorCrit = HitColor * 1.4f;
             On.Terraria.CombatText.NewText_Rectangle_Color_string_bool_bool += CombatText_NewText_Rectangle_Color_string_bool_bool;
         }
 

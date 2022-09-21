@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,6 +10,8 @@ namespace RORMod.Projectiles.Misc
 {
     public class GasolineProj : ModProjectile
     {
+        public bool playedSound;
+
         public override void SetDefaults()
         {
             Projectile.width = 160;
@@ -24,6 +27,11 @@ namespace RORMod.Projectiles.Misc
 
         public override void AI()
         {
+            if (!playedSound)
+            {
+                SoundEngine.PlaySound(RORMod.GetSounds("gasolinekill_", 3, volume: 0.8f), Projectile.Center);
+                playedSound = true;
+            }
             if (Projectile.alpha == 0)
             {
                 Projectile.scale = 0.1f;

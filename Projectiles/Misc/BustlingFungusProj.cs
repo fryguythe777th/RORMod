@@ -75,9 +75,12 @@ namespace RORMod.Projectiles.Misc
                 Projectile.netUpdate = true;
             }
 
-            foreach (var c in Helpers.CircularVector(32))
+            if (Projectile.scale > 0.1f)
             {
-                Lighting.AddLight(Projectile.Center + c * Projectile.scale / 2f, new Vector3(0.1f, 1f, 0.2f) * Projectile.scale / 280f);
+                foreach (var c in Helpers.CircularVector((int)(32 * Projectile.scale)))
+                {
+                    Lighting.AddLight(Projectile.Center + c * Projectile.scale / 2f, new Vector3(0.1f, 1f, 0.2f) * Projectile.scale / 400f * 0.5f);
+                }
             }
 
             Lighting.AddLight(Projectile.Center, new Vector3(0.1f, 1f, 0.2f) * Projectile.scale / 280f);

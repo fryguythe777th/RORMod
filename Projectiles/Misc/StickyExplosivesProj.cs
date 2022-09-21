@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace RORMod.Projectiles.Misc
@@ -7,6 +8,8 @@ namespace RORMod.Projectiles.Misc
     public class StickyExplosivesProj : ModProjectile
     {
         public int AttatchedNPC { get => (int)Projectile.ai[0]; }
+
+        public bool playedSound;
 
         public override void SetStaticDefaults()
         {
@@ -24,6 +27,12 @@ namespace RORMod.Projectiles.Misc
 
         public override void AI()
         {
+            if (!playedSound)
+            {
+                SoundEngine.PlaySound(RORMod.GetSounds("stickybomb_", 3, volume: 0.3f), Projectile.Center);
+                playedSound = true;
+            }
+
             if (AttatchedNPC == -1 || !Main.npc[AttatchedNPC].active)
             {
                 Projectile.Kill();
@@ -50,6 +59,9 @@ namespace RORMod.Projectiles.Misc
             if (Projectile.frameCounter > Projectile.timeLeft / 4)
             {
                 Projectile.frame = (Projectile.frame + 1) % Main.projFrames[Type];
+                if (Projectile.frame == 1)
+                    SoundEngine.PlaySound(RORMod.GetSound("stickybombtick", volume: 0.3f), Projectile.Center);
+
                 Projectile.frameCounter = 0;
             }
         }
