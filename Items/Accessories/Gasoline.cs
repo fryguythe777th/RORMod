@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -6,6 +7,23 @@ namespace RORMod.Items.Accessories
 {
     public class Gasoline : ModItem
     {
+        public static HashSet<int> FireDebuffsForGasolineDamageOverTime { get; private set; }
+
+        public override void Load()
+        {
+            FireDebuffsForGasolineDamageOverTime = new HashSet<int>()
+            {
+                BuffID.OnFire,
+                BuffID.OnFire3,
+            };
+        }
+
+        public override void Unload()
+        {
+            FireDebuffsForGasolineDamageOverTime?.Clear();
+            FireDebuffsForGasolineDamageOverTime = null;
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;

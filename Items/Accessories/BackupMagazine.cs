@@ -26,9 +26,9 @@ namespace RORMod.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var ror = player.ROR();
-            ror.ammoSwap = true;
-            ror.ammoSwapVisible = !hideVisual;
-            ror.backupMagazine += 0.1f;
+            ror.accBackupMagazine = true;
+            ror.backupMagVisible = !hideVisual;
+            ror.backupMagAmmoReduction += 0.1f;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -31,14 +31,19 @@ namespace RORMod
         public static byte DifficultyHack;
 
         public float procRate;
+        public int increasedRegen;
+
+        public Item accBustlingFungus;
+        public int cBungus;
+        public float bungusRadius;
+        public float bungusHealingPercent;
 
         public Item accGasoline;
         public bool accStunGrenade;
 
-        public float backupMagazine;
-
-        public bool ammoSwap;
-        public bool ammoSwapVisible;
+        public bool accBackupMagazine;
+        public bool backupMagVisible;
+        public float backupMagAmmoReduction;
 
         public bool accStickyBomb;
 
@@ -88,7 +93,8 @@ namespace RORMod
 
         public int flatDebuffDamageReduction;
 
-        public int timeNotHit;
+        public int timeSinceLastHit;
+        public int idleTime;
 
         public float bossDamageMultiplier;
 
@@ -318,6 +324,10 @@ namespace RORMod
 
         public override void ResetEffects()
         {
+            cBungus = 0;
+            accBustlingFungus = null;
+            bungusHealingPercent = 0f;
+            bungusRadius = 0f;
             accGasoline = null;
             accStunGrenade = false;
             accStickyBomb = false;
@@ -339,9 +349,9 @@ namespace RORMod
             accWarbanner = null;
             accMonsterTooth = null;
 
-            backupMagazine = 0f;
-            ammoSwap = false;
-            ammoSwapVisible = false;
+            backupMagAmmoReduction = 0f;
+            accBackupMagazine = false;
+            backupMagVisible = false;
             procRate = 1f;
 
             if (diosCooldown > 0)
@@ -352,7 +362,7 @@ namespace RORMod
             }
             checkRustedKey = false;
             checkElixir = ItemID.None;
-            timeNotHit++;
+            timeSinceLastHit++;
             maxShield = 0f;
             if (barrier > 0f)
             {
@@ -366,12 +376,21 @@ namespace RORMod
             flatDebuffDamageReduction = 0;
             bossDamageMultiplier = 1f;
 
+            if (Player.velocity.Length() < 1f)
+            {
+                idleTime++;
+            }
+            else
+            {
+                idleTime = 0;
+            }
+
             SpawnHack = false;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (ammoSwap && !Player.mouseInterface && !Player.lastMouseInterface && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
+            if (accBackupMagazine && !Player.mouseInterface && !Player.lastMouseInterface && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
             {
                 ProcessAmmoSwap();
             }
@@ -423,6 +442,7 @@ namespace RORMod
         public override void UpdateLifeRegen()
         {
             UpdateCautiousSlug();
+            Player.lifeRegen += increasedRegen;
         }
 
         public void UpdateCautiousSlug()
@@ -472,7 +492,7 @@ namespace RORMod
                 Player.statLifeMax2 -= HPLostToGlass;
             }
             shield = Math.Min(shield, maxShield);
-            if (maxShield > 0f && timeNotHit >= ShieldRegenerationTime)
+            if (maxShield > 0f && timeSinceLastHit >= ShieldRegenerationTime)
             {
                 shield = maxShield;
             }
@@ -480,7 +500,7 @@ namespace RORMod
             ManageLifeSupplements(shield, lifeMax);
             ManageLifeSupplements(barrier, lifeMax);
 
-            if (shield > 0f && timeNotHit == ShieldRegenerationTime)
+            if (shield > 0f && timeSinceLastHit == ShieldRegenerationTime)
             {
                 if (accShieldGenerator)
                     SoundEngine.PlaySound(RORMod.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
@@ -541,6 +561,10 @@ namespace RORMod
                 if (checkRustedKey && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
                 {
                     SpawnRustedLockbox();
+                }
+                if (accBustlingFungus != null && idleTime > 60 && Player.ownedProjectileCounts[ModContent.ProjectileType<BustlingFungusProj>()] == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_Accessory(accBustlingFungus), Player.Center, Vector2.Zero, ModContent.ProjectileType<BustlingFungusProj>(), 0, 0f, Player.whoAmI);
                 }
                 if (warbannerProgress_Enemies > 15)
                 {
@@ -678,7 +702,7 @@ namespace RORMod
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            timeNotHit = 0;
+            timeSinceLastHit = 0;
             if (accMedkit)
             {
                 Player.AddBuff(ModContent.BuffType<MedkitBuff>(), 120);
@@ -738,7 +762,7 @@ namespace RORMod
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-            return Player.RollLuck(100) > (int)(backupMagazine * 100f);
+            return Player.RollLuck(100) > (int)(backupMagAmmoReduction * 100f);
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
@@ -847,12 +871,12 @@ namespace RORMod
             }
         }
 
-        public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, BitsByte miscInfo)
+        public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo)
         {
             var center = position + new Vector2(width, height) / 2f;
             if (accGasoline != null)
             {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), 0, 0, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), (int)(lastHitDamage * 1f), 3f, Player.whoAmI);
             }
             if (accMonsterTooth != null)
             {

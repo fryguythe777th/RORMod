@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace RORMod.Items.Accessories
 {
     [AutoloadEquip(EquipType.Front)]
-    public class BustlingFungus : ModItem
+    public class BustlingFungus : ModItem, ItemHooks.IUpdateItemDye
     {
         public override void SetStaticDefaults()
         {
@@ -24,6 +24,14 @@ namespace RORMod.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.ROR().accBustlingFungus = Item;
+            player.ROR().bungusRadius += 280f;
+            player.ROR().bungusHealingPercent += 0.075f;
+        }
+
+        void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
+        {
+            player.ROR().cBungus = dyeItem.dye;
         }
     }
 }

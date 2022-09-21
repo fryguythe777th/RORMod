@@ -5,7 +5,6 @@ using RORMod.Content;
 using RORMod.Content.Elites;
 using RORMod.Items.Accessories;
 using RORMod.Items.Consumable;
-using RORMod.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +20,9 @@ namespace RORMod.NPCs
         public byte bleedingStacks;
         public bool bleedShatterspleen;
         public bool syncLifeMax;
+
+        public int lastHitDamage;
+        public int gasolineDamage;
 
         public int statDefense;
 
@@ -65,11 +67,18 @@ namespace RORMod.NPCs
                 NPCID.DD2OgreT3,
             };
 
-            if (Main.gameMenu)
+            RegisteredElites = new List<EliteNPC>();
+            On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
+            On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
+        }
+
+        private static double NPC_StrikeNPC(On.Terraria.NPC.orig_StrikeNPC orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)
+        {
+            if (self.TryGetGlobalNPC<RORNPC>(out var ror))
             {
-                RegisteredElites = new List<EliteNPC>();
-                On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
+                ror.lastHitDamage = Damage;
             }
+            return orig(self, Damage, knockBack, hitDirection, crit, noEffect, fromNet);
         }
 
         public static int NPC_checkArmorPenetration(On.Terraria.NPC.orig_checkArmorPenetration orig, NPC self, int armorPenetration)
@@ -88,11 +97,26 @@ namespace RORMod.NPCs
 
         public override void ResetEffects(NPC npc)
         {
-            if (!npc.HasBuff<BleedingDebuff>())
+            if (bleedShatterspleen && !npc.HasBuff<BleedingDebuff>())
             {
                 bleedShatterspleen = false;
             }
+            if (gasolineDamage > 0)
+            {
+                CheckGasoline(npc);
+            }
             statDefense = 0;
+        }
+        public void CheckGasoline(NPC npc)
+        {
+            for (int i = 0; i < NPC.maxBuffs; i++)
+            {
+                if (npc.buffTime[i] > 0 && npc.buffType[i] > 0 && Gasoline.FireDebuffsForGasolineDamageOverTime.Contains(npc.buffType[i]))
+                {
+                    return;
+                }
+            }
+            gasolineDamage = 0;
         }
 
         public override void PostAI(NPC npc)
@@ -117,6 +141,12 @@ namespace RORMod.NPCs
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             UpdateDebuffStack(npc, npc.HasBuff<BleedingDebuff>(), ref bleedingStacks, ref damage, 20, 16f);
+            if (gasolineDamage > 0)
+            {
+                npc.lifeRegen -= gasolineDamage;
+                if (damage < gasolineDamage)
+                    damage = gasolineDamage / 8;
+            }
         }
         public void UpdateDebuffStack(NPC npc, bool has, ref byte stacks, ref int damageNumbers, byte cap = 20, float dotMultiplier = 1f)
         {
@@ -165,7 +195,7 @@ namespace RORMod.NPCs
         {
             CheckWarbannerBossProgress(npc, damage);
         }
-        
+
         public void CheckWarbannerBossProgress(NPC npc, int damage)
         {
             if (!npc.boss)
@@ -199,7 +229,7 @@ namespace RORMod.NPCs
                 {
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
-                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, bb);
+                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, lastHitDamage,  bb);
                         continue;
                     }
 
@@ -210,6 +240,7 @@ namespace RORMod.NPCs
                     p.Write(npc.width);
                     p.Write(npc.height);
                     p.Write(npc.lifeMax);
+                    p.Write(lastHitDamage);
                     if (closest.whoAmI == i)
                     {
                         p.Write(bb);
@@ -245,12 +276,17 @@ namespace RORMod.NPCs
         {
             writer.Write(bleedingStacks);
 
-            var bb = new BitsByte(bleedShatterspleen, syncLifeMax);
+            var bb = new BitsByte(bleedShatterspleen, syncLifeMax, gasolineDamage > 0);
             writer.Write(bb);
 
-            if (syncLifeMax)
+            if (bb[1])
             {
                 writer.Write(Main.npc[whoAmI].lifeMax);
+            }
+
+            if (bb[2])
+            {
+                writer.Write(gasolineDamage);
             }
 
             Main.npc[whoAmI].GetElitePrefixes(out var prefixes);
@@ -271,6 +307,11 @@ namespace RORMod.NPCs
             if (bb[1])
             {
                 Main.npc[whoAmI].lifeMax = reader.ReadInt32();
+            }
+
+            if (bb[2])
+            {
+                gasolineDamage = reader.ReadInt32();
             }
 
             int elitePrefixesCount = reader.ReadByte();

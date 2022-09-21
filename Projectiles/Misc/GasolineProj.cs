@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,6 +16,10 @@ namespace RORMod.Projectiles.Misc
             Projectile.aiStyle = -1;
             Projectile.timeLeft = 120;
             Projectile.tileCollide = false;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 60;
         }
 
         public override void AI()
@@ -50,7 +50,10 @@ namespace RORMod.Projectiles.Misc
             {
                 if (Main.npc[i].CanBeChasedBy(Projectile) && Projectile.Colliding(rect, Main.npc[i].Hitbox))
                 {
-                    Main.npc[i].AddBuff(BuffID.OnFire, 300);
+                    Main.npc[i].AddBuff(BuffID.OnFire, 180);
+                    var ror = Main.npc[i].ROR();
+                    ror.gasolineDamage = Math.Max(ror.gasolineDamage, (int)(Projectile.damage * 1.5f)); 
+                    Main.npc[i].netUpdate = true;
                 }
             }
         }
@@ -58,7 +61,7 @@ namespace RORMod.Projectiles.Misc
         public override bool PreDraw(ref Color lightColor)
         {
             float opacity = (float)Math.Sin(Projectile.Opacity * MathHelper.Pi);
-            lightColor = Color.White * opacity * 0.5f;
+            lightColor = Color.White * opacity * 0.2f;
             lightColor.A = 0;
             Projectile.GetDrawInfo(out var t, out var off, out var frame, out var origin, out int _);
 

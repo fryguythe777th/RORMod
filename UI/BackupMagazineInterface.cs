@@ -51,7 +51,7 @@ namespace RORMod.UI
         public bool DrawInterface()
         {
             var player = Main.LocalPlayer;
-            if (!player.ROR().ammoSwapVisible)
+            if (!player.ROR().backupMagVisible)
             {
                 return true;
             }
