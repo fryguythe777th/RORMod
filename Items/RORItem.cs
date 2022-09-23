@@ -16,6 +16,7 @@ namespace RORMod.Items
         public static List<int> BossTier { get; private set; }
         public static List<int> LunarTier { get; private set; }
         public static List<int> VoidTier { get; private set; }
+        public static List<int> Equipment { get; private set; }
 
         internal static readonly string[] TooltipNames = new string[]
         {
@@ -82,6 +83,25 @@ namespace RORMod.Items
             BossTier = new List<int>();
             LunarTier = new List<int>();
             VoidTier = new List<int>();
+            Equipment = new List<int>();
+        }
+
+        public override void Unload()
+        {
+            WhiteTier?.Clear();
+            WhiteTier = null;
+            GreenTier?.Clear();
+            GreenTier = null;
+            RedTier?.Clear();
+            RedTier = null;
+            BossTier?.Clear();
+            BossTier = null;
+            LunarTier?.Clear();
+            LunarTier = null;
+            VoidTier?.Clear();
+            VoidTier = null;
+            Equipment?.Clear();
+            Equipment = null;
         }
 
         public static int GetIndex(List<TooltipLine> tooltips, string lineName)

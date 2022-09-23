@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories.T1Common
 {
+    [AutoloadEquip(EquipType.Waist)]
     public class RepulsionArmorPlate : ModItem
     {
         public override void SetStaticDefaults()

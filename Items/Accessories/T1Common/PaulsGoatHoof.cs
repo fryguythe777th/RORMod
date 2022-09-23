@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories.T1Common
 {
+    [AutoloadEquip(EquipType.Shoes)]
     public class PaulsGoatHoof : ModItem
     {
         public override void SetStaticDefaults()

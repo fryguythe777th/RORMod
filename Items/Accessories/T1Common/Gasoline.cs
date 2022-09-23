@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories.T1Common
 {
+    [AutoloadEquip(EquipType.Waist)]
     public class Gasoline : ModItem
     {
         public static HashSet<int> FireDebuffsForGasolineDamageOverTime { get; private set; }

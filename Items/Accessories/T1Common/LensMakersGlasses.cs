@@ -1,15 +1,18 @@
+using RORMod.Graphics.PlayerLayers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RORMod.Items.Accessories.T1Common
 {
+    [AutoloadEquip(EquipType.Face)]
     public class LensMakersGlasses : ModItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
             RORItem.WhiteTier.Add(Type);
+            FaceGlowMask.GlowMask.Add(Item.faceSlot, $"{Texture}_Face_Glow");
         }
 
         public override void SetDefaults()
