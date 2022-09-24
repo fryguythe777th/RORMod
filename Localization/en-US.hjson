@@ -218,7 +218,7 @@ Mods: {
 				Lore: This is just a test.
 			}
 			BackupMagazine: {
-				Tooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}][2:]]"
+				Tooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}]"
 				Lore: Order: Ammo Magazine, Standard Ammunition [45mm Rounds]
 			}
 			BundleOfFireworks: {

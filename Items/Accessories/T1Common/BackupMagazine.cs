@@ -15,7 +15,7 @@ namespace RORMod.Items.Accessories.T1Common
             RORItem.WhiteTier.Add(Type);
             TerminalUIState.DynamicTooltip.Add(Type, () =>
             {
-                return Language.GetTextValueWith("Mods.RORMod.Terminal.BackupMagazine.Tooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" });
+                return Language.GetTextValueWith("Mods.RORMod.Terminal.BackupMagazine.Tooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}][2:]" });
             });
         }
 
