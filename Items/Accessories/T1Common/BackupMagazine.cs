@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RORMod.UI.States;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -12,6 +13,10 @@ namespace RORMod.Items.Accessories.T1Common
         {
             SacrificeTotal = 1;
             RORItem.WhiteTier.Add(Type);
+            TerminalUIState.DynamicTooltip.Add(Type, () =>
+            {
+                return Language.GetTextValueWith("Mods.RORMod.Terminal.BackupMagazine.Tooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" });
+            });
         }
 
         public override void SetDefaults()
@@ -33,7 +38,8 @@ namespace RORMod.Items.Accessories.T1Common
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable", Language.GetTextValueWith("Mods.RORMod.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" })));
+            tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
+                Language.GetTextValueWith("Mods.RORMod.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" })));
         }
     }
 }

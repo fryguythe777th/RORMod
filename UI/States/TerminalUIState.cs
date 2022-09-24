@@ -18,6 +18,26 @@ namespace RORMod.UI.States
 {
     public class TerminalUIState : RORUIState
     {
+        public static Dictionary<int, Func<string>> DynamicTooltip { get; private set; }
+        public static Dictionary<int, Func<string>> DynamicLog { get; private set; }
+
+        public int selectedItem;
+        public Item hoverItem;
+
+        public override void Load(Mod mod)
+        {
+            DynamicTooltip = new Dictionary<int, Func<string>>();
+            DynamicLog = new Dictionary<int, Func<string>>();
+        }
+
+        public override void Unload()
+        {
+            DynamicTooltip?.Clear();
+            DynamicTooltip = null;
+            DynamicLog?.Clear();
+            DynamicLog = null;
+        }
+
         public override void OnInitialize()
         {
             OverrideSamplerState = SamplerState.LinearClamp;
@@ -99,8 +119,6 @@ namespace RORMod.UI.States
             DrawDeliveryTab_DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(15, 100, 15, 255) * 2, new Color(66, 90, 60, 255), RORItem.GreenTier);
             DrawDeliveryTab_DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(100, 15, 15, 255) * 2, new Color(90, 60, 60, 255), RORItem.RedTier);
 
-            int selectedItem = RORItem.WhiteTier[(int)(Main.GameUpdateCount / 60 % RORItem.WhiteTier.Count)];
-            //selectedItem = Main.maxItemTypes + (int)(Main.GameUpdateCount / 10) % (ItemLoader.ItemCount - Main.maxItemTypes);
             if (selectedItem > 0)
             {
                 string text = Lang.GetItemNameValue(selectedItem);
@@ -114,7 +132,11 @@ namespace RORMod.UI.States
                 Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + 28, iconInfoTabWidth - 4, (int)d.Height - 62 - 8 - textHeight - 28), clr2);
 
                 text = "";
-                if (selectedItem >= Main.maxItemTypes)
+                if (DynamicTooltip.TryGetValue(selectedItem, out var dynamicTooltip))
+                {
+                    text = dynamicTooltip();
+                }
+                else if (selectedItem >= Main.maxItemTypes)
                 {
                     var modItem = ItemLoader.GetItem(selectedItem);
                     string detailedTTKey = $"Mods.{modItem.Mod.Name}.Terminal.{modItem.Name}.Tooltip";
@@ -126,41 +148,49 @@ namespace RORMod.UI.States
                 }
                 if (text == "")
                 {
-                    var tt = Lang.GetTooltip(selectedItem);
-                    for (int i = 0; i < tt.Lines; i++)
-                    {
-                        if (text != "")
-                            text += ". ";
-                        text += tt.GetLine(i);
-                    }
-                    text += ".";
+                    text = GetItemTooltipAsOneLine(selectedItem);
                 }
-                t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 32f),
+
+                t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, GetColorCodedString(text), new Vector2(iconInfoTabX + 12f, iconInfoTabY + 32f),
                     Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
 
                 int descHeight = (int)(t.Y - iconInfoTabY);
                 Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + descHeight + 22, iconInfoTabWidth - 4, 4), clr);
 
-                if (selectedItem >= Main.maxItemTypes)
+                if (DynamicLog.TryGetValue(selectedItem, out var dynamicLog))
+                {
+                    text = dynamicLog();
+                }
+                else if (selectedItem >= Main.maxItemTypes)
                 {
                     var modItem = ItemLoader.GetItem(selectedItem);
                     text = Language.GetTextValue($"Mods.{modItem.Mod.Name}.Terminal.{modItem.Name}.Lore");
-                    text = "Some lore goes here, or something, log thingies I guess idk honestly. Text text texties text." +
-                        "\n//--AUTO-TRANSCRIPTION FROM UES [Redacted] --//" +
-                        "\n'You have a problem.'" +
-                        "\n'What? How? These are good for me, they...'" +
-                        "\n'Yeah, they help promote cell repair, carbon neutral, blah blah blah… I’ve heard that spiel a thousand times already. Whether they’re good for you or not, you can’t just have a diet consisting only of them. It’s basic dietary science!'" +
-                        "\n'So what?'" +
-                        "\n'So what? Eating only mushrooms isn’t healthy, just like eating only meat or vegetables isn’t healthy!'" +
-                        "\n'Oh, so you’re attacking vegetarians, now?'" +
-                        "\n'Wh- No! I just mean--'" +
-                        "\n'Well, when you’re a bit more tolerant of my lifestyle, I’d be glad to continue this conversation with you. Until then, I’d suggest you open your heart and appetite to a more… fungal… palette.'";
                 }
 
                 ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 30f + 28f + (t.Y - (iconInfoTabY + 28f))),
                     Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
 
             }
+        }
+
+        public static string GetColorCodedString(string text)
+        {
+            return text.Replace("[0:", $"[c/{new Color(255, 222, 128, 255).Hex3()}:")
+                .Replace("[1:", $"[c/{new Color(175, 255, 128, 255).Hex3()}:")
+                .Replace("[2:", $"[c/{new Color(175, 225, 255, 255).Hex3()}:");
+        }
+
+        public static string GetItemTooltipAsOneLine(int item)
+        {
+            string text = "";
+            var tt = Lang.GetTooltip(item);
+            for (int i = 0; i < tt.Lines; i++)
+            {
+                if (text != "")
+                    text += ". ";
+                text += tt.GetLine(i);
+            }
+            return text + ".";
         }
 
         public void DrawDeliveryTab_DrawItems(SpriteBatch sb, int startX, int startY, ref int x, ref int y, int width, int height, int spriteSize, int maxWidth, Color borderColor, Color backColor, List<int> items)
@@ -197,9 +227,16 @@ namespace RORMod.UI.States
             var iconRect = new Rectangle(iconX, iconY, spriteSize + 4, spriteSize + 4);
             if (iconRect.Contains(Main.mouseX, Main.mouseY))
             {
-                var itemInstance = new Item();
-                itemInstance.SetDefaults(item);
-                RORUI.HoverItem(itemInstance);
+                if (hoverItem == null || hoverItem.type != item)
+                {
+                    hoverItem = new Item();
+                    hoverItem.SetDefaults(item);
+                }
+                RORUI.HoverItem(hoverItem);
+                if (Main.mouseLeft && Main.mouseLeftRelease)
+                {
+                    selectedItem = item;
+                }
                 borderColor *= 2;
             }
             Helpers.DrawRectangle(iconRect, borderColor);

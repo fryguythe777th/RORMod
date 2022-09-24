@@ -212,6 +212,49 @@ Mods: {
 			DeathArtifact: "{1} has been slain by the Artifact of Death, activated by {0}."
 		}
 
+		Terminal: {
+			ArmorPiercingRounds: {
+				Tooltip: "[0:10%] increased damage against bosses. Bosses and enemies with [3:red health bars] count as bosses."
+				Lore: This is just a test.
+			}
+			BackupMagazine: {
+				Tooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}][2:]]"
+				Lore: Order: Ammo Magazine, Standard Ammunition [45mm Rounds]
+			}
+			BundleOfFireworks: {
+				Tooltip: "Release a [0:homing firework on kill]. Deals [0:50%] of the total damage dealt on the killing blow. Capped at [0:200] damage."
+				Lore: This is just a test also.
+			}
+			BustlingFungus: {
+				Tooltip: "While standing still, create a zone that [1:increases life regen] of allies by [1:7.5%] of their max life within [1:8.75 blocks]."
+				Lore: This is just a test 3rd.
+			}
+			FocusCrystal: {
+				Tooltip: "Enemies within [0:15 blocks] take [0:25%] extra damage."
+				Lore: This is just a test 4rd.
+			}
+			Medkit: {
+				Tooltip: "Recieve a [1:2] second buff when hit. When the buff is cleared, [1:heal 15%] of maximum health plus [1:20]."
+				Lore: This is just a test 5st.
+			}
+			OddlyShapedOpal: {
+				Tooltip: "Take [1:50%] reduced damage. When hit, recieve a [1:5] second cooldown on this effect"
+				Lore: This is just a test 6st.
+			}
+			RollOfPennies: {
+				Tooltip: "Recieve [2:50 copper] on [0:taking damage] from an enemy."
+				Lore: ggs.
+			}
+			StickyExplosives: {
+				Tooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:125%] total damage to enemies."
+				Lore: ggs..
+			}
+			ReloadingShurikens: {
+				Tooltip: "Shoots [0:shurikens] which deals [0:200%] of the damage of your [2:held weapon] while you are [2:attacking]. Each [0:shuriken] takes [0:2] seconds to reload."
+				Lore: ggs....
+			}
+		}
+
 		BossDesc: {
 			EyeofCthulhu: Nighttime Terror
 			EaterofWorlds: Spawn of Malice

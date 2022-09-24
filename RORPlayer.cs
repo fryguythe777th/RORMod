@@ -833,6 +833,14 @@ namespace RORMod
                 TougherTimesDodge();
                 return false;
             }
+            if (accOpal)
+            {
+                damage = (int)(damage * 0.5f);
+                if (opalShieldActive)
+                    opalShieldActive = false;
+                if (opalShieldTimer == -1)
+                    opalShieldTimer = 0;
+            }
             return true;
         }
 
@@ -881,13 +889,6 @@ namespace RORMod
                         SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
                     }
                 }
-            }
-            if (accOpal)
-            {
-                if (opalShieldActive)
-                    opalShieldActive = false;
-                if (opalShieldTimer == -1)
-                    opalShieldTimer = 0;
             }
             if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
             {
