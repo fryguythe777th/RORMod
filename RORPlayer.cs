@@ -641,9 +641,9 @@ namespace RORMod
             }
             if (Main.myPlayer == Player.whoAmI)
             {
-                ResourceOverlaySystem.MaxShield = shield;
-                ResourceOverlaySystem.MaxBarrier = barrier;
-                ResourceOverlaySystem.MaxGlass = glass;
+                ResourceOverlays.MaxShield = shield;
+                ResourceOverlays.MaxBarrier = barrier;
+                ResourceOverlays.MaxGlass = glass;
             }
         }
 

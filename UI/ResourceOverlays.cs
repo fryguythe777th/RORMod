@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.UI
 {
-    public class ResourceOverlaySystem : ModSystem
+    public class ResourceOverlays : ModSystem
     {
         public static float shield;
         public static float barrier;
