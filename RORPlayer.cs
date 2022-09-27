@@ -4,6 +4,7 @@ using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Graphics;
 using RORMod.Items.Accessories.T1Common;
+using RORMod.Items.Accessories.T2Uncommon;
 using RORMod.Items.Consumable;
 using RORMod.NPCs;
 using RORMod.Projectiles.Misc;
@@ -105,6 +106,7 @@ namespace RORMod
         public bool accPennies;
         public Item accFireworks;
         public bool accCrowbar;
+        public bool accRazorwire;
 
         public bool accOpal;
         public int opalShieldTimer;
@@ -502,6 +504,7 @@ namespace RORMod
             accBackupMagazine = false;
             backupMagAmmoReduction = 0f;
             backupMagVisible = false;
+            accRazorwire = false;
 
             gLegSounds = false;
 
@@ -893,6 +896,32 @@ namespace RORMod
             if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
             {
                 CheckElixir();
+            }
+            if (accRazorwire)
+            {
+                int enemyCounter = 0;
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    /*if (Main.npc[i].friendly == true)
+                    {
+                        break;
+                    }*/
+
+                    Vector2 r = Main.npc[i].position;
+                    Vector2 j = Player.position;
+
+                    if (Math.Sqrt((int)((j.X - r.X) * (j.X - r.X)) + ((j.Y - r.Y) * (j.Y - r.Y))) < 300)
+                    {
+                        enemyCounter++;
+                        //Main.npc[i].StrikeNPC((int)(Player.HeldItem.damage * 1.6), Player.HeldItem.knockBack, 0, false);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), j, (r - j) / 3, ModContent.ProjectileType<RazorwireRazor>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
+                    }
+
+                    if (enemyCounter == 5)
+                    {
+                        break;
+                    }
+                }
             }
         }
 

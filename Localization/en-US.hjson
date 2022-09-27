@@ -27,6 +27,7 @@ Mods: {
 			StunGrenade: Stun Grenade
 			Gasoline: Gasoline
 			FocusCrystal: Focus Crystal
+			Razorwire: Razorwire
 
 			DeathMark: Death Mark
 			ReloadingShurikens: Reloading Shurikens
@@ -123,6 +124,7 @@ Mods: {
 				Recharges over time
 				'''
 			HarvestersScythe: Heal 12 life on critical hits
+			Razorwire: Shoot homing razors on hit that deal 160% current weapon's damage
 
 			Aegis: 
 				'''
