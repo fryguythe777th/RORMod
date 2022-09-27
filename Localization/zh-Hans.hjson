@@ -14,12 +14,32 @@ Mods: {
 			Medkit: 医疗包
 			SoldiersSyringe: 士兵的注射器
 			TriTipDagger: 三尖匕首
-			RepulsionArmorPlate: 推斥装甲板
+			RepulsionArmorPlate: 推斥护甲板
 			ArmorPiercingRounds: 穿甲弹
+			OddlyShapedOpal: 造型奇特的欧珀
+			LensMakersGlasses: 透镜制作者的眼镜
+			RollOfPennies: 一卷便士
+			StickyExplosives: 黏弹
+			BackupMagazine: 备用弹匣
+			BundleOfFireworks: 一捆烟花
+			Crowbar: 撬棍
+			DelicateWatch: 精致的手表
+			StunGrenade: 眩晕手雷
+			Gasoline: 汽油
+			FocusCrystal: 凝神水晶
 
 			DeathMark: 死亡标记
+			ReloadingShurikens: 再装填手里剑
+			HarvestersScythe: 收割者镰刀
+
+			Aegis: 庇护
+			DiosBestFriend: 迪奥最好的朋友
 
 			Shatterspleen: 易爆的脾脏
+
+			BisonSteak: 野牛肉排
+			RustedKey: 生锈的钥匙
+			PowerElixir: 强力药剂
 			
 			Chaos: 混沌神器
 			Command: 统率神器
@@ -54,6 +74,7 @@ Mods: {
 			PaulsGoatHoof: 增加水平和垂直移动速度
 			CautiousSlug: 未处于战斗状态时会增加生命恢复速度
 			TougherTimes: 有10%的几率闪避攻击
+			Crowbar: 对生命值超过90%的敌人造成的伤害增加25%
 			Medkit:
 				'''
 				在承受伤害时会在短暂延迟后恢复生命值
@@ -61,7 +82,7 @@ Mods: {
 				'''
 			MonsterTooth:
 				'''
-				击败敌人后会掉落一颗治疗球
+				击败一名敌人时会掉落一颗治疗球
 				恢复8点外加等同于最大生命值2%的生命值
 				'''
 			SoldiersSyringe:
@@ -71,12 +92,47 @@ Mods: {
 				'''
 			TriTipDagger: 有10%的几率使敌人流血
 			RepulsionArmorPlate: 减益造成的伤害减少5点
-			ArmorPiercingRounds: 对Boss额外造成20%伤害
+			ArmorPiercingRounds: 对Boss敌人造成的伤害增加10%
+			LensMakersGlasses: 增加5%暴击率
+			RollOfPennies: 在承受伤害时会获得金钱
+			BundleOfFireworks: 击败一名敌人时会释放追踪烟花
+			DelicateWatch: 生命值大于一半时增加20%伤害
+			OddlyShapedOpal:
+				'''
+				所受伤害降低
+				命中敌人时, 该效果会获得5秒的冷却时间
+				'''
+			StickyExplosives: 10%几率对敌人使用一颗粘性炸弹
+			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
+			Gasoline: 击败一名敌人时会点燃附近的其他敌人
+			BackupMagazine: {
+				$parentVal: 10%几率不消耗弹药
+				KeybindTooltip: 允许你使用{Keybind}来切换要使用的弹药
+			}
+			BustlingFungus: 当站定不动时会治疗附近的队友
+			FocusCrystal: 附近的敌人会受到25%的额外伤害
 
 			DeathMark:
 				'''
-			        用2个及以上减益伤害敌人时会将其被标记为死亡7秒
+			    用2个及以上减益伤害敌人时会将其被标记为死亡7秒
 				被死亡标记的敌人会受到10%的额外伤害
+				'''
+				ReloadingShurikens:
+				'''
+				当你攻击时会向敌人发射手里剑
+				会随着时间流逝而恢复
+				'''
+			HarvestersScythe: 攻击造成暴击时会为你治疗12点生命值
+
+			Aegis: 
+				'''
+				所有受到的治疗的一半会用于织构一道屏障
+				屏障剩下的10%不会衰减
+				'''
+			DiosBestFriend: 
+				'''
+				骗过死亡, 使用后有10分钟的冷却时间
+				'请让我活得再长一点 - 我也需要'
 				'''
 
 			Shatterspleen:
@@ -84,6 +140,14 @@ Mods: {
 				增加5%暴击率
 				攻击造成暴击时会使敌人流血
 				流血的敌人将会在死亡时血腥的爆炸
+				'''
+
+			BisonSteak: "{$CommonItemTooltip.MajorStats}"
+			RustedKey: 打开生锈的锁盒, 放在你的背包中以揭露它们
+			PowerElixir: 
+				'''
+				受到小于50%生命值的伤害时会自动消耗
+				延长抗药性的时间
 				'''
 
 			Chaos: 玩家和怪物均启用友军误伤
@@ -119,12 +183,18 @@ Mods: {
 		}
 		
 		BuffName: {
-			Warbanner: 战旗
+			ShurikenBuff: Reloading Shurikens
+			BustlingFungusBuff: 爆裂真菌
+			DiosCooldown: 迪奥最好的朋友
+			WarbannerBuff: 战旗
 			MedkitBuff: 医疗包
 		}
 
 		BuffDescription: {
-			Warbanner: 增加移动速度和武器攻速
+			ShurikenBuff: You can throw shurikens while attacking!
+			BustlingFungusBuff: 正在受到一名队友的治疗
+			DiosCooldown: 你无法使用迪奥最好的朋友来起死回生!
+			WarbannerBuff: 增加移动速度和武器攻速
 			MedkitBuff: 此增益消失时会为你恢复少量生命值
 		}
 
@@ -140,6 +210,49 @@ Mods: {
 
 		DeathReason: {
 			DeathArtifact: "{1}已被由{0}激活的死亡神器击杀."
+		}
+
+		Terminal: {
+			ArmorPiercingRounds: {
+				Tooltip: "对Boss造成的伤害增加[0:10%]. 拥有[3:红色生命栏]的Boss和敌人会算作Boss."
+				Lore: This is just a test.
+			}
+			BackupMagazine: {
+				Tooltip: "[2:10%]几率不消耗弹药. 允许你使用[2:{Keybind}]来切换要[2:使用的弹药]"
+				Lore: 订单: 弹药盒, 标准弹药[45mm弹药]
+			}
+			BundleOfFireworks: {
+				Tooltip: "在击败一名敌人时释放[0:追踪烟花]. 造成致死伤害的[0:50%]. 上限为[0:200]点伤害."
+				Lore: This is just a test also.
+			}
+			BustlingFungus: {
+				Tooltip: "当站定不动时, 在[1:8.75格物块]的范围内创造一个增加附近队友最大生命值的[1:7.5%][1:生命恢复速度]的领域."
+				Lore: This is just a test 3rd.
+			}
+			FocusCrystal: {
+				Tooltip: "在[0:15格物块]的范围内的敌人会受到[0:25%]的额外伤害."
+				Lore: This is just a test 4rd.
+			}
+			Medkit: {
+				Tooltip: "命中敌人时会获得[1:2]秒的增益效果. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:15%]的生命值."
+				Lore: This is just a test 5st.
+			}
+			OddlyShapedOpal: {
+				Tooltip: "所受伤害降低[1:50%]. 当命中敌人时, 该效果会获得[1:5]秒的冷却时间."
+				Lore: This is just a test 6st.
+			}
+			RollOfPennies: {
+				Tooltip: "在承受[0:来自一名敌人的伤害]时会获得[2:50铜币]."
+				Lore: ggs.
+			}
+			StickyExplosives: {
+				Tooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:125%]伤害的[0:粘性炸弹]."
+				Lore: ggs..
+			}
+			ReloadingShurikens: {
+				Tooltip: "当你[2:攻击时]会向敌人发射会造成你[2:手持武器]的[0:200%]伤害的[0:手里剑]. [0:手里剑]每过[0:2]秒便会重新装载一个."
+				Lore: ggs....
+			}
 		}
 
 		BossDesc: {
@@ -165,18 +278,44 @@ Mods: {
 		}
 
 		Configuration: {
+			EnemyHB: 敌人生命栏
+			EnemyHBTooltip: 
+				'''
+				设置生命栏的状态.
+				不要将此与Boss生命栏混淆, 这是普通的 生命栏
+				当NPC受伤时会绘制在NPC下方!
+				'''
+
+			NPCDrawBuff: 绘制Buffs
+			NPCDrawBuffTooltip: 决定是否在NPC的上方绘制Buffs
+			NPCDrawBuff_All: > 绘制所有Buffs
+			NPCDrawBuff_AllTooltip: 不会渲染没有Buffs的特殊UI材质.
+
 			PlayerHealthbarOverlay: 玩家生命栏覆盖
 			PlayerHealthbarOverlayTooltip: 是否启用玩家生命栏覆盖, 如果你有一个修改原版生命栏UI的Mod, 请禁用此选项
+
 			BossHealthbarActive: Boss生命栏状态
 			BossHealthbarActiveTooltip: 
 				'''
 				设置Boss生命栏的状态. 
 				'Enabled_AlwaysUse'会强制使用生命栏, 即使Boss有专门的生命栏.
 				'''
+
 			BossHealthbarBottom: Boss生命栏: 置于底部
 			BossHealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
 		}
-		
-	Blocked: 格挡!
+
+		BlazingElite: 炽热的
+		OverloadingElite: 过载的
+		GlacialElite: 冰川的
+		MendingElite: 修复的
+		VoidtouchedElite: 电磁的
+		MalachiteElite: 孔雀石
+		CelestineElite: 天青石
+		PerfectedElite: 完美的
+
+		UnboundKey: 未绑定的按键
+		Revived: 恢复!
+		Blocked: 格挡!
 	}
 }
