@@ -28,6 +28,7 @@ Mods: {
 			Gasoline: Gasoline
 			FocusCrystal: Focus Crystal
 			Razorwire: Razorwire
+			GhorsTome: Ghor's Tome
 
 			DeathMark: Death Mark
 			ReloadingShurikens: Reloading Shurikens
@@ -125,6 +126,11 @@ Mods: {
 				'''
 			HarvestersScythe: Heal 12 life on critical hits
 			Razorwire: Shoot homing razors on hit that deal 160% current weapon's damage
+			GhorsTome:
+				'''
+				10% chance for killed enemies to drop a gold nugget
+				Gold nuggets grant money
+				'''
 
 			Aegis: 
 				'''

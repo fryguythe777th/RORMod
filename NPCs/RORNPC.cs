@@ -229,7 +229,7 @@ namespace RORMod.NPCs
                 {
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
-                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, lastHitDamage,  bb);
+                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, lastHitDamage,  bb, npc.value);
                         continue;
                     }
 
@@ -249,6 +249,7 @@ namespace RORMod.NPCs
                     {
                         p.Write((byte)0);
                     }
+                    p.Write(npc.value);
                     p.Send(toClient: i);
                 }
             }

@@ -19,5 +19,10 @@ namespace RORMod.Items.Placeable
             Item.maxStack = 99;
             Item.rare = ItemRarityID.LightRed;
         }
+
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace RORMod.Items.Accessories.T2Uncommon
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accRazorwire = true;
+            player.ROR().accRazorwire = Item;
         }
     }
 

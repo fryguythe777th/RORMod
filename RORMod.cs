@@ -104,7 +104,7 @@ namespace RORMod
 
                 case PacketType.OnKillEffect:
                     {
-                        Main.player[reader.ReadInt32()].ROR().OnKillEffect(reader.ReadInt32(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadByte());
+                        Main.player[reader.ReadInt32()].ROR().OnKillEffect(reader.ReadInt32(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadByte(), reader.ReadSingle());
                     }
                     break;
 

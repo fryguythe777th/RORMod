@@ -106,7 +106,8 @@ namespace RORMod
         public bool accPennies;
         public Item accFireworks;
         public bool accCrowbar;
-        public bool accRazorwire;
+        public Item accRazorwire;
+        public Item accGhorsTome;
 
         public bool accOpal;
         public int opalShieldTimer;
@@ -504,7 +505,8 @@ namespace RORMod
             accBackupMagazine = false;
             backupMagAmmoReduction = 0f;
             backupMagVisible = false;
-            accRazorwire = false;
+            accRazorwire = null;
+            accGhorsTome = null;
 
             gLegSounds = false;
 
@@ -897,7 +899,7 @@ namespace RORMod
             {
                 CheckElixir();
             }
-            if (accRazorwire)
+            if (accRazorwire != null)
             {
                 int enemyCounter = 0;
                 for (int i = 0; i < Main.maxNPCs; i++)
@@ -914,7 +916,7 @@ namespace RORMod
                     {
                         enemyCounter++;
                         //Main.npc[i].StrikeNPC((int)(Player.HeldItem.damage * 1.6), Player.HeldItem.knockBack, 0, false);
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), j, (r - j) / 3, ModContent.ProjectileType<RazorwireRazor>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(accRazorwire), j, (r - j) / 3, ModContent.ProjectileType<RazorwireRazor>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
                     }
 
                     if (enemyCounter == 5)
@@ -1081,7 +1083,7 @@ namespace RORMod
             }
         }
 
-        public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo)
+        public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo, float value)
         {
             var center = position + new Vector2(width, height) / 2f;
             if (accGasoline != null)
@@ -1091,6 +1093,10 @@ namespace RORMod
             if (accMonsterTooth != null)
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accMonsterTooth), center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, Player.whoAmI);
+            }
+            if (accGhorsTome != null && Main.rand.NextBool(10))
+            {
+                Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<NUGGET>(), 0, 0, Player.whoAmI, ai1: value);
             }
             if (accTopazBrooch)
             {
