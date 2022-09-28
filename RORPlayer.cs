@@ -926,7 +926,7 @@ namespace RORMod
                     {
                         enemyCounter++;
                         //Main.npc[i].StrikeNPC((int)(Player.HeldItem.damage * 1.6), Player.HeldItem.knockBack, 0, false);
-                        Projectile.NewProjectile(Player.GetSource_Accessory(accRazorwire), j, (r - j) / 3, ModContent.ProjectileType<RazorwireRazor>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
+                        Projectile.NewProjectile(Player.GetSource_Accessory(accRazorwire), j, (r - j) / 3, ModContent.ProjectileType<RazorwireProj>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
                     }
 
                     if (enemyCounter == 5)

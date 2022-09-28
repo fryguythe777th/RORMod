@@ -30,6 +30,11 @@ namespace RORMod.Projectiles.Misc
             Projectile.aiStyle = -1;
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+
         public override void AI()
         {
             if ((int)Projectile.localAI[0] == 0)
@@ -38,10 +43,15 @@ namespace RORMod.Projectiles.Misc
                 Projectile.rotation = MathHelper.ToRadians(Main.rand.Next(0, 360));
             }
 
-            int grabRange = 200;
-            if (Main.player[Projectile.owner].lifeMagnet)
+            if (Projectile.tileCollide)
             {
-                grabRange += Item.lifeGrabRange;
+                Projectile.velocity *= 0.9f;
+            }
+
+            int grabRange = 200;
+            if (Main.player[Projectile.owner].treasureMagnet)
+            {
+                grabRange += Item.treasureGrabRange;
             }
 
             int closestPlr = -1;
