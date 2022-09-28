@@ -139,7 +139,7 @@ namespace RORMod.UI.States
                 else if (selectedItem >= Main.maxItemTypes)
                 {
                     var modItem = ItemLoader.GetItem(selectedItem);
-                    string detailedTTKey = $"Mods.{modItem.Mod.Name}.Terminal.{modItem.Name}.Tooltip";
+                    string detailedTTKey = $"Mods.{modItem.Mod.Name}.ItemTooltip.{modItem.Name}.TerminalTooltip";
                     string detailedTT = Language.GetTextValue(detailedTTKey);
                     if (detailedTT != detailedTTKey)
                     {
@@ -164,7 +164,7 @@ namespace RORMod.UI.States
                 else if (selectedItem >= Main.maxItemTypes)
                 {
                     var modItem = ItemLoader.GetItem(selectedItem);
-                    text = Language.GetTextValue($"Mods.{modItem.Mod.Name}.Terminal.{modItem.Name}.Lore");
+                    text = Language.GetTextValue($"Mods.{modItem.Mod.Name}.Terminal.{modItem.Name}.TerminalLore");
                 }
 
                 ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 30f + 28f + (t.Y - (iconInfoTabY + 28f))),
@@ -177,7 +177,8 @@ namespace RORMod.UI.States
         {
             return text.Replace("[0:", $"[c/{new Color(255, 222, 128, 255).Hex3()}:")
                 .Replace("[1:", $"[c/{new Color(175, 255, 128, 255).Hex3()}:")
-                .Replace("[2:", $"[c/{new Color(175, 225, 255, 255).Hex3()}:");
+                .Replace("[2:", $"[c/{new Color(175, 225, 255, 255).Hex3()}:")
+                .Replace("[3:", $"[c/{new Color(255, 128, 128, 255).Hex3()}:");
         }
 
         public static string GetItemTooltipAsOneLine(int item)

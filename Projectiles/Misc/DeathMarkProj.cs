@@ -28,7 +28,11 @@ namespace RORMod.Projectiles.Misc
 
         public override void AI()
         {
-            Projectile.velocity *= 0.85f;
+            if ((int)Projectile.ai[0] >= 0)
+            {
+                var npc = Main.npc[(int)Projectile.ai[0] - 1];
+                Projectile.Center = new Vector2(npc.position.X + npc.width / 2f, npc.position.Y - 50f);
+            }
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 3)
             {

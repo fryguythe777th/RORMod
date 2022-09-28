@@ -48,7 +48,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.RocketFireworkRed + Main.rand.Next(4), Projectile.damage, 1);
+                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.RocketFireworkRed + Main.rand.Next(4), Projectile.damage, 1f, Projectile.owner);
                 Main.projectile[p].timeLeft = 1;
             }
         }

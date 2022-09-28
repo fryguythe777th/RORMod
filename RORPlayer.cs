@@ -3,6 +3,7 @@ using RORMod.Buffs;
 using RORMod.Buffs.Debuff;
 using RORMod.Content.Artifacts;
 using RORMod.Graphics;
+using RORMod.Items.Accessories;
 using RORMod.Items.Accessories.T1Common;
 using RORMod.Items.Accessories.T2Uncommon;
 using RORMod.Items.Consumable;
@@ -31,6 +32,8 @@ namespace RORMod
 
         public static bool SpawnHack;
         public static byte DifficultyHack;
+
+        public AtGMissileMk1 accAtG;
 
         public float procRate;
         public int increasedRegen;
@@ -280,6 +283,10 @@ namespace RORMod
 
         #endregion
 
+        public int ProcRate(int num)
+        {
+            return (int)(num * procRate);
+        }
         public bool ProcRate()
         {
             return Main.rand.NextFloat(1f) < procRate;
@@ -472,6 +479,9 @@ namespace RORMod
             UpdateAegis();
             UpdateShuriken();
             UpdateDios();
+
+            accAtG?.ResetEffects(Player, this);
+            accAtG = null;
 
             accHarvestersScythe = 0;
             accFocusCrystal = null;
@@ -1017,7 +1027,13 @@ namespace RORMod
                 if (accStickyBomb && ProcRate() && Player.RollLuck(10) == 0)
                 {
                     Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero,
-                        ModContent.ProjectileType<StickyExplosivesProj>(), (int)(damage * 1.25f), 0f, Player.whoAmI, target.whoAmI);
+                        ModContent.ProjectileType<StickyExplosivesProj>(), ProcRate((int)(damage * 1.25f)), 0f, Player.whoAmI, target.whoAmI);
+                }
+
+                if (accAtG != null && ProcRate() && Player.RollLuck(accAtG.Chance) == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_Accessory(accAtG.Item), Player.Center, new Vector2(0f, -12f), ModContent.ProjectileType<AtGMissileProj>(),
+                        ProcRate((int)(damage * accAtG.statDamageMultiplier)), 0, Player.whoAmI, -10f);
                 }
             }
             if (accDeathMark != null)
@@ -1034,7 +1050,7 @@ namespace RORMod
                         if (!target.HasBuff<DeathMarkDebuff>())
                         {
                             Projectile.NewProjectile(Player.GetSource_Accessory(accDeathMark), new Vector2(target.position.X + target.width / 2f, target.position.Y - 100f), 
-                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, Player.whoAmI);
+                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
                         }
                         target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
                         break;
@@ -1049,7 +1065,7 @@ namespace RORMod
             }
             if (accTriTipDagger && ProcRate() && Player.RollLuck(10) == 0)
             {
-                BleedingDebuff.AddStack(target, 180, 1);
+                BleedingDebuff.AddStack(target, ProcRate(180), 1);
             }
         }
 
@@ -1096,7 +1112,7 @@ namespace RORMod
             }
             if (accGhorsTome != null && Main.rand.NextBool(10))
             {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<NUGGET>(), 0, 0, Player.whoAmI, ai1: value);
+                Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, Player.whoAmI, ai1: value);
             }
             if (accTopazBrooch)
             {

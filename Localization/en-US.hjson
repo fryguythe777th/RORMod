@@ -30,6 +30,7 @@ Mods: {
 			Razorwire: Razorwire
 			GhorsTome: Ghor's Tome
 
+			AtGMissileMk1: AtG Missile Mk. 1
 			DeathMark: Death Mark
 			ReloadingShurikens: Reloading Shurikens
 			HarvestersScythe: Harvester's Scythe
@@ -74,14 +75,7 @@ Mods: {
 				This shield will recharge after 5 seconds of not taking damage
 				'''
 			PaulsGoatHoof: Increased horizontal and vertical movement speed
-			CautiousSlug: Increased life regen when outside of battle
 			TougherTimes: 10% chance to dodge attacks
-			Crowbar: 25% increased damage to enemies above 90% life
-			Medkit:
-				'''
-				After getting hurt, recieve a delayed heal
-				Heals 15% of maximum health plus 20
-				'''
 			MonsterTooth:
 				'''
 				Killed enemies drop a healing orb
@@ -94,36 +88,143 @@ Mods: {
 				'''
 			TriTipDagger: 10% chance to inflict bleeding to enemies
 			RepulsionArmorPlate: 5 flat damage reduction against debuffs
-			ArmorPiercingRounds: 10% increased damage against bosses
-			LensMakersGlasses: 5% increased critical strike chance
-			RollOfPennies: Recieve money when damaged
-			BundleOfFireworks: Release a homing firework when killing an enemy
-			DelicateWatch: 20% increased damage when above half health
-			OddlyShapedOpal:
-				'''
-				Take reduced damage
-				When hit, recieve a 5 second cooldown on this effect
-				'''
-			StickyExplosives: 10% chance to apply a sticky bomb to enemies
-			StunGrenade: 10% chance to encompass enemies in defense reducing smoke
-			Gasoline: Killing an enemy ignites other nearby enemies
+
+			ArmorPiercingRounds: {
+				$parentVal: 10% increased damage against bosses
+				TerminalTooltip: "[0:10%] increased damage against bosses. Bosses and enemies with [3:red health bars] count as bosses."
+				TerminalLore: Order: Armor-Piercing Rounds, 50mm
+			}
 			BackupMagazine: {
 				$parentVal: 10% chance to not consume ammo
 				KeybindTooltip: Allows you to swap between ammo using {Keybind}
+				TerminalTooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}]"
+				TerminalLore: Order: Ammo Magazine, Standard Ammunition [45mm Rounds]
 			}
-			BustlingFungus: Heal nearby allies while standing still
-			FocusCrystal: Nearby enemies take 25% extra damage
+			BundleOfFireworks: {
+				$parentVal: Release a homing firework when killing an enemy
+				TerminalTooltip: "Release a [0:homing firework on kill]. Deals [0:50%] of the total damage dealt on the killing blow. Capped at [0:200] damage."
+				TerminalLore: 
+					'''
+					'Hey, happy anniversary!
 
+					You really thought I forgot?
+
+					You can keep your eyes closed. Just listen. Ah - here it comes! In five... four... three... two... ONE...!'
+					'''
+			}
+			BustlingFungus: {
+				$parentVal: Heal nearby allies while standing still
+				TerminalTooltip: "While standing still, create a zone that [1:increases life regen] of allies by [1:7.5%] of their max life within [1:8.75 blocks]."
+				TerminalLore: 
+					'''
+					'You have a problem.'
+
+					'What? How? These are good for me, they...'
+
+					'Yeah, they help promote cell repair, carbon neutral, blah blah blah... I’ve heard that spiel a thousand times already. Whether they’re good for you or not, you can’t just have a diet consisting only of them. It’s basic dietary science!'
+					'''
+			}
+			CautiousSlug: {
+				$parentVal: Increased life regen when outside of battle
+				TerminalTooltip: "[1:Increases life regen] by [1:25]. When an enemy is within [2:62.5 blocks horiztonally] or [2:31.25 blocks vertically] and can attack you, it will [1:hide]. Takes [1:2] seconds to stop hiding."
+				TerminalLore: One of the most crucial things to remember about having an animal companion is that your relationship is built on trust. Though humans are perceptive, we tend to be blinded by what we see – and we ignore the dangers that lurk beyond our vision. Animals, and other xenobiology, can sense things we can’t.
+			}
+			Crowbar: {
+				$parentVal: 25% increased damage to enemies above 90% life
+				TerminalTooltip: "[0:25%] increased damage to enemies above [0:90% life]."
+				TerminalLore:
+					'''
+					'Hey, toss me a crowbar?'
+
+					Jesse walked over to the toolbox and rummaged around. Plucking a crowbar from the container, she went over to James.
+
+					'Thanks' he grunted, attempting to pry the chest open.
+					'''
+			}
+			DelicateWatch: {
+				$parentVal: 20% increased damage when above 50% life
+				TerminalTooltip: "[0:20%] increased damage when above [0:50% life]."
+				TerminalLore: The wind blows over the plains. Two soldiers trudge along on their routine patrol, filling their boredom with casual conversation. 'Hm. Hey, Shelly, have I ever showed you my new Patex?' Quinton mused. Shelly shot him a quizzical look. 'Tell me you didn't bring a $75,000 watch with you on a dangerous expedition into unknown territories...'
+			}
+			FocusCrystal: {
+				$parentVal: Nearby enemies take 25% extra damage
+				TerminalTooltip: "Enemies within [0:15 blocks] take [0:25%] extra damage."
+				TerminalLore: Order: Condensed Matter Crystal [50kg, 10cm by 10cm by 10cm]
+			}
+			Gasoline: {
+				$parentVal: Killing an enemy ignites other nearby enemies
+				TerminalTooltip: Killing an enemy [0:ignites] all enemies within [0:5 blocks] of the explosion for [0:150%] damage. Damages all enemies nearby for [0:50%] damage.
+				TerminalLore: Order: Condensed Matter Crystal [50kg, 10cm by 10cm by 10cm]
+			}
+			LensMakersGlasses: {
+				$parentVal: 5% increased critical strike chance
+				TerminalTooltip: "[0:5%] increased critical strike chance"
+				TerminalLore:
+					'''
+					...What I didn’t see was that the golem was aiming its laser at my back. I managed to barely dodge it - just by pure luck - but the blast knocked me to the ground. My glasses flew off my face and I was on my back, stunned, barely able to make sense of myself...
+
+					I reached out, and managed to grab my glasses, raise ‘em up to my eyes so I could see, and BAM! Fired the last of my bullets.
+
+					And, well... I guess I managed to hit something vital in its head. Exploded in red stone and glass. It stopped moving after that. 
+
+					If it wasn’t for that shot, I wouldn’t be here telling this story.'
+					'''
+			}
+			Medkit: {
+				$parentVal:
+					'''
+					After getting hurt, recieve a delayed heal
+					Heals 15% of maximum health plus 20
+					'''
+				TerminalTooltip: "Recieve a [1:2] second buff when hit. When the buff is cleared, [1:heal 15%] of maximum health plus [1:20]."
+				TerminalLore: 
+					'''
+					'I suggest you stay indoors and rest.'
+
+					The robot was speaking to a tall man, gaunt but strong. 'I'd love to, but we're running low on food.' Even though his expression was hidden underneath his blue combat helmet, it was obvious the man was extremely tired. 'And everyone else is recovering from last night's attacks. Without the enforcers, we probably wouldn't have-'
+					
+					'I suggest you stay indoors and rest.'
+					'''
+			}
+			OddlyShapedOpal: {
+				$parentVal:
+					'''
+					Take reduced damage
+					When hit, recieve a 5 second cooldown on this effect
+					'''
+				TerminalTooltip: "Take [1:50%] reduced damage. When hit, recieve a [1:5] second cooldown on this effect"
+				TerminalLore: This is just a test 6st.
+			}
+			RollOfPennies: {
+				$parentVal: Recieve money when damaged
+				TerminalTooltip: "Recieve [2:50 copper] on [0:taking damage] from an enemy."
+				TerminalLore: ggs.
+			}
+			StickyExplosives: {
+				$parentVal: 10% chance to apply a sticky bomb to enemies
+				TerminalTooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:125%] total damage to enemies."
+				TerminalLore: ggs..
+			}
+
+			StunGrenade: 10% chance to encompass enemies in defense reducing smoke
+
+			AtGMissileMk1: 10% chance to fire a missile when hitting an enemy
 			DeathMark:
 				'''
 				Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds
 				Enemies marked for death will take 10% more damage
 				'''
-			ReloadingShurikens:
-				'''
-				Shoots shurikens at enemies while you are attacking
-				Recharges over time
-				'''
+
+			ReloadingShurikens: {
+				$parentVal:
+					'''
+					Shoots shurikens at enemies while you are attacking
+					Recharges over time
+					'''
+				TerminalTooltip: "Shoots [0:shurikens] which deals [0:200%] of the damage of your [2:held weapon] while you are [2:attacking]. Each [0:shuriken] takes [0:2] seconds to reload."
+				TerminalLore: ggs....
+			}
+
 			HarvestersScythe: Heal 12 life on critical hits
 			Razorwire: Shoot homing razors on hit that deal 160% current weapon's damage
 			GhorsTome:
@@ -221,46 +322,6 @@ Mods: {
 		}
 
 		Terminal: {
-			ArmorPiercingRounds: {
-				Tooltip: "[0:10%] increased damage against bosses. Bosses and enemies with [3:red health bars] count as bosses."
-				Lore: This is just a test.
-			}
-			BackupMagazine: {
-				Tooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}]"
-				Lore: Order: Ammo Magazine, Standard Ammunition [45mm Rounds]
-			}
-			BundleOfFireworks: {
-				Tooltip: "Release a [0:homing firework on kill]. Deals [0:50%] of the total damage dealt on the killing blow. Capped at [0:200] damage."
-				Lore: This is just a test also.
-			}
-			BustlingFungus: {
-				Tooltip: "While standing still, create a zone that [1:increases life regen] of allies by [1:7.5%] of their max life within [1:8.75 blocks]."
-				Lore: This is just a test 3rd.
-			}
-			FocusCrystal: {
-				Tooltip: "Enemies within [0:15 blocks] take [0:25%] extra damage."
-				Lore: This is just a test 4rd.
-			}
-			Medkit: {
-				Tooltip: "Recieve a [1:2] second buff when hit. When the buff is cleared, [1:heal 15%] of maximum health plus [1:20]."
-				Lore: This is just a test 5st.
-			}
-			OddlyShapedOpal: {
-				Tooltip: "Take [1:50%] reduced damage. When hit, recieve a [1:5] second cooldown on this effect"
-				Lore: This is just a test 6st.
-			}
-			RollOfPennies: {
-				Tooltip: "Recieve [2:50 copper] on [0:taking damage] from an enemy."
-				Lore: ggs.
-			}
-			StickyExplosives: {
-				Tooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:125%] total damage to enemies."
-				Lore: ggs..
-			}
-			ReloadingShurikens: {
-				Tooltip: "Shoots [0:shurikens] which deals [0:200%] of the damage of your [2:held weapon] while you are [2:attacking]. Each [0:shuriken] takes [0:2] seconds to reload."
-				Lore: ggs....
-			}
 		}
 
 		BossDesc: {

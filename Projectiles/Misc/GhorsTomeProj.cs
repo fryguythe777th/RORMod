@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace RORMod.Projectiles.Misc
 {
-    public class NUGGET : ModProjectile
+    public class GhorsTomeProj : ModProjectile
     {
         public int blinkCounter = 0;
 
@@ -30,16 +30,12 @@ namespace RORMod.Projectiles.Misc
             Projectile.aiStyle = -1;
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            Projectile.rotation = MathHelper.ToRadians(Main.rand.Next(0, 360));
-        }
-
         public override void AI()
         {
             if ((int)Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = 1f;
+                Projectile.rotation = MathHelper.ToRadians(Main.rand.Next(0, 360));
             }
 
             int grabRange = 200;
@@ -123,16 +119,6 @@ namespace RORMod.Projectiles.Misc
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            /*if (Projectile.velocity.X != oldVelocity.X && Math.Abs(Projectile.velocity.X) > 0.5f)
-            {
-                Projectile.velocity.X = -oldVelocity.X * 0.8f;
-            }
-            if (Projectile.velocity.Y != oldVelocity.Y)
-            {
-                Projectile.velocity.X *= 0.8f;
-                if (Math.Abs(Projectile.velocity.Y) > 2f)
-                    Projectile.velocity.Y = -oldVelocity.Y * 0.2f;
-            }*/
             return false;
         }
     }
