@@ -1110,7 +1110,7 @@ namespace RORMod
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accMonsterTooth), center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, Player.whoAmI);
             }
-            if (accGhorsTome != null && Main.rand.NextBool(10))
+            if (accGhorsTome != null && value > 0 && Player.RollLuck(10) == 0)
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, Player.whoAmI, ai1: value);
             }
