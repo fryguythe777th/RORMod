@@ -67,7 +67,7 @@ namespace RORMod.Projectiles.Misc
 
             if (Projectile.frame == 0)
             {
-                Main.EntitySpriteDraw(ModContent.Request<Texture2D>($"{Texture}Aura", AssetRequestMode.ImmediateLoad).Value, drawCoords, null, lightColor * 2f, Projectile.rotation,
+                Main.EntitySpriteDraw(ModContent.Request<Texture2D>($"{Texture}Aura", AssetRequestMode.ImmediateLoad).Value, drawCoords - new Vector2(0f, -4f).RotatedBy(Projectile.rotation), null, lightColor * 2f, Projectile.rotation,
                     origin, Projectile.scale, effects, 0);
             }
 
