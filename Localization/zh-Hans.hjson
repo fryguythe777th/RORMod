@@ -27,9 +27,10 @@ Mods: {
 			StunGrenade: 眩晕手雷
 			Gasoline: 汽油
 			FocusCrystal: 凝神水晶
-			Razorwire: Razorwire
-			GhorsTome: Ghor's Tome
+			Razorwire: 铁丝网
+			GhorsTome: Ghor的典籍
 
+			AtGMissileMk1: AtG导弹MK.1
 			DeathMark: 死亡标记
 			ReloadingShurikens: 再装填手里剑
 			HarvestersScythe: 收割者镰刀
@@ -67,24 +68,17 @@ Mods: {
 				在击败15个敌人或降低25%Boss的生命值时在你的身后放置一面旗帜
 				旗帜会存在1分钟, 当你位于旗帜的光环内时会获得速度属性加成
 				'''
-			TopazBrooch: 击败一名敌人时会获得15点临时的生命屏障
+			TopazBrooch: 在击败一名敌人时会获得15点临时的生命屏障
 			PersonalShieldGenerator: 
 				'''
 				获得一个相当于你最大生命值12%的护盾
 				该护盾会在你未受到伤害5秒后重新充能
 				'''
 			PaulsGoatHoof: 增加水平和垂直移动速度
-			CautiousSlug: 未处于战斗状态时会增加生命恢复速度
 			TougherTimes: 有10%的几率闪避攻击
-			Crowbar: 对生命值超过90%的敌人造成的伤害增加25%
-			Medkit:
-				'''
-				在承受伤害时会在短暂延迟后恢复生命值
-				恢复20点外加等同于最大生命值15%的生命值
-				'''
 			MonsterTooth:
 				'''
-				击败一名敌人时会掉落一颗治疗球
+				在击败一名敌人时会掉落一颗治疗球
 				恢复8点外加等同于最大生命值2%的生命值
 				'''
 			SoldiersSyringe:
@@ -94,36 +88,143 @@ Mods: {
 				'''
 			TriTipDagger: 有10%的几率使敌人流血
 			RepulsionArmorPlate: 减益造成的伤害减少5点
-			ArmorPiercingRounds: 对Boss敌人造成的伤害增加10%
-			LensMakersGlasses: 增加5%暴击率
-			RollOfPennies: 在承受伤害时会获得金钱
-			BundleOfFireworks: 击败一名敌人时会释放追踪烟花
-			DelicateWatch: 生命值大于一半时增加20%伤害
-			OddlyShapedOpal:
-				'''
-				所受伤害降低
-				命中敌人时, 该效果会获得5秒的冷却时间
-				'''
-			StickyExplosives: 10%几率对敌人使用一颗粘性炸弹
-			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
-			Gasoline: 击败一名敌人时会点燃附近的其他敌人
+
+			ArmorPiercingRounds: {
+				$parentVal: 对Boss敌人造成的伤害增加10%
+				TerminalTooltip: "对Boss敌人造成的伤害增加[0:10%]. 拥有[3:红色生命栏]的Boss和敌人会算作Boss."
+				TerminalLore: 订单: 穿甲弹, 50mm
+			}
 			BackupMagazine: {
 				$parentVal: 10%几率不消耗弹药
 				KeybindTooltip: 允许你使用{Keybind}来切换要使用的弹药
+				TerminalTooltip: "[2:10%]几率不消耗弹药. 允许你使用[2:{Keybind}]来[2:切换要使用的弹药]"
+				TerminalLore: 订单: 弹药盒, 标准弹药[45mm弹药]
 			}
-			BustlingFungus: 当站定不动时会治疗附近的队友
-			FocusCrystal: 附近的敌人会受到25%的额外伤害
+			BundleOfFireworks: {
+				$parentVal: 在击败一名敌人时会释放一个追踪烟花
+				TerminalTooltip: "在击败一名敌人时会释放一个[0:追踪烟花]. Deals 造成致死伤害的[0:50%]. 上限为[0:200]点伤害."
+				TerminalLore: 
+					'''
+					'嘿, 周年纪念快乐!
 
+					你真的以为我忘了?
+
+					你可以闭上眼睛. 听着. 啊 - 它在这! 在五...四...三...二...一...!'
+					'''
+			}
+			BustlingFungus: {
+				$parentVal: 当站定不动时会治疗附近的队友
+				TerminalTooltip: "当站定不动时, 在[1:8.75格物块]的范围内创造一个增加附近队友最大生命值的[1:7.5%][1:生命恢复速度]的领域."
+				TerminalLore: 
+					'''
+					'你有一个问题.'
+
+					'什么? 怎么可能? 这些对我有好处, 它们...'
+
+					'是的, 它们有助于促进细胞修复, 碳平衡, 等等之类的...我已听过那套说辞一千次了. 不管它们对你有没有好处, 你不能只吃它们. 这是基础饮食科学!'
+					'''
+			}
+			CautiousSlug: {
+				$parentVal: 未处于战斗状态时会增加生命恢复速度
+				TerminalTooltip: "增加[1:25]点[1:生命恢复速度].当一名敌人离你[2:62.5格水平距离]或[2:31.25格垂直距离]并且可以攻击你时, 它会[1:隐藏]. 需要[1:2]秒来停止隐藏."
+				TerminalLore: 要记住, 有动物为伴最重要的一点是, 你们的关系建立在信任的基础上. 尽管人类具有敏锐的洞察力, 但我们往往被我们所看到的蒙蔽了双眼——我们忽视了隐藏在我们视野之外的危险. 动物和其他异种生物可以感知我们无法感知的东西.
+			}
+			Crowbar: {
+				$parentVal: 对生命值超过90%的敌人造成的伤害增加25%
+				TerminalTooltip: "对生命值超过[0:90%]的敌人造成的伤害增加[0:25%]."
+				TerminalLore:
+					'''
+					'嘿, 扔给我一根撬棍?'
+
+					杰西走向工具箱, 四处翻找. 她从集装箱里拿出一根撬棍, 走向詹姆斯.
+
+					'谢谢', 试图撬开宝箱的他咕哝着.
+					'''
+			}
+			DelicateWatch: {
+				$parentVal: 生命值超过50%时伤害增加20%
+				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:20%]."
+				TerminalLore: 风吹过平原. 两名士兵在例行巡逻中跋涉前行, 用随意的谈话来填补他们的无聊. '嗯. 嘿, 雪莉, 我有给你看过我的新Patex吗?' 昆顿自言自语着. 雪莉向他投去一个疑惑的目光. '告诉我, 你没有带一块价值75000美元的手表去一个危险的未知地区探险...'
+			}
+			FocusCrystal: {
+				$parentVal: 附近的敌人会受到25%额外伤害
+				TerminalTooltip: "[0:15格物块]范围内的敌人会受到[0:25%]额外伤害."
+				TerminalLore: 订单: 凝聚态物质晶体 [50kg, 10cm × 10cm × 10cm]
+			}
+			Gasoline: {
+				$parentVal: 在击败一名敌人时会点燃附近的其他敌人
+				TerminalTooltip: 在击败一名敌人时会[0:点燃][0:5格物块]范围内的敌人, 爆炸造成[0:150%]伤害. 对附近所有敌人造成[0:50%]伤害.
+				TerminalLore: 订单: 凝聚态物质晶体 [50kg, 10cm × 10cm × 10cm]
+			}
+			LensMakersGlasses: {
+				$parentVal: 增加5%暴击率
+				TerminalTooltip: "增加[0:5%]暴击率"
+				TerminalLore:
+					'''
+					...我没有看到的是, 这个魔像正把激光对准我的背部. 我勉强躲开了它——纯粹是运气好——但爆炸把我打倒在地. 我的眼镜从脸上掉下来, 我仰面躺着, 目瞪口呆, 几乎无法理解自己...
+
+					我伸手去拿我的眼镜, 把它举到我的眼睛前, 这样我就可以看到了, 砰! 发射我最后的子弹.
+
+					而且, 嗯...我想我设法击中了它头部的重要部位. 在红色石头和玻璃中爆炸. 之后它就停止了移动.
+
+					如果不是因为那个射击, 我不会在这里讲述这个故事.'
+					'''
+			}
+			Medkit: {
+				$parentVal:
+					'''
+					在受到伤害时会在短暂延迟后恢复生命值
+					恢复20点外加等同于最大生命值15%的生命值
+					'''
+				TerminalTooltip: "命中时会获得[1:2]秒的增益. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:15%]的生命值."
+				TerminalLore: 
+					'''
+					'我建议你呆在家里休息.'
+
+					机器人正在和一个瘦削但强壮的高个子男人说话. '我很想去, 但我们的食物快用完了.' 尽管他的表情隐藏在他的蓝色战斗头盔下面, 但很明显这个人非常疲劳.' 其他人都在从昨晚的袭击中恢复过来. 如果没有执法人员, 我们可能不会——'
+
+					'我建议你呆在家里休息.'
+					'''
+			}
+			OddlyShapedOpal: {
+				$parentVal:
+					'''
+					所受伤害降低
+					命中时, 该效果会获得5秒的冷却时间
+					'''
+				TerminalTooltip: "所受伤害降低[1:50%]. 命中时, 该效果会获得[1:5]秒的冷却时间"
+				TerminalLore: This is just a test 6st.
+			}
+			RollOfPennies: {
+				$parentVal: 受到伤害时会获得钱币
+				TerminalTooltip: "在伤害[0:来自一名敌人的伤害]时会获得[2:50铜币]."
+				TerminalLore: ggs.
+			}
+			StickyExplosives: {
+				$parentVal: 有10%的几率对敌人使用一颗粘性炸弹
+				TerminalTooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:125%]伤害的[0:粘性炸弹]."
+				TerminalLore: ggs..
+			}
+
+			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
+
+			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
 			DeathMark:
 				'''
 			    用2个及以上减益伤害敌人时会将其被标记为死亡7秒
 				被死亡标记的敌人会受到10%的额外伤害
 				'''
-				ReloadingShurikens:
-				'''
-				当你攻击时会向敌人发射手里剑
-				会随着时间流逝而恢复
-				'''
+
+				ReloadingShurikens: {
+				$parentVal:
+					'''
+					当你攻击时会向敌人发射手里剑
+					会随着时间流逝而重新装填
+					'''
+				TerminalTooltip: "当你[2:攻击时]会向敌人发射会造成你[2:手持武器]的[0:200%]伤害的[0:手里剑]. [0:手里剑]每过[0:2]秒便会重新装载一个."
+				TerminalLore: ggs....
+			}
+
 			HarvestersScythe: 攻击造成暴击时会为你治疗12点生命值
 			Razorwire: 命中敌人时会发射造成160%武器伤害的剃刀
 			GhorsTome:
@@ -199,7 +300,7 @@ Mods: {
 		}
 
 		BuffDescription: {
-			ShurikenBuff: You can throw shurikens while attacking!
+			ShurikenBuff: 你可以在攻击时扔出手里剑!
 			BustlingFungusBuff: 正在受到一名队友的治疗
 			DiosCooldown: 你无法使用迪奥最好的朋友来起死回生!
 			WarbannerBuff: 增加移动速度和武器攻速
@@ -221,46 +322,6 @@ Mods: {
 		}
 
 		Terminal: {
-			ArmorPiercingRounds: {
-				Tooltip: "对Boss造成的伤害增加[0:10%]. 拥有[3:红色生命栏]的Boss和敌人会算作Boss."
-				Lore: This is just a test.
-			}
-			BackupMagazine: {
-				Tooltip: "[2:10%]几率不消耗弹药. 允许你使用[2:{Keybind}]来切换要[2:使用的弹药]"
-				Lore: 订单: 弹药盒, 标准弹药[45mm弹药]
-			}
-			BundleOfFireworks: {
-				Tooltip: "在击败一名敌人时释放[0:追踪烟花]. 造成致死伤害的[0:50%]. 上限为[0:200]点伤害."
-				Lore: This is just a test also.
-			}
-			BustlingFungus: {
-				Tooltip: "当站定不动时, 在[1:8.75格物块]的范围内创造一个增加附近队友最大生命值的[1:7.5%][1:生命恢复速度]的领域."
-				Lore: This is just a test 3rd.
-			}
-			FocusCrystal: {
-				Tooltip: "在[0:15格物块]的范围内的敌人会受到[0:25%]的额外伤害."
-				Lore: This is just a test 4rd.
-			}
-			Medkit: {
-				Tooltip: "命中敌人时会获得[1:2]秒的增益效果. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:15%]的生命值."
-				Lore: This is just a test 5st.
-			}
-			OddlyShapedOpal: {
-				Tooltip: "所受伤害降低[1:50%]. 当命中敌人时, 该效果会获得[1:5]秒的冷却时间."
-				Lore: This is just a test 6st.
-			}
-			RollOfPennies: {
-				Tooltip: "在承受[0:来自一名敌人的伤害]时会获得[2:50铜币]."
-				Lore: ggs.
-			}
-			StickyExplosives: {
-				Tooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:125%]伤害的[0:粘性炸弹]."
-				Lore: ggs..
-			}
-			ReloadingShurikens: {
-				Tooltip: "当你[2:攻击时]会向敌人发射会造成你[2:手持武器]的[0:200%]伤害的[0:手里剑]. [0:手里剑]每过[0:2]秒便会重新装载一个."
-				Lore: ggs....
-			}
 		}
 
 		BossDesc: {
