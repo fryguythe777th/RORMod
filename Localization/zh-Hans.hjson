@@ -27,6 +27,8 @@ Mods: {
 			StunGrenade: 眩晕手雷
 			Gasoline: 汽油
 			FocusCrystal: 凝神水晶
+			Razorwire: Razorwire
+			GhorsTome: Ghor's Tome
 
 			DeathMark: 死亡标记
 			ReloadingShurikens: 再装填手里剑
@@ -123,6 +125,12 @@ Mods: {
 				会随着时间流逝而恢复
 				'''
 			HarvestersScythe: 攻击造成暴击时会为你治疗12点生命值
+			Razorwire: 命中敌人时会发射造成160%武器伤害的剃刀
+			GhorsTome:
+				'''
+				被击败的敌人有10%几率掉落金块
+				金块会给予钱币
+				'''
 
 			Aegis: 
 				'''
