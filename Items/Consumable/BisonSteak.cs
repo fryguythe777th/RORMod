@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.NPCs;
+using RiskOfTerrain.NPCs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Consumable
+namespace RiskOfTerrain.Items.Consumable
 {
     public class BisonSteak : ModItem
     {

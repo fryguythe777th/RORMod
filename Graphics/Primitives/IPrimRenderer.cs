@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace RORMod.Graphics.Primitives
+namespace RiskOfTerrain.Graphics.Primitives
 {
     public interface IPrimRenderer
     {

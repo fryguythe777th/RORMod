@@ -1,8 +1,8 @@
-﻿using RORMod.NPCs;
+﻿using RiskOfTerrain.NPCs;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories
+namespace RiskOfTerrain.Items.Accessories
 {
     public abstract class StackableAcc : ModItem
     {

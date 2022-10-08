@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.Buffs;
-using RORMod.Projectiles.Misc;
+using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Items
+namespace RiskOfTerrain.Items
 {
     public class RORItem : GlobalItem
     {

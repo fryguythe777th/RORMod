@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Graphics.Primitives
+namespace RiskOfTerrain.Graphics.Primitives
 {
     public class TrailRenderer : IPrimRenderer, ILoadable
     {
@@ -217,7 +217,7 @@ namespace RORMod.Graphics.Primitives
         {
             if (!Main.dedServ)
             {
-                shader = ModContent.Request<Effect>($"{RORMod.AssetsPath}Effects/Trailshader");
+                shader = ModContent.Request<Effect>($"{RiskOfTerrain.AssetsPath}Effects/Trailshader");
             }
         }
 

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace RORMod.UI
+namespace RiskOfTerrain.UI
 {
     public class RORUIState : UIState, ILoadable
     {

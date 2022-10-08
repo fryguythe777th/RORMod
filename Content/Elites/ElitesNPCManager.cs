@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.NPCs;
+using RiskOfTerrain.NPCs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Content.Elites
+namespace RiskOfTerrain.Content.Elites
 {
     public class ElitesNPCManager : GlobalNPC
     {

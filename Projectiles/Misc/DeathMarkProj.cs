@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class DeathMarkProj : ModProjectile
     {

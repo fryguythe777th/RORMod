@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories.T3Legendary
+namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
     public class Aegis : ModItem
     {

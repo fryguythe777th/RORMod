@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles
+namespace RiskOfTerrain.Projectiles
 {
     public class RORProjectile : GlobalProjectile
     {

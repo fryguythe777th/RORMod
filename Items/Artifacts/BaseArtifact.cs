@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Artifacts
+namespace RiskOfTerrain.Items.Artifacts
 {
     public abstract class BaseArtifact : ModItem
     {
@@ -38,14 +38,14 @@ namespace RORMod.Items.Artifacts
         {
             ActiveFlag = !ActiveFlag;
             if (Main.myPlayer == player.whoAmI)
-                RORMod.BroadcastMessageKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), RORMod.BossSummonMessage, "Mods.RORMod.ItemName." + Name, player.name);
+                RiskOfTerrain.BroadcastMessageKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), RiskOfTerrain.BossSummonMessage, "Mods.RiskOfTerrain.ItemName." + Name, player.name);
             return true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (unimplemented)
-                tooltips.Add(new TooltipLine(Mod, "Unimplemented", Language.GetTextValue("Mods.RORMod.UnimplementedItem")) { OverrideColor = Color.Gray });
+                tooltips.Add(new TooltipLine(Mod, "Unimplemented", Language.GetTextValue("Mods.RiskOfTerrain.UnimplementedItem")) { OverrideColor = Color.Gray });
         }
     }
 }

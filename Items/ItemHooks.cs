@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Items
+namespace RiskOfTerrain.Items
 {
     public class ItemHooks : ILoadable
     {

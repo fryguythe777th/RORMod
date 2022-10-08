@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Content.Artifacts
+namespace RiskOfTerrain.Content.Artifacts
 {
     public class ArtifactNPC : GlobalNPC
     {

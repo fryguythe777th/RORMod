@@ -1,4 +1,4 @@
-﻿namespace RORMod
+﻿namespace RiskOfTerrain
 {
     public enum PacketType : byte
     {

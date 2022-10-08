@@ -1,11 +1,11 @@
-﻿using RORMod.UI.States;
+﻿using RiskOfTerrain.UI.States;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories.T1Common
+namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     public class BackupMagazine : ModItem
     {
@@ -15,7 +15,7 @@ namespace RORMod.Items.Accessories.T1Common
             RORItem.WhiteTier.Add(Type);
             TerminalUIState.DynamicTooltip.Add(Type, () =>
             {
-                return Language.GetTextValueWith("Mods.RORMod.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}][2:]" });
+                return Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}][2:]" });
             });
         }
 
@@ -39,7 +39,7 @@ namespace RORMod.Items.Accessories.T1Common
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
-                Language.GetTextValueWith("Mods.RORMod.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" })));
+                Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORPlayer.AmmoSwapKey)}]" })));
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.Buffs.Debuff;
-using RORMod.Content;
-using RORMod.Content.Elites;
-using RORMod.Items.Accessories.T1Common;
-using RORMod.Items.Consumable;
+using RiskOfTerrain.Buffs.Debuff;
+using RiskOfTerrain.Content;
+using RiskOfTerrain.Content.Elites;
+using RiskOfTerrain.Items.Accessories.T1Common;
+using RiskOfTerrain.Items.Consumable;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.NPCs
+namespace RiskOfTerrain.NPCs
 {
     public class RORNPC : GlobalNPC
     {
@@ -133,7 +133,7 @@ namespace RORMod.NPCs
                 {
                     var d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
                     d.velocity.X *= 0.5f;
-                    SoundEngine.PlaySound(RORMod.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
                 }
             }
         }
@@ -233,7 +233,7 @@ namespace RORMod.NPCs
                         continue;
                     }
 
-                    var p = RORMod.GetPacket(PacketType.OnKillEffect);
+                    var p = RiskOfTerrain.GetPacket(PacketType.OnKillEffect);
                     p.Write(i);
                     p.Write(npc.netID);
                     p.WriteVector2(npc.position);
@@ -329,7 +329,7 @@ namespace RORMod.NPCs
 
             if (Main.npc[npc].TryGetGlobalNPC<RORNPC>(out var ror))
             {
-                var p = RORMod.GetPacket(PacketType.SyncRORNPC);
+                var p = RiskOfTerrain.GetPacket(PacketType.SyncRORNPC);
                 p.Write(npc);
                 ror.Send(npc, p);
                 p.Send();

@@ -4,7 +4,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories.T2Uncommon
+namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
     public class GhorsTome : ModItem
     {

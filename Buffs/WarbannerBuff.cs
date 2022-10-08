@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Buffs
+namespace RiskOfTerrain.Buffs
 {
     public class WarbannerBuff : ModBuff
     {

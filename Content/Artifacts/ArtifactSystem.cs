@@ -6,7 +6,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace RORMod.Content.Artifacts
+namespace RiskOfTerrain.Content.Artifacts
 {
     public class ArtifactSystem : ModSystem
     {
@@ -129,7 +129,7 @@ namespace RORMod.Content.Artifacts
                 {
                     if (Main.player[i].active && !Main.player[i].dead)
                     {
-                        Main.player[i].KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.RORMod.DeathReason.DeathArtifact", Main.player[i].name, Main.player[deathPlayer].name)), Main.player[i].statLifeMax2 * 2, -Main.player[i].direction);
+                        Main.player[i].KillMe(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.RiskOfTerrain.DeathReason.DeathArtifact", Main.player[i].name, Main.player[deathPlayer].name)), Main.player[i].statLifeMax2 * 2, -Main.player[i].direction);
                     }
                 }
             }

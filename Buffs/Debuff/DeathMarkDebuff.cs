@@ -1,8 +1,8 @@
-﻿using RORMod.Content;
+﻿using RiskOfTerrain.Content;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Buffs.Debuff
+namespace RiskOfTerrain.Buffs.Debuff
 {
     public class DeathMarkDebuff : ModBuff
     {

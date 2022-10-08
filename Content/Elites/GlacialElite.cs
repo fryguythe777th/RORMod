@@ -2,7 +2,7 @@
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 
-namespace RORMod.Content.Elites
+namespace RiskOfTerrain.Content.Elites
 {
     public class GlacialElite : EliteNPC
     {

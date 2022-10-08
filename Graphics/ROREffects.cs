@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.Graphics.RenderTargets;
+using RiskOfTerrain.Graphics.RenderTargets;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,7 +11,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Graphics
+namespace RiskOfTerrain.Graphics
 {
     public class ROREffects : ModSystem
     {

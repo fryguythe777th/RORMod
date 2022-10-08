@@ -1,8 +1,8 @@
-﻿using RORMod.Items.Artifacts;
+﻿using RiskOfTerrain.Items.Artifacts;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Content.Artifacts
+namespace RiskOfTerrain.Content.Artifacts
 {
     public class ArtifactPlayer : ModPlayer
     {

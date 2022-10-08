@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.Graphics;
+using RiskOfTerrain.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace RORMod.Graphics.RenderTargets
+namespace RiskOfTerrain.Graphics.RenderTargets
 {
     public abstract class RequestableRenderTarget : ARenderTargetContentByRequest, ILoadable
     {

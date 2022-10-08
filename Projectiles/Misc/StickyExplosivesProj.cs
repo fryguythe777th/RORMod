@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class StickyExplosivesProj : ModProjectile
     {
@@ -29,7 +29,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (!playedSound)
             {
-                SoundEngine.PlaySound(RORMod.GetSounds("stickybomb_", 3, volume: 0.3f), Projectile.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSounds("stickybomb_", 3, volume: 0.3f), Projectile.Center);
                 playedSound = true;
             }
 
@@ -60,7 +60,7 @@ namespace RORMod.Projectiles.Misc
             {
                 Projectile.frame = (Projectile.frame + 1) % Main.projFrames[Type];
                 if (Projectile.frame == 1)
-                    SoundEngine.PlaySound(RORMod.GetSound("stickybombtick", volume: 0.3f), Projectile.Center);
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("stickybombtick", volume: 0.3f), Projectile.Center);
 
                 Projectile.frameCounter = 0;
             }

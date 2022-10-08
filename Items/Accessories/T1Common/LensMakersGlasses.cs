@@ -1,9 +1,9 @@
-using RORMod.Graphics.PlayerLayers;
+using RiskOfTerrain.Graphics.PlayerLayers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories.T1Common
+namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Face)]
     public class LensMakersGlasses : ModItem

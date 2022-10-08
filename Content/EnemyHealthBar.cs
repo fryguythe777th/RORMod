@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using RORMod.NPCs;
+using RiskOfTerrain.NPCs;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Content
+namespace RiskOfTerrain.Content
 {
     public class EnemyHealthBar : GlobalNPC
     {
@@ -37,9 +37,9 @@ namespace RORMod.Content
 
         public override void Load()
         {
-            MixedStyleBar = ModContent.Request<Texture2D>($"{RORMod.AssetsPath}UI/MixedStyleBar");
-            MixedStyleBarFill = ModContent.Request<Texture2D>($"{RORMod.AssetsPath}UI/MixedStyleBar_Fill");
-            string t = "RORMod/Buffs/Mini/Buff_";
+            MixedStyleBar = ModContent.Request<Texture2D>($"{RiskOfTerrain.AssetsPath}UI/MixedStyleBar");
+            MixedStyleBarFill = ModContent.Request<Texture2D>($"{RiskOfTerrain.AssetsPath}UI/MixedStyleBar_Fill");
+            string t = "RiskOfTerrain/Buffs/Mini/Buff_";
             BuffIconData = new Dictionary<int, string>()
             {
                 [BuffID.Poisoned] = $"{t}{BuffID.Poisoned}",
@@ -236,7 +236,7 @@ namespace RORMod.Content
 
                     if (npc.buffType[i] < Main.maxBuffTypes)
                     {
-                        texture = RORMod.VanillaTexture + "Buff_" + npc.buffType[i];
+                        texture = RiskOfTerrain.VanillaTexture + "Buff_" + npc.buffType[i];
                     }
                     else
                     {

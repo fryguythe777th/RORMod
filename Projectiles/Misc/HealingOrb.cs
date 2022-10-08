@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.Graphics.Primitives;
+using RiskOfTerrain.Graphics.Primitives;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class HealingOrb : ModProjectile
     {
@@ -35,7 +35,7 @@ namespace RORMod.Projectiles.Misc
             if ((int)Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] = 1f;
-                SoundEngine.PlaySound(RORMod.GetSound("monstertoothspawn", 0.2f), Projectile.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("monstertoothspawn", 0.2f), Projectile.Center);
             }
 
             int grabRange = 200;
@@ -53,7 +53,7 @@ namespace RORMod.Projectiles.Misc
                     if (Projectile.Hitbox.Intersects(plrHitbox))
                     {
                         Main.player[i].Heal(8 + (int)(Main.player[i].statLifeMax * 0.02));
-                        SoundEngine.PlaySound(RORMod.GetSound("monstertoothheal", 0.1f), Projectile.Center);
+                        SoundEngine.PlaySound(RiskOfTerrain.GetSound("monstertoothheal", 0.1f), Projectile.Center);
                         Projectile.Kill();
                         return;
                     }

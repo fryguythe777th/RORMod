@@ -1,9 +1,9 @@
-﻿using RORMod.Content;
+﻿using RiskOfTerrain.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Buffs.Debuff
+namespace RiskOfTerrain.Buffs.Debuff
 {
     public class BleedingDebuff : ModBuff
     {
@@ -13,7 +13,7 @@ namespace RORMod.Buffs.Debuff
         {
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            EnemyHealthBar.BuffIconData.Add(Type, "RORMod/Buffs/Mini/Buff_30");
+            EnemyHealthBar.BuffIconData.Add(Type, "RiskOfTerrain/Buffs/Mini/Buff_30");
         }
 
         public override void Update(NPC npc, ref int buffIndex)

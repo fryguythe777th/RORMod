@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Terraria.ID;
 
-namespace RORMod.Content.Artifacts
+namespace RiskOfTerrain.Content.Artifacts
 {
     public struct NPCEquips
     {

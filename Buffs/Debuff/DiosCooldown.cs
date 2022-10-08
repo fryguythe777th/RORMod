@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace RORMod.Buffs.Debuff
+namespace RiskOfTerrain.Buffs.Debuff
 {
     public class DiosCooldown : ModBuff
     {

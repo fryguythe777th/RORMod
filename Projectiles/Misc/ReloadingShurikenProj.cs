@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class ReloadingShurikenProj : ModProjectile
     {
@@ -67,7 +67,7 @@ namespace RORMod.Projectiles.Misc
             lightColor = Color.White;
             Projectile.GetDrawInfo(out var texture, out var offset, out var frame, out var origin, out int trailLength);
             var clr = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var trailTexture = ModContent.Request<Texture2D>($"{RORMod.AssetsPath}LightRay3", AssetRequestMode.ImmediateLoad).Value;
+            var trailTexture = ModContent.Request<Texture2D>($"{RiskOfTerrain.AssetsPath}LightRay3", AssetRequestMode.ImmediateLoad).Value;
             for (int i = 0; i < trailLength; i++)
             {
                 float progress = (float)Math.Pow(1f - 1f / trailLength * i, 2f);

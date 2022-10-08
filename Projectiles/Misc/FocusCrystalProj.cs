@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class FocusCrystalProj : ModProjectile
     {

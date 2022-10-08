@@ -10,7 +10,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
-namespace RORMod.Content
+namespace RiskOfTerrain.Content
 {
     public class ROR2BossHealthBar : GlobalBossBar
     {
@@ -49,7 +49,7 @@ namespace RORMod.Content
 
         private string BossDescText(string key)
         {
-            return "Mods.RORMod.BossDesc." + key;
+            return "Mods.RiskOfTerrain.BossDesc." + key;
         }
 
         public override void SetStaticDefaults()

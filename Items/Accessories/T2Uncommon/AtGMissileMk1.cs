@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace RORMod.Items.Accessories.T2Uncommon
+namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
     public class AtGMissileMk1 : StackableAcc
     {

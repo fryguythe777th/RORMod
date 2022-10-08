@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
-namespace RORMod.UI
+namespace RiskOfTerrain.UI
 {
     public class ResourceOverlays : ModSystem
     {
@@ -93,7 +93,7 @@ namespace RORMod.UI
             float glassLife = 0f;
             if (glass > 0f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
                 glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(glassLife / 20);
@@ -112,7 +112,7 @@ namespace RORMod.UI
 
             if (shield > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/ShieldHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(life / 20);
@@ -133,7 +133,7 @@ namespace RORMod.UI
 
             if (barrier > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/BarrierHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/HorizontalBars/HP_Fill").Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(life / 20);
@@ -171,7 +171,7 @@ namespace RORMod.UI
             float glassLife = 0f;
             if (glass > 0f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
                 glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(glassLife / 20);
@@ -193,7 +193,7 @@ namespace RORMod.UI
 
             if (shield > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/ShieldHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = (int)(life / 20) - 1;
@@ -213,7 +213,7 @@ namespace RORMod.UI
 
             if (barrier > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/BarrierHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(life / 20);
@@ -256,7 +256,7 @@ namespace RORMod.UI
             float glassLife = 0f;
             if (glass > 0f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/GlassHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/GlassHeart").Value;
                 var hpTexture = TextureAssets.Heart.Value;
                 glassLife = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(glassLife / 20);
@@ -277,7 +277,7 @@ namespace RORMod.UI
 
             if (shield > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/ShieldHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/ShieldHeart").Value;
                 var hpTexture = TextureAssets.Heart.Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = (int)(life / 20) - 1;
@@ -297,7 +297,7 @@ namespace RORMod.UI
 
             if (barrier > 0.01f)
             {
-                var texture = ModContent.Request<Texture2D>(RORMod.AssetsPath + "UI/BarrierHeart").Value;
+                var texture = ModContent.Request<Texture2D>(RiskOfTerrain.AssetsPath + "UI/BarrierHeart").Value;
                 var hpTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/PlayerResourceSets/FancyClassic/Heart_Fill").Value;
                 float life = Math.Clamp(Main.LocalPlayer.statLifeMax, 0f, 400f);
                 int i = 20 - (int)(life / 20);

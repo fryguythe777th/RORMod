@@ -1,9 +1,9 @@
-﻿using RORMod.Tiles;
+﻿using RiskOfTerrain.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Placeable
+namespace RiskOfTerrain.Items.Placeable
 {
     public class Terminal : ModItem
     {

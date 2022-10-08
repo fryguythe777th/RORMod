@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Consumable
+namespace RiskOfTerrain.Items.Consumable
 {
     public class PowerElixir : ModItem
     {

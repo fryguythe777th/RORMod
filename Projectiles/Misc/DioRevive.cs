@@ -9,11 +9,11 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class DioRevive : ModProjectile
     {
-        public override string Texture => RORMod.AssetsPath + "LightRay3";
+        public override string Texture => RiskOfTerrain.AssetsPath + "LightRay3";
 
         public override void SetDefaults()
         {
@@ -92,7 +92,7 @@ namespace RORMod.Projectiles.Misc
             if ((int)Projectile.ai[0] > 2)
             {
                 var font = FontAssets.MouseText.Value;
-                string text = Language.GetTextValue("Mods.RORMod.Revived");
+                string text = Language.GetTextValue("Mods.RiskOfTerrain.Revived");
                 var measurement = font.MeasureString(text);
                 lightColor *= Main.cursorAlpha;
                 ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, font, text, Projectile.Center - Main.screenPosition, lightColor, Color.Gray * 0.5f * Projectile.Opacity, 0f, measurement / 2f, new Vector2(Projectile.scale));

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using RORMod.Content;
-using RORMod.NPCs;
-using RORMod.Projectiles.Misc;
+using RiskOfTerrain.Content;
+using RiskOfTerrain.NPCs;
+using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,16 +12,16 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod
+namespace RiskOfTerrain
 {
-    public class RORMod : Mod
+    public class RiskOfTerrain : Mod
     {
         public const string VanillaTexture = "Terraria/Images/";
         public const string BlankTexture = AssetsPath + "None";
-        public const string AssetsPath = "RORMod/Assets/";
+        public const string AssetsPath = "RiskOfTerrain/Assets/";
         public const string SoundsPath = AssetsPath + "Sounds/";
 
-        public static RORMod Instance { get; private set; }
+        public static RiskOfTerrain Instance { get; private set; }
 
         public static List<(Func<bool>, float)> PriceModifiers { get; private set; }
 
@@ -152,7 +152,7 @@ namespace RORMod
 
         public static void BroadcastMessage(string text, Color color)
         {
-            text = "Mods.RORMod." + text;
+            text = "Mods.RiskOfTerrain." + text;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(Language.GetTextValue(text), color);
@@ -164,7 +164,7 @@ namespace RORMod
         }
         public static void BroadcastMessage(string text, Color color, params object[] args)
         {
-            text = "Mods.RORMod." + text;
+            text = "Mods.RiskOfTerrain." + text;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText(Language.GetTextValue(text, args), color);

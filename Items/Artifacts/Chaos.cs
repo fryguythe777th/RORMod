@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.Content.Artifacts;
+using RiskOfTerrain.Content.Artifacts;
 using Terraria;
 
-namespace RORMod.Items.Artifacts
+namespace RiskOfTerrain.Items.Artifacts
 {
     public class Chaos : BaseArtifact
     {
@@ -12,7 +12,7 @@ namespace RORMod.Items.Artifacts
         {
             base.UseItem(player);
             if (Main.myPlayer == player.whoAmI && ArtifactSystem.chaos)
-                RORMod.BroadcastMessage("Announcements.ChaosPVP", Color.Red);
+                RiskOfTerrain.BroadcastMessage("Announcements.ChaosPVP", Color.Red);
             return true;
         }
     }

@@ -1,6 +1,6 @@
-﻿using RORMod.Content.Artifacts;
+﻿using RiskOfTerrain.Content.Artifacts;
 
-namespace RORMod.Items.Artifacts
+namespace RiskOfTerrain.Items.Artifacts
 {
     public class Metamorphosis : BaseArtifact
     {

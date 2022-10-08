@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.Items.Placeable;
-using RORMod.UI;
-using RORMod.UI.States;
+using RiskOfTerrain.Items.Placeable;
+using RiskOfTerrain.UI;
+using RiskOfTerrain.UI.States;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;
@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace RORMod.Tiles
+namespace RiskOfTerrain.Tiles
 {
     public class TerminalTile : ModTile
     {

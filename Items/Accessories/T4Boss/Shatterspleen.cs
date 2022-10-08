@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Items.Accessories.T4Boss
+namespace RiskOfTerrain.Items.Accessories.T4Boss
 {
     public class Shatterspleen : ModItem
     {

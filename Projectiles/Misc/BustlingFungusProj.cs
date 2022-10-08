@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using RORMod.Buffs;
+using RiskOfTerrain.Buffs;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -11,7 +11,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class BustlingFungusProj : ModProjectile
     {
@@ -36,7 +36,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (!playedSound)
             {
-                SoundEngine.PlaySound(RORMod.GetSound("bungus", volume: 0.3f), Projectile.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("bungus", volume: 0.3f), Projectile.Center);
                 playedSound = true;
             }
             float scale = Projectile.scale;

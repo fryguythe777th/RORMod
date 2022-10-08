@@ -1,9 +1,9 @@
-﻿using RORMod.Common;
-using RORMod.Content;
+﻿using RiskOfTerrain.Common;
+using RiskOfTerrain.Content;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace RORMod
+namespace RiskOfTerrain
 {
     public class ClientConfig : ConfigurationBase
     {

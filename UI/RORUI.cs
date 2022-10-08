@@ -5,7 +5,7 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace RORMod.UI
+namespace RiskOfTerrain.UI
 {
     public class RORUI : ModSystem
     {
@@ -81,18 +81,18 @@ namespace RORMod.UI
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            ManageUserInterfaceLayer(layers, DynamicInterface, InterfaceLayers.InfoAccessoriesBar_29, "RORMod: Inventory Interface", InterfaceScaleType.UI);
+            ManageUserInterfaceLayer(layers, DynamicInterface, InterfaceLayers.InfoAccessoriesBar_29, "RiskOfTerrain: Inventory Interface", InterfaceScaleType.UI);
         }
         private void ManageUserInterfaceLayer(List<GameInterfaceLayer> layers, UserInterface userInterface, string defaultLayer, string layerName, InterfaceScaleType scaleType = InterfaceScaleType.UI)
         {
             int layer = -1;
-            if (userInterface.CurrentState is RORUIState aequusUIState)
+            if (userInterface.CurrentState is RORUIState state)
             {
-                if (!aequusUIState.ModifyInterfaceLayers(layers, ref scaleType))
+                if (!state.ModifyInterfaceLayers(layers, ref scaleType))
                 {
                     return;
                 }
-                layer = aequusUIState.GetLayerIndex(layers);
+                layer = state.GetLayerIndex(layers);
             }
             if (layer == -1)
             {

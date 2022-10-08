@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Graphics.PlayerLayers
+namespace RiskOfTerrain.Graphics.PlayerLayers
 {
     public class FaceGlowMask : PlayerDrawLayer
     {

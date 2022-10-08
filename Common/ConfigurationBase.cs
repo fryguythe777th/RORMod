@@ -1,11 +1,11 @@
 ﻿using Terraria.ModLoader.Config;
 
-namespace RORMod.Common
+namespace RiskOfTerrain.Common
 {
     [BackgroundColor(10, 10, 40, 220)]
     public abstract class ConfigurationBase : ModConfig
     {
-        protected const string Key = "$Mods.RORMod.Configuration.";
+        protected const string Key = "$Mods.RiskOfTerrain.Configuration.";
 
         protected class NameAttribute : LabelAttribute
         {

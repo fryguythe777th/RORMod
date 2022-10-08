@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RORMod.Content.Artifacts;
-using RORMod.Content.Elites;
-using RORMod.NPCs;
-using RORMod.Projectiles;
+using RiskOfTerrain.Content.Artifacts;
+using RiskOfTerrain.Content.Elites;
+using RiskOfTerrain.NPCs;
+using RiskOfTerrain.Projectiles;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -14,7 +14,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod
+namespace RiskOfTerrain
 {
     public static class Helpers
     {
@@ -80,7 +80,7 @@ namespace RORMod
             var s = keybind.GetAssignedKeys();
             if (s.Count == 0)
             {
-                return Language.GetTextValue("Mods.RORMod.UnboundKey");
+                return Language.GetTextValue("Mods.RiskOfTerrain.UnboundKey");
             }
             return s[0];
         }

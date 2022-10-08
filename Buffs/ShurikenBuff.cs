@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
-namespace RORMod.Buffs
+namespace RiskOfTerrain.Buffs
 {
     public class ShurikenBuff : ModBuff
     {

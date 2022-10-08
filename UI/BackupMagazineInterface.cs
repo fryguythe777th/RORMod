@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace RORMod.UI
+namespace RiskOfTerrain.UI
 {
     public class BackupMagazineInterface : ModSystem
     {
@@ -44,7 +44,7 @@ namespace RORMod.UI
             {
                 int index = layers.FindIndex((l) => l.Name == "Vanilla: Wire Selection");
                 if (index != -1)
-                    layers.Insert(index + 1, new LegacyGameInterfaceLayer("RORMod: Backup Magazine", DrawInterface, InterfaceScaleType.UI));
+                    layers.Insert(index + 1, new LegacyGameInterfaceLayer("RiskOfTerrain: Backup Magazine", DrawInterface, InterfaceScaleType.UI));
             }
         }
 
@@ -56,7 +56,7 @@ namespace RORMod.UI
                 return true;
             }
 
-            var ui = ModContent.Request<Texture2D>($"{RORMod.AssetsPath}UI/BackupMagazine").Value;
+            var ui = ModContent.Request<Texture2D>($"{RiskOfTerrain.AssetsPath}UI/BackupMagazine").Value;
             var heldItem = player.HeldItem;
             var items = new List<Item>();
             for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)

@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class GasolineProj : ModProjectile
     {
@@ -30,7 +30,7 @@ namespace RORMod.Projectiles.Misc
         {
             if (!playedSound)
             {
-                SoundEngine.PlaySound(RORMod.GetSounds("gasolinekill_", 3, volume: 0.8f), Projectile.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSounds("gasolinekill_", 3, volume: 0.8f), Projectile.Center);
                 playedSound = true;
             }
             if (Projectile.alpha == 0)

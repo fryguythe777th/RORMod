@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using RORMod.Items;
-using RORMod.Items.Consumable;
+using RiskOfTerrain.Items;
+using RiskOfTerrain.Items.Consumable;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class SmallChest : ModProjectile
     {
@@ -50,7 +50,7 @@ namespace RORMod.Projectiles.Misc
                 return;
             }
 
-            var p = RORMod.GetPacket(PacketType.OpenChest);
+            var p = RiskOfTerrain.GetPacket(PacketType.OpenChest);
             p.Write(Projectile.owner);
             p.Write(Projectile.identity);
             p.Write((byte)0);
@@ -73,7 +73,7 @@ namespace RORMod.Projectiles.Misc
                 basePrice *= 2;
             }
             int finalPrice = basePrice;
-            foreach (var price in RORMod.PriceModifiers)
+            foreach (var price in RiskOfTerrain.PriceModifiers)
             {
                 if (price.Item1())
                 {

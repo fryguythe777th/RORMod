@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using RORMod.Items;
-using RORMod.Tiles;
+using RiskOfTerrain.Items;
+using RiskOfTerrain.Tiles;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace RORMod.UI.States
+namespace RiskOfTerrain.UI.States
 {
     public class TerminalUIState : RORUIState
     {
@@ -77,7 +77,7 @@ namespace RORMod.UI.States
             }
             Helpers.DrawRectangle(d.ToRectangle(), new Color(15, 15, 40, 255));
 
-            var texture = ModContent.Request<Texture2D>($"{RORMod.AssetsPath}UI/Terminal", AssetRequestMode.ImmediateLoad).Value;
+            var texture = ModContent.Request<Texture2D>($"{RiskOfTerrain.AssetsPath}UI/Terminal", AssetRequestMode.ImmediateLoad).Value;
             spriteBatch.Draw(texture, new Vector2(d.X, d.Y), new Rectangle(27, 1, 1, 11), Color.White, 0f, Vector2.Zero, new Vector2(d.Width, 2f), SpriteEffects.None, 0f);
 
             spriteBatch.Draw(texture, new Vector2(d.X, d.Y), new Rectangle(2, 1, 23, 11), Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);

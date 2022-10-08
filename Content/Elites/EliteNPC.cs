@@ -1,10 +1,10 @@
-﻿using RORMod.NPCs;
+﻿using RiskOfTerrain.NPCs;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod.Content.Elites
+namespace RiskOfTerrain.Content.Elites
 {
     public abstract class EliteNPC : GlobalNPC
     {

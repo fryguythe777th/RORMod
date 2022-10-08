@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.Buffs.Debuff;
+using RiskOfTerrain.Buffs.Debuff;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RORMod.Projectiles.Misc
+namespace RiskOfTerrain.Projectiles.Misc
 {
     public class StunGrenadeProj : ModProjectile
     {
-        public override string Texture => RORMod.BlankTexture;
+        public override string Texture => RiskOfTerrain.BlankTexture;
 
         public override void SetDefaults()
         {

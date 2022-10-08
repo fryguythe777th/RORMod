@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using RORMod.Buffs;
-using RORMod.Buffs.Debuff;
-using RORMod.Content.Artifacts;
-using RORMod.Graphics;
-using RORMod.Items.Accessories;
-using RORMod.Items.Accessories.T1Common;
-using RORMod.Items.Accessories.T2Uncommon;
-using RORMod.Items.Consumable;
-using RORMod.NPCs;
-using RORMod.Projectiles.Misc;
-using RORMod.UI;
+using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Buffs.Debuff;
+using RiskOfTerrain.Content.Artifacts;
+using RiskOfTerrain.Graphics;
+using RiskOfTerrain.Items.Accessories;
+using RiskOfTerrain.Items.Accessories.T1Common;
+using RiskOfTerrain.Items.Accessories.T2Uncommon;
+using RiskOfTerrain.Items.Consumable;
+using RiskOfTerrain.NPCs;
+using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +22,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace RORMod
+namespace RiskOfTerrain
 {
     public class RORPlayer : ModPlayer
     {
@@ -314,7 +314,7 @@ namespace RORMod
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var client = (RORPlayer)clientPlayer;
-            var p = RORMod.GetPacket(PacketType.SyncRORPlayer);
+            var p = RiskOfTerrain.GetPacket(PacketType.SyncRORPlayer);
             var bb = new BitsByte(
                 client.warbannerProgress_Enemies != warbannerProgress_Enemies,
                 client.barrier != barrier,
@@ -581,7 +581,7 @@ namespace RORMod
                 break;
             }
 
-            SoundEngine.PlaySound(RORMod.GetSound("backupmagazine"), Player.Center);
+            SoundEngine.PlaySound(RiskOfTerrain.GetSound("backupmagazine"), Player.Center);
 
             ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
             ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
@@ -603,7 +603,7 @@ namespace RORMod
                     {
                         glubbyActive = 0;
                         if (!glubbyHide)
-                            SoundEngine.PlaySound(RORMod.GetSound("glubbyhide").WithVolumeScale(0.4f));
+                            SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubbyhide").WithVolumeScale(0.4f));
                     }
                     Player.lifeRegen += 25;
                     return;
@@ -615,7 +615,7 @@ namespace RORMod
                     if (glubbyActive == 120)
                     {
                         if (!glubbyHide)
-                            SoundEngine.PlaySound(RORMod.GetSound("glubby").WithVolumeScale(0.4f));
+                            SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubby").WithVolumeScale(0.4f));
                     }
                 }
             }
@@ -651,7 +651,7 @@ namespace RORMod
             if (shield > 0f && timeSinceLastHit == ShieldRegenerationTime)
             {
                 if (accShieldGenerator)
-                    SoundEngine.PlaySound(RORMod.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
                 Player.statLife = Math.Min(Player.statLife + (int)(Player.statLifeMax2 * shield), Player.statLifeMax2);
             }
             if (Main.myPlayer == Player.whoAmI)
@@ -770,7 +770,7 @@ namespace RORMod
             if (legFrame == 5 || legFrame == 10 || legFrame == 17)
             {
                 if (!gLegPlayedSound)
-                    SoundEngine.PlaySound(RORMod.GetSounds("hoofstep_", 7, 0.33f, 0f, 0.1f));
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("hoofstep_", 7, 0.33f, 0f, 0.1f));
                 gLegPlayedSound = true;
                 return;
             }
@@ -813,11 +813,11 @@ namespace RORMod
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                SoundEngine.PlaySound(RORMod.GetSound("toughertimes").WithVolumeScale(0.2f), Player.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("toughertimes").WithVolumeScale(0.2f), Player.Center);
                 int c = CombatText.NewText(new Rectangle((int)Player.position.X + Player.width / 2 - 1, (int)Player.position.Y, 2, 2), new Color(255, 255, 255, 255), 0, false, true);
                 if (c != -1 && c != Main.maxCombatText)
                 {
-                    Main.combatText[c].text = Language.GetTextValue("Mods.RORMod.Blocked");
+                    Main.combatText[c].text = Language.GetTextValue("Mods.RiskOfTerrain.Blocked");
                     Main.combatText[c].rotation = 0f;
                     Main.combatText[c].scale *= 0.8f;
                     Main.combatText[c].alphaDir = 0;
@@ -842,7 +842,7 @@ namespace RORMod
             {
                 if (Main.netMode != NetmodeID.SinglePlayer)
                 {
-                    var p = RORMod.GetPacket(PacketType.TougherTimesDodge);
+                    var p = RiskOfTerrain.GetPacket(PacketType.TougherTimesDodge);
                     p.Write(Player.whoAmI);
                 }
                 TougherTimesDodge();
@@ -901,7 +901,7 @@ namespace RORMod
                     shield = 0f;
                     if (accShieldGenerator)
                     {
-                        SoundEngine.PlaySound(RORMod.GetSound("personalshieldgone"), Player.Center);
+                        SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshieldgone"), Player.Center);
                     }
                 }
             }
