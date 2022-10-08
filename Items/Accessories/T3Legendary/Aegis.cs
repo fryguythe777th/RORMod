@@ -15,8 +15,8 @@ namespace RORMod.Items.Accessories.T3Legendary
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 24;
+            Item.width = 40;
+            Item.height = 40;
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(gold: 5);

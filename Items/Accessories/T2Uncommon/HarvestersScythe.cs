@@ -6,6 +6,11 @@ namespace RORMod.Items.Accessories.T2Uncommon
 {
     public class HarvestersScythe : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;

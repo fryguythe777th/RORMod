@@ -6,6 +6,11 @@ namespace RORMod.Items.Accessories.T2Uncommon
 {
     public class ReloadingShurikens : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;

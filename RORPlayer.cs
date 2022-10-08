@@ -978,7 +978,7 @@ namespace RORMod
             {
                 damage = (int)(damage * accArmorPiercingRounds);
             }
-            if (accCrowbar && target.life * 10 < target.lifeMax * 9)
+            if (accCrowbar && (target.life / target.lifeMax) > 0.89)
             {
                 damage = (int)(damage * 1.25);
             }

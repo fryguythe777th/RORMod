@@ -14,8 +14,8 @@ namespace RORMod.Items.Accessories.T1Common
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 22;
+            Item.width = 38;
+            Item.height = 42;
             Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(gold: 1);

@@ -21,9 +21,14 @@ namespace RORMod.Projectiles.Misc
 
         public override void AI()
         {
+            if (!Main.dedServ && Main.rand.NextBool(5))
+            {
+                Dust.NewDust(Projectile.Center, 2, 2, DustID.Torch, -Projectile.velocity.X / 2, -Projectile.velocity.Y / 2);
+            }
+
             if (Projectile.ai[0] > 0)
             {
-                Projectile.velocity = new Vector2(0, -5);
+                Projectile.velocity = new Vector2(0, -7);
                 Projectile.ai[0]--;
                 Projectile.penetrate = -1;
             }
