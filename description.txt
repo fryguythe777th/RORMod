@@ -2,6 +2,8 @@
 Risk of Terrain is an in-development mod which re-imagines Risk of Rain content into the world of Terraria!
 This mod intends to function extremely well in Multiplayer!
 
+# WARNING: This comes with RORBossHealthbars merged inside! Do not enabled that mod with this one. #
+
 Report bugs on the Steam Workshop page or in the Risk of Terrain Discord server.
 
 [c/f9b2fc:[Content][c/f9b2fc:]]
