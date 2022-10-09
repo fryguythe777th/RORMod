@@ -1,5 +1,5 @@
 Mods: {
-	RORMod: {
+	RiskOfTerrain: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
 		ItemName: {
@@ -27,9 +27,9 @@ Mods: {
 			StunGrenade: 眩晕手雷
 			Gasoline: 汽油
 			FocusCrystal: 凝神水晶
+
 			Razorwire: 铁丝网
 			GhorsTome: Ghor的典籍
-
 			AtGMissileMk1: AtG导弹MK.1
 			DeathMark: 死亡标记
 			ReloadingShurikens: 再装填手里剑
