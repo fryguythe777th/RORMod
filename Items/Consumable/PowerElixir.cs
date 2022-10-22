@@ -6,6 +6,11 @@ namespace RiskOfTerrain.Items.Consumable
 {
     public class PowerElixir : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            SacrificeTotal = 5;
+        }
+
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.HealingPotion);

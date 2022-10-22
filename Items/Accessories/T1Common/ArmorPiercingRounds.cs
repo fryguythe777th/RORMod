@@ -1,11 +1,11 @@
-using RiskOfTerrain.UI.States;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.NPCs;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class ArmorPiercingRounds : ModItem
+    public class ArmorPiercingRounds : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -22,9 +22,10 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
-            player.ROR().accArmorPiercingRounds += 0.1f;
+            if (victim.entity is NPC target && (target.boss || RORNPC.CountsAsBoss.Contains(target.type)))
+                damage = (int)(damage * (1f + Item.stack * 0.1f));
         }
     }
 }

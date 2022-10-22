@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
@@ -145,6 +146,11 @@ namespace RiskOfTerrain.Items
                 }
             }
             return -1;
+        }
+
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            player.ROR().Accessories.AddItemStack(item);
         }
 
         public override bool? UseItem(Item item, Player player)

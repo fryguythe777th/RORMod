@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public class MalachiteElite : EliteNPC
+    public class MalachiteElite : EliteNPCBase
     {
         public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.AcidDye);
 

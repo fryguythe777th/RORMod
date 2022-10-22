@@ -1,10 +1,13 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class StickyExplosives : ModItem
+    public class StickyExplosives : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -21,9 +24,17 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
-            player.ROR().accStickyBomb = true;
+            if (victim.entity is not NPC npc)
+                return;
+
+            entity.GetProc(out float proc);
+            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+            {
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, ModContent.ProjectileType<StickyExplosivesProj>(),
+                    (int)(damage * 0.5f * proc), 0f, entity.SpawnOwner(), npc.whoAmI);
+            }
         }
     }
 }

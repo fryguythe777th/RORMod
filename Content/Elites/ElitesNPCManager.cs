@@ -64,7 +64,7 @@ namespace RiskOfTerrain.Content.Elites
             }
             else if (Main.netMode != NetmodeID.MultiplayerClient && !npc.townNPC && !npc.friendly && !NPCID.Sets.CountsAsCritter[npc.type] && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())
             {
-                var l = new List<EliteNPC>(RORNPC.RegisteredElites);
+                var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
                 while (l.Count > 0)
                 {
                     int rolled = Main.rand.Next(l.Count);

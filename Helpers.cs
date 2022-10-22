@@ -21,6 +21,8 @@ namespace RiskOfTerrain
         public static int ColorOnlyShaderIndex => ContentSamples.CommonlyUsedContentSamples.ColorOnlyShaderIndex;
         public static ArmorShaderData ColorOnlyShader => GameShaders.Armor.GetSecondaryShader(ColorOnlyShaderIndex, Main.LocalPlayer);
 
+        public static Vector2 TileDrawOffset => Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+
         public static Color UseR(this Color color, int R) => new Color(R, color.G, color.B, color.A);
         public static Color UseR(this Color color, float R) => new Color((int)(R * 255), color.G, color.B, color.A);
 
@@ -135,9 +137,9 @@ namespace RiskOfTerrain
             }
             return false;
         }
-        public static void GetElitePrefixes(this NPC npc, out List<EliteNPC> prefixes)
+        public static void GetElitePrefixes(this NPC npc, out List<EliteNPCBase> prefixes)
         {
-            prefixes = new List<EliteNPC>();
+            prefixes = new List<EliteNPCBase>();
             foreach (var e in RORNPC.RegisteredElites)
             {
                 var npcE = npc.GetGlobalNPC(e);
@@ -278,6 +280,11 @@ namespace RiskOfTerrain
         public static RORNPC ROR(this NPC npc)
         {
             return npc.GetGlobalNPC<RORNPC>();
+        }
+
+        public static Rectangle GetViewRectangle(this Entity entity, int width = 1920, int height = 1080)
+        {
+            return new Rectangle((int)entity.position.X + entity.width / 2 - width / 2, (int)entity.position.Y + entity.height / 2 - height / 2, width, height);
         }
 
         public static ArtifactPlayer Artifacts(this Player player)

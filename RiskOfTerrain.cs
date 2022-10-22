@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content;
+using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.NPCs;
 using RiskOfTerrain.Projectiles.Misc;
 using System;
@@ -22,6 +23,7 @@ namespace RiskOfTerrain
         public const string SoundsPath = AssetsPath + "Sounds/";
 
         public static RiskOfTerrain Instance { get; private set; }
+        public static float globalProcRate;
 
         public static List<(Func<bool>, float)> PriceModifiers { get; private set; }
 
@@ -32,25 +34,25 @@ namespace RiskOfTerrain
             Instance = this;
             PriceModifiers = new List<(Func<bool>, float)>()
             {
-                (() => NPC.downedBoss1, 2f),
-                (() => NPC.downedBoss2, 2f),
-                (() => NPC.downedBoss3, 2f),
-                (() => NPC.downedQueenBee, 1.5f),
-                (() => NPC.downedSlimeKing, 1.5f),
-                (() => NPC.downedDeerclops, 1.5f),
+                (() => NPC.downedBoss1, 0.25f),
+                (() => NPC.downedBoss2, 0.5f),
+                (() => NPC.downedBoss3, 0.5f),
+                (() => NPC.downedQueenBee, 0.1f),
+                (() => NPC.downedSlimeKing, 0.1f),
+                (() => NPC.downedDeerclops, 0.1f),
                 (() => NPC.downedMechBossAny, 2f),
-                (() => NPC.downedMechBoss1, 2f),
-                (() => NPC.downedMechBoss2, 2f),
-                (() => NPC.downedMechBoss3, 2f),
-                (() => NPC.downedQueenSlime, 2f),
+                (() => NPC.downedMechBoss1, 0.5f),
+                (() => NPC.downedMechBoss2, 0.5f),
+                (() => NPC.downedMechBoss3, 0.5f),
+                (() => NPC.downedQueenSlime, 0.1f),
                 (() => NPC.downedPlantBoss, 4f),
-                (() => NPC.downedGolemBoss, 2f),
-                (() => NPC.downedFishron, 2f),
-                (() => NPC.downedEmpressOfLight, 2f),
-                (() => NPC.downedAncientCultist, 2f),
-                (() => NPC.downedGoblins, 1.25f),
-                (() => NPC.downedPirates, 1.25f),
-                (() => NPC.downedMartians, 2f),
+                (() => NPC.downedGolemBoss, 0.5f),
+                (() => NPC.downedFishron, 0.25f),
+                (() => NPC.downedEmpressOfLight, 0.25f),
+                (() => NPC.downedAncientCultist, 0.25f),
+                (() => NPC.downedGoblins, 0.1f),
+                (() => NPC.downedPirates, 0.1f),
+                (() => NPC.downedMartians, 0.25f),
             };
         }
 
@@ -104,31 +106,26 @@ namespace RiskOfTerrain
 
                 case PacketType.OnKillEffect:
                     {
-                        Main.player[reader.ReadInt32()].ROR().OnKillEffect(reader.ReadInt32(), reader.ReadVector2(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadByte(), reader.ReadSingle());
-                    }
-                    break;
+                        var player = Main.player[reader.ReadInt32()];
+                        int type = reader.ReadInt32();
+                        var position = reader.ReadVector2();
+                        int w = reader.ReadInt32();
+                        int h = reader.ReadInt32();
+                        int lifeMax = reader.ReadInt32();
+                        int lastHitDamage = reader.ReadInt32();
+                        byte misc = reader.ReadByte();
+                        float value = reader.ReadSingle();
 
-                case PacketType.OpenChest:
-                    {
-                        int owner = reader.ReadInt32();
-                        int identity = reader.ReadInt32();
-                        int proj = Helpers.FindProjectileIdentity(owner, identity);
-                        byte val = reader.ReadByte();
-                        if (proj == -1)
-                        {
-                            break;
-                        }
-                        if (Main.netMode == NetmodeID.Server && val != 1)
-                        {
-                            var p = GetPacket(PacketType.OpenChest);
-                            p.Write(owner);
-                            p.Write(identity);
-                            p.Write((byte)1);
-                            p.Send(toClient: owner);
-                        }
-                        Main.projectile[proj].ai[0] = SmallChest.STATE_OPENING;
-                        Main.projectile[proj].scale = 1f;
-                        Main.projectile[proj].netUpdate = true;
+                        player.ROR().Accessories.OnKillEnemy(player, new OnKillInfo() {
+                            type = type,
+                            position = position,
+                            width = w,
+                            height = h,
+                            lifeMax = lifeMax,
+                            lastHitDamage = lastHitDamage,
+                            miscInfo = misc,
+                            value = value,
+                        });
                     }
                     break;
             }
@@ -141,6 +138,12 @@ namespace RiskOfTerrain
         internal static SoundStyle GetSound(string name, float volume = 1f, float pitch = 0f, float variance = 0f)
         {
             return new SoundStyle(SoundsPath + name) { Volume = volume, Pitch = pitch, PitchVariance = variance, };
+        }
+
+        internal static ModKeybind RegisterKeybind(string name, string defaultKey)
+        {
+            var key = KeybindLoader.RegisterKeybind(ModContent.GetInstance<RiskOfTerrain>(), name, defaultKey);
+            return key;
         }
 
         public static ModPacket GetPacket(PacketType type)
@@ -204,6 +207,28 @@ namespace RiskOfTerrain
                 }
             }
             BroadcastMessage(text, color, args);
+        }
+
+        public static int CalculateChestPrice()
+        {
+            int basePrice = Item.buyPrice(gold: 2, silver: 50);
+            if (Main.expertMode)
+            {
+                basePrice *= 2;
+            }
+            if (Main.hardMode)
+            {
+                basePrice *= 2;
+            }
+            int finalPrice = basePrice;
+            foreach (var price in PriceModifiers)
+            {
+                if (price.Item1())
+                {
+                    finalPrice += (int)(basePrice * price.Item2);
+                }
+            }
+            return finalPrice;
         }
     }
 }

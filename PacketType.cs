@@ -6,6 +6,5 @@
         TougherTimesDodge,
         SyncRORPlayer,
         OnKillEffect,
-        OpenChest,
     }
 }

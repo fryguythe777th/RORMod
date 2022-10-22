@@ -6,6 +6,11 @@ namespace RiskOfTerrain.Items.Consumable
 {
     public class RustedKey : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            SacrificeTotal = 3;
+        }
+
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.GoldenKey);

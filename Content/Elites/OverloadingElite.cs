@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public class OverloadingElite : EliteNPC
+    public class OverloadingElite : EliteNPCBase
     {
         public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.BlueDye);
 

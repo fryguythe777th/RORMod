@@ -83,7 +83,7 @@ Mods: {
 				'''
 			SoldiersSyringe:
 				'''
-				20% increased attack speed
+				12% increased attack speed
 				12% decreased damage
 				'''
 			TriTipDagger: 10% chance to inflict bleeding to enemies
@@ -202,7 +202,7 @@ Mods: {
 			}
 			StickyExplosives: {
 				$parentVal: 10% chance to apply a sticky bomb to enemies
-				TerminalTooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:125%] total damage to enemies."
+				TerminalTooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:50%] total damage to enemies."
 				TerminalLore: ggs..
 			}
 
@@ -252,7 +252,7 @@ Mods: {
 				'''
 
 			BisonSteak: "{$CommonItemTooltip.MajorStats}"
-			RustedKey: Unlocks rusty lockboxes, keep in your inventory to reveal them
+			RustedKey: Opens one locked Rusty Lockbox
 			PowerElixir: 
 				'''
 				Automatically consumed when taking damage below 50% life
@@ -344,6 +344,18 @@ Mods: {
 			Deerclops: Winter Abomination
 			MartianSaucer: Alien Warship
 			Pillars: Celestial Bindings
+		}
+
+		Containers: {
+			RustyLockboxTile: Rusty Lockbox
+			SecurityChestTile: Security Chest
+		}
+
+		MapObject: {
+			RustyLockboxTile: Rusty Lockbox
+			RustyLockboxTileLocked: Locked Rusty Lockbox
+			SecurityChestTile: Security Chest
+			SecurityChestTileLocked: Locked Security Chest
 		}
 
 		Configuration: {

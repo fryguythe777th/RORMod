@@ -1,10 +1,13 @@
+using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class StunGrenade : ModItem
+    public class StunGrenade : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -21,9 +24,14 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
-            player.ROR().accStunGrenade = true;
+            entity.GetProc(out float proc);
+            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+            {
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<StunGrenadeProj>(),
+                    0, 0f, entity.SpawnOwner(), -10f);
+            }
         }
     }
 }

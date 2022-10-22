@@ -16,7 +16,6 @@ namespace RiskOfTerrain.Items.Placeable
         {
             Item.DefaultToPlaceableTile(ModContent.TileType<TerminalTile>());
             Item.value = Item.buyPrice(gold: 10);
-            Item.maxStack = 99;
             Item.rare = ItemRarityID.LightRed;
         }
 

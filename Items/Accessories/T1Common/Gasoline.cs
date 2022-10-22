@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,9 +10,11 @@ using Terraria.ModLoader;
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Waist)]
-    public class Gasoline : ModItem
+    public class Gasoline : ModAccessory
     {
         public static HashSet<int> FireDebuffsForGasolineDamageOverTime { get; private set; }
+
+        public int killDelay;
 
         public override void Load()
         {
@@ -42,7 +48,16 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accGasoline = Item;
+            killDelay--;
+        }
+
+        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        {
+            if (entity.CanSpawnProjectileOnThisClient())
+            {
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.position + new Vector2(info.width / 2f, info.height / 2f),
+                    new Vector2(0f, -1f), ModContent.ProjectileType<GasolineProj>(), Math.Clamp((int)(info.lastHitDamage * 0.5f), 10, 200), 3f, entity.SpawnOwner());
+            }
         }
     }
 }

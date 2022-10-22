@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public class BlazingElite : EliteNPC
+    public class BlazingElite : EliteNPCBase
     {
         public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.RedDye);
 
@@ -47,6 +47,11 @@ namespace RiskOfTerrain.Content.Elites
                     blazeSpotPrev = npc.position;
                 }
             }
+        }
+
+        public override bool CanRoll(NPC npc)
+        {
+            return false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content;
+using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.Items.Consumable;
@@ -30,7 +31,7 @@ namespace RiskOfTerrain.NPCs
 
         public override bool InstancePerEntity => true;
 
-        public static List<EliteNPC> RegisteredElites { get; private set; }
+        public static List<EliteNPCBase> RegisteredElites { get; private set; }
 
         /// <summary>
         /// Used for HP bars and Armor Piercing Rounds for NPCs not flagged as a boss but should be treated as such
@@ -67,7 +68,7 @@ namespace RiskOfTerrain.NPCs
                 NPCID.DD2OgreT3,
             };
 
-            RegisteredElites = new List<EliteNPC>();
+            RegisteredElites = new List<EliteNPCBase>();
             On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
             On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
         }
@@ -229,7 +230,17 @@ namespace RiskOfTerrain.NPCs
                 {
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
-                        Main.player[i].ROR().OnKillEffect(npc.netID, npc.position, npc.width, npc.height, npc.lifeMax, lastHitDamage,  bb, npc.value);
+                        Main.player[i].ROR().Accessories.OnKillEnemy(Main.player[i], new OnKillInfo()
+                        {
+                            type = npc.netID,
+                            position = npc.position,
+                            width = npc.width,
+                            height = npc.height,
+                            lifeMax = npc.lifeMax,
+                            lastHitDamage = lastHitDamage,
+                            miscInfo = bb,
+                            value = npc.value,
+                        });
                         continue;
                     }
 
@@ -334,11 +345,6 @@ namespace RiskOfTerrain.NPCs
                 ror.Send(npc, p);
                 p.Send();
             }
-        }
-
-        public override void SetupTravelShop(int[] shop, ref int nextSlot)
-        {
-            shop[nextSlot++] = Main.rand.Next(new int[] { ModContent.ItemType<PowerElixir>(), ModContent.ItemType<BisonSteak>(), });
         }
     }
 }

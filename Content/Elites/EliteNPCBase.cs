@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public abstract class EliteNPC : GlobalNPC
+    public abstract class EliteNPCBase : GlobalNPC
     {
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -38,9 +38,8 @@ namespace RiskOfTerrain.Content.Elites
 
         public void OnBecomeElite(NPC npc)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 4f);
-            npc.life = (int)(npc.life * 4f);
-            npc.damage = (int)(npc.damage * 2f);
+            npc.lifeMax = (int)(npc.lifeMax * 2f);
+            npc.life = (int)(npc.life * 2f);
             npc.npcSlots *= 4f;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -6,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class FocusCrystal : ModItem, ItemHooks.IUpdateItemDye
+    public class FocusCrystal : ModAccessory, ItemHooks.IUpdateItemDye
     {
-        public static NPC HitNPCForMakingDamageNumberPurpleHack;
+        public static Entity HitNPCForMakingDamageNumberPurpleHack;
         public static Color HitColor;
         public static Color HitColorCrit;
 
@@ -68,6 +69,15 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
             player.ROR().cFocusCrystal = dyeItem.dye;
+        }
+
+        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
+        {
+            if (entity.entity.Distance(victim.entity.Hitbox.ClosestDistance(entity.entity.Center)) < 240f)
+            {
+                damage = (int)(damage * (1f + 0.25f * Item.stack));
+                HitNPCForMakingDamageNumberPurpleHack = victim.entity;
+            }
         }
     }
 }

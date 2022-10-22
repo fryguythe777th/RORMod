@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
+using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Artifacts;
 using RiskOfTerrain.Graphics;
-using RiskOfTerrain.Items.Accessories;
 using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.Items.Accessories.T2Uncommon;
 using RiskOfTerrain.Items.Consumable;
@@ -27,8 +27,6 @@ namespace RiskOfTerrain
     public class RORPlayer : ModPlayer
     {
         public const int ShieldRegenerationTime = 300;
-
-        public static ModKeybind AmmoSwapKey { get; private set; }
 
         public static bool SpawnHack;
         public static byte DifficultyHack;
@@ -134,22 +132,22 @@ namespace RiskOfTerrain
         /// </summary>
         public bool InDanger => dangerEnemy != -1;
 
+        public UniversalAccessoryHandler Accessories { get; private set; }
+
+        public RORPlayer()
+        {
+            Accessories = new UniversalAccessoryHandler();
+        }
+
         #region Loading Stuffs
 
         public override void Load()
         {
-            AmmoSwapKey = RegisterKeybind("Backup Magazine Swap", "MouseRight");
             On.Terraria.Player.UpdateDead += Player_UpdateDead;
             On.Terraria.Player.CheckSpawn += Player_CheckSpawn;
             On.Terraria.Player.FindSpawn += Player_FindSpawn;
             On.Terraria.Player.DropTombstone += Player_DropTombstone;
             On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
-        }
-
-        private ModKeybind RegisterKeybind(string name, string defaultKey)
-        {
-            var key = KeybindLoader.RegisterKeybind(Mod, name, defaultKey);
-            return key;
         }
 
         public override void SetStaticDefaults()
@@ -318,9 +316,9 @@ namespace RiskOfTerrain
             var bb = new BitsByte(
                 client.warbannerProgress_Enemies != warbannerProgress_Enemies,
                 client.barrier != barrier,
-                client.shield != shield, 
+                client.shield != shield,
                 client.diosCooldown != diosCooldown || client.diosDead != diosDead,
-                client.timeSinceLastHit != timeSinceLastHit, 
+                client.timeSinceLastHit != timeSinceLastHit,
                 client.shurikenCharges != shurikenCharges);
 
             p.Write(Player.whoAmI);
@@ -480,9 +478,6 @@ namespace RiskOfTerrain
             UpdateShuriken();
             UpdateDios();
 
-            accAtG?.ResetEffects(Player, this);
-            accAtG = null;
-
             accHarvestersScythe = 0;
             accFocusCrystal = null;
             focusCrystalDamage = 0f;
@@ -532,59 +527,17 @@ namespace RiskOfTerrain
             timeSinceLastHit++;
             UpdateIdleTime();
 
+            if (Accessories == null)
+                Accessories = new UniversalAccessoryHandler();
+
+            Accessories.ResetEffects(Player);
             FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = null;
             SpawnHack = false;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (accBackupMagazine && !Player.mouseInterface && !Player.lastMouseInterface && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
-            {
-                ProcessAmmoSwap();
-            }
-        }
-
-        public void ProcessAmmoSwap()
-        {
-            var heldItem = Player.HeldItem;
-
-            if (heldItem.useAmmo == 0)
-            {
-                return;
-            }
-
-            int count = 0;
-            Item siftDownItem = null;
-            for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
-            {
-                if (Player.inventory[i].IsAir || Player.inventory[i].ammo != heldItem.useAmmo)
-                    continue;
-
-                if (siftDownItem == null)
-                {
-                    siftDownItem = Player.inventory[i];
-                    continue;
-                }
-                count++;
-                Utils.Swap(ref Player.inventory[i], ref siftDownItem);
-            }
-
-            if (count == 0)
-                return;
-
-            for (int i = Main.InventoryAmmoSlotsStart; i < Main.InventoryAmmoSlotsStart + Main.InventoryAmmoSlotsCount; i++)
-            {
-                if (Player.inventory[i].IsAir || Player.inventory[i].ammo != heldItem.useAmmo)
-                    continue;
-                count++;
-                Utils.Swap(ref Player.inventory[i], ref siftDownItem);
-                break;
-            }
-
-            SoundEngine.PlaySound(RiskOfTerrain.GetSound("backupmagazine"), Player.Center);
-
-            ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
-            ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
+            Accessories.ProcessTriggers(Player, this);
         }
 
         public override void UpdateLifeRegen()
@@ -672,32 +625,6 @@ namespace RiskOfTerrain
             Player.statLifeMax2 += add;
         }
 
-        public void SpawnRustedLockbox()
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
-                if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<SmallChest>(), 0, 0f, Player.whoAmI);
-                    break;
-                }
-            }
-        }
-
-        public void SpawnSmallChest()
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                var spawnLocation = Player.Center + new Vector2(Main.rand.NextFloat(1000f, 1500f) * (Main.rand.NextBool() ? -1f : 1f), Main.rand.NextFloat(-1000f, 500f));
-                if (!Collision.SolidCollision(spawnLocation - new Vector2(16f, 0f), 32, 32))
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), spawnLocation, Vector2.UnitY, ModContent.ProjectileType<SmallChest>(), 0, 0f, Player.whoAmI);
-                    break;
-                }
-            }
-        }
-
         public void UpdateBarrierDrainage()
         {
             if (barrier > aegisBarrier)
@@ -713,14 +640,6 @@ namespace RiskOfTerrain
             UpdateBarrierDrainage();
             if (Main.myPlayer == Player.whoAmI)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SmallChest>()] < 3 && Player.RollLuck(15000) == 0)
-                {
-                    SpawnSmallChest();
-                }
-                if (spawnRustyChest && Player.ownedProjectileCounts[ModContent.ProjectileType<RustyLockbox>()] < 1 && Player.RollLuck(5000) == 0)
-                {
-                    SpawnRustedLockbox();
-                }
                 if (accFocusCrystal != null && focusCrystalVisible && Player.ownedProjectileCounts[ModContent.ProjectileType<FocusCrystalProj>()] == 0)
                 {
                     Projectile.NewProjectile(Player.GetSource_Accessory(accFocusCrystal), Player.Center, Vector2.Zero, ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, Player.whoAmI);
@@ -856,7 +775,7 @@ namespace RiskOfTerrain
                 if (opalShieldTimer == -1)
                     opalShieldTimer = 0;
             }
-            return true;
+            return Accessories.PreHurt(Player, this, pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
 
         public void CheckElixir()
@@ -880,6 +799,7 @@ namespace RiskOfTerrain
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
+            Accessories.Hurt(Player, this, pvp, quiet, damage, hitDirection, crit, cooldownCounter);
             timeSinceLastHit = 0;
             if (accMedkit)
             {
@@ -939,6 +859,7 @@ namespace RiskOfTerrain
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
+            Accessories.PreKill(Player, this, damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
             if (accDiosBestFriend > 0 && diosCooldown <= 0)
             {
                 DifficultyHack = Player.difficulty;
@@ -949,6 +870,7 @@ namespace RiskOfTerrain
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
+            Accessories.Kill(Player, this, damage, hitDirection, pvp, damageSource);
             if (accDiosBestFriend > 0 && diosCooldown <= 0)
             {
                 diosDead = true;
@@ -959,43 +881,29 @@ namespace RiskOfTerrain
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-            return Player.RollLuck(100) > (int)(backupMagAmmoReduction * 100f);
+            return Accessories.CanConsumeAmmo(Player, this);
+            //return Player.RollLuck(100) > (int)(backupMagAmmoReduction * 100f);
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
+            Accessories.ModifyHit(Player, target, null, ref damage, ref knockback, ref crit);
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            ModifyHitEffects(target, ref damage, ref knockback, ref crit);
-        }
-
-        public void ModifyHitEffects(NPC target, ref int damage, ref float knockback, ref bool crit)
-        {
-            if ((target.boss || RORNPC.CountsAsBoss.Contains(target.type)) && accArmorPiercingRounds != 1)
-            {
-                damage = (int)(damage * accArmorPiercingRounds);
-            }
-            if (accCrowbar && (target.life / target.lifeMax) > 0.89)
-            {
-                damage = (int)(damage * 1.25);
-            }
-            if (focusCrystalDiameter > 0f && Player.Distance(target.getRect().ClosestDistance(Player.Center)) < focusCrystalDiameter / 2f)
-            {
-                damage = (int)(damage * (1f + focusCrystalDamage));
-                FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = target;
-            }
+            Accessories.ModifyHit(Player, target, proj, ref damage, ref knockback, ref crit);
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
+            Accessories.OnHit(Player, target, item, damage, knockback, crit);
             OnHitEffects(target, damage, knockback, crit);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
+            Accessories.OnHit(Player, target, proj, damage, knockback, crit);
             OnHitEffects(target, damage, knockback, crit);
         }
 
@@ -1023,18 +931,6 @@ namespace RiskOfTerrain
                     Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center, Vector2.Zero,
                         ModContent.ProjectileType<StunGrenadeProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
                 }
-
-                if (accStickyBomb && ProcRate() && Player.RollLuck(10) == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero,
-                        ModContent.ProjectileType<StickyExplosivesProj>(), ProcRate((int)(damage * 1.25f)), 0f, Player.whoAmI, target.whoAmI);
-                }
-
-                if (accAtG != null && ProcRate() && Player.RollLuck(accAtG.Chance) == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_Accessory(accAtG.Item), Player.Center, new Vector2(0f, -12f), ModContent.ProjectileType<AtGMissileProj>(),
-                        ProcRate((int)(damage * accAtG.statDamageMultiplier)), 0, Player.whoAmI, -10f);
-                }
             }
             if (accDeathMark != null)
             {
@@ -1049,7 +945,7 @@ namespace RiskOfTerrain
                     {
                         if (!target.HasBuff<DeathMarkDebuff>())
                         {
-                            Projectile.NewProjectile(Player.GetSource_Accessory(accDeathMark), new Vector2(target.position.X + target.width / 2f, target.position.Y - 100f), 
+                            Projectile.NewProjectile(Player.GetSource_Accessory(accDeathMark), new Vector2(target.position.X + target.width / 2f, target.position.Y - 100f),
                                 new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
                         }
                         target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
@@ -1071,11 +967,13 @@ namespace RiskOfTerrain
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
+            Accessories.OnHitBy(Player, npc, damage, 1f, crit);
             UseRollOfPennies(damage);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
+            Accessories.OnHitBy(Player, proj, damage, 1f, crit);
             UseRollOfPennies(damage);
         }
 
@@ -1104,7 +1002,6 @@ namespace RiskOfTerrain
             var center = position + new Vector2(width, height) / 2f;
             if (accGasoline != null)
             {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accGasoline), center, new Vector2(0f, -2f), ModContent.ProjectileType<GasolineProj>(), Math.Clamp((int)(lastHitDamage * 0.5f), 10, 200), 3f, Player.whoAmI);
             }
             if (accMonsterTooth != null)
             {
@@ -1122,10 +1019,6 @@ namespace RiskOfTerrain
             if (accWarbanner != null)
             {
                 warbannerProgress_Enemies++;
-            }
-            if (accFireworks != null)
-            {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accFireworks), Player.Center, Vector2.Zero, ModContent.ProjectileType<FireworksProj>(), Math.Clamp((int)(lastHitDamage * 0.5f), 10, 200), 0, Player.whoAmI, 40);
             }
             if (miscInfo[0])
             {

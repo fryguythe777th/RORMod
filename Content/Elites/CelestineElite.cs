@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public class CelestineElite : EliteNPC
+    public class CelestineElite : EliteNPCBase
     {
         public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.FogboundDye);
 
