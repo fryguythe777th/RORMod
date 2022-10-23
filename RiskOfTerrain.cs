@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.NPCs;
-using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -116,7 +115,8 @@ namespace RiskOfTerrain
                         byte misc = reader.ReadByte();
                         float value = reader.ReadSingle();
 
-                        player.ROR().Accessories.OnKillEnemy(player, new OnKillInfo() {
+                        player.ROR().Accessories.OnKillEnemy(player, new OnKillInfo()
+                        {
                             type = type,
                             position = position,
                             width = w,

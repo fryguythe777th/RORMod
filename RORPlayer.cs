@@ -38,7 +38,7 @@ namespace RiskOfTerrain
         public int aegisLifeCheck;
 
         public bool accAegis;
-        public float aegisBarrier;
+        public float barrierDrainMinimum;
 
         public int accHarvestersScythe;
 
@@ -139,6 +139,11 @@ namespace RiskOfTerrain
             Accessories = new UniversalAccessoryHandler();
         }
 
+        public override void NaturalLifeRegen(ref float regen)
+        {
+            base.NaturalLifeRegen(ref regen);
+        }
+
         #region Loading Stuffs
 
         public override void Load()
@@ -188,7 +193,10 @@ namespace RiskOfTerrain
         private static void Player_DropTombstone(On.Terraria.Player.orig_DropTombstone orig, Player self, int coinsOwned, NetworkText deathText, int hitDirection)
         {
             if (self.ROR().accDiosBestFriend > 0)
+            {
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("extralife", 0.1f, 0f, 0.1f));
                 return;
+            }
             orig(self, coinsOwned, deathText, hitDirection);
         }
 
@@ -412,7 +420,7 @@ namespace RiskOfTerrain
                     aegisLifeCheck = Player.statLife / 2 * 2;
                 }
             }
-            aegisBarrier = 0f;
+            barrierDrainMinimum = 0f;
             accAegis = false;
         }
 
@@ -542,36 +550,8 @@ namespace RiskOfTerrain
 
         public override void UpdateLifeRegen()
         {
-            UpdateCautiousSlug();
+            Accessories.UpdateLifeRegeneration(Player);
             Player.lifeRegen += increasedRegen;
-        }
-
-        public void UpdateCautiousSlug()
-        {
-            if (accGlubby)
-            {
-                if (glubbyActive > 120)
-                {
-                    if (InDanger)
-                    {
-                        glubbyActive = 0;
-                        if (!glubbyHide)
-                            SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubbyhide").WithVolumeScale(0.4f));
-                    }
-                    Player.lifeRegen += 25;
-                    return;
-                }
-
-                if (!InDanger || Player.Distance(Main.npc[dangerEnemy].Center) > 800f)
-                {
-                    glubbyActive++;
-                    if (glubbyActive == 120)
-                    {
-                        if (!glubbyHide)
-                            SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubby").WithVolumeScale(0.4f));
-                    }
-                }
-            }
         }
 
         public override void PostUpdateRunSpeeds()
@@ -584,6 +564,7 @@ namespace RiskOfTerrain
 
         public override void PostUpdateEquips()
         {
+            Accessories.PostUpdateEquips(Player);
             HPLostToGlass = 0;
             int lifeMax = Player.statLifeMax;
             if (glass > 0f)
@@ -627,38 +608,35 @@ namespace RiskOfTerrain
 
         public void UpdateBarrierDrainage()
         {
-            if (barrier > aegisBarrier)
+            if (barrier > barrierDrainMinimum)
             {
                 barrier -= 0.05f / Player.statLifeMax2 + barrier * 0.001f;
-                if (barrier < aegisBarrier)
-                    barrier = aegisBarrier;
+                if (barrier < barrierDrainMinimum)
+                    barrier = barrierDrainMinimum;
             }
         }
 
         public override void PostUpdate()
         {
             UpdateBarrierDrainage();
+            Accessories.PostUpdate(Player);
             if (Main.myPlayer == Player.whoAmI)
             {
                 if (accFocusCrystal != null && focusCrystalVisible && Player.ownedProjectileCounts[ModContent.ProjectileType<FocusCrystalProj>()] == 0)
                 {
                     Projectile.NewProjectile(Player.GetSource_Accessory(accFocusCrystal), Player.Center, Vector2.Zero, ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, Player.whoAmI);
                 }
-                if (accBustlingFungus != null && idleTime > 60 && Player.ownedProjectileCounts[ModContent.ProjectileType<BustlingFungusProj>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_Accessory(accBustlingFungus), Player.Center, Vector2.Zero, ModContent.ProjectileType<BustlingFungusProj>(), 0, 0f, Player.whoAmI);
-                }
                 if (warbannerProgress_Enemies > 15)
                 {
                     SpawnWarbanner();
                 }
             }
-            if (Player.statLife == Player.statLifeMax2 && accAegis && barrier < aegisBarrier)
+            if (Player.statLife == Player.statLifeMax2 && accAegis && barrier < barrierDrainMinimum)
             {
                 barrier += 1f / Player.statLifeMax * Player.lifeRegen;
                 Player.statLife += Player.lifeRegen;
-                if (barrier > aegisBarrier)
-                    barrier = aegisBarrier;
+                if (barrier > barrierDrainMinimum)
+                    barrier = barrierDrainMinimum;
             }
             if (gLegSounds)
             {
@@ -801,10 +779,6 @@ namespace RiskOfTerrain
         {
             Accessories.Hurt(Player, this, pvp, quiet, damage, hitDirection, crit, cooldownCounter);
             timeSinceLastHit = 0;
-            if (accMedkit)
-            {
-                Player.AddBuff(ModContent.BuffType<MedkitBuff>(), 120);
-            }
             if (barrier > 0f)
             {
                 barrier = (float)Math.Max(barrier - damage / (float)Player.statLifeMax, 0f);
@@ -897,60 +871,26 @@ namespace RiskOfTerrain
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            Accessories.OnHit(Player, target, item, damage, knockback, crit);
+            if (!target.immortal)
+                Accessories.OnHit(Player, target, item, damage, knockback, crit);
             OnHitEffects(target, damage, knockback, crit);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            Accessories.OnHit(Player, target, proj, damage, knockback, crit);
+            if (!target.immortal)
+                Accessories.OnHit(Player, target, proj, damage, knockback, crit);
             OnHitEffects(target, damage, knockback, crit);
         }
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (crit && accHarvestersScythe > 0)
-            {
-                int heal = accHarvestersScythe;
-                if (Player.statLife + heal > Player.statLifeMax2)
-                {
-                    heal = Player.statLifeMax2 - Player.statLife;
-                }
-                heal = Math.Min(heal, (int)Player.lifeSteal);
-                if (heal > 0)
-                {
-                    Player.HealEffect(heal);
-                    Player.statLife += heal;
-                    Player.lifeSteal -= heal * 1.5f;
-                }
-            }
             if (!target.immortal)
             {
                 if (accStunGrenade && ProcRate() && Player.RollLuck(10) == 0)
                 {
                     Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center, Vector2.Zero,
                         ModContent.ProjectileType<StunGrenadeProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
-                }
-            }
-            if (accDeathMark != null)
-            {
-                int buffCount = 0;
-                for (int i = 0; i < NPC.maxBuffs; i++)
-                {
-                    if (target.buffType[i] != 0 && Main.debuff[target.buffType[i]] && target.buffType[i] != ModContent.BuffType<DeathMarkDebuff>())
-                    {
-                        buffCount++;
-                    }
-                    if (buffCount >= 2)
-                    {
-                        if (!target.HasBuff<DeathMarkDebuff>())
-                        {
-                            Projectile.NewProjectile(Player.GetSource_Accessory(accDeathMark), new Vector2(target.position.X + target.width / 2f, target.position.Y - 100f),
-                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
-                        }
-                        target.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
-                        break;
-                    }
                 }
             }
             if (accShatterspleen != null && crit)
@@ -1000,13 +940,6 @@ namespace RiskOfTerrain
         public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo, float value)
         {
             var center = position + new Vector2(width, height) / 2f;
-            if (accGasoline != null)
-            {
-            }
-            if (accMonsterTooth != null)
-            {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accMonsterTooth), center, new Vector2(0f, -2f), ModContent.ProjectileType<HealingOrb>(), 0, 0, Player.whoAmI);
-            }
             if (accGhorsTome != null && value > 0 && Player.RollLuck(10) == 0)
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, Player.whoAmI, ai1: value);

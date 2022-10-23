@@ -1,11 +1,14 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Front)]
-    public class BustlingFungus : ModItem, ItemHooks.IUpdateItemDye
+    public class BustlingFungus : ModAccessory, ItemHooks.IUpdateItemDye
     {
         public override void SetStaticDefaults()
         {
@@ -22,11 +25,29 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void PostUpdate(EntityInfo entity)
         {
-            player.ROR().accBustlingFungus = Item;
-            player.ROR().bungusDiameter += 280f;
-            player.ROR().bungusHealingPercent += 0.075f;
+            if (entity.IdleTime() > 60)
+            {
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<BustlingFungusProj>() && entity.OwnsThisProjectile(Main.projectile[i]))
+                    {
+                        UpdateProjectile(Main.projectile[i]);
+                        return;
+                    }
+                }
+                UpdateProjectile(Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
+                    ModContent.ProjectileType<BustlingFungusProj>(), 0, 0f, entity.GetProjectileOwnerID()));
+            }
+        }
+
+        public void UpdateProjectile(Projectile projectile)
+        {
+            projectile.scale = MathHelper.Lerp(projectile.scale, 280f + 16f * (Stacks - 1), 0.2f);
+            var bungus = (BustlingFungusProj)projectile.ModProjectile;
+            bungus.accessoryActive = true;
+            bungus.regenPercent = 0.075f + Stacks;
         }
 
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)

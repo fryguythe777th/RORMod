@@ -26,7 +26,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             player.accWatch = 3;
             if (player.statLife > player.statLifeMax / 2)
             {
-                player.GetDamage(DamageClass.Generic) += 0.2f;
+                player.GetDamage(DamageClass.Generic) += 0.1f;
             }
         }
     }

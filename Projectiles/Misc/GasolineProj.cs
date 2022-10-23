@@ -24,6 +24,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 60;
             Projectile.ArmorPenetration = 25;
+            Projectile.ROR().procRate = 0f;
         }
 
         public override void AI()
@@ -61,7 +62,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                 {
                     Main.npc[i].AddBuff(BuffID.OnFire, 180);
                     var ror = Main.npc[i].ROR();
-                    ror.gasolineDamage = Math.Max(ror.gasolineDamage, (int)(Projectile.damage * 1.5f));
+                    ror.gasolineDamage = Math.Max(ror.gasolineDamage, Projectile.damage / 2);
                     Main.npc[i].netUpdate = true;
                 }
             }

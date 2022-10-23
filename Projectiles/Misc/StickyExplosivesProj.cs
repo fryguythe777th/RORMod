@@ -43,7 +43,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                     Projectile.velocity = Main.rand.NextVector2Unit() * 3f;
                     Projectile.netUpdate = true;
                 }
-                Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
                 Projectile.velocity.Y += 0.1f;
                 Projectile.tileCollide = true;
                 return;
@@ -53,8 +53,9 @@ namespace RiskOfTerrain.Projectiles.Misc
             {
                 Projectile.ai[1] = Vector2.Normalize(npcCenter - Projectile.Center).ToRotation();
             }
-            Projectile.Center = npcCenter - ((Projectile.ai[1]).ToRotationVector2() * Main.npc[AttatchedNPC].frame.Size() / 2f).RotatedBy(Main.npc[AttatchedNPC].rotation);
-            Projectile.rotation = Projectile.ai[1] + Main.npc[AttatchedNPC].rotation - MathHelper.PiOver2;
+            var normal = Projectile.ai[1].ToRotationVector2();
+            Projectile.Center = npcCenter - (normal * (Main.npc[AttatchedNPC].frame.Size() / 2f) - normal * 10f).RotatedBy(Main.npc[AttatchedNPC].rotation);
+            Projectile.rotation = Projectile.ai[1] + Main.npc[AttatchedNPC].rotation + MathHelper.PiOver2;
             Projectile.frameCounter++;
             if (Projectile.frameCounter > Projectile.timeLeft / 4)
             {

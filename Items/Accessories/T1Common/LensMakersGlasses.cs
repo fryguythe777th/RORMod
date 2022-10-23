@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Face)]
-    public class LensMakersGlasses : ModItem
+    public class LensMakersGlasses : ModAccessory
     {
         public override void SetStaticDefaults()
         {

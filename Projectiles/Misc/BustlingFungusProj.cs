@@ -17,6 +17,8 @@ namespace RiskOfTerrain.Projectiles.Misc
     {
         public List<Vector3> fungusInfo;
         public bool playedSound;
+        public bool accessoryActive;
+        public float regenPercent;
 
         protected override bool CloneNewInstances => base.CloneNewInstances;
 
@@ -42,8 +44,13 @@ namespace RiskOfTerrain.Projectiles.Misc
             float scale = Projectile.scale;
             Projectile.Center = Main.player[Projectile.owner].Center;
             var ror = Main.player[Projectile.owner].ROR();
-            bool active = ror != null && ror.accBustlingFungus != null && ror.idleTime > 60;
-
+            bool active = true;
+            if (Projectile.numUpdates == -1)
+            {
+                active = accessoryActive;
+                accessoryActive = false;
+                //Main.NewText(active + ": " + Projectile.numUpdates + ", " + Projectile.whoAmI);
+            }
             if (Main.netMode != NetmodeID.Server && Projectile.numUpdates == -1)
             {
                 ManageBungalTendices(Main.player[Projectile.owner], ror, active);
@@ -53,13 +60,13 @@ namespace RiskOfTerrain.Projectiles.Misc
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
-                    if (Main.player[i].active && !Main.player[i].dead && Main.player[i].Distance(Projectile.Center) < Projectile.scale / 2f)
+                    if (Main.player[i].active && !Main.player[i].dead && Main.player[i].Distance(Projectile.Center) < Projectile.scale / 2f &&
+                        (!Main.player[i].hostile || !Main.player[Projectile.owner].hostile || Main.player[i].team == Main.player[Projectile.owner].team))
                     {
-                        Main.player[i].ROR().increasedRegen += Math.Clamp((int)(Main.player[i].statLifeMax2 * ror.bungusHealingPercent), 1, 20);
+                        Main.player[i].ROR().increasedRegen += Math.Clamp((int)(Main.player[i].statLifeMax2 * regenPercent), 1, 20);
                         Main.player[i].AddBuff(ModContent.BuffType<BustlingFungusBuff>(), 4, quiet: true);
                     }
                 }
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, ror.bungusDiameter, 0.2f);
             }
             else
             {

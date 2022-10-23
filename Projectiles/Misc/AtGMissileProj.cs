@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +27,11 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void AI()
         {
+            if ((int)Projectile.localAI[0] == 0)
+            {
+                SoundEngine.PlaySound(RiskOfTerrain.GetSounds("missile/shoot", 4, 0.25f, 0f, 0.1f), Projectile.Center);
+                Projectile.localAI[0] = 1f;
+            }
             if (Projectile.penetrate <= 1)
             {
                 Projectile.Kill();
@@ -57,6 +63,8 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(RiskOfTerrain.GetSounds("missile/explode", 4, 0.5f, 0f, 0.1f), Projectile.Center);
+
             if (Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AtGMissileExplosion>(), Projectile.damage, 1f, Projectile.owner);

@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         {
             var ror = player.ROR();
             ror.accAegis = true;
-            ror.aegisBarrier += 0.1f;
+            ror.barrierDrainMinimum += 0.1f;
         }
     }
 }

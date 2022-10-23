@@ -75,7 +75,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         {
             if (entity.entity.Distance(victim.entity.Hitbox.ClosestDistance(entity.entity.Center)) < 240f)
             {
-                damage = (int)(damage * (1f + 0.25f * Item.stack));
+                damage = (int)(damage * (1f + 0.25f * Stacks));
                 HitNPCForMakingDamageNumberPurpleHack = victim.entity;
             }
         }

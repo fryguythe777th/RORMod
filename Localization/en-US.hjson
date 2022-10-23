@@ -28,6 +28,16 @@ Mods: {
 			Gasoline: Gasoline
 			FocusCrystal: Focus Crystal
 
+			WillOTheWisp: Will-o'-the-Wisp
+			WaxQuail: Wax Quail
+			WarHorn: War Horn
+			RoseBuckler: Rose Buckler
+			OldGuillotine: Old Guillotine
+			RunaldsBand: Runald's Band
+			KjarosBand: Kjaro's Band
+			Infusion: Infusion
+			BerzerkersPauldron: Berzerker's Pauldron
+			Bandolier: Bandolier
 			Razorwire: Razorwire
 			GhorsTome: Ghor's Tome
 			AtGMissileMk1: AtG Missile Mk. 1
@@ -35,6 +45,7 @@ Mods: {
 			ReloadingShurikens: Reloading Shurikens
 			HarvestersScythe: Harvester's Scythe
 
+			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
 			DiosBestFriend: Dio's Best Friend
 
@@ -142,8 +153,8 @@ Mods: {
 					'''
 			}
 			DelicateWatch: {
-				$parentVal: 20% increased damage when above 50% life
-				TerminalTooltip: "[0:20%] increased damage when above [0:50% life]."
+				$parentVal: 8% increased damage when above 50% life
+				TerminalTooltip: "[0:8%] increased damage when above [0:50% life]."
 				TerminalLore: The wind blows over the plains. Two soldiers trudge along on their routine patrol, filling their boredom with casual conversation. 'Hm. Hey, Shelly, have I ever showed you my new Patex?' Quinton mused. Shelly shot him a quizzical look. 'Tell me you didn't bring a $75,000 watch with you on a dangerous expedition into unknown territories...'
 			}
 			FocusCrystal: {
@@ -209,11 +220,7 @@ Mods: {
 			StunGrenade: 10% chance to encompass enemies in defense reducing smoke
 
 			AtGMissileMk1: 10% chance to fire a missile when hitting an enemy
-			DeathMark:
-				'''
-				Damaging enemies with 2 or more debuffs will mark them for death for 7 seconds
-				Enemies marked for death will take 10% more damage
-				'''
+			DeathMark: Enemies with 4 or more debuffs will take 10% more damage
 
 			ReloadingShurikens: {
 				$parentVal:

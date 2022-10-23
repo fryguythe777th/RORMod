@@ -32,10 +32,6 @@ namespace RiskOfTerrain.Projectiles.Misc
             if (Projectile.frame == 0 && Main.netMode != NetmodeID.Server)
             {
                 Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
-                if (Projectile.frameCounter == 0)
-                {
-                    SoundEngine.PlaySound(SoundID.Item14.WithVolumeScale(0.5f), Projectile.Center);
-                }
                 for (int i = 0; i < 30; i++)
                 {
                     var v = Main.rand.NextVector2Unit();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Graphics.Primitives;
+using RiskOfTerrain.Items.Accessories.T1Common;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Projectiles.Misc
 {
-    public class HealingOrb : ModProjectile
+    public class MonsterToothProj : ModProjectile
     {
         public TrailRenderer prim;
         public int blinkCounter = 0;
@@ -52,7 +53,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                     var plrHitbox = Main.player[i].Hitbox;
                     if (Projectile.Hitbox.Intersects(plrHitbox))
                     {
-                        Main.player[i].Heal(8 + (int)(Main.player[i].statLifeMax * 0.02));
+                        Main.player[i].Heal(8 + (int)(Main.player[i].statLifeMax * (0.02 * Projectile.GetParentHandler().GetItemStack(ModContent.ItemType<MonsterTooth>()))));
                         SoundEngine.PlaySound(RiskOfTerrain.GetSound("monstertoothheal", 0.1f), Projectile.Center);
                         Projectile.Kill();
                         return;

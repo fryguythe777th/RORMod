@@ -1,12 +1,18 @@
-﻿using Terraria;
+﻿using RiskOfTerrain.Content.Accessories;
+using System;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Front)]
-    public class CautiousSlug : ModItem
+    public class CautiousSlug : ModAccessory
     {
+        public int glubbyActive;
+        public bool hideVisual;
+
         public override void Load()
         {
             EquipLoader.AddEquipTexture(Mod, Texture + "_Front_Hide", EquipType.Front, name: "CautiousSlug_Hide");
@@ -29,12 +35,46 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ROR().accGlubby = true;
-            if (Main.netMode != NetmodeID.Server)
+            this.hideVisual = hideVisual;
+        }
+
+        public override void UpdateLifeRegeneration(EntityInfo entity)
+        {
+            if (glubbyActive > 120)
             {
-                Item.frontSlot = player.ROR().glubbyActive > 120 ? (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug", EquipType.Front) : (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug_Hide", EquipType.Front);
+                if (Main.netMode != NetmodeID.Server)
+                {
+                    var slot = (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug", EquipType.Front);
+                    if (Item.frontSlot != slot)
+                    {
+                        Item.frontSlot = slot;
+                        SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubby").WithVolumeScale(0.4f), entity.entity.Center);
+                    }
+                }
+                if (entity.InDanger())
+                {
+                    glubbyActive = 0;
+                    if (Main.netMode != NetmodeID.Server)
+                    {
+                        if (!hideVisual)
+                            SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubbyhide").WithVolumeScale(0.4f));
+                        Item.frontSlot = (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug_Hide", EquipType.Front);
+                    }
+                }
+                int regen = 2;
+                if (entity.entity is Player player && player.lifeRegenTime < 3000)
+                {
+                    player.lifeRegenTime += 2;
+                    regen += Math.Min(player.lifeRegenTime, (int)3000) / 300;
+                }
+                entity.AddLifeRegen(regen);
+                return;
             }
-            player.ROR().glubbyHide = hideVisual;
+
+            if (!entity.InDanger())
+            {
+                glubbyActive++;
+            }
         }
     }
 }

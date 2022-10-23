@@ -1,11 +1,16 @@
+using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class MonsterTooth : ModItem
+    public class MonsterTooth : ModAccessory
     {
+        public int killDelay;
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
@@ -21,9 +26,18 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(silver: 50);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateEquip(Player player)
         {
-            player.ROR().accMonsterTooth = Item;
+            if (killDelay > 0)
+                killDelay--;
+        }
+
+        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        {
+            if (entity.CanSpawnProjectileOnThisClient())
+            {
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, new Vector2(0f, -2f), ModContent.ProjectileType<MonsterToothProj>(), 0, 0, entity.GetProjectileOwnerID());
+            }
         }
     }
 }

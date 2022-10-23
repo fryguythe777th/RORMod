@@ -13,6 +13,8 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public static ModKeybind AmmoSwapKey { get; private set; }
 
+        public bool hideVisual;
+
         public override void Load()
         {
             AmmoSwapKey = RiskOfTerrain.RegisterKeybind("Backup Magazine Swap", "MouseRight");
@@ -44,16 +46,18 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var ror = player.ROR();
-            ror.accBackupMagazine = true;
-            ror.backupMagVisible = !hideVisual;
-            ror.backupMagAmmoReduction += 0.1f;
+            this.hideVisual = hideVisual;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
                 Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(AmmoSwapKey)}]" })));
+        }
+
+        public override bool CanConsumeAmmo(Player player, RORPlayer ror)
+        {
+            return Main.rand.NextFloat(1f) < (1f - Stacks * 0.1f);
         }
 
         public override void ProcessTriggers(Player player, RORPlayer ror)

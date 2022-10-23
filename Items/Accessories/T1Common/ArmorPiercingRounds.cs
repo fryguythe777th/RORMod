@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
             if (victim.entity is NPC target && (target.boss || RORNPC.CountsAsBoss.Contains(target.type)))
-                damage = (int)(damage * (1f + Item.stack * 0.1f));
+                damage = (int)(damage * (1f + Stacks * 0.1f));
         }
     }
 }

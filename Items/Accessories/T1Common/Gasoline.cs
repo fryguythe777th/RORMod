@@ -48,15 +48,17 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            killDelay--;
+            if (killDelay > 0)
+                killDelay--;
         }
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (entity.CanSpawnProjectileOnThisClient())
+            if (entity.CanSpawnProjectileOnThisClient() && killDelay <= 0)
             {
+                killDelay = 120;
                 Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.position + new Vector2(info.width / 2f, info.height / 2f),
-                    new Vector2(0f, -1f), ModContent.ProjectileType<GasolineProj>(), Math.Clamp((int)(info.lastHitDamage * 0.5f), 10, 200), 3f, entity.SpawnOwner());
+                    new Vector2(0f, -1f), ModContent.ProjectileType<GasolineProj>(), Math.Clamp((int)(info.lastHitDamage * 0.5f), 10, 200), 3f, entity.GetProjectileOwnerID());
             }
         }
     }

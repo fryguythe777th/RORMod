@@ -5,7 +5,13 @@ namespace RiskOfTerrain.Content.Accessories
 {
     public interface IAccessory
     {
+        UniversalAccessoryHandler Handler { get; internal set; }
+        int Stacks { get; }
+
         void ResetEffects(EntityInfo entity);
+        void PostUpdateEquips(EntityInfo entity);
+        void PostUpdate(EntityInfo entity);
+        void UpdateLifeRegeneration(EntityInfo entity);
         void ModifyHitBy(EntityInfo entity, EntityInfo attacker, ref int damage, ref float knockBack, ref bool crit);
         void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit);
         void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Artifacts;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.NPCs;
@@ -34,6 +35,33 @@ namespace RiskOfTerrain
 
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
+
+        public static UniversalAccessoryHandler GetParentHandler(this Projectile projectile)
+        {
+            var parent = GetParent(projectile);
+            if (parent == null)
+                return null;
+
+            return GetHandler(parent);
+        }
+
+        public static UniversalAccessoryHandler GetHandler(this Entity entity)
+        {
+            if (entity is Player player)
+                return player.ROR().Accessories;
+            return null;
+        }
+
+        public static Entity GetParent(this Projectile projectile)
+        {
+            if (projectile.hostile)
+                return null;
+
+            if (projectile.owner >= 255 || projectile.owner < 0)
+                return null;
+
+            return Main.player[projectile.owner];
+        }
 
         public static Vector2 ClosestDistance(this Rectangle rect, Vector2 other)
         {

@@ -9,12 +9,14 @@ namespace RiskOfTerrain.Content.Accessories
     {
         public static Dictionary<int, IAccessory> AccessoryLookup { get; private set; }
 
-        private List<Item> items;
+        public Dictionary<int, int> Stacks { get; private set; }
+        public Dictionary<int, Item> MostRecentItemReference { get; private set; }
         public List<IAccessory> Accessories { get; private set; }
 
         public UniversalAccessoryHandler()
         {
-            items = new List<Item>();
+            Stacks = new Dictionary<int, int>();
+            MostRecentItemReference = new Dictionary<int, Item>();
             Accessories = new List<IAccessory>();
         }
 
@@ -29,17 +31,38 @@ namespace RiskOfTerrain.Content.Accessories
             AccessoryLookup = null;
         }
 
+        public int GetItemStack(int itemID)
+        {
+            if (Stacks.TryGetValue(itemID, out var stack))
+                return stack;
+            return 1;
+        }
+
+        public Item GetItemReference(int itemID)
+        {
+            if (MostRecentItemReference.TryGetValue(itemID, out var stack))
+                return stack;
+            return null;
+        }
+
         public void AddItemStack(Item item)
         {
-            foreach (var i in items)
+            MostRecentItemReference[item.type] = item;
+            
+            int baseStack = 0;
+            foreach (var type in Stacks.Keys)
             {
-                if (i.type == item.type)
+                if (type == item.type)
                 {
-                    i.stack++;
-                    return;
+                    baseStack = Stacks[item.type];
                 }
             }
-            items.Add(item.Clone());
+
+            Stacks[item.type] = baseStack + item.stack;
+
+            if (baseStack > 0)
+                return;
+
             if (item.ModItem is IAccessory acc)
             {
                 Accessories.Add(acc);
@@ -54,10 +77,36 @@ namespace RiskOfTerrain.Content.Accessories
         {
             foreach (var accessory in Accessories)
             {
+                accessory.Handler = this;
                 accessory.ResetEffects(new EntityInfo(entity));
             }
-            items?.Clear();
+            Stacks?.Clear();
+            MostRecentItemReference?.Clear();
             Accessories?.Clear();
+        }
+
+        public void PostUpdateEquips(Entity entity)
+        {
+            foreach (var accessory in Accessories)
+            {
+                accessory.PostUpdateEquips(new EntityInfo(entity));
+            }
+        }
+
+        public void PostUpdate(Entity entity)
+        {
+            foreach (var accessory in Accessories)
+            {
+                accessory.PostUpdate(new EntityInfo(entity));
+            }
+        }
+
+        public void UpdateLifeRegeneration(Entity entity)
+        {
+            foreach (var accessory in Accessories)
+            {
+                accessory.UpdateLifeRegeneration(new EntityInfo(entity));
+            }
         }
 
         public void ModifyHit(Entity entity, Entity victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)

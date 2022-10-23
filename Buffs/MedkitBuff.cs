@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using RiskOfTerrain.Items.Accessories.T1Common;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Buffs
@@ -14,7 +16,8 @@ namespace RiskOfTerrain.Buffs
         {
             if (player.buffTime[buffIndex] == 1)
             {
-                player.Heal(10 + (int)(player.statLifeMax2 * 0.15));
+                player.Heal(10 + (int)(player.statLifeMax2 * (0.05f * player.ROR().Accessories.GetItemStack(ModContent.ItemType<Medkit>()))));
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("medkit", 0.1f));
             }
         }
 
