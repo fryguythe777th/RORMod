@@ -28,6 +28,16 @@ Mods: {
 			Gasoline: 汽油
 			FocusCrystal: 凝神水晶
 
+			WillOTheWisp: 鬼火
+			WaxQuail: 蜡鹌鹑
+			WarHorn: 战争号角
+			RoseBuckler: 玫瑰壁垒
+			OldGuillotine: 老旧断头台
+			RunaldsBand: Runald的手环
+			KjarosBand: Kjaro的手环
+			Infusion: 注入物
+			BerzerkersPauldron: 狂战肩甲
+			Bandolier: 备用弹夹
 			Razorwire: 铁丝网
 			GhorsTome: Ghor的典籍
 			AtGMissileMk1: AtG导弹MK.1
@@ -35,6 +45,7 @@ Mods: {
 			ReloadingShurikens: 再装填手里剑
 			HarvestersScythe: 收割者镰刀
 
+			SoulboundCatalyst: 缚魂催化剂
 			Aegis: 庇护
 			DiosBestFriend: 迪奥最好的朋友
 
@@ -83,7 +94,7 @@ Mods: {
 				'''
 			SoldiersSyringe:
 				'''
-				增加20%攻击速度
+				增加12%攻击速度
 				伤害降低12%
 				'''
 			TriTipDagger: 有10%的几率使敌人流血
@@ -142,8 +153,8 @@ Mods: {
 					'''
 			}
 			DelicateWatch: {
-				$parentVal: 生命值超过50%时伤害增加20%
-				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:20%]."
+				$parentVal: 生命值超过50%时伤害增加8%
+				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:8%]."
 				TerminalLore: 风吹过平原. 两名士兵在例行巡逻中跋涉前行, 用随意的谈话来填补他们的无聊. '嗯. 嘿, 雪莉, 我有给你看过我的新Patex吗?' 昆顿自言自语着. 雪莉向他投去一个疑惑的目光. '告诉我, 你没有带一块价值75000美元的手表去一个危险的未知地区探险...'
 			}
 			FocusCrystal: {
@@ -202,18 +213,14 @@ Mods: {
 			}
 			StickyExplosives: {
 				$parentVal: 有10%的几率对敌人使用一颗粘性炸弹
-				TerminalTooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:125%]伤害的[0:粘性炸弹]."
+				TerminalTooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:50%]伤害的[0:粘性炸弹]."
 				TerminalLore: ggs..
 			}
 
 			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
 
 			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
-			DeathMark:
-				'''
-			    用2个及以上减益伤害敌人时会将其被标记为死亡7秒
-				被死亡标记的敌人会受到10%的额外伤害
-				'''
+			DeathMark: 拥有4个及以上减益的敌人会受到10%的额外伤害
 
 				ReloadingShurikens: {
 				$parentVal:
@@ -252,7 +259,7 @@ Mods: {
 				'''
 
 			BisonSteak: "{$CommonItemTooltip.MajorStats}"
-			RustedKey: 打开生锈的锁盒, 放在你的背包中以揭露它们
+			RustedKey: 打开生锈的锁盒
 			PowerElixir: 
 				'''
 				受到小于50%生命值的伤害时会自动消耗
@@ -344,6 +351,18 @@ Mods: {
 			Deerclops: 冬之憎恶
 			MartianSaucer: 外星战舰
 			Pillars: 天界之缚
+		}
+
+		Containers: {
+			RustyLockboxTile: 锈蚀锁盒
+			SecurityChestTile: 保险箱
+		}
+
+		MapObject: {
+			RustyLockboxTile: 锈蚀锁盒
+			RustyLockboxTileLocked: 上锁的锈蚀锁盒
+			SecurityChestTile: 保险箱
+			SecurityChestTileLocked: 上锁的保险箱
 		}
 
 		Configuration: {
