@@ -13,7 +13,7 @@ namespace RiskOfTerrain.Tiles.Furniture
     {
         public override bool RollSpawnChance(int i, int j, int tileType)
         {
-            return WorldGen.genRand.NextBool(8);
+            return WorldGen.genRand.NextBool(5);
         }
 
         public override void FillChest(int chestID, ref int index)
@@ -21,11 +21,23 @@ namespace RiskOfTerrain.Tiles.Furniture
             switch (WorldGen.genRand.NextFloat(1f))
             {
                 case >= 0.8f:
-                    Main.chest[chestID].item[index++].SetDefaults(Main.rand.Next(RORItem.RedTier));
+                    {
+                        var rolledItem = ChestDropInfo.RollChestItem(RORItem.RedTier, Main.chest[chestID].x, Main.chest[chestID].y, WorldGen.genRand);
+                        if (rolledItem != null)
+                        {
+                            Main.chest[chestID].item[index++].SetDefaults(rolledItem.ItemID);
+                        }
+                    }
                     break;
 
                 default:
-                    Main.chest[chestID].item[index++].SetDefaults(Main.rand.Next(RORItem.GreenTier));
+                    {
+                        var rolledItem = ChestDropInfo.RollChestItem(RORItem.GreenTier, Main.chest[chestID].x, Main.chest[chestID].y, WorldGen.genRand);
+                        if (rolledItem != null)
+                        {
+                            Main.chest[chestID].item[index++].SetDefaults(rolledItem.ItemID);
+                        }
+                    }
                     break;
             }
         }

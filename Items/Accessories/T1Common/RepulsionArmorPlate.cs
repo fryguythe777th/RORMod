@@ -5,12 +5,12 @@ using Terraria.ModLoader;
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Waist)]
-    public class RepulsionArmorPlate : ModItem
+    public class RepulsionArmorPlate : ModAccessory
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
+            RORItem.WhiteTier.Add((Type, () => NPC.downedSlimeKing));
         }
 
         public override void SetDefaults()

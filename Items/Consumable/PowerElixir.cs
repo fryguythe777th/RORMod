@@ -30,7 +30,6 @@ namespace RiskOfTerrain.Items.Consumable
             var ror = player.ROR();
             if (ror.checkElixir == ItemID.None)
                 ror.checkElixir = Type;
-
         }
     }
 }

@@ -29,15 +29,33 @@ namespace RiskOfTerrain.Tiles.Furniture
             switch (WorldGen.genRand.NextFloat(1f))
             {
                 case <= 0.19f:
-                    Main.chest[chestID].item[index++].SetDefaults(Main.rand.Next(RORItem.GreenTier));
+                    {
+                        var rolledItem = ChestDropInfo.RollChestItem(RORItem.GreenTier, Main.chest[chestID].x, Main.chest[chestID].y, WorldGen.genRand);
+                        if (rolledItem != null)
+                        {
+                            Main.chest[chestID].item[index++].SetDefaults(rolledItem.ItemID);
+                        }
+                    }
                     break;
 
                 case <= 0.20f:
-                    Main.chest[chestID].item[index++].SetDefaults(Main.rand.Next(RORItem.RedTier));
+                    {
+                        var rolledItem = ChestDropInfo.RollChestItem(RORItem.RedTier, Main.chest[chestID].x, Main.chest[chestID].y, WorldGen.genRand);
+                        if (rolledItem != null)
+                        {
+                            Main.chest[chestID].item[index++].SetDefaults(rolledItem.ItemID);
+                        }
+                    }
                     break;
 
                 default:
-                    Main.chest[chestID].item[index++].SetDefaults(Main.rand.Next(RORItem.WhiteTier));
+                    {
+                        var rolledItem = ChestDropInfo.RollChestItem(RORItem.WhiteTier, Main.chest[chestID].x, Main.chest[chestID].y, WorldGen.genRand);
+                        if (rolledItem != null)
+                        {
+                            Main.chest[chestID].item[index++].SetDefaults(rolledItem.ItemID);
+                        }
+                    }
                     break;
             }
             if (WorldGen.genRand.NextBool(10))

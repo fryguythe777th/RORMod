@@ -1,3 +1,5 @@
+using RiskOfTerrain.Buffs.Debuff;
+using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -5,7 +7,7 @@ using Terraria.ModLoader;
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Face)]
-    public class TriTipDagger : ModItem
+    public class TriTipDagger : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -25,6 +27,15 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.ROR().accTriTipDagger = true;
+        }
+
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        {
+            entity.GetProc(out float proc);
+            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+            {
+                BleedingDebuff.AddStack(victim.entity, (int)(180 * proc), 1);
+            }
         }
     }
 }

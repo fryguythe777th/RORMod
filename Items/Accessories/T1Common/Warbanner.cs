@@ -1,12 +1,18 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
+using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Back)]
-    public class Warbanner : ModItem
+    public class Warbanner : ModAccessory
     {
+        public int timer;
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
@@ -22,9 +28,23 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnUnequip(EntityInfo entity)
         {
-            player.ROR().accWarbanner = Item;
+            timer = 0;
+        }
+
+        public override void PostUpdate(EntityInfo entity)
+        {
+            timer++;
+            if (timer > Math.Max(7200 / Item.stack, 600))
+            {
+                if (entity.CanSpawnProjectileOnThisClient())
+                {
+                    Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center - new Vector2(0f, 30f), Vector2.UnitY, 
+                        ModContent.ProjectileType<WarbannerProj>(), 0, 0f, entity.GetProjectileOwnerID());
+                }
+                timer = 0;
+            }
         }
     }
 }

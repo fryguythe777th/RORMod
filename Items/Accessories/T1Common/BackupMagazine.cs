@@ -1,5 +1,5 @@
 ﻿using RiskOfTerrain.UI;
-using RiskOfTerrain.UI.States;
+using RiskOfTerrain.UI.Terminal;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -29,7 +29,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         {
             SacrificeTotal = 1;
             RORItem.WhiteTier.Add(Type);
-            TerminalUIState.DynamicTooltip.Add(Type, () =>
+            LogbookPage.CustomTooltipConstructor.Add(Type, () =>
             {
                 return Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(AmmoSwapKey)}][2:]" });
             });
@@ -106,8 +106,11 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
             SoundEngine.PlaySound(RiskOfTerrain.GetSound("backupmagazine"), player.Center);
 
-            ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
-            ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
+            if (!hideVisual)
+            {
+                ModContent.GetInstance<BackupMagazineInterface>().Opacity = 1f;
+                ModContent.GetInstance<BackupMagazineInterface>().TimeActive = 0;
+            }
         }
     }
 }

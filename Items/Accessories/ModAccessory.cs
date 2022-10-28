@@ -10,8 +10,17 @@ namespace RiskOfTerrain.Items.Accessories
         protected override bool CloneNewInstances => true;
 
         public int Stacks => Handler.GetItemStack(Type);
+        int IAccessory.Type => Type;
 
         public UniversalAccessoryHandler Handler { get; set; }
+
+        public virtual void OnEquip(EntityInfo entity)
+        {
+        }
+
+        public virtual void OnUnequip(EntityInfo entity)
+        {
+        }
 
         public virtual void ResetEffects(EntityInfo entity)
         {

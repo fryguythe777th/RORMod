@@ -1,10 +1,11 @@
+using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class RollOfPennies : ModItem
+    public class RollOfPennies : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -21,9 +22,25 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(silver: 50);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit)
         {
-            player.ROR().accPennies = true;
+            if (entity.entity is not Player && (!Main.expertMode || entity.entity is not NPC))
+                return;
+
+            int[] coins = Utils.CoinsSplit(50 * (int)damage);
+            var source = entity.entity.GetSource_FromThis();
+            var loc = entity.entity.Center;
+            if (coins[0] > 0)
+                Item.NewItem(source, loc, ItemID.CopperCoin, coins[0]);
+
+            if (coins[1] > 0)
+                Item.NewItem(source, loc, ItemID.SilverCoin, coins[1]);
+
+            if (coins[2] > 0)
+                Item.NewItem(source, loc, ItemID.GoldCoin, coins[2]);
+
+            if (coins[3] > 0)
+                Item.NewItem(source, loc, ItemID.PlatinumCoin, coins[3]);
         }
     }
 }

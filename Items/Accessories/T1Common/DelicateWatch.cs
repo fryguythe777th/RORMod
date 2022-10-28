@@ -4,12 +4,12 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
-    public class DelicateWatch : ModItem
+    public class DelicateWatch : ModAccessory
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
+            RORItem.WhiteTier.Add((Type, () => NPC.downedBoss1));
         }
 
         public override void SetDefaults()

@@ -21,7 +21,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.GreenTier.Add(Type);
+            RORItem.GreenTier.Add((Type, () => NPC.downedBoss1));
         }
 
         public override void SetDefaults()

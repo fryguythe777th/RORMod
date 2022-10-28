@@ -1,12 +1,11 @@
 ﻿using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Neck)]
-    public class PersonalShieldGenerator : ModItem
+    public class PersonalShieldGenerator : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -25,9 +24,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var ror = player.ROR();
-            ror.accShieldGenerator = !hideVisual;
-            ror.maxShield += 0.12f;
+            player.ROR().maxShield += 0.12f;
         }
     }
 }

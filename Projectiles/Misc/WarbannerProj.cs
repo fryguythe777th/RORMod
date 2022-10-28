@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Items.Accessories.T1Common;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -22,7 +23,7 @@ namespace RiskOfTerrain.Projectiles.Misc
         {
             Projectile.width = 16;
             Projectile.height = 48;
-            Projectile.timeLeft = 3600;
+            Projectile.timeLeft = 7200;
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 100;
             Projectile.hide = true;
@@ -50,7 +51,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                     }
                 }
 
-                if (Main.player[Projectile.owner].ROR().accWarbanner == null)
+                if (Main.player[Projectile.owner].ROR().Accessories.GetItemStack(ModContent.ItemType<Warbanner>()) == 0)
                 {
                     Projectile.Kill();
                 }

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Shoes)]
-    public class SoldiersSyringe : ModItem
+    public class SoldiersSyringe : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Generic) -= 0.12f;
-            player.GetAttackSpeed(DamageClass.Generic) += 0.2f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.12f;
         }
     }
 }

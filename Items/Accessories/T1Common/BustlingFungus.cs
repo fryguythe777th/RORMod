@@ -33,18 +33,19 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 {
                     if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<BustlingFungusProj>() && entity.OwnsThisProjectile(Main.projectile[i]))
                     {
-                        UpdateProjectile(Main.projectile[i]);
+                        UpdateProjectile(entity, Main.projectile[i]);
                         return;
                     }
                 }
-                UpdateProjectile(Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
+                UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
                     ModContent.ProjectileType<BustlingFungusProj>(), 0, 0f, entity.GetProjectileOwnerID()));
             }
         }
 
-        public void UpdateProjectile(Projectile projectile)
+        public void UpdateProjectile(EntityInfo entity, Projectile projectile)
         {
             projectile.scale = MathHelper.Lerp(projectile.scale, 280f + 16f * (Stacks - 1), 0.2f);
+            projectile.Center = entity.entity.Center;
             var bungus = (BustlingFungusProj)projectile.ModProjectile;
             bungus.accessoryActive = true;
             bungus.regenPercent = 0.075f + Stacks;

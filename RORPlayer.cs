@@ -31,16 +31,11 @@ namespace RiskOfTerrain
         public static bool SpawnHack;
         public static byte DifficultyHack;
 
-        public AtGMissileMk1 accAtG;
-
         public float procRate;
         public int increasedRegen;
         public int aegisLifeCheck;
 
         public bool accAegis;
-        public float barrierDrainMinimum;
-
-        public int accHarvestersScythe;
 
         public Item accShuriken;
         public int shurikenCharges;
@@ -54,38 +49,19 @@ namespace RiskOfTerrain
         public float focusCrystalDiameter;
         public float focusCrystalDamage;
 
-        public Item accBustlingFungus;
-        public int cBungus;
-        public float bungusDiameter;
-        public float bungusHealingPercent;
-
-        public Item accGasoline;
-        public bool accStunGrenade;
-
-        public bool accBackupMagazine;
-        public bool backupMagVisible;
-        public float backupMagAmmoReduction;
-
-        public bool accStickyBomb;
-
         public int accDiosBestFriend;
         public int diosCooldown;
         public bool diosDead;
 
-        public bool spawnRustyChest;
         public int checkElixir;
-
-        public Item accMonsterTooth;
-
-        public Item accWarbanner;
-        public byte warbannerProgress_Enemies;
 
         public float bootSpeed;
 
         public float glass;
         public int HPLostToGlass;
 
-        public float barrier;
+        public int barrierLife;
+        public float barrierMinimumFrac;
 
         public float shield;
         public float maxShield;
@@ -94,38 +70,30 @@ namespace RiskOfTerrain
         public bool glubbyHide;
         public byte glubbyActive;
 
-        public bool gLegPlayedSound;
-        public bool gLegSounds;
-
         public bool accTopazBrooch;
         public bool accShieldGenerator;
         public Item accDeathMark;
         public Item accShatterspleen;
-        public bool accMedkit;
-        public bool accTougherTimes;
         public bool accTriTipDagger;
-        public bool accPennies;
-        public Item accFireworks;
-        public bool accCrowbar;
         public Item accRazorwire;
         public Item accGhorsTome;
 
-        public bool accOpal;
-        public int opalShieldTimer;
-        public bool opalShieldActive;
-
         public int accRepulsionPlate;
 
+        public int killStreak;
+        public int killStreakClearTimer;
         public int timeSinceLastHit;
         public int idleTime;
 
-        public float accArmorPiercingRounds;
+        public int cBungus;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>
         public int dangerEnemy;
         public int dangerEnemyOld;
+
+        public int BarrierMinimum { get; private set; }
 
         /// <summary>
         /// Helper for whether or not the player is in danger
@@ -137,11 +105,6 @@ namespace RiskOfTerrain
         public RORPlayer()
         {
             Accessories = new UniversalAccessoryHandler();
-        }
-
-        public override void NaturalLifeRegen(ref float regen)
-        {
-            base.NaturalLifeRegen(ref regen);
         }
 
         #region Loading Stuffs
@@ -306,12 +269,10 @@ namespace RiskOfTerrain
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = (RORPlayer)clientClone;
-            clone.warbannerProgress_Enemies = warbannerProgress_Enemies;
-            clone.barrier = barrier;
+            clone.barrierLife = barrierLife;
             clone.shield = shield;
             clone.diosCooldown = diosCooldown;
             clone.diosDead = diosDead;
-            clone.opalShieldTimer = opalShieldTimer;
             clone.shurikenCharges = shurikenCharges;
             clone.shurikenRechargeTime = shurikenRechargeTime;
             clone.timeSinceLastHit = timeSinceLastHit;
@@ -322,8 +283,8 @@ namespace RiskOfTerrain
             var client = (RORPlayer)clientPlayer;
             var p = RiskOfTerrain.GetPacket(PacketType.SyncRORPlayer);
             var bb = new BitsByte(
-                client.warbannerProgress_Enemies != warbannerProgress_Enemies,
-                client.barrier != barrier,
+                false,
+                client.barrierLife != barrierLife,
                 client.shield != shield,
                 client.diosCooldown != diosCooldown || client.diosDead != diosDead,
                 client.timeSinceLastHit != timeSinceLastHit,
@@ -333,11 +294,10 @@ namespace RiskOfTerrain
             p.Write(bb);
             if (bb[0])
             {
-                p.Write(warbannerProgress_Enemies);
             }
             if (bb[1])
             {
-                p.Write(barrier);
+                p.Write(barrierLife);
             }
             if (bb[2])
             {
@@ -363,11 +323,10 @@ namespace RiskOfTerrain
             var bb = (BitsByte)reader.ReadByte();
             if (bb[0])
             {
-                warbannerProgress_Enemies = reader.ReadByte();
             }
             if (bb[1])
             {
-                barrier = reader.ReadSingle();
+                barrierLife = reader.ReadInt32();
             }
             if (bb[2])
             {
@@ -398,30 +357,13 @@ namespace RiskOfTerrain
 
         public override void UpdateDead()
         {
+            barrierLife = 0;
+            barrierMinimumFrac = 0f;
             aegisLifeCheck = 0;
         }
 
         public void UpdateAegis()
         {
-            if (accAegis)
-            {
-                if (aegisLifeCheck <= 0)
-                    aegisLifeCheck = Player.statLife;
-                aegisLifeCheck = Math.Min(aegisLifeCheck, Player.statLife);
-
-                if (aegisLifeCheck / 2 < Player.statLife / 2)
-                {
-                    if (barrier < 1f)
-                    {
-                        barrier += 1f / Player.statLifeMax * (Player.statLife - aegisLifeCheck) / 2;
-                        if (barrier > 1f)
-                            barrier = 1f;
-                    }
-                    aegisLifeCheck = Player.statLife / 2 * 2;
-                }
-            }
-            barrierDrainMinimum = 0f;
-            accAegis = false;
         }
 
         public void UpdateShuriken()
@@ -482,51 +424,28 @@ namespace RiskOfTerrain
 
         public override void ResetEffects()
         {
-            UpdateAegis();
+            barrierMinimumFrac = 0;
             UpdateShuriken();
             UpdateDios();
 
-            accHarvestersScythe = 0;
             accFocusCrystal = null;
             focusCrystalDamage = 0f;
             focusCrystalDiameter = 0f;
             focusCrystalVisible = true;
             cFocusCrystal = 0;
-            cBungus = 0;
-            accBustlingFungus = null;
-            bungusHealingPercent = 0f;
-            bungusDiameter = 0f;
-            accGasoline = null;
-            accStunGrenade = false;
-            accStickyBomb = false;
             accTopazBrooch = false;
             accShieldGenerator = false;
             accGlubby = false;
             accDeathMark = null;
             accShatterspleen = null;
-            accMedkit = false;
-            accTougherTimes = false;
             accTriTipDagger = false;
-            accOpal = false;
-            accPennies = false;
-            accFireworks = null;
-            accCrowbar = false;
             accRepulsionPlate = 0;
-            accArmorPiercingRounds = 1f;
-            accWarbanner = null;
-            accMonsterTooth = null;
-            accBackupMagazine = false;
-            backupMagAmmoReduction = 0f;
-            backupMagVisible = false;
             accRazorwire = null;
             accGhorsTome = null;
-
-            gLegSounds = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;
 
-            spawnRustyChest = false;
             checkElixir = ItemID.None;
             bootSpeed = 0f;
             increasedRegen = 0;
@@ -556,10 +475,7 @@ namespace RiskOfTerrain
 
         public override void PostUpdateRunSpeeds()
         {
-            if (Player.accRunSpeed > 0f)
-            {
-                Player.accRunSpeed += bootSpeed;
-            }
+            Player.accRunSpeed += bootSpeed;
         }
 
         public override void PostUpdateEquips()
@@ -580,18 +496,22 @@ namespace RiskOfTerrain
             }
 
             ManageLifeSupplements(shield, lifeMax);
-            ManageLifeSupplements(barrier, lifeMax);
+            BarrierMinimum = (int)(Player.statLifeMax2 * barrierMinimumFrac);
+            if (Player.statLife == Player.statLifeMax2)
+            {
+                Player.statLife += barrierLife;
+            }
+            Player.statLifeMax2 += barrierLife;
 
             if (shield > 0f && timeSinceLastHit == ShieldRegenerationTime)
             {
-                if (accShieldGenerator)
-                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshield").WithVolumeScale(0.15f), Player.Center);
                 Player.statLife = Math.Min(Player.statLife + (int)(Player.statLifeMax2 * shield), Player.statLifeMax2);
             }
             if (Main.myPlayer == Player.whoAmI)
             {
                 ResourceOverlays.MaxShield = shield;
-                ResourceOverlays.MaxBarrier = barrier;
+                ResourceOverlays.MaxBarrier = barrierLife / (float)Player.statLifeMax2;
                 ResourceOverlays.MaxGlass = glass;
             }
         }
@@ -608,11 +528,11 @@ namespace RiskOfTerrain
 
         public void UpdateBarrierDrainage()
         {
-            if (barrier > barrierDrainMinimum)
+            if (barrierLife > BarrierMinimum)
             {
-                barrier -= 0.05f / Player.statLifeMax2 + barrier * 0.001f;
-                if (barrier < barrierDrainMinimum)
-                    barrier = barrierDrainMinimum;
+                barrierLife -= Math.Max((int)((Player.statLifeMax2 + barrierLife) * 0.05f), 1);
+                if (barrierLife < BarrierMinimum)
+                    barrierLife = BarrierMinimum;
             }
         }
 
@@ -626,52 +546,8 @@ namespace RiskOfTerrain
                 {
                     Projectile.NewProjectile(Player.GetSource_Accessory(accFocusCrystal), Player.Center, Vector2.Zero, ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, Player.whoAmI);
                 }
-                if (warbannerProgress_Enemies > 15)
-                {
-                    SpawnWarbanner();
-                }
-            }
-            if (Player.statLife == Player.statLifeMax2 && accAegis && barrier < barrierDrainMinimum)
-            {
-                barrier += 1f / Player.statLifeMax * Player.lifeRegen;
-                Player.statLife += Player.lifeRegen;
-                if (barrier > barrierDrainMinimum)
-                    barrier = barrierDrainMinimum;
-            }
-            if (gLegSounds)
-            {
-                UpdateGoatFootsteps();
             }
             DangerEnemy();
-            if (opalShieldTimer != -1)
-            {
-                opalShieldTimer++;
-                if (opalShieldTimer == 300)
-                {
-                    opalShieldTimer = -1;
-                    opalShieldActive = true;
-                }
-            }
-        }
-
-        public void SpawnWarbanner()
-        {
-            warbannerProgress_Enemies = 0;
-            Projectile.NewProjectile(Player.GetSource_Accessory(accWarbanner), Player.Center - new Vector2(0f, 30f), Vector2.UnitY, ModContent.ProjectileType<WarbannerProj>(),
-                0, 0f, Player.whoAmI);
-        }
-
-        public void UpdateGoatFootsteps()
-        {
-            int legFrame = Player.legFrame.Y / 56;
-            if (legFrame == 5 || legFrame == 10 || legFrame == 17)
-            {
-                if (!gLegPlayedSound)
-                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("hoofstep_", 7, 0.33f, 0f, 0.1f));
-                gLegPlayedSound = true;
-                return;
-            }
-            gLegPlayedSound = false;
         }
 
         /// <summary>
@@ -706,25 +582,6 @@ namespace RiskOfTerrain
             }
         }
 
-        public void TougherTimesDodge()
-        {
-            if (Main.netMode != NetmodeID.Server)
-            {
-                SoundEngine.PlaySound(RiskOfTerrain.GetSound("toughertimes").WithVolumeScale(0.2f), Player.Center);
-                int c = CombatText.NewText(new Rectangle((int)Player.position.X + Player.width / 2 - 1, (int)Player.position.Y, 2, 2), new Color(255, 255, 255, 255), 0, false, true);
-                if (c != -1 && c != Main.maxCombatText)
-                {
-                    Main.combatText[c].text = Language.GetTextValue("Mods.RiskOfTerrain.Blocked");
-                    Main.combatText[c].rotation = 0f;
-                    Main.combatText[c].scale *= 0.8f;
-                    Main.combatText[c].alphaDir = 0;
-                    Main.combatText[c].alpha = 0.99f;
-                    Main.combatText[c].position.X = Player.position.X + Player.width / 2f - FontAssets.CombatText[0].Value.MeasureString(Main.combatText[c].text).X / 2f;
-                }
-            }
-            Player.SetImmuneTimeForAllTypes(60);
-        }
-
         public override void UpdateBadLifeRegen()
         {
             if (accRepulsionPlate > 0 && Player.lifeRegen < 0)
@@ -735,24 +592,6 @@ namespace RiskOfTerrain
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
-            if (Player.whoAmI == Main.myPlayer && accTougherTimes && Player.RollLuck(10) == 0)
-            {
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                {
-                    var p = RiskOfTerrain.GetPacket(PacketType.TougherTimesDodge);
-                    p.Write(Player.whoAmI);
-                }
-                TougherTimesDodge();
-                return false;
-            }
-            if (accOpal)
-            {
-                damage = (int)(damage * 0.5f);
-                if (opalShieldActive)
-                    opalShieldActive = false;
-                if (opalShieldTimer == -1)
-                    opalShieldTimer = 0;
-            }
             return Accessories.PreHurt(Player, this, pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
 
@@ -779,12 +618,12 @@ namespace RiskOfTerrain
         {
             Accessories.Hurt(Player, this, pvp, quiet, damage, hitDirection, crit, cooldownCounter);
             timeSinceLastHit = 0;
-            if (barrier > 0f)
+            if (barrierLife > 0f)
             {
-                barrier = (float)Math.Max(barrier - damage / (float)Player.statLifeMax, 0f);
-                if (barrier <= 0.01f)
+                barrierLife -= (int)damage;
+                if (barrierLife < 0)
                 {
-                    barrier = 0f;
+                    barrierLife = 0;
                 }
             }
             else if (shield > 0f)
@@ -793,10 +632,7 @@ namespace RiskOfTerrain
                 if (shield <= 0.01f)
                 {
                     shield = 0f;
-                    if (accShieldGenerator)
-                    {
-                        SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshieldgone"), Player.Center);
-                    }
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("personalshieldgone"), Player.Center);
                 }
             }
             if (checkElixir != ItemID.None && Player.statLife * 2 < Player.statLifeMax2)
@@ -885,14 +721,6 @@ namespace RiskOfTerrain
 
         public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal)
-            {
-                if (accStunGrenade && ProcRate() && Player.RollLuck(10) == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_OnHurt(target), target.Center, Vector2.Zero,
-                        ModContent.ProjectileType<StunGrenadeProj>(), 0, 0f, Player.whoAmI, target.whoAmI);
-                }
-            }
             if (accShatterspleen != null && crit)
             {
                 target.GetGlobalNPC<RORNPC>().bleedShatterspleen = true;
@@ -908,33 +736,11 @@ namespace RiskOfTerrain
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
             Accessories.OnHitBy(Player, npc, damage, 1f, crit);
-            UseRollOfPennies(damage);
         }
 
         public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
             Accessories.OnHitBy(Player, proj, damage, 1f, crit);
-            UseRollOfPennies(damage);
-        }
-
-        public void UseRollOfPennies(int damage)
-        {
-            if (accPennies)
-            {
-                int[] coins = Utils.CoinsSplit(50 * (int)damage);
-
-                if (coins[0] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.CopperCoin, coins[0]);
-
-                if (coins[1] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.SilverCoin, coins[1]);
-
-                if (coins[2] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.GoldCoin, coins[2]);
-
-                if (coins[3] > 0)
-                    Item.NewItem(Player.GetSource_FromThis(), Player.Center, ItemID.PlatinumCoin, coins[3]);
-            }
         }
 
         public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo, float value)
@@ -943,15 +749,6 @@ namespace RiskOfTerrain
             if (accGhorsTome != null && value > 0 && Player.RollLuck(10) == 0)
             {
                 Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, Player.whoAmI, ai1: value);
-            }
-            if (accTopazBrooch)
-            {
-                barrier = Math.Min(barrier + 15f / Player.statLifeMax2, 1f);
-                Player.statLife += 15;
-            }
-            if (accWarbanner != null)
-            {
-                warbannerProgress_Enemies++;
             }
             if (miscInfo[0])
             {

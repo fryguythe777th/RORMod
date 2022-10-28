@@ -42,13 +42,14 @@ namespace RiskOfTerrain.Tiles
             {
                 return;
             }
-            if (WorldGen.genRand.NextBool(500) && Main.tile[i, j].HasUnactuatedTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
+            if (WorldGen.genRand.NextBool(10000) && Main.tile[i, j].HasUnactuatedTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
             {
                 var s = RollSecurityChestToSpawn(i, j, type);
                 if (s == null)
                     return;
 
-                var spawnRectangle = new Rectangle(i * 16 - 16, j * 16 - 16, 48, 48);
+                int spawnRectangleSize = 10;
+                var spawnRectangle = new Rectangle(i * 16 - spawnRectangleSize * 16, j * 16 - spawnRectangleSize * 16, spawnRectangleSize * 32, spawnRectangleSize * 32);
                 for (int k = 0; k < Main.maxPlayers; k++)
                 {
                     if (Main.player[k].active && Main.player[k].GetViewRectangle().Intersects(spawnRectangle))
@@ -57,7 +58,7 @@ namespace RiskOfTerrain.Tiles
                     }
                 }
 
-                int size = 75;
+                int size = 80;
                 int endX = Math.Min(i + size, Main.maxTilesX - size);
                 int endY = Math.Min(j + size, Main.maxTilesY - size);
 
@@ -79,7 +80,7 @@ namespace RiskOfTerrain.Tiles
                 {
                     for (int l = Math.Clamp(j - 2, 50, Main.maxTilesY - 2); l < endY; l++)
                     {
-                        int chestID = WorldGen.PlaceChest(k, l, (ushort)ModContent.TileType<SecurityChestTile>(), notNearOtherChests: false, style: 1);
+                        int chestID = WorldGen.PlaceChest(k, l, s.Type, notNearOtherChests: false, style: 1);
                         if (chestID != -1)
                         {
                             int index = 0;

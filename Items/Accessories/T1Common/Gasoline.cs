@@ -25,16 +25,16 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             };
         }
 
+        public override void SetStaticDefaults()
+        {
+            SacrificeTotal = 1;
+            RORItem.WhiteTier.Add((Type, () => NPC.downedSlimeKing));
+        }
+
         public override void Unload()
         {
             FireDebuffsForGasolineDamageOverTime?.Clear();
             FireDebuffsForGasolineDamageOverTime = null;
-        }
-
-        public override void SetStaticDefaults()
-        {
-            SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
         }
 
         public override void SetDefaults()

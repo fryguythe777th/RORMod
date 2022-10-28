@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content;
 using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.NPCs;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace RiskOfTerrain
 
                 case PacketType.TougherTimesDodge:
                     {
-                        Main.player[reader.ReadInt32()].ROR().TougherTimesDodge();
+                        TougherTimes.DoDodgeEffect(Main.player[reader.ReadInt32()]);
                     }
                     break;
 

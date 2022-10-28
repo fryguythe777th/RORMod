@@ -11,13 +11,13 @@ namespace RiskOfTerrain.Items
 {
     public class RORItem : GlobalItem
     {
-        public static List<int> WhiteTier { get; private set; }
-        public static List<int> GreenTier { get; private set; }
-        public static List<int> RedTier { get; private set; }
-        public static List<int> BossTier { get; private set; }
-        public static List<int> LunarTier { get; private set; }
-        public static List<int> VoidTier { get; private set; }
-        public static List<int> Equipment { get; private set; }
+        public static List<ChestDropInfo> WhiteTier { get; private set; }
+        public static List<ChestDropInfo> GreenTier { get; private set; }
+        public static List<ChestDropInfo> RedTier { get; private set; }
+        public static List<ChestDropInfo> BossTier { get; private set; }
+        public static List<ChestDropInfo> LunarTier { get; private set; }
+        public static List<ChestDropInfo> VoidTier { get; private set; }
+        public static List<ChestDropInfo> Equipment { get; private set; }
 
         internal static readonly string[] TooltipNames = new string[]
         {
@@ -78,13 +78,13 @@ namespace RiskOfTerrain.Items
 
         public override void Load()
         {
-            WhiteTier = new List<int>();
-            GreenTier = new List<int>();
-            RedTier = new List<int>();
-            BossTier = new List<int>();
-            LunarTier = new List<int>();
-            VoidTier = new List<int>();
-            Equipment = new List<int>();
+            WhiteTier = new List<ChestDropInfo>();
+            GreenTier = new List<ChestDropInfo>();
+            RedTier = new List<ChestDropInfo>();
+            BossTier = new List<ChestDropInfo>();
+            LunarTier = new List<ChestDropInfo>();
+            VoidTier = new List<ChestDropInfo>();
+            Equipment = new List<ChestDropInfo>();
         }
 
         public override void Unload()

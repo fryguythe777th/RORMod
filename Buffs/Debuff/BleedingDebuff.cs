@@ -20,11 +20,18 @@ namespace RiskOfTerrain.Buffs.Debuff
         {
         }
 
-        public static void AddStack(NPC npc, int time, int stacksAmt)
+        public static void AddStack(Entity entity, int time, int stacksAmt)
         {
-            npc.AddBuff(ModContent.BuffType<BleedingDebuff>(), time);
-            npc.ROR().bleedingStacks += (byte)stacksAmt;
-            npc.netUpdate = true;
+            if (entity is NPC npc)
+            {
+                npc.AddBuff(ModContent.BuffType<BleedingDebuff>(), time);
+                npc.ROR().bleedingStacks += (byte)stacksAmt;
+                npc.netUpdate = true;
+            }
+            else if (entity is Player player)
+            {
+                player.AddBuff(BuffID.Bleeding, time * stacksAmt);
+            }
         }
     }
 }

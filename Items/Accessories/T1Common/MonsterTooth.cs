@@ -14,7 +14,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
+            RORItem.WhiteTier.Add((Type, () => NPC.downedSlimeKing));
         }
 
         public override void SetDefaults()

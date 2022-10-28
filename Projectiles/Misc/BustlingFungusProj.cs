@@ -42,14 +42,12 @@ namespace RiskOfTerrain.Projectiles.Misc
                 playedSound = true;
             }
             float scale = Projectile.scale;
-            Projectile.Center = Main.player[Projectile.owner].Center;
             var ror = Main.player[Projectile.owner].ROR();
             bool active = true;
             if (Projectile.numUpdates == -1)
             {
                 active = accessoryActive;
                 accessoryActive = false;
-                //Main.NewText(active + ": " + Projectile.numUpdates + ", " + Projectile.whoAmI);
             }
             if (Main.netMode != NetmodeID.Server && Projectile.numUpdates == -1)
             {

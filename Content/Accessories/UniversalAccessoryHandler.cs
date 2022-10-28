@@ -9,14 +9,16 @@ namespace RiskOfTerrain.Content.Accessories
     {
         public static Dictionary<int, IAccessory> AccessoryLookup { get; private set; }
 
-        public Dictionary<int, int> Stacks { get; private set; }
-        public Dictionary<int, Item> MostRecentItemReference { get; private set; }
-        public List<IAccessory> Accessories { get; private set; }
+        public readonly Dictionary<int, int> Stacks;
+        public readonly Dictionary<int, Item> MostRecentItemReference;
+        public readonly List<IAccessory> EquippedLastFrame;
+        public readonly List<IAccessory> Accessories;
 
         public UniversalAccessoryHandler()
         {
             Stacks = new Dictionary<int, int>();
             MostRecentItemReference = new Dictionary<int, Item>();
+            EquippedLastFrame = new List<IAccessory>();
             Accessories = new List<IAccessory>();
         }
 
@@ -35,7 +37,7 @@ namespace RiskOfTerrain.Content.Accessories
         {
             if (Stacks.TryGetValue(itemID, out var stack))
                 return stack;
-            return 1;
+            return 0;
         }
 
         public Item GetItemReference(int itemID)
@@ -75,11 +77,26 @@ namespace RiskOfTerrain.Content.Accessories
 
         public void ResetEffects(Entity entity)
         {
+            var info = new EntityInfo(entity);
             foreach (var accessory in Accessories)
             {
                 accessory.Handler = this;
-                accessory.ResetEffects(new EntityInfo(entity));
+                accessory.ResetEffects(info);
+                if (EquippedLastFrame.Find((a) => a.Type == accessory.Type) == null)
+                {
+                    accessory.OnEquip(info);
+                }
             }
+            foreach (var accessory in EquippedLastFrame)
+            {
+                if (Accessories.Find((a) => a.Type == accessory.Type) == null)
+                {
+                    accessory.OnUnequip(info);
+                    accessory.Handler = null;
+                }
+            }
+            EquippedLastFrame.Clear();
+            EquippedLastFrame.AddRange(Accessories);
             Stacks?.Clear();
             MostRecentItemReference?.Clear();
             Accessories?.Clear();

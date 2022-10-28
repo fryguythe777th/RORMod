@@ -25,17 +25,10 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(silver: 50);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.ROR().accMedkit = true;
-        }
-
         public override void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit)
         {
             if (entity.entity is NPC npc)
             {
-                Main.NewText(npc.life + ": " + damage);
-                
                 npc.AddBuff(ModContent.BuffType<MedkitBuff>(), (int)Math.Clamp(360 * (npc.life / (float)npc.lifeMax), 120f, 360f));
             }
         }

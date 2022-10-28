@@ -3,7 +3,6 @@ using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Projectiles.Misc;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +29,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         {
             if (entity.CanSpawnProjectileOnThisClient() && entity.OwnedProjectilesCountLong(ModContent.ProjectileType<FireworksSpawner>()) <= 0)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<FireworksSpawner>(), 
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<FireworksSpawner>(),
                     Math.Clamp((int)(info.lastHitDamage * (Stacks * 0.5f)), 10, 100) / 8, 0, entity.GetProjectileOwnerID(), 8f + 4f * (Stacks - 1));
             }
         }

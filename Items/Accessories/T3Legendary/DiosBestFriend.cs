@@ -12,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.RedTier.Add(Type);
+            RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()

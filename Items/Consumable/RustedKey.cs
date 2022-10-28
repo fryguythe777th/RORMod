@@ -16,10 +16,5 @@ namespace RiskOfTerrain.Items.Consumable
             Item.CloneDefaults(ItemID.GoldenKey);
             Item.rare = ItemRarityID.Blue;
         }
-
-        public override void UpdateInventory(Player player)
-        {
-            player.ROR().spawnRustyChest = true;
-        }
     }
 }

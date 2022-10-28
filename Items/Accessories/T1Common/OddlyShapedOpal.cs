@@ -1,12 +1,18 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     [AutoloadEquip(EquipType.Neck)]
-    public class OddlyShapedOpal : ModItem
+    public class OddlyShapedOpal : ModAccessory
     {
+        public const int TimeToActivate = 60 * 7;
+
+        public int shieldActive;
+        public bool hideVisual;
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
@@ -22,14 +28,28 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(silver: 50);
         }
 
+        public bool ShieldActive()
+        {
+            return shieldActive > TimeToActivate;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var ror = player.ROR();
-            ror.accOpal = true;
-            if (ror.opalShieldActive)
+            this.hideVisual = hideVisual;
+            shieldActive++;
+            if (ShieldActive())
             {
-                player.statDefense += 20;
+                player.statDefense += 50;
             }
+        }
+
+        public override void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        {
+            if (ShieldActive())
+            {
+                SoundEngine.PlaySound(SoundID.Item53.WithVolumeScale(1f), player.Center);
+            }
+            shieldActive = 0;
         }
     }
 }

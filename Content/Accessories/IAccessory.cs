@@ -7,7 +7,10 @@ namespace RiskOfTerrain.Content.Accessories
     {
         UniversalAccessoryHandler Handler { get; internal set; }
         int Stacks { get; }
+        int Type { get; }
 
+        void OnEquip(EntityInfo entity);
+        void OnUnequip(EntityInfo entity);
         void ResetEffects(EntityInfo entity);
         void PostUpdateEquips(EntityInfo entity);
         void PostUpdate(EntityInfo entity);

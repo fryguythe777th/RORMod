@@ -9,6 +9,8 @@ namespace RiskOfTerrain.Projectiles.Misc
 {
     public class FocusCrystalProj : ModProjectile
     {
+        public bool accessoryVisible;
+
         public override void SetDefaults()
         {
             Projectile.width = 1;
@@ -21,28 +23,22 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void AI()
         {
-            float scale = Projectile.scale;
-            Projectile.Center = Main.player[Projectile.owner].Center;
-            var ror = Main.player[Projectile.owner].ROR();
-            bool active = ror != null && ror.accFocusCrystal != null && ror.focusCrystalVisible;
-
-            if (active)
+            bool active = true;
+            if (Projectile.numUpdates == -1)
             {
-                Projectile.scale = MathHelper.Lerp(Projectile.scale, ror.focusCrystalDiameter, 0.2f);
+                active = accessoryVisible;
+                accessoryVisible = false;
             }
-            else
+
+            if (!active)
             {
                 Projectile.scale = MathHelper.Lerp(Projectile.scale, 0f, 0.2f);
+                if (Projectile.scale < 0.1f)
+                {
+                    return;
+                }
             }
-
-            if (Projectile.scale > 0.1f)
-            {
-                Projectile.timeLeft = 2;
-            }
-            if (scale != Projectile.scale)
-            {
-                Projectile.netUpdate = true;
-            }
+            Projectile.timeLeft = 2;
 
             if (Projectile.scale > 0.1f)
             {

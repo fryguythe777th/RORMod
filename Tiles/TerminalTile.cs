@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Items.Placeable;
 using RiskOfTerrain.UI;
-using RiskOfTerrain.UI.States;
+using RiskOfTerrain.UI.Terminal;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ObjectInteractions;

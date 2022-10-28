@@ -11,6 +11,7 @@ namespace RiskOfTerrain.UI
 {
     public class BackupMagazineInterface : ModSystem
     {
+        public bool HideVisual;
         public int TimeActive;
         public float Opacity;
         public float Rotation;
@@ -51,7 +52,7 @@ namespace RiskOfTerrain.UI
         public bool DrawInterface()
         {
             var player = Main.LocalPlayer;
-            if (!player.ROR().backupMagVisible)
+            if (HideVisual)
             {
                 return true;
             }

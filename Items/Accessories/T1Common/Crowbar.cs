@@ -2,7 +2,6 @@ using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
@@ -13,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            RORItem.WhiteTier.Add(Type);
+            RORItem.WhiteTier.Add((Type, () => NPC.downedBoss2));
         }
 
         public override void SetDefaults()
@@ -33,7 +32,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
-            if ((victim.entity is NPC npc && (npc.life / (float)npc.lifeMax) >= 0.9f) || 
+            if ((victim.entity is NPC npc && (npc.life / (float)npc.lifeMax) >= 0.9f) ||
                 (victim.entity is Player player && (player.statLife / (float)player.statLifeMax2) >= 0.9f))
             {
                 damage = (int)(damage * (1f + 0.25f * Stacks));

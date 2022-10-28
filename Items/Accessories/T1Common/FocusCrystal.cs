@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content.Accessories;
-using System;
+using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +12,8 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public static Entity HitNPCForMakingDamageNumberPurpleHack;
         public static Color HitColor;
         public static Color HitColorCrit;
+
+        public bool hideVisual;
 
         public override void Load()
         {
@@ -59,12 +61,34 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var ror = player.ROR();
-            ror.accFocusCrystal = Item;
-            ror.focusCrystalDiameter = Math.Max(ror.focusCrystalDiameter, 480f);
-            ror.focusCrystalVisible = !hideVisual;
-            ror.focusCrystalDamage += 0.25f;
+            this.hideVisual = hideVisual;
         }
+
+        public override void PostUpdate(EntityInfo entity)
+        {
+            if (!hideVisual)
+            {
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<FocusCrystalProj>() && entity.OwnsThisProjectile(Main.projectile[i]))
+                    {
+                        UpdateProjectile(entity, Main.projectile[i]);
+                        return;
+                    }
+                }
+                UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
+                    ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, entity.GetProjectileOwnerID()));
+            }
+        }
+
+        public void UpdateProjectile(EntityInfo entity, Projectile projectile)
+        {
+            projectile.scale = MathHelper.Lerp(projectile.scale, 480f, 0.2f);
+            projectile.Center = entity.entity.Center;
+            var focusCrystal = (FocusCrystalProj)projectile.ModProjectile;
+            focusCrystal.accessoryVisible = true;
+        }
+
 
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
