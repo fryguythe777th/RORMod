@@ -74,32 +74,6 @@ Mods: {
 		}
 
 		ItemTooltip: {
-			Warbanner: 
-				'''
-				在击败15个敌人或降低25%Boss的生命值时在你的身后放置一面旗帜
-				旗帜会存在1分钟, 当你位于旗帜的光环内时会获得速度属性加成
-				'''
-			TopazBrooch: 在击败一名敌人时会获得15点临时的生命屏障
-			PersonalShieldGenerator: 
-				'''
-				获得一个相当于你最大生命值12%的护盾
-				该护盾会在你未受到伤害5秒后重新充能
-				'''
-			PaulsGoatHoof: 增加水平和垂直移动速度
-			TougherTimes: 有10%的几率闪避攻击
-			MonsterTooth:
-				'''
-				在击败一名敌人时会掉落一颗治疗球
-				恢复8点外加等同于最大生命值2%的生命值
-				'''
-			SoldiersSyringe:
-				'''
-				增加12%攻击速度
-				伤害降低12%
-				'''
-			TriTipDagger: 有10%的几率使敌人流血
-			RepulsionArmorPlate: 减益造成的伤害减少5点
-
 			ArmorPiercingRounds: {
 				$parentVal: 对Boss敌人造成的伤害增加10%
 				TerminalTooltip: "对Boss敌人造成的伤害增加[0:10%]. 拥有[3:红色生命栏]的Boss和敌人会算作Boss."
@@ -153,8 +127,8 @@ Mods: {
 					'''
 			}
 			DelicateWatch: {
-				$parentVal: 生命值超过50%时伤害增加8%
-				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:8%]."
+				$parentVal: 生命值超过50%时伤害增加10%
+				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:10%]."
 				TerminalLore: 风吹过平原. 两名士兵在例行巡逻中跋涉前行, 用随意的谈话来填补他们的无聊. '嗯. 嘿, 雪莉, 我有给你看过我的新Patex吗?' 昆顿自言自语着. 雪莉向他投去一个疑惑的目光. '告诉我, 你没有带一块价值75000美元的手表去一个危险的未知地区探险...'
 			}
 			FocusCrystal: {
@@ -168,26 +142,17 @@ Mods: {
 				TerminalLore: 订单: 凝聚态物质晶体 [50kg, 10cm × 10cm × 10cm]
 			}
 			LensMakersGlasses: {
-				$parentVal: 增加5%暴击率
-				TerminalTooltip: "增加[0:5%]暴击率"
-				TerminalLore:
-					'''
-					...我没有看到的是, 这个魔像正把激光对准我的背部. 我勉强躲开了它——纯粹是运气好——但爆炸把我打倒在地. 我的眼镜从脸上掉下来, 我仰面躺着, 目瞪口呆, 几乎无法理解自己...
-
-					我伸手去拿我的眼镜, 把它举到我的眼睛前, 这样我就可以看到了, 砰! 发射我最后的子弹.
-
-					而且, 嗯...我想我设法击中了它头部的重要部位. 在红色石头和玻璃中爆炸. 之后它就停止了移动.
-
-					如果不是因为那个射击, 我不会在这里讲述这个故事.'
-					'''
+				$parentVal: 增加10%暴击率
+				TerminalTooltip: "增加[0:10%]暴击率"
+				TerminalLore: N/A
 			}
 			Medkit: {
 				$parentVal:
 					'''
 					在受到伤害时会在短暂延迟后恢复生命值
-					恢复20点外加等同于最大生命值15%的生命值
+					恢复20点外加等同于最大生命值5%的生命值
 					'''
-				TerminalTooltip: "命中时会获得[1:2]秒的增益. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:15%]的生命值."
+				TerminalTooltip: "命中时会获得[1:2]秒的增益. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:5%]的生命值."
 				TerminalLore: 
 					'''
 					'我建议你呆在家里休息.'
@@ -197,27 +162,87 @@ Mods: {
 					'我建议你呆在家里休息.'
 					'''
 			}
-			OddlyShapedOpal: {
+			MonsterTooth: {
 				$parentVal:
 					'''
-					所受伤害降低
-					命中时, 该效果会获得5秒的冷却时间
+					在击败一名敌人时会掉落一颗治疗球
+					恢复8点外加等同于最大生命值2%的生命值
 					'''
-				TerminalTooltip: "所受伤害降低[1:50%]. 命中时, 该效果会获得[1:5]秒的冷却时间"
-				TerminalLore: This is just a test 6st.
+				TerminalTooltip: 在击败一名敌人时会掉落一颗会恢复[1:8]点外加等同于最大生命值[1:2%]的生命值的[1:治疗球].
+				TerminalLore: N/A
+			}
+			OddlyShapedOpal: {
+				$parentVal: 
+					'''
+					50点防御
+					受到伤害时会使该效果无效7秒
+					'''
+				TerminalTooltip: "[1:50点防御]. 受到伤害时会使该效果无效7秒."
+				TerminalLore: N/A
+			}
+			PaulsGoatHoof: {
+				$parentVal: 增加水平和垂直移动速度
+				TerminalTooltip: "增加[2:20%]移动速度. 允许额外跳跃[2:2]格物块, 增加[2:50%]加速度以加快[2:5mph]的行走速度."
+				TerminalLore: N/A
+			}
+			PersonalShieldGenerator: {
+				$parentVal: 
+					'''
+					获得一个相当于你最大生命值12%的护盾
+					该护盾会在你未受到伤害5秒后重新充能
+					'''
+				TerminalTooltip: 获得一个相当于你最大生命值[1:12%]的[1:护盾]. 该护盾会在你未受到伤害[1:5]秒后重新充能.
+				TerminalLore: N/A
+			}
+			RepulsionArmorPlate: {
+				$parentVal: 减益造成的伤害减少5点
+				TerminalTooltip: "[1:10点防御]. [0:减益]造成的伤害减少[1:5]点"
+				TerminalLore: N/A
 			}
 			RollOfPennies: {
 				$parentVal: 受到伤害时会获得钱币
-				TerminalTooltip: "在伤害[0:来自一名敌人的伤害]时会获得[2:50铜币]."
-				TerminalLore: ggs.
+				TerminalTooltip: "在受到[0:来自一名敌人的伤害]时会获得[2:50铜币]."
+				TerminalLore: N/A
+			}
+			SoldiersSyringe: {
+				$parentVal: 
+					'''
+					增加12%攻击速度
+					伤害降低12%
+					'''
+				TerminalTooltip: "增加[0:12%]攻击速度. 伤害降低[0:12%]."
+				TerminalLore: N/A
 			}
 			StickyExplosives: {
 				$parentVal: 有10%的几率对敌人使用一颗粘性炸弹
 				TerminalTooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:50%]伤害的[0:粘性炸弹]."
-				TerminalLore: ggs..
+				TerminalLore: N/A
 			}
-
-			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
+			StunGrenade: {
+				$parentVal: 有10%的几率产生会降低防御的烟雾包围敌人
+				TerminalTooltip: "有[0:10%]的几率产生会[0:降低防御]的烟雾包围敌人."
+				TerminalLore: N/A
+			}
+			TopazBrooch: {
+				$parentVal: 在击败一名敌人时会获得15点临时的生命屏障
+				TerminalTooltip: 在击败一名敌人时会获得[1:15点临时的生命屏障].
+				TerminalLore: N/A
+			}
+			TougherTimes: {
+				$parentVal: 有10%的几率闪避攻击
+				TerminalTooltip: "有[1:10%]的几率闪避攻击."
+				TerminalLore: N/A
+			}
+			TriTipDagger: {
+				$parentVal: 有10%的几率使敌人流血
+				TerminalTooltip: "有[0:10%]的几率使敌人[0:流血]."
+				TerminalLore: N/A
+			}
+			Warbanner: {
+				$parentVal: 每2分钟掉落一面战旗
+				TerminalTooltip: "每[0:2分钟]掉落一面[0:战旗]."
+				TerminalLore: N/A
+			}
 
 			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
 			DeathMark: 拥有4个及以上减益的敌人会受到10%的额外伤害
