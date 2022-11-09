@@ -44,6 +44,8 @@ Mods: {
 			DeathMark: 死亡标记
 			ReloadingShurikens: 再装填手里剑
 			HarvestersScythe: 收割者镰刀
+			
+			LeechingSeed: 水蛭种子
 
 			SoulboundCatalyst: 缚魂催化剂
 			Aegis: 庇护
@@ -246,6 +248,7 @@ Mods: {
 
 			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
 			DeathMark: 拥有4个及以上减益的敌人会受到10%的额外伤害
+			LeechingSeed: 造成伤害时会治疗你
 
 				ReloadingShurikens: {
 				$parentVal:
