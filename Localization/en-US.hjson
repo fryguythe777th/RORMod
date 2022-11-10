@@ -45,6 +45,7 @@ Mods: {
 			ReloadingShurikens: Reloading Shurikens
 			HarvestersScythe: Harvester's Scythe
 			LeechingSeed: Leeching Seed
+			Infusion: Infusion
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -248,6 +249,7 @@ Mods: {
 			AtGMissileMk1: 10% chance to fire a missile when hitting an enemy
 			DeathMark: Enemies with 4 or more debuffs will take 10% more damage
 			LeechingSeed: Dealing damage heals you
+			Infusion: Killing enemies gives a decaying max health upgrade up to +50
 
 			ReloadingShurikens: {
 				$parentVal:
