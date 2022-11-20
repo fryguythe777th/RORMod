@@ -126,6 +126,14 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
+        public void OnUseItem(Entity entity, Item item)
+        {
+            foreach (var accessory in Accessories)
+            {
+                accessory.OnUseItem(new EntityInfo(entity), item);
+            }
+        }
+
         public void ModifyHit(Entity entity, Entity victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
             foreach (var accessory in Accessories)

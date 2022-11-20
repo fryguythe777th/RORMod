@@ -26,6 +26,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
+            if (victim.entity is NPC npc && npc.immortal)
+                return;
+
             entity.GetProc(out float proc);
             if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
             {

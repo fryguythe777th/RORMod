@@ -25,6 +25,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
+            if (victim.entity is NPC npc2 && npc2.immortal)
+                return;
+
             if (crit)
             {
                 int heal = 8 + 4 * (Stacks - 1);

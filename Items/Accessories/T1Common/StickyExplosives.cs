@@ -26,14 +26,14 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
-            if (victim.entity is not NPC npc)
-                return;
-
-            entity.GetProc(out float proc);
-            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+            if (victim.entity is NPC npc && !npc.immortal)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, ModContent.ProjectileType<StickyExplosivesProj>(),
-                    (int)(damage * 0.5f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
+                entity.GetProc(out float proc);
+                if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+                {
+                    Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, ModContent.ProjectileType<StickyExplosivesProj>(),
+                        (int)(damage * 0.5f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
+                }
             }
         }
     }

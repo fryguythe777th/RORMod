@@ -11,6 +11,11 @@ namespace RiskOfTerrain.Buffs
 {
     public class ShurikenBuff : ModBuff
     {
+        public static float Brightness;
+        public static float RechargePercentage;
+        public static int Charges;
+        public static bool AtMaxCharge;
+
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;
@@ -25,11 +30,10 @@ namespace RiskOfTerrain.Buffs
 
         public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
         {
-            var ror = Main.LocalPlayer.ROR();
             var texture = TextureAssets.Buff[Type].Value;
-            if (ror.shurikenCharges < ror.shurikenChargesMax)
+            if (!AtMaxCharge)
             {
-                float progress = ror.shurikenRechargeTime / 120f;
+                float progress = RechargePercentage;
                 int y = (int)(texture.Height * progress);
                 var frame = new Rectangle(0, texture.Height - y, texture.Width, y);
                 var drawLoc = drawParams.Position + new Vector2(0f, texture.Height - y);
@@ -38,10 +42,10 @@ namespace RiskOfTerrain.Buffs
                 spriteBatch.Draw(texture, drawLoc, frame, drawColor.UseA(0) * Main.buffAlpha[buffIndex], 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
-            spriteBatch.Draw(texture, drawParams.Position, null, drawParams.DrawColor.UseA(0) * ((float)Math.Sin(Main.LocalPlayer.ROR().shurikenReloadBuffDisplayBrightness * Math.PI) + Main.LocalPlayer.ROR().shurikenReloadBuffDisplayBrightness), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, drawParams.Position, null, drawParams.DrawColor.UseA(0) * ((float)Math.Sin(Brightness * Math.PI) + Brightness), 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             var font = FontAssets.ItemStack.Value;
-            string text = $"x{ror.shurikenCharges}";
+            string text = $"x{Charges}";
             ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, drawParams.TextPosition + new Vector2(16f * 0.9f, 0f), drawParams.DrawColor, Color.Black.UseA(drawParams.DrawColor.A), 0f, new Vector2(font.MeasureString(text).X / 2f, 0f), Vector2.One * 0.8f);
         }
 

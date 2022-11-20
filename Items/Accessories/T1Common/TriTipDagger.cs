@@ -24,11 +24,6 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.ROR().accTriTipDagger = true;
-        }
-
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
             entity.GetProc(out float proc);

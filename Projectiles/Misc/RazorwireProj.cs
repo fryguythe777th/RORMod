@@ -8,14 +8,12 @@ namespace RiskOfTerrain.Projectiles.Misc
     {
         public override void SetDefaults()
         {
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.ignoreWater = true;
-            Projectile.timeLeft = 400;
-            Projectile.tileCollide = false;
-            Projectile.width = 6;
+            Projectile.width = 24;
             Projectile.height = 24;
-            Projectile.penetrate = 1;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.timeLeft = 120;
+            Projectile.tileCollide = false;
         }
 
         public override void AI()
@@ -26,7 +24,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                 Projectile.Kill();
             }
 
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, (closest.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 6f, 0.1f);
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, (closest.Center - Projectile.Center).SafeNormalize(-Vector2.UnitY) * 12f, 0.06f);
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
     }

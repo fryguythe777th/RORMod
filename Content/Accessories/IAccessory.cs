@@ -17,6 +17,7 @@ namespace RiskOfTerrain.Content.Accessories
         void UpdateLifeRegeneration(EntityInfo entity);
         void ModifyHitBy(EntityInfo entity, EntityInfo attacker, ref int damage, ref float knockBack, ref bool crit);
         void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit);
+        void OnUseItem(EntityInfo entity, Item item);
         void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit);
         void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit);
         void OnKillEnemy(EntityInfo entity, OnKillInfo info);

@@ -36,6 +36,18 @@ namespace RiskOfTerrain.Tiles
             }
             return null;
         }
+        public static bool IsTileInView(int x, int y, int rectSize = 10)
+        {
+            var spawnRectangle = new Rectangle(x * 16 - rectSize * 16, y * 16 - rectSize * 16, rectSize * 32, rectSize * 32);
+            for (int k = 0; k < Main.maxPlayers; k++)
+            {
+                if (Main.player[k].active && Main.player[k].GetViewRectangle().Intersects(spawnRectangle))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public override void RandomUpdate(int i, int j, int type)
         {
             if (j > Main.UnderworldLayer)
@@ -45,18 +57,8 @@ namespace RiskOfTerrain.Tiles
             if (WorldGen.genRand.NextBool(10000) && Main.tile[i, j].HasUnactuatedTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
             {
                 var s = RollSecurityChestToSpawn(i, j, type);
-                if (s == null)
+                if (s == null || IsTileInView(i, j, 10))
                     return;
-
-                int spawnRectangleSize = 10;
-                var spawnRectangle = new Rectangle(i * 16 - spawnRectangleSize * 16, j * 16 - spawnRectangleSize * 16, spawnRectangleSize * 32, spawnRectangleSize * 32);
-                for (int k = 0; k < Main.maxPlayers; k++)
-                {
-                    if (Main.player[k].active && Main.player[k].GetViewRectangle().Intersects(spawnRectangle))
-                    {
-                        return;
-                    }
-                }
 
                 int size = 80;
                 int endX = Math.Min(i + size, Main.maxTilesX - size);
