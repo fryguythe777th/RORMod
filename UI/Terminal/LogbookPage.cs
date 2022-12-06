@@ -134,7 +134,7 @@ namespace RiskOfTerrain.UI.Terminal
             Helpers.DrawRectangle(new Rectangle(iconInfoTabX, iconInfoTabY, iconInfoTabWidth, (int)d.Height - 62 - 8), clr);
             Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 4, iconInfoTabY, 10, (int)d.Height - 62 - 8), clr2);
 
-            DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, clr, new Color(120, 120, 140, 255), RORItem.WhiteTier);
+            DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, clr * 1.33f, new Color(100, 100, 120, 255), RORItem.WhiteTier);
             DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(25, 140, 25, 255) * 2, new Color(66, 90, 60, 255), RORItem.GreenTier);
             DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(140, 25, 25, 255) * 2, new Color(90, 60, 60, 255), RORItem.RedTier);
 

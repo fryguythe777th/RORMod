@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             {
                 npc.life++;
             }
-            else if (entity.entity is Player player && player.active && player.statLife < player.statLifeMax && victim.entity is NPC ditter && ditter.type != NPCID.TargetDummy && ditter.CountsAsACritter == false && ditter.SpawnedFromStatue == false)
+            else if (entity.entity is Player player && player.active && player.statLife < player.statLifeMax && victim.entity is NPC victimNPC && !victimNPC.immortal && !victimNPC.CountsAsACritter && !victimNPC.SpawnedFromStatue)
             {
                 player.statLife++;
             }

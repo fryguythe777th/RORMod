@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
-    public class GhorsTome : ModItem
+    public class GhorsTome : ModAccessory
     {
         public override void SetStaticDefaults()
         {
@@ -23,9 +24,13 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 2);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            player.ROR().accGhorsTome = Item;
+            if (info.value > 0 && entity.RollLuck(10) == 0 && entity.IsMe())
+            {
+                Projectile.NewProjectile(entity.GetSource_Accessory(Item), info.Center, new Vector2(0f, -1f),
+                    ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, entity.GetProjectileOwnerID(), ai1: info.value);
+            }
         }
     }
 }

@@ -37,7 +37,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                 Projectile.Center = parent.Center;
                 var parentHandler = parent.GetHandler();
                 var reference = parentHandler.GetItemReference(ModContent.ItemType<BundleOfFireworks>());
-                if (new EntityInfo(parent).CanSpawnProjectileOnThisClient())
+                if (new EntityInfo(parent).IsMe())
                 {
                     Projectile.NewProjectile(reference != null ? parent.GetSource_Accessory(reference) : null, Projectile.Center + new Vector2(parent.width / 2f * -parent.direction, 0f), new Vector2(0f, -7f).RotatedBy(Main.rand.NextFloat(-0.1f, 0.1f)),
                         ModContent.ProjectileType<FireworksProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 40f);

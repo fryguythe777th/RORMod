@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Artifacts;
 using RiskOfTerrain.Graphics;
 using RiskOfTerrain.Items.Accessories.T1Common;
-using RiskOfTerrain.Items.Accessories.T2Uncommon;
 using RiskOfTerrain.Items.Consumable;
-using RiskOfTerrain.NPCs;
 using RiskOfTerrain.Projectiles.Misc;
 using RiskOfTerrain.UI;
 using System;
@@ -16,7 +13,6 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
@@ -36,12 +32,6 @@ namespace RiskOfTerrain
         public int aegisLifeCheck;
 
         public bool accAegis;
-
-        public Item accShuriken;
-        public int shurikenCharges;
-        public int shurikenChargesMax;
-        public int shurikenRechargeTime;
-        public float shurikenReloadBuffDisplayBrightness;
 
         public Item accFocusCrystal;
         public bool focusCrystalVisible;
@@ -73,10 +63,7 @@ namespace RiskOfTerrain
         public bool accTopazBrooch;
         public bool accShieldGenerator;
         public Item accDeathMark;
-        public Item accShatterspleen;
         public bool accTriTipDagger;
-        public Item accRazorwire;
-        public Item accGhorsTome;
 
         public int accRepulsionPlate;
 
@@ -273,8 +260,6 @@ namespace RiskOfTerrain
             clone.shield = shield;
             clone.diosCooldown = diosCooldown;
             clone.diosDead = diosDead;
-            clone.shurikenCharges = shurikenCharges;
-            clone.shurikenRechargeTime = shurikenRechargeTime;
             clone.timeSinceLastHit = timeSinceLastHit;
         }
 
@@ -287,8 +272,7 @@ namespace RiskOfTerrain
                 client.barrierLife != barrierLife,
                 client.shield != shield,
                 client.diosCooldown != diosCooldown || client.diosDead != diosDead,
-                client.timeSinceLastHit != timeSinceLastHit,
-                client.shurikenCharges != shurikenCharges);
+                client.timeSinceLastHit != timeSinceLastHit);
 
             p.Write(Player.whoAmI);
             p.Write(bb);
@@ -311,10 +295,6 @@ namespace RiskOfTerrain
             if (bb[4])
             {
                 p.Write(timeSinceLastHit);
-            }
-            if (bb[5])
-            {
-                p.Write(shurikenCharges);
             }
         }
 
@@ -341,10 +321,6 @@ namespace RiskOfTerrain
             {
                 timeSinceLastHit = reader.ReadInt32();
             }
-            if (bb[5])
-            {
-                shurikenCharges = reader.ReadInt32();
-            }
         }
 
         public override void PreUpdate()
@@ -364,39 +340,6 @@ namespace RiskOfTerrain
 
         public void UpdateAegis()
         {
-        }
-
-        public void UpdateShuriken()
-        {
-            if (accShuriken == null)
-            {
-                if (shurikenCharges != 0)
-                {
-                    Player.ClearBuff(ModContent.BuffType<ShurikenBuff>());
-                }
-                shurikenCharges = 0;
-                shurikenRechargeTime = 0;
-            }
-            else
-            {
-                if (shurikenCharges != 0)
-                {
-                    Player.AddBuff(ModContent.BuffType<ShurikenBuff>(), 2, quiet: true);
-                }
-                if (shurikenCharges < shurikenChargesMax)
-                {
-                    shurikenRechargeTime++;
-                    if (shurikenRechargeTime > 120)
-                    {
-                        shurikenReloadBuffDisplayBrightness = 0.75f;
-                        shurikenRechargeTime = 0;
-                        shurikenCharges++;
-                    }
-                }
-            }
-            shurikenReloadBuffDisplayBrightness *= 0.95f;
-            shurikenChargesMax = 0;
-            accShuriken = null;
         }
 
         public void UpdateDios()
@@ -425,7 +368,6 @@ namespace RiskOfTerrain
         public override void ResetEffects()
         {
             barrierMinimumFrac = 0;
-            UpdateShuriken();
             UpdateDios();
 
             accFocusCrystal = null;
@@ -437,11 +379,8 @@ namespace RiskOfTerrain
             accShieldGenerator = false;
             accGlubby = false;
             accDeathMark = null;
-            accShatterspleen = null;
             accTriTipDagger = false;
             accRepulsionPlate = 0;
-            accRazorwire = null;
-            accGhorsTome = null;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;
@@ -639,32 +578,6 @@ namespace RiskOfTerrain
             {
                 CheckElixir();
             }
-            if (accRazorwire != null)
-            {
-                int enemyCounter = 0;
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    /*if (Main.npc[i].friendly == true)
-                    {
-                        break;
-                    }*/
-
-                    Vector2 r = Main.npc[i].position;
-                    Vector2 j = Player.position;
-
-                    if (Math.Sqrt((int)((j.X - r.X) * (j.X - r.X)) + ((j.Y - r.Y) * (j.Y - r.Y))) < 300)
-                    {
-                        enemyCounter++;
-                        //Main.npc[i].StrikeNPC((int)(Player.HeldItem.damage * 1.6), Player.HeldItem.knockBack, 0, false);
-                        Projectile.NewProjectile(Player.GetSource_Accessory(accRazorwire), j, (r - j) / 3, ModContent.ProjectileType<RazorwireProj>(), (int)(Player.HeldItem.damage * 1.6) + 1, Player.HeldItem.knockBack, Player.whoAmI, i);
-                    }
-
-                    if (enemyCounter == 5)
-                    {
-                        break;
-                    }
-                }
-            }
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -711,30 +624,12 @@ namespace RiskOfTerrain
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal)
-                Accessories.OnHit(Player, target, item, damage, knockback, crit);
-            OnHitEffects(target, damage, knockback, crit);
+            Accessories.OnHit(Player, target, item, damage, knockback, crit);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal)
-                Accessories.OnHit(Player, target, proj, damage, knockback, crit);
-            OnHitEffects(target, damage, knockback, crit);
-        }
-
-        public void OnHitEffects(NPC target, int damage, float knockback, bool crit)
-        {
-            if (accShatterspleen != null && crit)
-            {
-                target.GetGlobalNPC<RORNPC>().bleedShatterspleen = true;
-                BleedingDebuff.AddStack(target, 300, 1);
-                target.netUpdate = true;
-            }
-            if (accTriTipDagger && ProcRate() && Player.RollLuck(10) == 0)
-            {
-                BleedingDebuff.AddStack(target, ProcRate(180), 1);
-            }
+            Accessories.OnHit(Player, target, proj, damage, knockback, crit);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -750,15 +645,6 @@ namespace RiskOfTerrain
         public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo, float value)
         {
             var center = position + new Vector2(width, height) / 2f;
-            if (accGhorsTome != null && value > 0 && Player.RollLuck(10) == 0)
-            {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accGhorsTome), center, new Vector2(0f, -2f), ModContent.ProjectileType<GhorsTomeProj>(), 0, 0, Player.whoAmI, ai1: value);
-            }
-            if (miscInfo[0])
-            {
-                Projectile.NewProjectile(Player.GetSource_Accessory(accShatterspleen), center, Vector2.Normalize(center - Player.Center) * 0.1f,
-                    ModContent.ProjectileType<ShatterspleenExplosion>(), lifeMax / 4, 6f, Player.whoAmI);
-            }
         }
     }
 }

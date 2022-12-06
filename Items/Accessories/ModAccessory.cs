@@ -50,6 +50,10 @@ namespace RiskOfTerrain.Items.Accessories
         {
         }
 
+        public virtual void OnUseItem(EntityInfo entity, Item item)
+        {
+        }
+
         public virtual void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
         }

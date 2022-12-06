@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (entity.CanSpawnProjectileOnThisClient() && entity.OwnedProjectilesCountLong(ModContent.ProjectileType<FireworksSpawner>()) <= 0)
+            if (entity.IsMe() && entity.OwnedProjectilesCountLong(ModContent.ProjectileType<FireworksSpawner>()) <= 0)
             {
                 Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<FireworksSpawner>(),
                     Math.Clamp((int)(info.lastHitDamage * (Stacks * 0.5f)), 10, 100) / 8, 0, entity.GetProjectileOwnerID(), 8f + 4f * (Stacks - 1));

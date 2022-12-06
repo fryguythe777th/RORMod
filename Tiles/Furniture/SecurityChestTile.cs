@@ -327,6 +327,23 @@ namespace RiskOfTerrain.Tiles.Furniture
             }
         }
 
+        public override void RandomUpdate(int i, int j)
+        {
+            if (Main.tile[i, j].TileFrameX == 36 && Main.tile[i, j].TileFrameY == 0 && WorldGen.genRand.NextBool(100) && !RORTile.IsTileInView(i, j, 10))
+            {
+                for (int x = i; x <= i + 1; x++)
+                {
+                    for (int y = j; y <= j + 1; y++)
+                    {
+                        var t = Main.tile[x, y];
+                        t.HasTile = false;
+                    }
+                }
+                NetMessage.SendTileSquare(-1, i, j, 2, 2);
+                Chest.DestroyChest(i, j);
+            }
+        }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             try

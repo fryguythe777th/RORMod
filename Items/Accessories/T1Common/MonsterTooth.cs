@@ -34,7 +34,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (entity.CanSpawnProjectileOnThisClient())
+            if (entity.IsMe())
             {
                 Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, new Vector2(0f, -2f), ModContent.ProjectileType<MonsterToothProj>(), 0, 0, entity.GetProjectileOwnerID());
             }

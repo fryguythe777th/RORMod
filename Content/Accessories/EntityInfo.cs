@@ -1,7 +1,10 @@
-﻿using RiskOfTerrain.Projectiles;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Projectiles;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Accessories
 {
@@ -12,6 +15,39 @@ namespace RiskOfTerrain.Content.Accessories
         public EntityInfo(Entity entity)
         {
             this.entity = entity;
+        }
+
+        public Vector2 Center => entity.Center;
+
+        public int GetWeaponDamage(Item item)
+        {
+            if (entity is Player player)
+            {
+                return player.GetWeaponDamage(item);
+            }
+            return item.damage;
+        }
+
+        public Vector2 GetTargetPoint()
+        {
+            if (entity is NPC npc)
+            {
+                if (!npc.HasValidTarget)
+                    return Vector2.Zero;
+                if (npc.SupportsNPCTargets && npc.HasNPCTarget)
+                {
+                    return Main.npc[npc.TranslatedTargetIndex].Center;
+                }
+                else if (npc.HasPlayerTarget)
+                {
+                    return Main.player[npc.target].Center;
+                }
+            }
+            else if (entity is Player player)
+            {
+                return Main.MouseWorld;
+            }
+            return Vector2.Zero;
         }
 
         public void GetProc(out float proc)
@@ -39,7 +75,7 @@ namespace RiskOfTerrain.Content.Accessories
             {
                 return player.ROR().InDanger;
             }
-            return false;
+            return true;
         }
 
         public int IdleTime()
@@ -51,6 +87,20 @@ namespace RiskOfTerrain.Content.Accessories
             return 0;
         }
         
+        public void ClearBuff(int buffType)
+        {
+            if (entity is NPC npc)
+            {
+                int index = npc.FindBuffIndex(buffType);
+                if (index != -1)
+                    npc.DelBuff(index);
+            }
+            else if (entity is Player player)
+            {
+                player.ClearBuff(buffType);
+            }
+        }
+
         public bool GetBuffs(out int[] buffTypes, out int[] buffTimes, out int maxBuffs)
         {
             if (entity is Player player)
@@ -72,6 +122,23 @@ namespace RiskOfTerrain.Content.Accessories
             buffTypes = null;
             buffTimes = null;
             return false;
+        }
+        public void AddInfoBuff<T>() where T : ModBuff
+        {
+            if (entity is Player player)
+            {
+                if (player.HasBuff<T>() || player.CountBuffs() == Player.MaxBuffs)
+                    return;
+                for (int i = Player.MaxBuffs - 2; i >= 0; i--)
+                {
+                    player.buffType[i + 1] = player.buffType[i];
+                    player.buffTime[i + 1] = player.buffTime[i];
+                }
+                player.buffType[0] = ModContent.BuffType<T>();
+                player.buffTime[0] = 10;
+                return;
+            }
+            AddBuff(ModContent.BuffType<T>(), 10, quiet: true);
         }
         public bool AddBuff(int type, int time, bool quiet = false)
         {
@@ -164,7 +231,7 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
-        public bool CanSpawnProjectileOnThisClient()
+        public bool IsMe()
         {
             if (entity is Player player)
             {
@@ -188,6 +255,11 @@ namespace RiskOfTerrain.Content.Accessories
                 return proj.owner;
             }
             return Main.myPlayer;
+        }
+
+        public IEntitySource GetSource_Accessory(Item item)
+        {
+            return entity.GetSource_Accessory(item);
         }
     }
 }
