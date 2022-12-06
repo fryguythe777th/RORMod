@@ -211,6 +211,8 @@ namespace RiskOfTerrain.NPCs
                             lastHitDamage = lastHitDamage,
                             miscInfo = bb,
                             value = npc.value,
+                            friendly = npc.friendly,
+                            spawnedFromStatue = npc.SpawnedFromStatue
                         });
                         continue;
                     }
@@ -232,6 +234,8 @@ namespace RiskOfTerrain.NPCs
                         p.Write((byte)0);
                     }
                     p.Write(npc.value);
+                    p.Write(npc.friendly);
+                    p.Write(npc.SpawnedFromStatue);
                     p.Send(toClient: i);
                 }
             }

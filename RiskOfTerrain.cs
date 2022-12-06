@@ -115,6 +115,8 @@ namespace RiskOfTerrain
                         int lastHitDamage = reader.ReadInt32();
                         byte misc = reader.ReadByte();
                         float value = reader.ReadSingle();
+                        bool friendly = reader.ReadBoolean();
+                        bool spawnedfromstatue = reader.ReadBoolean();
 
                         player.ROR().Accessories.OnKillEnemy(player, new OnKillInfo()
                         {
@@ -126,6 +128,8 @@ namespace RiskOfTerrain
                             lastHitDamage = lastHitDamage,
                             miscInfo = misc,
                             value = value,
+                            friendly = friendly,
+                            spawnedFromStatue = spawnedfromstatue
                         });
                     }
                     break;

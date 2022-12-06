@@ -13,6 +13,8 @@ namespace RiskOfTerrain.Content.Accessories
         public int lastHitDamage;
         public BitsByte miscInfo;
         public float value;
+        public bool friendly;
+        public bool spawnedFromStatue;
 
         public Vector2 Center => new Vector2(position.X + width / 2f, position.Y + height / 2f);
     }

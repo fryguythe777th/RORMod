@@ -691,6 +691,10 @@ namespace RiskOfTerrain
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
+            if (Player.HasBuff(ModContent.BuffType<BandolierBuff>()))
+            {
+                return false;
+            }
             return Accessories.CanConsumeAmmo(Player, this);
             //return Player.RollLuck(100) > (int)(backupMagAmmoReduction * 100f);
         }

@@ -46,6 +46,7 @@ Mods: {
 			HarvestersScythe: Harvester's Scythe
 			LeechingSeed: Leeching Seed
 			Infusion: Infusion
+			Bandolier: Bandolier
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -245,6 +246,7 @@ Mods: {
 				TerminalTooltip: "Drop a [0:warbanner] every [0:2 minutes]."
 				TerminalLore: N/A
 			}
+			
 
 			AtGMissileMk1: 10% chance to fire a missile when hitting an enemy
 			DeathMark: Enemies with 4 or more debuffs will take 10% more damage
@@ -267,6 +269,12 @@ Mods: {
 				'''
 				10% chance for killed enemies to drop a gold nugget
 				Gold nuggets grant money
+				'''
+			Bandolier:
+				'''
+				20% chance for killed enemies to drop an ammo box
+				Ammo boxes temporarily give you 100% reduced ammo consumption
+				10% reduced ammo consumption
 				'''
 
 			Aegis: 
