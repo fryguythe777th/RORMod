@@ -341,6 +341,7 @@ Mods: {
 			DiosCooldown: Dio's Best Friend
 			WarbannerBuff: Warbanner
 			MedkitBuff: Medkit
+			BandolierBuff: Bandolier
 		}
 
 		BuffDescription: {
@@ -349,6 +350,7 @@ Mods: {
 			DiosCooldown: You cannot use Dio's Best Friend to revive!
 			WarbannerBuff: Increased movement and weapon speed
 			MedkitBuff: Heal a small amount of health after this buff is cleared
+			BandolierBuff: 100% reduced ammo consumption
 		}
 
 		ProjectileName: {
