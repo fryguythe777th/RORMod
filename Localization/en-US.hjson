@@ -276,6 +276,11 @@ Mods: {
 				Ammo boxes temporarily give you 100% reduced ammo consumption
 				10% reduced ammo consumption
 				'''
+			BerzerkersPauldron:
+				'''
+				Killing 4 enemies in quick succession puts you into a wild frenzy
+				While in this state your movement speed and attack speed are significantly increased
+				'''
 
 			Aegis: 
 				'''
@@ -342,6 +347,7 @@ Mods: {
 			WarbannerBuff: Warbanner
 			MedkitBuff: Medkit
 			BandolierBuff: Bandolier
+			BerzerkerBuff: War Cry
 		}
 
 		BuffDescription: {
@@ -351,6 +357,7 @@ Mods: {
 			WarbannerBuff: Increased movement and weapon speed
 			MedkitBuff: Heal a small amount of health after this buff is cleared
 			BandolierBuff: 100% reduced ammo consumption
+			BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
 		}
 
 		ProjectileName: {

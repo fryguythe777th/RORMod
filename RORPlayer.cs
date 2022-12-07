@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Artifacts;
@@ -73,6 +74,9 @@ namespace RiskOfTerrain
         public int idleTime;
 
         public int cBungus;
+
+        public int berzerkerCounter;
+        public int berzerkerTimer;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -365,6 +369,25 @@ namespace RiskOfTerrain
             }
         }
 
+        public void UpdateBerzerkerPauldron()
+        {
+            if (berzerkerCounter == 4)
+            {
+                berzerkerCounter = 0;
+                Player.AddBuff(ModContent.BuffType<BerzerkerBuff>(), 360);
+            }
+
+            if (berzerkerTimer > -1)
+            {
+                berzerkerTimer--;
+            }
+
+            if (berzerkerTimer == 0)
+            {
+                berzerkerCounter = 0;
+            }
+        }
+
         public override void ResetEffects()
         {
             barrierMinimumFrac = 0;
@@ -478,6 +501,7 @@ namespace RiskOfTerrain
         public override void PostUpdate()
         {
             UpdateBarrierDrainage();
+            UpdateBerzerkerPauldron();
             Accessories.PostUpdate(Player);
             if (Main.myPlayer == Player.whoAmI)
             {
