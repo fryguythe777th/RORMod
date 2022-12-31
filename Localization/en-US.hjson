@@ -281,6 +281,7 @@ Mods: {
 				Killing 4 enemies in quick succession puts you into a wild frenzy
 				While in this state your movement speed and attack speed are significantly increased
 				'''
+			KjarosBand: Killing an enemy with an attack that does 60% of its max life spawns a flaming tornado
 
 			Aegis: 
 				'''
