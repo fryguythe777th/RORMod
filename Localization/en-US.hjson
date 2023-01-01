@@ -47,6 +47,7 @@ Mods: {
 			LeechingSeed: Leeching Seed
 			Infusion: Infusion
 			Bandolier: Bandolier
+			HuntersHarpoon: Hunter's Harpoon
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -282,6 +283,7 @@ Mods: {
 				While in this state your movement speed and attack speed are significantly increased
 				'''
 			KjarosBand: Killing an enemy with an attack that does 60% of its max life spawns a flaming tornado
+			HuntersHarpoon: Killing an enemy grants a short speed boost
 
 			Aegis: 
 				'''
