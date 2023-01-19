@@ -49,6 +49,7 @@ Mods: {
 			Bandolier: Bandolier
 			HuntersHarpoon: Hunter's Harpoon
 			PredatoryInstincts: Predatory Instincts
+			IgnitionTank: Ignition Tank
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -290,6 +291,7 @@ Mods: {
 				5% increased critical strike chance
 				Landing a critical strike grants a short attack speed boost
 				'''
+			IgnitionTank: Applying the On Fire! debuff to enemies instead applies Cursed Inferno
 
 			Aegis: 
 				'''

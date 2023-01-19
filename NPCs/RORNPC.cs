@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,6 +22,7 @@ namespace RiskOfTerrain.NPCs
         public byte bleedingStacks;
         public bool bleedShatterspleen;
         public bool syncLifeMax;
+        public bool convertToCursedFlames;
 
         public int lastHitDamage;
         public int gasolineDamage;
@@ -108,6 +110,7 @@ namespace RiskOfTerrain.NPCs
             }
             statDefense = 0;
         }
+
         public void CheckGasoline(NPC npc)
         {
             for (int i = 0; i < NPC.maxBuffs; i++)
@@ -118,6 +121,11 @@ namespace RiskOfTerrain.NPCs
                 }
             }
             gasolineDamage = 0;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            convertToCursedFlames = false;
         }
 
         public override void PostAI(NPC npc)
@@ -136,6 +144,12 @@ namespace RiskOfTerrain.NPCs
                     d.velocity.X *= 0.5f;
                     SoundEngine.PlaySound(RiskOfTerrain.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
                 }
+            }
+
+            if (convertToCursedFlames && npc.HasBuff(BuffID.OnFire))
+            {
+                npc.DelBuff(npc.FindBuffIndex(BuffID.OnFire));
+                npc.AddBuff(BuffID.CursedInferno, 2400);
             }
         }
 
@@ -173,18 +187,27 @@ namespace RiskOfTerrain.NPCs
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            ModifiyHit(npc, ref damage, ref knockback, ref crit);
+            ModifiyHit(npc, ref damage, ref knockback, ref crit, player);
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            ModifiyHit(npc, ref damage, ref knockback, ref crit);
+            ModifiyHit(npc, ref damage, ref knockback, ref crit, Main.player[projectile.owner]);
         }
 
-        public void ModifiyHit(NPC npc, ref int damage, ref float knockback, ref bool crit)
+        public void ModifiyHit(NPC npc, ref int damage, ref float knockback, ref bool crit, Player player)
         {
             if (npc.HasBuff<DeathMarkDebuff>())
                 damage += (int)(damage * 0.1f);
+
+            if (player.ROR().accIgnitionTank)
+            {
+                convertToCursedFlames = true;
+            }
+            else
+            {
+                convertToCursedFlames = false;
+            }
         }
 
         public override void OnKill(NPC npc)

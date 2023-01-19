@@ -65,6 +65,7 @@ namespace RiskOfTerrain
         public bool accShieldGenerator;
         public Item accDeathMark;
         public bool accTriTipDagger;
+        public bool accIgnitionTank;
 
         public int accRepulsionPlate;
 
@@ -404,6 +405,7 @@ namespace RiskOfTerrain
             accDeathMark = null;
             accTriTipDagger = false;
             accRepulsionPlate = 0;
+            accIgnitionTank = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;
