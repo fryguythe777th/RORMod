@@ -48,6 +48,7 @@ Mods: {
 			Infusion: Infusion
 			Bandolier: Bandolier
 			HuntersHarpoon: Hunter's Harpoon
+			PredatoryInstincts: Predatory Instincts
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -284,6 +285,11 @@ Mods: {
 				'''
 			KjarosBand: Killing an enemy with an attack that does 60% of its max life spawns a flaming tornado
 			HuntersHarpoon: Killing an enemy grants a short speed boost
+			PredatoryInstincts:
+				'''
+				5% increased critical strike chance
+				Landing a critical strike grants a short attack speed boost
+				'''
 
 			Aegis: 
 				'''
@@ -351,6 +357,7 @@ Mods: {
 			MedkitBuff: Medkit
 			BandolierBuff: Bandolier
 			BerzerkerBuff: War Cry
+			PredatoryInstinctsBuff: Instinctual Rage
 		}
 
 		BuffDescription: {
@@ -361,6 +368,7 @@ Mods: {
 			MedkitBuff: Heal a small amount of health after this buff is cleared
 			BandolierBuff: 100% reduced ammo consumption
 			BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
+			PredatoryInstinctsBuff: 20% increased attack speed
 		}
 
 		ProjectileName: {
