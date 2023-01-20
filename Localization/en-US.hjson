@@ -50,6 +50,7 @@ Mods: {
 			HuntersHarpoon: Hunter's Harpoon
 			PredatoryInstincts: Predatory Instincts
 			IgnitionTank: Ignition Tank
+			OldWarStealthkit: Old War Stealthkit
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -292,6 +293,11 @@ Mods: {
 				Landing a critical strike grants a short attack speed boost
 				'''
 			IgnitionTank: Applying the On Fire! debuff to enemies instead applies Cursed Inferno
+			OldWarStealthkit:
+				'''
+				When under 25% health, become invisible and gain a speed boost
+				Has a 30 second cooldown
+				'''
 
 			Aegis: 
 				'''
