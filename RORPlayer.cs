@@ -66,6 +66,7 @@ namespace RiskOfTerrain
         public Item accDeathMark;
         public bool accTriTipDagger;
         public bool accIgnitionTank;
+        public bool accWaxQuail;
 
         public int accRepulsionPlate;
 
@@ -78,6 +79,8 @@ namespace RiskOfTerrain
 
         public int berzerkerCounter;
         public int berzerkerTimer;
+
+        public bool Sprinting;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -334,6 +337,26 @@ namespace RiskOfTerrain
             {
                 Player.dead = true;
             }
+
+            if (accWaxQuail && Sprinting && Player.justJumped)
+            {
+                Player.velocity.X *= 1.5f;
+            }
+
+            float num = (Player.accRunSpeed + Player.maxRunSpeed) / 1.25f;
+
+            if (Player.velocity.X < 0f - num && Player.velocity.Y == 0f && !Player.mount.Active)
+            {
+                Sprinting = true;
+            }
+            else if (Player.velocity.X > num && Player.velocity.Y == 0f && !Player.mount.Active)
+            {
+                Sprinting = true;
+            }
+            else
+            {
+                Sprinting = false;
+            }
         }
 
         public override void UpdateDead()
@@ -388,7 +411,7 @@ namespace RiskOfTerrain
                 berzerkerCounter = 0;
             }
         }
-
+        
         public override void ResetEffects()
         {
             barrierMinimumFrac = 0;
@@ -406,6 +429,7 @@ namespace RiskOfTerrain
             accTriTipDagger = false;
             accRepulsionPlate = 0;
             accIgnitionTank = false;
+            accWaxQuail = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;

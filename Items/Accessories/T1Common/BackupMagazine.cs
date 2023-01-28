@@ -11,19 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 {
     public class BackupMagazine : ModAccessory
     {
-        public static ModKeybind AmmoSwapKey { get; private set; }
-
         public bool hideVisual;
-
-        public override void Load()
-        {
-            AmmoSwapKey = RiskOfTerrain.RegisterKeybind("Backup Magazine Swap", "MouseRight");
-        }
-
-        public override void Unload()
-        {
-            AmmoSwapKey = null;
-        }
 
         public override void SetStaticDefaults()
         {
@@ -31,7 +19,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             RORItem.WhiteTier.Add(Type);
             LogbookPage.CustomTooltipConstructor.Add(Type, () =>
             {
-                return Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(AmmoSwapKey)}][2:]" });
+                return Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}][2:]" });
             });
         }
 
@@ -52,7 +40,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
-                Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(AmmoSwapKey)}]" })));
+                Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}]" })));
         }
 
         public override bool CanConsumeAmmo(Player player, RORPlayer ror)
@@ -62,7 +50,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void ProcessTriggers(Player player, RORPlayer ror)
         {
-            if (!player.mouseInterface && !player.lastMouseInterface && AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
+            if (!player.mouseInterface && !player.lastMouseInterface && RORKeybinds.AmmoSwapKey.JustPressed && ModContent.GetInstance<BackupMagazineInterface>().Rotation == 0f)
             {
                 ProcessAmmoSwap(player, ror);
             }

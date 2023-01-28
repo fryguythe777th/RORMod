@@ -45,8 +45,6 @@ Mods: {
 			ReloadingShurikens: Reloading Shurikens
 			HarvestersScythe: Harvester's Scythe
 			LeechingSeed: Leeching Seed
-			Infusion: Infusion
-			Bandolier: Bandolier
 			HuntersHarpoon: Hunter's Harpoon
 			PredatoryInstincts: Predatory Instincts
 			IgnitionTank: Ignition Tank
@@ -297,6 +295,11 @@ Mods: {
 				'''
 				When under 25% health, become invisible and gain a speed boost
 				Has a 30 second cooldown
+				'''
+			WaxQuail: 
+				'''
+				Jumping while sprinting grants a horizontal speed boost
+				Sprinting is considered to be the running speed boost from boot accessories
 				'''
 
 			Aegis: 
