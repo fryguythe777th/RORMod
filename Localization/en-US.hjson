@@ -49,6 +49,7 @@ Mods: {
 			PredatoryInstincts: Predatory Instincts
 			IgnitionTank: Ignition Tank
 			OldWarStealthkit: Old War Stealthkit
+			LeptonDaisy: Lepton Daisy
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -301,7 +302,9 @@ Mods: {
 				Jumping while sprinting grants a horizontal speed boost
 				Sprinting is considered to be the running speed boost from boot accessories
 				'''
-
+			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP.
+				
+			
 			Aegis: 
 				'''
 				Half of all healing is added as barrier
