@@ -50,6 +50,7 @@ Mods: {
 			IgnitionTank: Ignition Tank
 			OldWarStealthkit: Old War Stealthkit
 			LeptonDaisy: Lepton Daisy
+			Chronobauble: Chronobauble
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -302,7 +303,8 @@ Mods: {
 				Jumping while sprinting grants a horizontal speed boost
 				Sprinting is considered to be the running speed boost from boot accessories
 				'''
-			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP.
+			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP
+			Chronobauble: Dealing damage slows the enemy down for 6 seconds
 				
 			
 			Aegis: 

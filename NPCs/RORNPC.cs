@@ -31,6 +31,8 @@ namespace RiskOfTerrain.NPCs
 
         private bool drawConfused;
 
+        public bool chronobaubleToggle;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
@@ -126,6 +128,23 @@ namespace RiskOfTerrain.NPCs
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             convertToCursedFlames = false;
+        }
+
+        public override bool PreAI(NPC npc)
+        {
+            if (npc.HasBuff(ModContent.BuffType<ChronobaubleDebuff>()))
+            {
+                if (chronobaubleToggle)
+                {
+                    chronobaubleToggle = false;
+                    return false;
+                }
+                if (!chronobaubleToggle)
+                {
+                    chronobaubleToggle = true;
+                }
+            }
+            return true;
         }
 
         public override void PostAI(NPC npc)
