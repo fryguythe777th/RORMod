@@ -38,7 +38,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
                     for (int i = 0; i < Main.maxPlayers; i++)
                     {
-                        Main.player[i].Heal((int)(Main.player[i].statLifeMax * 0.3));
+                        Main.player[i].Heal((int)(Main.player[i].statLifeMax * 0.2));
                     }
 
                     if (!Main.dedServ)

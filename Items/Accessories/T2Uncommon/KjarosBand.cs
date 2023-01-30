@@ -26,7 +26,10 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         {
             if (info.lastHitDamage >= info.lifeMax * 0.6 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5)
             {
-                Projectile.NewProjectile(entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ProjectileID.SandnadoFriendly, 0, 0);
+                int i = Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ProjectileID.SandnadoHostile, 20, 0);
+                Main.projectile[i].hostile = false; 
+                Main.projectile[i].friendly = true;
+                Main.projectile[i].owner = Main.LocalPlayer.whoAmI;
             }
         }
     }

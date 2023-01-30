@@ -43,6 +43,8 @@ namespace RiskOfTerrain.Content.Elites
                 NPCID.DemonTaxCollector,
                 NPCID.GiantTortoise,
                 NPCID.RainbowSlime,
+                NPCID.SpikeBall,
+                NPCID.CultistTablet,
             };
         }
 
