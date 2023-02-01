@@ -1,5 +1,9 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using RiskOfTerrain.Buffs;
+using Terraria;
+using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
@@ -18,6 +22,21 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1, silver: 50);
+        }
+
+        public int playerBuffCount;
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            if (PlayerInput.Triggers.Current.QuickBuff)
+            {
+                if (player.CountBuffs() > playerBuffCount)
+                {
+                    player.AddBuff(ModContent.BuffType<WarHornBuff>(), 480);
+                }
+            }
+
+            playerBuffCount = player.CountBuffs();
         }
     }
 }

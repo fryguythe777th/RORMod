@@ -51,6 +51,7 @@ Mods: {
 			OldWarStealthkit: Old War Stealthkit
 			LeptonDaisy: Lepton Daisy
 			Chronobauble: Chronobauble
+			WarHorn: War Horn
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -305,6 +306,7 @@ Mods: {
 				'''
 			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP
 			Chronobauble: Dealing damage slows the enemy down for 6 seconds
+			WarHorn: Successfully quick buffing also gives 70% increased attack speed for 8 seconds
 				
 			
 			Aegis: 
@@ -374,6 +376,8 @@ Mods: {
 			BandolierBuff: Bandolier
 			BerzerkerBuff: War Cry
 			PredatoryInstinctsBuff: Instinctual Rage
+			WarHornBuff: Energized
+			HuntersHarpoonBuff: Kill Move Speed
 		}
 
 		BuffDescription: {
@@ -385,6 +389,8 @@ Mods: {
 			BandolierBuff: 100% reduced ammo consumption
 			BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
 			PredatoryInstinctsBuff: 20% increased attack speed
+			WarHornBuff: 70% increased attack speed
+			HuntersHarpoonBuff: Increased running speed
 		}
 
 		ProjectileName: {
