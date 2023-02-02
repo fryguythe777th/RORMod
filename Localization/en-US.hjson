@@ -51,6 +51,7 @@ Mods: {
 			OldWarStealthkit: Old War Stealthkit
 			LeptonDaisy: Lepton Daisy
 			Chronobauble: Chronobauble
+			HopooFeather: Hopoo Feather
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -310,6 +311,11 @@ Mods: {
 				'''
 				Gain 30 defense while sprinting
 				Sprinting is considered to be the running speed boost from boot accessories
+				'''
+			HopooFeather:
+				'''
+				Fall damage is disabled
+				Increased jump height and speed
 				'''
 				
 			
