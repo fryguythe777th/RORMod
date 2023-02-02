@@ -44,8 +44,14 @@ Mods: {
 			DeathMark: 死亡标记
 			ReloadingShurikens: 再装填手里剑
 			HarvestersScythe: 收割者镰刀
-			
 			LeechingSeed: 水蛭种子
+			HuntersHarpoon: 猎人的鱼叉
+			PredatoryInstincts: 狩猎本能
+			IgnitionTank: 点火罐
+			OldWarStealthkit: 旧战争的潜行工具
+			LeptonDaisy: 轻子雏菊
+			Chronobauble: 计时球
+			WarHorn: 战争号角
 
 			SoulboundCatalyst: 缚魂催化剂
 			Aegis: 庇护
@@ -246,11 +252,13 @@ Mods: {
 				TerminalLore: N/A
 			}
 
+
 			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
 			DeathMark: 拥有4个及以上减益的敌人会受到10%的额外伤害
 			LeechingSeed: 造成伤害时会治疗你
+			Infusion: 击杀敌人时使你获得一个会衰减的最大生命值, 至多获得50点最大生命值
 
-				ReloadingShurikens: {
+			ReloadingShurikens: {
 				$parentVal:
 					'''
 					当你攻击时会向敌人发射手里剑
@@ -267,6 +275,39 @@ Mods: {
 				被击败的敌人有10%几率掉落金块
 				金块会给予钱币
 				'''
+			Bandolier:
+				'''
+				击杀敌人时有20%几率掉落一个弹药盒
+				弹药盒会短暂使你100%不消耗弹药
+				降低10%弹药消耗率
+				'''
+			BerzerkersPauldron:
+				'''
+				快速且连续的击杀4个敌人后会令你变得疯狂
+				在此状态下会大幅度增加你的移动速度和攻击速度
+				'''
+			KjarosBand: 单次攻击击杀剩余60%生命值的敌人时会生成一个火焰龙卷风
+			HuntersHarpoon: 击杀一个敌人时会使你获得短暂的移动速度加成
+			PredatoryInstincts:
+				'''
+				增加5%暴击率
+				攻击造成时会使你获得短暂的攻击速度加成
+				'''
+			IgnitionTank: 对敌人造成的着火了！减益会被替换为诅咒狱火
+			OldWarStealthkit:
+				'''
+				当生命值低于25%时, 使你获得隐形和移动速度加成
+				有30秒冷却时间
+				'''
+			WaxQuail: 
+				'''
+				疾行时进行跳跃会增加水平移动速度
+				从鞋子类饰品获得的移动速度加成被视为疾行
+				'''
+			LeptonDaisy: 在Boss战或入侵事件期间, 定期治疗所有玩家相当于其最大生命值20%的生命值
+			Chronobauble: 造成伤害时会使目标减速6秒
+			WarHorn: 通过快捷键使用增益药水获得增益时会增加70%攻击速度8秒
+
 
 			Aegis: 
 				'''
@@ -327,11 +368,16 @@ Mods: {
 		}
 		
 		BuffName: {
-			ShurikenBuff: Reloading Shurikens
+			ShurikenBuff: 再装填手里剑
 			BustlingFungusBuff: 爆裂真菌
 			DiosCooldown: 迪奥最好的朋友
 			WarbannerBuff: 战旗
 			MedkitBuff: 医疗包
+			BandolierBuff: 备用弹夹
+			BerzerkerBuff: 战吼
+			PredatoryInstinctsBuff: 本能的愤怒
+			WarHornBuff: 充盈
+			HuntersHarpoonBuff: 击杀移动速度
 		}
 
 		BuffDescription: {
@@ -340,6 +386,11 @@ Mods: {
 			DiosCooldown: 你无法使用迪奥最好的朋友来起死回生!
 			WarbannerBuff: 增加移动速度和武器攻速
 			MedkitBuff: 此增益消失时会为你恢复少量生命值
+			BandolierBuff: 降低100%弹药消耗
+			BerzerkerBuff: 增加100%攻击速度和50%移动速度
+			PredatoryInstinctsBuff: 增加20%攻击速度
+			WarHornBuff: 增加70%攻击速度
+			HuntersHarpoonBuff: 增加奔跑速度
 		}
 
 		ProjectileName: {
@@ -370,8 +421,8 @@ Mods: {
 			MechanicalBoss: 机械幻象
 			Plantera: 丛林之怒
 			Golem: 神庙造物
-			LunaticCultist: 末日先驱
-			MoonLord: 结束了
+			LunaticCultist: 末日使者
+			MoonLord: 终末
 			EmpressOfLight: 棱光之神
 			QueenSlime: 首领的上级
 			CollabEvent: 异界生物
