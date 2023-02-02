@@ -306,6 +306,11 @@ Mods: {
 			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP
 			Chronobauble: Dealing damage slows the enemy down for 6 seconds
 			WarHorn: Successfully quick buffing also gives 70% increased attack speed for 8 seconds
+			RoseBuckler:
+				'''
+				Gain 30 defense while sprinting
+				Sprinting is considered to be the running speed boost from boot accessories
+				'''
 				
 			
 			Aegis: 

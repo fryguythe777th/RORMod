@@ -19,5 +19,13 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1, silver: 50);
         }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            if (player.ROR().Sprinting)
+            {
+                player.statDefense += 30;
+            }
+        }
     }
 }
