@@ -51,6 +51,7 @@ Mods: {
 			OldWarStealthkit: 旧战争的潜行工具
 			LeptonDaisy: 轻子雏菊
 			Chronobauble: 计时球
+			HopooFeather: Hopoo之羽
 
 			SoulboundCatalyst: 缚魂催化剂
 			Aegis: 庇护
@@ -306,6 +307,16 @@ Mods: {
 			LeptonDaisy: 在Boss战或入侵事件期间, 定期治疗所有玩家相当于其最大生命值20%的生命值
 			Chronobauble: 造成伤害时会使目标减速6秒
 			WarHorn: 通过快捷键使用增益药水获得增益时会增加70%攻击速度8秒
+			RoseBuckler:
+				'''
+				疾行时获得30点防御
+				从鞋子类饰品获得的移动速度加成被视为疾行
+				'''
+			HopooFeather:
+				'''
+				禁用摔落伤害
+				增加跳跃高度和速度
+				'''
 
 
 			Aegis: 
