@@ -52,6 +52,7 @@ Mods: {
 			LeptonDaisy: Lepton Daisy
 			Chronobauble: Chronobauble
 			HopooFeather: Hopoo Feather
+			RedWhip: Red Whip
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -317,6 +318,7 @@ Mods: {
 				Fall damage is disabled
 				Increased jump height and speed
 				'''
+			RedWhip: Increased movement speed out of battle
 				
 			
 			Aegis: 
