@@ -52,6 +52,7 @@ Mods: {
 			LeptonDaisy: 轻子雏菊
 			Chronobauble: 计时球
 			HopooFeather: Hopoo之羽
+			RedWhip: 红色鞭子
 
 			SoulboundCatalyst: 缚魂催化剂
 			Aegis: 庇护
@@ -317,6 +318,7 @@ Mods: {
 				禁用摔落伤害
 				增加跳跃高度和速度
 				'''
+			RedWhip: 未处于战斗状态时会增加移动速度
 
 
 			Aegis: 
