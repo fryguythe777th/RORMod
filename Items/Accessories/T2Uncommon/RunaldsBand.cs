@@ -1,5 +1,9 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
@@ -18,6 +22,14 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.accessory = true;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(gold: 3);
+        }
+
+        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        {
+            if (info.lastHitDamage >= info.lifeMax * 0.6 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5)
+            {
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 0, 0, Owner:Main.LocalPlayer.whoAmI);
+            }
         }
     }
 }

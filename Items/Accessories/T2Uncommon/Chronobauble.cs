@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
-            victim.AddBuff(ModContent.BuffType<ChronobaubleDebuff>(), 360);
+            victim.AddBuff(ModContent.BuffType<RunaldFreeze>(), 360);
         }
     }
 }

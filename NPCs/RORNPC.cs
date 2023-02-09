@@ -144,6 +144,13 @@ namespace RiskOfTerrain.NPCs
                     chronobaubleToggle = true;
                 }
             }
+
+            if (npc.HasBuff(ModContent.BuffType<RunaldFreeze>()))
+            {
+                npc.velocity = Vector2.Zero;
+                return false;
+            }
+
             return true;
         }
 
@@ -291,6 +298,14 @@ namespace RiskOfTerrain.NPCs
                 npc.confused = false; // Disables the confused debuff from drawing
             }
             return true;
+        }
+
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+            if (npc.HasBuff(ModContent.BuffType<RunaldFreeze>()))
+            {
+                drawColor = Color.LightBlue;
+            }
         }
 
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

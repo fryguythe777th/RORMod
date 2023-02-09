@@ -288,6 +288,7 @@ Mods: {
 				While in this state your movement speed and attack speed are significantly increased
 				'''
 			KjarosBand: Killing an enemy with an attack that does 60% of its max life spawns a flaming tornado
+			RunaldsBand: Killing an enemy with an attack that does 60% of its max life spawns an icy explosion that freezes enemies
 			HuntersHarpoon: Killing an enemy grants a short speed boost
 			PredatoryInstincts:
 				'''

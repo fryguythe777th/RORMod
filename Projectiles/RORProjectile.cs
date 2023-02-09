@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using RiskOfTerrain.Buffs.Debuff;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Projectiles
