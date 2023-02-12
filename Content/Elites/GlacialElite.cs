@@ -24,8 +24,8 @@ namespace RiskOfTerrain.Content.Elites
         {
             if (active)
             {
-                int i = Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlacialEliteProj>(), 0, 0);
-                Main.projectile[i].scale = 0.33f;
+                //int i = Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlacialEliteProj>(), 0, 0);
+                //Main.projectile[i].scale = 0.33f;
                 //wip glacial elite blast i was working on
             }
         }
