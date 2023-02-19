@@ -16,9 +16,13 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void SetDefaults()
         {
-            Projectile.DefaultToExplosion(200, DamageClass.Generic, 20);
+            Projectile.damage = 35;
             Projectile.knockBack = 5f;
             Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.hostile = false;
+            Projectile.width = 68;
+            Projectile.height = 151;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -35,7 +39,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                 Projectile.frame++;
                 if (Projectile.frame >= Main.projFrames[Type])
                 {
-                    Projectile.hide = true;
+                    Projectile.Kill();
                 }
             }
         }

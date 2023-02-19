@@ -26,7 +26,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            Projectile.NewProjectile(entity.entity.GetSource_FromThis(), info.Center, Vector2.Zero, ModContent.ProjectileType<WilloExplosion>(), 0, 0);
+            Projectile.NewProjectile(entity.entity.GetSource_FromThis(), new Vector2(info.Center.X, info.Center.Y - 15), Vector2.Zero, ModContent.ProjectileType<WilloExplosion>(), 35, 0, Owner: Main.LocalPlayer.whoAmI);
             //make it spawn higher, make it owned by player, make it not have sprite issues, make it not spawn from critters
         }
     }
