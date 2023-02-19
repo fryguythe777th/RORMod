@@ -17,5 +17,10 @@ namespace RiskOfTerrain.Buffs.Debuff
         {
             player.maxRunSpeed *= 0.66f;
         }
+
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.ROR().npcSpeedStat *= 0.5f;
+        }
     }
 }

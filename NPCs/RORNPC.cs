@@ -33,6 +33,10 @@ namespace RiskOfTerrain.NPCs
 
         public bool chronobaubleToggle;
 
+        public float npcSpeedStat;
+        public int npcSpeedUpdate;
+        public int npcSpeedRepeatCounter = 0;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
@@ -75,6 +79,22 @@ namespace RiskOfTerrain.NPCs
             RegisteredElites = new List<EliteNPCBase>();
             On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
             On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
+            On.Terraria.NPC.UpdateNPC_Inner += NPC_UpdateNPC;
+        }
+
+        private void NPC_UpdateNPC(On.Terraria.NPC.orig_UpdateNPC_Inner orig, NPC self, int i)
+        {
+            orig(self, i);
+
+            float extraLoops = self.TryGetGlobalNPC(out RORNPC E) ? E.npcSpeedStat : 0;
+
+            if (extraLoops > 1f)
+            {
+                for (int j = 0; j < (int)Math.Round(extraLoops) - 1; j++)
+                {
+                    orig(self, i);
+                }
+            }
         }
 
         private static double NPC_StrikeNPC(On.Terraria.NPC.orig_StrikeNPC orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)
@@ -111,6 +131,7 @@ namespace RiskOfTerrain.NPCs
                 CheckGasoline(npc);
             }
             statDefense = 0;
+            npc.ROR().npcSpeedStat = 1f;
         }
 
         public void CheckGasoline(NPC npc)
@@ -132,20 +153,33 @@ namespace RiskOfTerrain.NPCs
 
         public override bool PreAI(NPC npc)
         {
-            if (npc.HasBuff(ModContent.BuffType<ChronobaubleDebuff>()))
+            //if (npc.HasBuff(ModContent.BuffType<ChronobaubleDebuff>()))
+            //{
+            //    if (chronobaubleToggle)
+            //    {
+            //        chronobaubleToggle = false;
+            //        return false;
+            //    }
+            //    if (!chronobaubleToggle)
+            //    {
+            //        chronobaubleToggle = true;
+            //    }
+            //}
+
+            if (npc.ROR().npcSpeedStat < 1f && npc.ROR().npcSpeedStat > 0f)
             {
-                if (chronobaubleToggle)
+                if (npcSpeedUpdate < (int)Math.Round(1 / npcSpeedStat))
                 {
-                    chronobaubleToggle = false;
+                    npcSpeedUpdate++;
                     return false;
                 }
-                if (!chronobaubleToggle)
+                else if (npcSpeedUpdate >= (int)Math.Round(1 / npcSpeedStat))
                 {
-                    chronobaubleToggle = true;
+                    npcSpeedUpdate = 0;
                 }
             }
 
-            if (npc.HasBuff(ModContent.BuffType<RunaldFreeze>()))
+            if (npc.ROR().npcSpeedStat == 0f)
             {
                 npc.velocity = Vector2.Zero;
                 return false;
@@ -177,6 +211,17 @@ namespace RiskOfTerrain.NPCs
                 npc.DelBuff(npc.FindBuffIndex(BuffID.OnFire));
                 npc.AddBuff(BuffID.CursedInferno, 2400);
             }
+
+            //if (npcSpeedStat > 1f && npcSpeedRepeatCounter == (int)Math.Round(npcSpeedStat) - 1)
+            //{
+            //    npcSpeedRepeatCounter = 0;
+            //}
+
+            //if (npcSpeedStat > 1f && npcSpeedRepeatCounter < (int)Math.Round(npcSpeedStat) - 1)
+            //{
+            //    npcSpeedRepeatCounter++;
+            //    npc.AI();
+            //}
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -213,15 +258,15 @@ namespace RiskOfTerrain.NPCs
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            ModifiyHit(npc, ref damage, ref knockback, ref crit, player);
+            ModifyHit(npc, ref damage, ref knockback, ref crit, player);
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            ModifiyHit(npc, ref damage, ref knockback, ref crit, Main.player[projectile.owner]);
+            ModifyHit(npc, ref damage, ref knockback, ref crit, Main.player[projectile.owner]);
         }
 
-        public void ModifiyHit(NPC npc, ref int damage, ref float knockback, ref bool crit, Player player)
+        public void ModifyHit(NPC npc, ref int damage, ref float knockback, ref bool crit, Player player)
         {
             if (npc.HasBuff<DeathMarkDebuff>())
                 damage += (int)(damage * 0.1f);
