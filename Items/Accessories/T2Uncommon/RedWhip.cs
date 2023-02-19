@@ -37,30 +37,22 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         {
             if (whipActive > 120)
             {
-                //if (Main.netMode != NetmodeID.Server)
-                //{
-                //    var slot = (sbyte)EquipLoader.GetEquipSlot(Mod, "RedWhip", EquipType.Waist);
-                //    if (Item.frontSlot != slot)
-                //    {
-                //        Item.frontSlot = slot;
-                //        SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubby").WithVolumeScale(0.4f), entity.entity.Center);
-                //    }
-                //}
+                if (Main.netMode != NetmodeID.Server && whipActive == 120)
+                {
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("whip/item_proc_whip_", 4).WithVolumeScale(0.4f), entity.entity.Center);
+                }
+
                 if (entity.InDanger())
                 {
                     whipActive = 0;
-                    //if (Main.netMode != NetmodeID.Server)
-                    //{
-                    //    if (!hideVisual)
-                    //        SoundEngine.PlaySound(RiskOfTerrain.GetSound("glubbyhide").WithVolumeScale(0.4f));
-                    //    Item.frontSlot = (sbyte)EquipLoader.GetEquipSlot(Mod, "CautiousSlug_Hide", EquipType.Front);
-                    //}
                 }
+
                 if (entity.entity is Player player)
                 {
                     player.moveSpeed *= 1.3f;
                     player.maxRunSpeed *= 1.3f;
                 }
+
                 return;
             }
 

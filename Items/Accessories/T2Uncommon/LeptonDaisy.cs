@@ -14,8 +14,8 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 24;
+            Item.width = 28;
+            Item.height = 34;
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
             Item.value = Item.sellPrice(gold: 2);

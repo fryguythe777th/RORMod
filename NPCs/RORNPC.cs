@@ -6,6 +6,7 @@ using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.Items.Consumable;
+using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,9 +38,13 @@ namespace RiskOfTerrain.NPCs
         public int npcSpeedUpdate;
         public int npcSpeedRepeatCounter = 0;
 
+        public bool hasBeenStruckByUkuleleLightning;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
+
+        public static List<Vector2> LightningDrawPoints { get; private set; }
 
         /// <summary>
         /// Used for HP bars and Armor Piercing Rounds for NPCs not flagged as a boss but should be treated as such
@@ -77,6 +82,7 @@ namespace RiskOfTerrain.NPCs
             };
 
             RegisteredElites = new List<EliteNPCBase>();
+            LightningDrawPoints = new List<Vector2>();
             On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
             On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
             On.Terraria.NPC.UpdateNPC_Inner += NPC_UpdateNPC;
@@ -112,6 +118,43 @@ namespace RiskOfTerrain.NPCs
             return orig(self, armorPenetration);
         }
 
+        public static int Distance(Entity entityA, Entity entityB)
+        {
+            //the distance formula
+            //may god smite the inventor of honors geometry
+            int xa = (int)entityA.Center.X;
+            int ya = (int)entityA.Center.Y;
+            int xb = (int)entityB.Center.X;
+            int yb = (int)entityB.Center.Y;
+            return (int)Math.Round(Math.Sqrt((xb - xa) * (xb - xa) + (yb - ya) * (yb - ya)));
+        }
+
+        public static void UkuleleLightning(NPC npc, int damage, int timesProcced)
+        {
+            if (timesProcced < 3)
+            {
+                npc.ROR().hasBeenStruckByUkuleleLightning = true;
+                npc.StrikeNPC(damage, 0f, 1);
+
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && RORNPC.Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
+                    {
+                        RORNPC.UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
+
+                        for (int j = 0; j < Distance(npc, Main.npc[i]); j++)
+                        {
+                            float angle = npc.Center.AngleTo(Main.npc[i].Center) - MathHelper.ToRadians(90);
+                            if (LightningDrawPoints != null)
+                            {
+                                LightningDrawPoints.Add(npc.Center + new Vector2(0, j).RotatedBy(angle));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public override void Unload()
         {
             CountsAsBoss?.Clear();
@@ -132,6 +175,12 @@ namespace RiskOfTerrain.NPCs
             }
             statDefense = 0;
             npc.ROR().npcSpeedStat = 1f;
+            hasBeenStruckByUkuleleLightning = false;
+            
+            if (LightningDrawPoints != null)
+            {
+                LightningDrawPoints.Clear();
+            }
         }
 
         public void CheckGasoline(NPC npc)
@@ -358,6 +407,16 @@ namespace RiskOfTerrain.NPCs
             if (drawConfused)
             {
                 npc.confused = true;
+            }
+
+            Texture2D texture = ModContent.Request<Texture2D>("RiskOfTerrain/Projectiles/Misc/UkuleleLightning").Value;
+
+            if (LightningDrawPoints != null)
+            {
+                foreach (Vector2 pos in LightningDrawPoints)
+                {
+                    spriteBatch.Draw(texture, pos - screenPos, Color.LightBlue);
+                }
             }
         }
 
