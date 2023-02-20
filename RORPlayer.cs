@@ -67,6 +67,7 @@ namespace RiskOfTerrain
         public bool accTriTipDagger;
         public bool accIgnitionTank;
         public bool accWaxQuail;
+        public bool accFuelCell;
 
         public int accRepulsionPlate;
 
@@ -110,6 +111,7 @@ namespace RiskOfTerrain
             On.Terraria.Player.CheckSpawn += Player_CheckSpawn;
             On.Terraria.Player.FindSpawn += Player_FindSpawn;
             On.Terraria.Player.DropTombstone += Player_DropTombstone;
+            On.Terraria.Player.AddBuff_DetermineBuffTimeToAdd += Player_AddBuffTime;
             On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
         }
 
@@ -243,6 +245,21 @@ namespace RiskOfTerrain
             ror.diosCooldown = 0;
             ror.accDiosBestFriend = 0;
             orig(player);
+        }
+
+        private int Player_AddBuffTime(On.Terraria.Player.orig_AddBuff_DetermineBuffTimeToAdd orig, Player self, int type, int time1)
+        {
+            if (self.ROR().accFuelCell && Main.debuff[type] == true)
+            {
+                time1 = (int)(time1 * 0.85);
+            }
+
+            if (self.ROR().accFuelCell && Main.debuff[type] == false)
+            {
+                time1 = (int)(time1 * 1.15);
+            }
+
+            return orig(self, type, time1);
         }
 
         #endregion
@@ -430,6 +447,7 @@ namespace RiskOfTerrain
             accRepulsionPlate = 0;
             accIgnitionTank = false;
             accWaxQuail = false;
+            accFuelCell = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;

@@ -53,6 +53,8 @@ Mods: {
 			Chronobauble: Chronobauble
 			HopooFeather: Hopoo Feather
 			RedWhip: Red Whip
+			Ukulele: Ukulele
+			FuelCell: Fuel Cell
 
 			SoulboundCatalyst: SoulboundCatalyst
 			Aegis: Aegis
@@ -320,6 +322,17 @@ Mods: {
 				Increased jump height and speed
 				'''
 			RedWhip: Increased movement speed out of battle
+			Ukulele:
+				'''
+				Chance for struck enemies to chain a lightning beam to nearby foes
+				This lightning beam can activate on hit effects
+				'...and his music was electric.'
+				'''
+			FuelCell:
+				'''
+				Debuffs last 15% shorter
+				Buffs last 15% longer
+				'''
 				
 			
 			Aegis: 
