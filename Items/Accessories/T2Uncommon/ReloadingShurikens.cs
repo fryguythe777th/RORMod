@@ -14,7 +14,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         public int shurikenCharges;
         public int shurikenRechargeTime;
 
-        public int MaxCharges => 3 + Stacks;
+        public int MaxCharges = 3;
 
         public override void SetStaticDefaults()
         {

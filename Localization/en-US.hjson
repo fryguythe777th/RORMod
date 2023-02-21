@@ -161,7 +161,7 @@ Mods: {
 				$parentVal:
 					'''
 					After getting hurt, recieve a delayed heal
-					Heals 5% of maximum health plus 20
+					Heals 5% of maximum health plus 10
 					'''
 				TerminalTooltip: "Recieve a [1:2] second buff when hit. When the buff is cleared, [1:heal 5%] of maximum health plus [1:20]."
 				TerminalLore: 
@@ -289,8 +289,16 @@ Mods: {
 				Killing 4 enemies in quick succession puts you into a wild frenzy
 				While in this state your movement speed and attack speed are significantly increased
 				'''
-			KjarosBand: Killing an enemy with an attack that does 60% of its max life spawns a flaming tornado
-			RunaldsBand: Killing an enemy with an attack that does 60% of its max life spawns an icy explosion that freezes enemies
+			KjarosBand: 
+				'''
+				Killing an enemy with an attack that deals 60% of its max life spawns a flaming tornado
+				Has a 10 second cooldown
+				'''
+			RunaldsBand:
+				'''
+				Killing an enemy with an attack that deals 60% of its max life spawns an icy explosion that freezes enemies
+				Has a 10 second cooldown
+				'''
 			HuntersHarpoon: Killing an enemy grants a short speed boost
 			PredatoryInstincts:
 				'''
@@ -333,6 +341,7 @@ Mods: {
 				Debuffs last 15% shorter
 				Buffs last 15% longer
 				'''
+			WillOTheWisp: Enemies explode on death
 				
 			
 			Aegis: 

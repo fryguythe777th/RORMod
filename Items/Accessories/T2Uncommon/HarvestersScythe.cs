@@ -30,7 +30,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
             if (crit)
             {
-                int heal = 8 + 4 * (Stacks - 1);
+                int heal = 12;
                 if (entity.entity is Player player)
                 {
                     player.Heal(Math.Min(heal, Math.Max((int)player.lifeSteal, 1)));
@@ -38,7 +38,6 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                     {
                         player.lifeSteal = Math.Max(player.lifeSteal - Math.Clamp(player.statLifeMax2 - player.statLife, 0, heal), 0f);
                     }
-                    Main.NewText(player.lifeSteal);
                 }
                 else if (entity.entity is NPC npc)
                 {

@@ -35,6 +35,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                     p.Write(player.whoAmI);
                 }
                 player.SetImmuneTimeForAllTypes(60);
+                DoDodgeEffect(player);
                 return false;
             }
             return true;
@@ -45,7 +46,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             if (Main.netMode != NetmodeID.Server)
             {
                 SoundEngine.PlaySound(RiskOfTerrain.GetSound("toughertimes").WithVolumeScale(0.2f), entity.Center);
-                int c = CombatText.NewText(new Rectangle((int)entity.position.X + entity.width / 2 - 1, (int)entity.position.Y, 2, 2), new Color(255, 255, 255, 255), 0, false, true);
+                int c = CombatText.NewText(new Rectangle((int)entity.position.X + entity.width / 2 - 1, (int)entity.position.Y, 2, 2), new Color(255, 255, 255, 0), 0, false, true);
                 if (c != -1 && c != Main.maxCombatText)
                 {
                     Main.combatText[c].text = Language.GetTextValue("Mods.RiskOfTerrain.Blocked");

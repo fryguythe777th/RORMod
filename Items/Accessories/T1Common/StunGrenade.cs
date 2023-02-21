@@ -32,7 +32,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             entity.GetProc(out float proc);
             if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<StunGrenadeProj>(),
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), victim.entity.Center, Vector2.Zero, ModContent.ProjectileType<StunGrenadeProj>(),
                     0, 0f, entity.GetProjectileOwnerID(), -10f);
             }
         }

@@ -44,11 +44,11 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public void UpdateProjectile(EntityInfo entity, Projectile projectile)
         {
-            projectile.scale = MathHelper.Lerp(projectile.scale, 280f + 16f * (Stacks - 1), 0.2f);
+            projectile.scale = MathHelper.Lerp(projectile.scale, 312f, 0.2f);
             projectile.Center = entity.entity.Center;
             var bungus = (BustlingFungusProj)projectile.ModProjectile;
             bungus.accessoryActive = true;
-            bungus.regenPercent = 0.075f + Stacks;
+            bungus.regenPercent = 0.1f;
         }
 
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)

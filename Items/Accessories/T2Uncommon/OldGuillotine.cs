@@ -2,6 +2,7 @@
 using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
@@ -37,6 +38,11 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                     NetMessage.SendData(MessageID.DamageNPC, -1, -1, null, npc.whoAmI, npc.lifeMax);
                 }
             }
+        }
+
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
         }
     }
 }

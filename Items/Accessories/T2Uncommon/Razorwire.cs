@@ -42,7 +42,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                 {
                     targetsFound++;
                     Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, (Main.npc[i].Center - player.Center) / 8, ModContent.ProjectileType<RazorwireProj>(),
-                        Math.Max(player.GetWeaponDamage(Item), 1), player.HeldItem.knockBack, player.whoAmI, i);
+                        Math.Max((int)(player.HeldItem.damage * 1.6), 1), player.HeldItem.knockBack, player.whoAmI, i);
                     if (targetsFound >= 5)
                     {
                         break;

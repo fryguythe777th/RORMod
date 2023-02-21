@@ -11,7 +11,7 @@ public class RORKeybinds : ModSystem
     public override void Load()
     {
         //SprintKey = KeybindLoader.RegisterKeybind(Mod, "Sprint Keybind", "X");
-        AmmoSwapKey = KeybindLoader.RegisterKeybind(Mod, "Backup Magazine Swap", "MouseRight");
+        AmmoSwapKey = KeybindLoader.RegisterKeybind(Mod, "Backup Magazine Swap", "Mouse2");
     }
 
     public override void Unload()

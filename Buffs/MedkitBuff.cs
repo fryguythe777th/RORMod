@@ -16,7 +16,7 @@ namespace RiskOfTerrain.Buffs
         {
             if (player.buffTime[buffIndex] == 1)
             {
-                player.Heal(10 + (int)(player.statLifeMax2 * (0.05f * player.ROR().Accessories.GetItemStack(ModContent.ItemType<Medkit>()))));
+                player.Heal(10 + (int)(player.statLifeMax2 * 0.05f));
                 SoundEngine.PlaySound(RiskOfTerrain.GetSound("medkit", 0.1f));
             }
         }

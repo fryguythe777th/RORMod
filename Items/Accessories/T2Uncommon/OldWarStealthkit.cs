@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.statLife <= player.statLifeMax * 0.25 && stealthModeCooldown == 0)
+            if (player.statLife <= player.statLifeMax * 0.25 && stealthModeCooldown <= 0)
             {
                 player.AddBuff(BuffID.Invisibility, 300);
                 stealthSpeedBoostCounter = 300;
