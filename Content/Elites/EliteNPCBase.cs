@@ -36,11 +36,12 @@ namespace RiskOfTerrain.Content.Elites
             return (Main.hardMode ? 25 : 50) * (!Main.expertMode ? 2 : 1);
         }
 
-        public void OnBecomeElite(NPC npc)
+        public virtual void OnBecomeElite(NPC npc)
         {
             npc.lifeMax = (int)(npc.lifeMax * 2f);
             npc.life = (int)(npc.life * 2f);
             npc.npcSlots *= 4f;
+            npc.value *= 2;
         }
     }
 }

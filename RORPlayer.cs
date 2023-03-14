@@ -83,6 +83,8 @@ namespace RiskOfTerrain
 
         public bool Sprinting;
 
+        public bool hitByBlazerProj;
+
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>
@@ -599,6 +601,11 @@ namespace RiskOfTerrain
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
+            if (hitByBlazerProj)
+            {
+                hitDirection = 0;
+                hitByBlazerProj = false;
+            }
             return Accessories.PreHurt(Player, this, pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
 

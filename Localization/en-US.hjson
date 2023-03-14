@@ -470,6 +470,7 @@ Mods: {
 		Containers: {
 			RustyLockboxTile: Rusty Lockbox
 			SecurityChestTile: Security Chest
+			LargeChestTile: Large Chest
 		}
 
 		MapObject: {
@@ -477,6 +478,8 @@ Mods: {
 			RustyLockboxTileLocked: Locked Rusty Lockbox
 			SecurityChestTile: Security Chest
 			SecurityChestTileLocked: Locked Security Chest
+			LargeChestTile: Large Chest
+			LargeChestTileLocked: Large Security Chest
 		}
 
 		Configuration: {

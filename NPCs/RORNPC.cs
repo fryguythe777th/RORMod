@@ -40,6 +40,13 @@ namespace RiskOfTerrain.NPCs
 
         public bool hasBeenStruckByUkuleleLightning;
 
+        public float shield;
+        public float maxShield;
+        public int timeSinceLastHit = 300;
+        public int regularMaxLife;
+        public int savedLife;
+        public bool isAShielder = false;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
@@ -181,6 +188,14 @@ namespace RiskOfTerrain.NPCs
             {
                 LightningDrawPoints.Clear();
             }
+
+            if (isAShielder)
+            {
+                maxShield = 0f;
+                timeSinceLastHit++;
+
+                npc.lifeMax = regularMaxLife;
+            }
         }
 
         public void CheckGasoline(NPC npc)
@@ -198,6 +213,7 @@ namespace RiskOfTerrain.NPCs
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             convertToCursedFlames = false;
+            regularMaxLife = npc.lifeMax;
         }
 
         public override bool PreAI(NPC npc)
@@ -261,16 +277,51 @@ namespace RiskOfTerrain.NPCs
                 npc.AddBuff(BuffID.CursedInferno, 2400);
             }
 
-            //if (npcSpeedStat > 1f && npcSpeedRepeatCounter == (int)Math.Round(npcSpeedStat) - 1)
-            //{
-            //    npcSpeedRepeatCounter = 0;
-            //}
+            if (isAShielder)
+            {
+                //makes sure shield doesnt go over your max shield
+                shield = Math.Min(shield, maxShield);
+                //sets your shield to max after not getting hit for a while
+                if (maxShield > 0f && timeSinceLastHit >= 300)
+                {
+                    shield = maxShield;
+                }
 
-            //if (npcSpeedStat > 1f && npcSpeedRepeatCounter < (int)Math.Round(npcSpeedStat) - 1)
-            //{
-            //    npcSpeedRepeatCounter++;
-            //    npc.AI();
-            //}
+                //calculates how much health you can gain from a shield
+                int add = (int)(regularMaxLife * shield);
+                if (npc.life == npc.lifeMax)
+                {
+                    //adds extra health once (life does not decay)
+                    npc.life += add;
+                }
+                //adds extra max life consistently, based on max shield rather than shield
+                npc.lifeMax += (int)(regularMaxLife * maxShield); // was += add
+
+                //adds regained shield upon hitting 6 seconds without damage
+                if (shield > 0f && timeSinceLastHit == 300)
+                {
+                    //adds whichever is smaller- current life + potential health gain, or your max life (with shield)
+                    npc.life = Math.Min(npc.life + (int)(regularMaxLife * shield), npc.lifeMax);
+                }
+
+                //if you take damage or lose health through wacky means
+                if (savedLife > npc.life)
+                {
+                    //reset cooldown
+                    timeSinceLastHit = 0;
+
+                    //reduce shield by the amount of damage taken
+                    if (shield > 0f)
+                    {
+                        shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
+                        if (shield <= 0.01f)
+                        {
+                            shield = 0f;
+                        }
+                    }
+                }
+                savedLife = npc.life;
+            }
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -283,6 +334,7 @@ namespace RiskOfTerrain.NPCs
                     damage = gasolineDamage / 8;
             }
         }
+
         public void UpdateDebuffStack(NPC npc, bool has, ref byte stacks, ref int damageNumbers, byte cap = 20, float dotMultiplier = 1f)
         {
             if (!has)

@@ -76,6 +76,7 @@ namespace RiskOfTerrain.Content.Elites
                         continue;
                     }
                     npc.GetGlobalNPC(l[rolled]).Active = true;
+                    l.RemoveAt(rolled);
                 }
             }
             npc.GetElitePrefixes(out var myPrefixes);

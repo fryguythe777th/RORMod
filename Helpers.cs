@@ -165,6 +165,7 @@ namespace RiskOfTerrain
             }
             return false;
         }
+
         public static void GetElitePrefixes(this NPC npc, out List<EliteNPCBase> prefixes)
         {
             prefixes = new List<EliteNPCBase>();

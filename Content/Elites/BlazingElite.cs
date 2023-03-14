@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Items.Accessories.Aspects;
 using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Elites
 {
@@ -26,17 +28,18 @@ namespace RiskOfTerrain.Content.Elites
 
                 var diff = npc.position - blazeSpotPrev;
                 float distance = diff.Length().UnNaN();
-                if (Main.netMode != NetmodeID.MultiplayerClient && (Main.GameUpdateCount % 40 == 0 || distance > 20f))
+                if (Main.netMode != NetmodeID.MultiplayerClient && (Main.GameUpdateCount % 40 == 0 || distance > 40f))
                 {
                     if (npc.realLife < 0)
                     {
                         var v = new Vector2(npc.position.X + npc.width / 2f, npc.position.Y + npc.height - 10f);
-                        for (int i = 0; i <= (int)(distance / 30f); i++)
+                        for (int i = 0; i <= (int)(distance / 50f); i++)
                         {
-                            var p = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), v + Vector2.Normalize(-diff).UnNaN() * 30f * i,
+                            var p = Projectile.NewProjectileDirect(npc.GetSource_FromAI(), v + Vector2.Normalize(-diff).UnNaN() * 50f * i,
                                 Main.rand.NextVector2Unit() * 0.2f, ProjectileID.GreekFire1 + Main.rand.Next(3), 10, 1f, Main.myPlayer, 1f, 1f);
 
-                            p.timeLeft /= 2;
+                            p.timeLeft /= 3;
+                            p.ROR().spawnedFromElite = true;
                             if (npc.friendly)
                             {
                                 p.hostile = false;
@@ -51,7 +54,20 @@ namespace RiskOfTerrain.Content.Elites
 
         public override bool CanRoll(NPC npc)
         {
-            return false;
+            return true;
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            if (active)
+            {
+                int rollNumber = npc.boss ? 1000 : 4000;
+                if (Main.player[Player.FindClosest(npc.Center, 500, 500)].RollLuck(rollNumber) == 0)
+                {
+                    int i = Item.NewItem(npc.GetSource_GiftOrReward(), npc.Center, ModContent.ItemType<BlazingAspect>());
+                    Main.item[i].velocity = new Vector2(0, -4);
+                }
+            }
         }
     }
 }

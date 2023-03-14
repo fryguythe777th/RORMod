@@ -178,7 +178,7 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public virtual int CalculateChestPrice()
         {
-            return RiskOfTerrain.CalculateChestPrice();
+            return RiskOfTerrain.CalculateChestPrice(1);
         }
 
         public virtual bool CheckLocked(int i, int j, int left, int top, Player player)

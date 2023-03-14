@@ -214,7 +214,7 @@ namespace RiskOfTerrain
             BroadcastMessage(text, color, args);
         }
 
-        public static int CalculateChestPrice()
+        public static int CalculateChestPrice(float chestMult)
         {
             int basePrice = Item.buyPrice(gold: 2, silver: 50);
             if (Main.expertMode)
@@ -233,6 +233,7 @@ namespace RiskOfTerrain
                     finalPrice += (int)(basePrice * price.Item2);
                 }
             }
+            finalPrice = (int)(chestMult * finalPrice);
             return finalPrice;
         }
     }
