@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
-            if (victim.entity is NPC npc && entity.entity is Player player && projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>())
+            if (victim.entity is NPC npc && entity.entity is Player player && projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>() && !projectile.ROR().spawnedFromElite)
             {
                 int p = Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: player.whoAmI, ai0: npc.whoAmI, ai1: 2);
                 Main.projectile[p].ROR().spawnedFromElite = true;

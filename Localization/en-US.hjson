@@ -62,6 +62,14 @@ Mods: {
 
 			Shatterspleen: Shatterspleen
 
+			BlazingAspect: Ifrit's Distinction
+			OverloadingAspect: Silence Between Two Strikes
+			GlacialAspect: Her Biting Embrace
+			MalachiteAspect: N'kuhana's Retort
+			CelestineAspect: Spectral Circlet
+			PerfectedAspect: Shared Design
+			MendingAspet: His Reassurance
+
 			BisonSteak: Bison Steak
 			RustedKey: Rusted Key
 			PowerElixir: Power Elixir
@@ -360,6 +368,49 @@ Mods: {
 				5% increased critical strike chance
 				All critical strikes will inflict Bleeding to enemies
 				Any enemy that dies with this Bleeding will erupt into a bloody explosion
+				'''
+
+			BlazingAspect:
+				'''
+				Become an aspect of fire
+				Leave behind a fiery trail
+				'''
+			OverloadingAspect:
+				'''
+				Become an aspect of lightning
+				Half of your health is replaced with regenerating shield
+				Attach a lightning bomb to enemies, which explodes after time
+				'''
+			GlacialAspect:
+				'''
+				Become an aspect of ice
+				Slow enemies on hit
+				On death, explode with a blast that freezes enemies
+				'''
+			MalachiteAspect:
+				'''
+				Become an aspect of corruption
+				Periodically release explosive spike balls
+				On death, summon an urchin to fire at enemies
+				'''
+			CelestineAspect:
+				'''
+				Become an aspect of incorporeality
+				Become invisible, and make allies around you invisible as well
+				Slow enemies on hit
+				'''
+			PerfectedAspect:
+				'''
+				Become an aspect of perfection
+				All of your health is replaced with a regenerating shield
+				Slow and weaken enemies on hit
+				Periodically fire a barrage of projectiles
+				'''
+			MendingAspect:
+				'''
+				Become an aspect of earth
+				Slowly heal nearby allies
+				On death, summon a healing core that greatly heals all nearby allies upon explosion
 				'''
 
 			BisonSteak: "{$CommonItemTooltip.MajorStats}"

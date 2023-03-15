@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Accessories;
@@ -15,6 +16,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -430,7 +432,7 @@ namespace RiskOfTerrain
                 berzerkerCounter = 0;
             }
         }
-        
+
         public override void ResetEffects()
         {
             barrierMinimumFrac = 0;
