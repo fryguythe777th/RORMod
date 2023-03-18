@@ -9,8 +9,7 @@ namespace RiskOfTerrain.Buffs.Debuff
     {
         public override void SetStaticDefaults()
         {
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
+            Main.debuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

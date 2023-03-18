@@ -23,7 +23,7 @@ namespace RiskOfTerrain.Items.Testing
 
             NPC npc = Main.npc[i];
             var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
-            npc.GetGlobalNPC(l[5]).Active = true;
+            npc.GetGlobalNPC(l[1]).Active = true;
             npc.GetElitePrefixes(out var myPrefixes);
             if (myPrefixes.Count > 0)
             {

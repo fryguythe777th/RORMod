@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content;
 using RiskOfTerrain.Content.Accessories;
@@ -46,6 +47,8 @@ namespace RiskOfTerrain.NPCs
         public int regularMaxLife;
         public int savedLife;
         public bool isAShielder = false;
+
+        public int savedAlpha = -1;
 
         public override bool InstancePerEntity => true;
 
@@ -443,6 +446,16 @@ namespace RiskOfTerrain.NPCs
                 drawConfused = npc.confused;
                 npc.confused = false; // Disables the confused debuff from drawing
             }
+
+            if (npc.HasBuff(ModContent.BuffType<CelestineInvis>()))
+            {
+                return false;
+            }
+
+            //if (npc.HasBuff(ModContent.BuffType<CelestineInvis>()))
+            //{
+            //    npc.alpha = 255;
+            //}
             return true;
         }
 

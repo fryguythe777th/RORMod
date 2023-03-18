@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.NPCs;
@@ -18,6 +19,7 @@ namespace RiskOfTerrain.Projectiles
 
         public bool spawnedFromElite = false;
         public bool hasOverloaderProperties = false;
+        public bool hasCelestineProperties = false;
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -54,6 +56,10 @@ namespace RiskOfTerrain.Projectiles
                     {
                         hasOverloaderProperties = true;
                     }
+                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.CelestineElite"))
+                    {
+                        hasCelestineProperties = true;
+                    }
                 }
             }
         }
@@ -68,12 +74,16 @@ namespace RiskOfTerrain.Projectiles
 
             if (hasOverloaderProperties)
             {
-                Main.NewText("bombed");
                 int p = Projectile.NewProjectile(Main.npc[projectile.owner].GetSource_FromThis(), target.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, ai0: target.whoAmI, ai1: 1);
                 Main.projectile[p].ROR().spawnedFromElite = true;
                 Main.projectile[p].friendly = false;
                 Main.projectile[p].hostile = true;
                 Main.projectile[p].ai[1] = 1;
+            }
+
+            if (hasCelestineProperties)
+            {
+                target.AddBuff(ModContent.BuffType<CelestineSlow>(), 180);
             }
         }
     }
