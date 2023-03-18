@@ -29,6 +29,8 @@ namespace RiskOfTerrain
 
         public static Color BossSummonMessage => new Color(175, 75, 255, 255);
 
+        public static int numCelestinesIngame = 0;
+
         public override void Load()
         {
             Instance = this;

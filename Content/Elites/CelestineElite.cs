@@ -81,7 +81,14 @@ namespace RiskOfTerrain.Content.Elites
 
         public override bool CanRoll(NPC npc)
         {
-            return false;
+            if (RiskOfTerrain.numCelestinesIngame == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override void OnBecomeElite(NPC npc)
@@ -90,6 +97,15 @@ namespace RiskOfTerrain.Content.Elites
             npc.life = (int)(npc.life * 4f);
             npc.npcSlots *= 8f;
             npc.value *= 4;
+            RiskOfTerrain.numCelestinesIngame += 1;
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            if (active)
+            {
+                RiskOfTerrain.numCelestinesIngame -= 1;
+            }
         }
     }
 }
