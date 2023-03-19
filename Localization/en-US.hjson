@@ -90,6 +90,8 @@ Mods: {
 			Spite: Artifact of Spite
 			Swarms: Artifact of Swarms
 			Vengance: Artifact of Vengance
+
+			EliteSpawner: Elitinizer
 		}
 
 		ItemTooltip: {
@@ -450,6 +452,13 @@ Mods: {
 			Vengance:
 				'''
 				???
+				'''
+
+			EliteSpawner:
+				'''
+				Developer Tool
+				Click enemies to make them elites
+				Right click to cycle through the desired elite
 				'''
 		}
 
