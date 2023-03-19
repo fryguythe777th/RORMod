@@ -19,11 +19,11 @@ namespace RiskOfTerrain.Items.Testing
         public override bool? UseItem(Player player)
         {
             player.statLifeMax = 400;
-            int i = NPC.NewNPC(NPC.GetSource_None(), (int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, NPCID.SkeletonArcher);
+            int i = NPC.NewNPC(NPC.GetSource_None(), (int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, NPCID.Skeleton);
 
             NPC npc = Main.npc[i];
             var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
-            npc.GetGlobalNPC(l[1]).Active = true;
+            npc.GetGlobalNPC(l[5]).Active = true;
             npc.GetElitePrefixes(out var myPrefixes);
             if (myPrefixes.Count > 0)
             {

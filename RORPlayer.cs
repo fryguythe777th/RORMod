@@ -71,6 +71,8 @@ namespace RiskOfTerrain
         public bool accWaxQuail;
         public bool accFuelCell;
 
+        public bool aspCelestine;
+
         public int accRepulsionPlate;
 
         public int killStreak;
@@ -452,6 +454,7 @@ namespace RiskOfTerrain
             accIgnitionTank = false;
             accWaxQuail = false;
             accFuelCell = false;
+            aspCelestine = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;

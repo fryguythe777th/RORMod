@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -37,7 +38,7 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (Projectile.ai[1] == 1)
+            if (Projectile.ai[1] == 0 || Projectile.ai[1] == 1)
             {
                 positionOffset = Projectile.Center - Main.player[(int)Projectile.ai[0]].Center;
             }
@@ -45,12 +46,14 @@ namespace RiskOfTerrain.Projectiles.Misc
             {
                 positionOffset = Projectile.Center - Main.npc[(int)Projectile.ai[0]].Center;
             }
+            explodeCooldown = 90;
+            Projectile.frame = 0;
         }
 
         public override void AI()
         {
             if (explodeCooldown > 0)
-            {
+            { 
                 explodeCooldown--;
             }
             else
@@ -71,7 +74,7 @@ namespace RiskOfTerrain.Projectiles.Misc
                 }
             }
 
-            if (Projectile.ai[1] == 1)
+            if (Projectile.ai[1] == 1 || Projectile.ai[1] == 0)
             {
                 Projectile.Center = Main.player[(int)Projectile.ai[0]].Center + positionOffset;
             }
@@ -86,6 +89,11 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.GetDrawInfo(out var texture, out var offset, out var frame, out var origin, out int _);
             Main.spriteBatch.Draw(texture, Projectile.position + offset - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
             return false;
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            overPlayers.Add(index);
         }
     }
 }

@@ -21,8 +21,6 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override void AI()
         {
-            Projectile.timeLeft = 2;
-
             if (Projectile.scale > 0.1f)
             {
                 foreach (var c in Helpers.CircularVector((int)(64 * Projectile.scale)))

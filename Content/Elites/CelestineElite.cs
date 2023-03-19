@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Items.Accessories.Aspects;
 using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -24,6 +25,8 @@ namespace RiskOfTerrain.Content.Elites
         {
             if (active)
             {
+                npc.ROR().npcSpeedStat *= 0.25f;
+
                 if (!hasSpawnedBubble)
                 {
                     Projectile i = Projectile.NewProjectileDirect(npc.GetSource_FromThis(), npc.Center, Vector2.Zero,
@@ -36,7 +39,7 @@ namespace RiskOfTerrain.Content.Elites
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     //somebody doesn't have elite prefixes (probably check if main.npc[i].active
-                    if (Main.npc[i].active)
+                    if (Main.npc[i].active && !Main.npc[i].friendly)
                     {
                         bool canBeInvised = true;
                         Main.npc[i].GetElitePrefixes(out var prefixes);
@@ -69,6 +72,7 @@ namespace RiskOfTerrain.Content.Elites
         {
             projectile.scale = MathHelper.Lerp(projectile.scale, 480f, 0.2f);
             projectile.Center = npc.Center;
+            projectile.timeLeft = 2;
         }
 
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
@@ -81,7 +85,7 @@ namespace RiskOfTerrain.Content.Elites
 
         public override bool CanRoll(NPC npc)
         {
-            if (RiskOfTerrain.numCelestinesIngame == 0)
+            if (RiskOfTerrain.numCelestinesIngame == 0 && Main.hardMode)
             {
                 return true;
             }
@@ -105,6 +109,13 @@ namespace RiskOfTerrain.Content.Elites
             if (active)
             {
                 RiskOfTerrain.numCelestinesIngame -= 1;
+
+                int rollNumber = npc.boss ? 1000 : 4000;
+                if (Main.player[Player.FindClosest(npc.Center, 500, 500)].RollLuck(rollNumber) == 0)
+                {
+                    int i = Item.NewItem(npc.GetSource_GiftOrReward(), npc.Center, ModContent.ItemType<CelestineAspect>());
+                    Main.item[i].velocity = new Vector2(0, -4);
+                }
             }
         }
     }
