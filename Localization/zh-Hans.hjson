@@ -62,6 +62,14 @@ Mods: {
 
 			Shatterspleen: 易爆的脾脏
 
+			BlazingAspect: 虹膜勋章
+			OverloadingAspect: 双击沉默
+			GlacialAspect: 她的毒辣拥抱
+			MalachiteAspect: 恩库哈纳的反驳
+			CelestineAspect: 光谱线圈
+			PerfectedAspect: 共享设计
+			MendingAspet: 他的保证
+
 			BisonSteak: 野牛肉排
 			RustedKey: 生锈的钥匙
 			PowerElixir: 强力药剂
@@ -82,6 +90,8 @@ Mods: {
 			Spite: 恶意神器
 			Swarms: 虫群神器
 			Vengance: 复仇神器
+
+			EliteSpawner: 精英化工具
 		}
 
 		ItemTooltip: {
@@ -362,6 +372,49 @@ Mods: {
 				流血的敌人将会在死亡时血腥的爆炸
 				'''
 
+			BlazingAspect:
+				'''
+				成为火焰的一份子
+				在身后留下火焰痕迹
+				'''
+			OverloadingAspect:
+				'''
+				成为闪电的一份子
+				你生命值的一半会被能够再生的护盾替代
+				给敌人绑上一个会在一段时间后爆炸的闪电炸弹
+				'''
+			GlacialAspect:
+				'''
+				成为寒冰的一份子
+				击中时减速敌人
+				死亡时, 爆炸并冻结敌人
+				'''
+			MalachiteAspect:
+				'''
+				成为腐化的一份子
+				周期性释放爆炸尖钉球
+				死亡时, 召唤一个淘气鬼射击敌人
+				'''
+			CelestineAspect:
+				'''
+				成为无形的一份子
+				使你和你附近的队友隐形
+				击中时减速敌人
+				'''
+			PerfectedAspect:
+				'''
+				成为完美的一份子
+				你的生命值会被能够再生的护盾替代
+				击中时减速并削弱敌人
+				周期性发射大量弹幕
+				'''
+			MendingAspect:
+				'''
+				成为大地的一份子
+				缓慢的治疗附近的队友
+				死亡时, 召唤一个治疗核心, 爆炸时会大幅度治疗附近的队友
+				'''
+
 			BisonSteak: "{$CommonItemTooltip.MajorStats}"
 			RustedKey: 打开生锈的锁盒
 			PowerElixir: 
@@ -399,6 +452,12 @@ Mods: {
 			Vengance:
 				'''
 				???
+				'''
+			EliteSpawner:
+				'''
+				开发者工具
+				点击敌人以使其精英化
+				右键在不同种类的精英之间循环
 				'''
 		}
 		
@@ -470,6 +529,7 @@ Mods: {
 		Containers: {
 			RustyLockboxTile: 锈蚀锁盒
 			SecurityChestTile: 保险箱
+			LargeChestTile: 大箱子
 		}
 
 		MapObject: {
@@ -477,6 +537,8 @@ Mods: {
 			RustyLockboxTileLocked: 上锁的锈蚀锁盒
 			SecurityChestTile: 保险箱
 			SecurityChestTileLocked: 上锁的保险箱
+			LargeChestTile: 大箱子
+			LargeChestTileLocked: 大型安全箱
 		}
 
 		Configuration: {
