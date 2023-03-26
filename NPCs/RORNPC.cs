@@ -48,6 +48,8 @@ namespace RiskOfTerrain.NPCs
         public int savedLife;
         public bool isAShielder = false;
 
+        public int shatterizationCount = 0;
+
         public int savedAlpha = -1;
 
         public override bool InstancePerEntity => true;
@@ -96,6 +98,8 @@ namespace RiskOfTerrain.NPCs
             On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
             On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
             On.Terraria.NPC.UpdateNPC_Inner += NPC_UpdateNPC;
+
+            shatterizationCount = 0;
         }
 
         private void NPC_UpdateNPC(On.Terraria.NPC.orig_UpdateNPC_Inner orig, NPC self, int i)
@@ -195,10 +199,10 @@ namespace RiskOfTerrain.NPCs
             if (isAShielder)
             {
                 maxShield = 0f;
-                timeSinceLastHit++;
-
                 npc.lifeMax = regularMaxLife;
             }
+
+            timeSinceLastHit++;
         }
 
         public void CheckGasoline(NPC npc)
@@ -306,25 +310,25 @@ namespace RiskOfTerrain.NPCs
                     //adds whichever is smaller- current life + potential health gain, or your max life (with shield)
                     npc.life = Math.Min(npc.life + (int)(regularMaxLife * shield), npc.lifeMax);
                 }
+            }
 
-                //if you take damage or lose health through wacky means
-                if (savedLife > npc.life)
+            //if you take damage or lose health through wacky means
+            if (savedLife > npc.life)
+            {
+                //reset cooldown
+                timeSinceLastHit = 0;
+
+                //reduce shield by the amount of damage taken
+                if (shield > 0f)
                 {
-                    //reset cooldown
-                    timeSinceLastHit = 0;
-
-                    //reduce shield by the amount of damage taken
-                    if (shield > 0f)
+                    shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
+                    if (shield <= 0.01f)
                     {
-                        shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
-                        if (shield <= 0.01f)
-                        {
-                            shield = 0f;
-                        }
+                        shield = 0f;
                     }
                 }
-                savedLife = npc.life;
             }
+            savedLife = npc.life;
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -374,6 +378,11 @@ namespace RiskOfTerrain.NPCs
         {
             if (npc.HasBuff<DeathMarkDebuff>())
                 damage += (int)(damage * 0.1f);
+
+            if (shatterizationCount > 0)
+            {
+                damage += (int)(damage * 0.5f * shatterizationCount);
+            }
 
             if (player.ROR().accIgnitionTank)
             {
@@ -465,6 +474,12 @@ namespace RiskOfTerrain.NPCs
             {
                 drawColor = Color.LightBlue;
             }
+
+            if (shatterizationCount > 0)
+            {
+                Color shatterDraw = new Color(drawColor.R, drawColor.G - (30 * shatterizationCount), drawColor.B - (30 * shatterizationCount));
+                drawColor = shatterDraw;
+            }
         }
 
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -478,9 +493,19 @@ namespace RiskOfTerrain.NPCs
 
             if (LightningDrawPoints != null)
             {
+                int repeatCounter = 1000;
                 foreach (Vector2 pos in LightningDrawPoints)
                 {
                     spriteBatch.Draw(texture, pos - screenPos, Color.LightBlue);
+                    if (repeatCounter == 1000)
+                    {
+                        Lighting.AddLight(pos, Color.LightBlue.R, Color.LightBlue.G, Color.LightBlue.B);
+                        repeatCounter = 0;
+                    }
+                    else
+                    {
+                        repeatCounter++;
+                    }
                 }
             }
         }
