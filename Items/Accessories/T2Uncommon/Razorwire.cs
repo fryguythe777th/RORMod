@@ -33,22 +33,23 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             int targetsFound = 0;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (!Main.npc[i].CanBeChasedBy(player))
+                if (!Main.npc[i].CanBeChasedBy(player) || Main.npc[i].IsProbablyACritter() || Main.npc[i].isLikeATownNPC)
                 {
                     continue;
                 }
-
-                if (Vector2.Distance(player.Center, Main.npc[i].Center) < 300f)
+                else
                 {
-                    targetsFound++;
-                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, (Main.npc[i].Center - player.Center) / 8, ModContent.ProjectileType<RazorwireProj>(),
-                        Math.Max((int)(player.HeldItem.damage * 1.6), 1), player.HeldItem.knockBack, player.whoAmI, i);
-                    if (targetsFound >= 5)
+                    if (Vector2.Distance(player.Center, Main.npc[i].Center) < 300f || !Main.npc[i].friendly || Main.npc[i].lifeMax != 5 || Main.npc[i].damage != 0)
                     {
-                        break;
+                        targetsFound++;
+                        Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, (Main.npc[i].Center - player.Center) / 8, ModContent.ProjectileType<RazorwireProj>(),
+                            Math.Max((int)(player.HeldItem.damage * 1.6), 1), player.HeldItem.knockBack, player.whoAmI, i);
+                        if (targetsFound >= 5)
+                        {
+                            break;
+                        }
                     }
                 }
-
             }
         }
     }

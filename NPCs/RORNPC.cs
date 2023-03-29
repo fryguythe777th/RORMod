@@ -52,6 +52,8 @@ namespace RiskOfTerrain.NPCs
 
         public int savedAlpha = -1;
 
+        public Projectile lastHitProjectile;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
@@ -372,6 +374,8 @@ namespace RiskOfTerrain.NPCs
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             ModifyHit(npc, ref damage, ref knockback, ref crit, Main.player[projectile.owner]);
+
+            lastHitProjectile = projectile;
         }
 
         public void ModifyHit(NPC npc, ref int damage, ref float knockback, ref bool crit, Player player)
@@ -419,7 +423,8 @@ namespace RiskOfTerrain.NPCs
                             miscInfo = bb,
                             value = npc.value,
                             friendly = npc.friendly,
-                            spawnedFromStatue = npc.SpawnedFromStatue
+                            spawnedFromStatue = npc.SpawnedFromStatue,
+                            lastHitProjectile = npc.ROR().lastHitProjectile.type
                         });
                         continue;
                     }
@@ -443,6 +448,7 @@ namespace RiskOfTerrain.NPCs
                     p.Write(npc.value);
                     p.Write(npc.friendly);
                     p.Write(npc.SpawnedFromStatue);
+                    p.Write(npc.ROR().lastHitProjectile.type);
                     p.Send(toClient: i);
                 }
             }
