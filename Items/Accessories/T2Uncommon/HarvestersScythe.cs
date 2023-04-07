@@ -10,7 +10,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add((Type, () => NPC.downedBoss1));
         }
 
@@ -23,12 +23,12 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 2);
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (victim.entity is NPC npc2 && npc2.immortal)
                 return;
 
-            if (crit)
+            if (hit.Crit)
             {
                 int heal = 12;
                 if (entity.entity is Player player)

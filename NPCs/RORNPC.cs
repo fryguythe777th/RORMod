@@ -29,7 +29,7 @@ namespace RiskOfTerrain.NPCs
         public int lastHitDamage;
         public int gasolineDamage;
 
-        public int statDefense;
+        public float statDefense;
 
         private bool drawConfused;
 
@@ -52,7 +52,7 @@ namespace RiskOfTerrain.NPCs
 
         public int savedAlpha = -1;
 
-        public Projectile lastHitProjectile;
+        public int lastHitProjectileType = -1;
 
         public override bool InstancePerEntity => true;
 
@@ -97,14 +97,22 @@ namespace RiskOfTerrain.NPCs
 
             RegisteredElites = new List<EliteNPCBase>();
             LightningDrawPoints = new List<Vector2>();
-            On.Terraria.NPC.checkArmorPenetration += NPC_checkArmorPenetration;
-            On.Terraria.NPC.StrikeNPC += NPC_StrikeNPC;
-            On.Terraria.NPC.UpdateNPC_Inner += NPC_UpdateNPC;
+            Terraria.On_NPC.StrikeNPC_int_float_int_bool_bool_bool += NPC_StrikeNPC;
+            Terraria.On_NPC.UpdateNPC_Inner += NPC_UpdateNPC;
 
             shatterizationCount = 0;
         }
 
-        private void NPC_UpdateNPC(On.Terraria.NPC.orig_UpdateNPC_Inner orig, NPC self, int i)
+        private int NPC_StrikeNPC(On_NPC.orig_StrikeNPC_int_float_int_bool_bool_bool orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool fromNet, bool noPlayerInteraction)
+        {
+            if (self.TryGetGlobalNPC<RORNPC>(out var ror))
+            {
+                ror.lastHitDamage = Damage;
+            }
+            return orig(self, Damage, knockBack, hitDirection, crit, fromNet, noPlayerInteraction);
+        }
+
+        private void NPC_UpdateNPC(Terraria.On_NPC.orig_UpdateNPC_Inner orig, NPC self, int i)
         {
             orig(self, i);
 
@@ -117,21 +125,6 @@ namespace RiskOfTerrain.NPCs
                     orig(self, i);
                 }
             }
-        }
-
-        private static double NPC_StrikeNPC(On.Terraria.NPC.orig_StrikeNPC orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)
-        {
-            if (self.TryGetGlobalNPC<RORNPC>(out var ror))
-            {
-                ror.lastHitDamage = Damage;
-            }
-            return orig(self, Damage, knockBack, hitDirection, crit, noEffect, fromNet);
-        }
-
-        public static int NPC_checkArmorPenetration(On.Terraria.NPC.orig_checkArmorPenetration orig, NPC self, int armorPenetration)
-        {
-            armorPenetration -= self.ROR().statDefense;
-            return orig(self, armorPenetration);
         }
 
         public static int Distance(Entity entityA, Entity entityB)
@@ -150,7 +143,18 @@ namespace RiskOfTerrain.NPCs
             if (timesProcced < 3)
             {
                 npc.ROR().hasBeenStruckByUkuleleLightning = true;
-                npc.StrikeNPC(damage, 0f, 1);
+
+                NPC.HitInfo hit = new NPC.HitInfo
+                {
+                    DamageType = DamageClass.Default,
+                    SourceDamage = damage,
+                    Damage = damage,
+                    Crit = false,
+                    Knockback = 0f,
+                    HitDirection = 0
+                };
+                npc.StrikeNPC(hit);
+                Lighting.AddLight(npc.Center, Color.LightBlue.R, Color.LightBlue.G, Color.LightBlue.B);
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
@@ -366,35 +370,51 @@ namespace RiskOfTerrain.NPCs
             }
         }
 
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
-            ModifyHit(npc, ref damage, ref knockback, ref crit, player);
+            ModifyHit(npc, player, ref modifiers);
         }
 
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            ModifyHit(npc, ref damage, ref knockback, ref crit, Main.player[projectile.owner]);
+            ModifyHit(npc, projectile, ref modifiers);
 
-            lastHitProjectile = projectile;
+            lastHitProjectileType = projectile.type;
         }
 
-        public void ModifyHit(NPC npc, ref int damage, ref float knockback, ref bool crit, Player player)
+        public void ModifyHit(NPC npc, Entity projOrPlayer, ref NPC.HitModifiers modifiers)
         {
+            modifiers.Defense *= npc.ROR().statDefense;
+
             if (npc.HasBuff<DeathMarkDebuff>())
-                damage += (int)(damage * 0.1f);
+                modifiers.SourceDamage *= 1.1f;
 
             if (shatterizationCount > 0)
             {
-                damage += (int)(damage * 0.5f * shatterizationCount);
+                modifiers.SourceDamage += (int)(1 + (0.5f * shatterizationCount));
             }
 
-            if (player.ROR().accIgnitionTank)
+            if (projOrPlayer is Projectile projectile)
             {
-                convertToCursedFlames = true;
+                if (Main.player[projectile.owner].ROR().accIgnitionTank)
+                {
+                    convertToCursedFlames = true;
+                }
+                else
+                {
+                    convertToCursedFlames = false;
+                }
             }
-            else
+            else if (projOrPlayer is Player player)
             {
-                convertToCursedFlames = false;
+                if (player.ROR().accIgnitionTank)
+                {
+                    convertToCursedFlames = true;
+                }
+                else
+                {
+                    convertToCursedFlames = false;
+                }
             }
         }
 
@@ -424,7 +444,8 @@ namespace RiskOfTerrain.NPCs
                             value = npc.value,
                             friendly = npc.friendly,
                             spawnedFromStatue = npc.SpawnedFromStatue,
-                            lastHitProjectile = npc.ROR().lastHitProjectile.type
+                            lastHitProjectile = npc.ROR().lastHitProjectileType,
+                            aistyle = npc.aiStyle
                         });
                         continue;
                     }
@@ -448,7 +469,8 @@ namespace RiskOfTerrain.NPCs
                     p.Write(npc.value);
                     p.Write(npc.friendly);
                     p.Write(npc.SpawnedFromStatue);
-                    p.Write(npc.ROR().lastHitProjectile.type);
+                    p.Write(npc.ROR().lastHitProjectileType);
+                    p.Write(npc.aiStyle);
                     p.Send(toClient: i);
                 }
             }
@@ -499,19 +521,9 @@ namespace RiskOfTerrain.NPCs
 
             if (LightningDrawPoints != null)
             {
-                int repeatCounter = 1000;
                 foreach (Vector2 pos in LightningDrawPoints)
                 {
                     spriteBatch.Draw(texture, pos - screenPos, Color.LightBlue);
-                    if (repeatCounter == 1000)
-                    {
-                        Lighting.AddLight(pos, Color.LightBlue.R, Color.LightBlue.G, Color.LightBlue.B);
-                        repeatCounter = 0;
-                    }
-                    else
-                    {
-                        repeatCounter++;
-                    }
                 }
             }
         }

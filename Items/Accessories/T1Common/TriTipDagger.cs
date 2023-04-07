@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -24,7 +24,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             entity.GetProc(out float proc);
             if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)

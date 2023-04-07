@@ -9,7 +9,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -22,12 +22,12 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(silver: 50);
         }
 
-        public override void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit)
+        public override void OnHitBy(EntityInfo entity, EntityInfo attacker, Player.HurtInfo info)
         {
             if (entity.entity is not Player && (!Main.expertMode || entity.entity is not NPC))
                 return;
 
-            int[] coins = Utils.CoinsSplit(50 * (int)damage);
+            int[] coins = Utils.CoinsSplit(50 * info.Damage);
             var source = entity.entity.GetSource_FromThis();
             var loc = entity.entity.Center;
             if (coins[0] > 0)

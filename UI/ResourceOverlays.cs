@@ -22,13 +22,13 @@ namespace RiskOfTerrain.UI
         public override void Load()
         {
             InitDrawInfo();
-            On.Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet.DrawLife += ClassicPlayerResourcesDisplaySet_DrawLife;
-            On.Terraria.GameContent.UI.ResourceSets.FancyClassicPlayerResourcesDisplaySet.DrawLifeBar += FancyClassicPlayerResourcesDisplaySet_DrawLifeBar;
-            On.Terraria.GameContent.UI.ResourceSets.HorizontalBarsPlayerReosurcesDisplaySet.Draw += HorizontalBarsPlayerReosurcesDisplaySet_Draw;
-            On.Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot.ctor += PlayerStatsSnapshot_ctor;
+            Terraria.GameContent.UI.ResourceSets.On_ClassicPlayerResourcesDisplaySet.DrawLife += ClassicPlayerResourcesDisplaySet_DrawLife;
+            Terraria.GameContent.UI.ResourceSets.On_FancyClassicPlayerResourcesDisplaySet.DrawLifeBar += FancyClassicPlayerResourcesDisplaySet_DrawLifeBar;
+            Terraria.GameContent.UI.ResourceSets.On_HorizontalBarsPlayerResourcesDisplaySet.Draw += HorizontalBarsPlayerReosurcesDisplaySet_Draw;
+            Terraria.GameContent.UI.ResourceSets.On_PlayerStatsSnapshot.ctor += PlayerStatsSnapshot_ctor;
         }
 
-        private static void PlayerStatsSnapshot_ctor(On.Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot.orig_ctor orig, ref Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot self, Player player)
+        private static void PlayerStatsSnapshot_ctor(Terraria.GameContent.UI.ResourceSets.On_PlayerStatsSnapshot.orig_ctor orig, ref Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot self, Player player)
         {
             if (!Enabled)
             {
@@ -72,7 +72,7 @@ namespace RiskOfTerrain.UI
             }
         }
 
-        private static void HorizontalBarsPlayerReosurcesDisplaySet_Draw(On.Terraria.GameContent.UI.ResourceSets.HorizontalBarsPlayerReosurcesDisplaySet.orig_Draw orig, Terraria.GameContent.UI.ResourceSets.HorizontalBarsPlayerReosurcesDisplaySet self)
+        private static void HorizontalBarsPlayerReosurcesDisplaySet_Draw(Terraria.GameContent.UI.ResourceSets.On_HorizontalBarsPlayerResourcesDisplaySet.orig_Draw orig, Terraria.GameContent.UI.ResourceSets.HorizontalBarsPlayerResourcesDisplaySet self)
         {
             if (!Enabled)
             {
@@ -153,7 +153,7 @@ namespace RiskOfTerrain.UI
             }
         }
 
-        private static void FancyClassicPlayerResourcesDisplaySet_DrawLifeBar(On.Terraria.GameContent.UI.ResourceSets.FancyClassicPlayerResourcesDisplaySet.orig_DrawLifeBar orig, Terraria.GameContent.UI.ResourceSets.FancyClassicPlayerResourcesDisplaySet self, SpriteBatch spriteBatch)
+        private static void FancyClassicPlayerResourcesDisplaySet_DrawLifeBar(Terraria.GameContent.UI.ResourceSets.On_FancyClassicPlayerResourcesDisplaySet.orig_DrawLifeBar orig, Terraria.GameContent.UI.ResourceSets.FancyClassicPlayerResourcesDisplaySet self, SpriteBatch spriteBatch)
         {
             if (!Enabled)
             {
@@ -235,7 +235,7 @@ namespace RiskOfTerrain.UI
             }
         }
 
-        private static void ClassicPlayerResourcesDisplaySet_DrawLife(On.Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet.orig_DrawLife orig, Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet self)
+        private static void ClassicPlayerResourcesDisplaySet_DrawLife(Terraria.GameContent.UI.ResourceSets.On_ClassicPlayerResourcesDisplaySet.orig_DrawLife orig, Terraria.GameContent.UI.ResourceSets.ClassicPlayerResourcesDisplaySet self)
         {
             if (!Enabled)
             {

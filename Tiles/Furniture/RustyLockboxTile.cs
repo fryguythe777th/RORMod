@@ -5,6 +5,7 @@ using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Items.Placeable;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Tiles.Furniture
@@ -44,11 +45,9 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override void AddMapEntries()
         {
-            var name = CreateMapEntryName();
-            AddMapEntry(Color.Brown, name, MapChestName);
+            AddMapEntry(Color.Brown, Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}"), MapChestName);
 
-            name = CreateMapEntryName(Name + "Locked");
-            AddMapEntry(Color.Brown, name, MapChestName);
+            AddMapEntry(Color.Brown, Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}Locked"), MapChestName);
         }
 
         public override void SetStaticDefaults()
@@ -58,7 +57,7 @@ namespace RiskOfTerrain.Tiles.Furniture
             Main.tileLighted[Type] = true;
 
             DustType = DustID.Iron;
-            ChestDrop = ModContent.ItemType<RustyLockbox>();
+            ItemDrop = ModContent.ItemType<RustyLockbox>();
         }
 
         public override bool CheckLocked(int i, int j, int left, int top, Player player)
@@ -70,7 +69,7 @@ namespace RiskOfTerrain.Tiles.Furniture
         {
             if (Chest.IsLocked(left, top))
                 return ModContent.ItemType<RustedKey>();
-            return ChestDrop;
+            return ItemDrop;
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

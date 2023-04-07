@@ -57,7 +57,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
             }
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (victim.entity is Player player)
             {

@@ -75,7 +75,7 @@ namespace RiskOfTerrain.Content.Elites
             projectile.timeLeft = 2;
         }
 
-        public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+        public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         {
             if (active)
             {

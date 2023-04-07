@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
             player.ROR().maxShield += 0.5f;
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (victim.entity is NPC npc && entity.entity is Player player && projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>() && !projectile.ROR().spawnedFromElite && !npc.friendly)
             {

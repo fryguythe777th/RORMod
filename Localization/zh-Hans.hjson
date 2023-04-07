@@ -1,309 +1,406 @@
+
 Mods: {
 	RiskOfTerrain: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
 
-		ItemName: {
-			Warbanner: 战旗
-			BustlingFungus: 爆裂真菌
-			TopazBrooch: 黄晶胸针
-			PersonalShieldGenerator: 个人护盾生成器
-			PaulsGoatHoof: 保罗的山羊蹄
-			CautiousSlug: 谨慎的蛞蝓
-			TougherTimes: 更艰难的时光
-			MonsterTooth: 怪物牙齿
-			Medkit: 医疗包
-			SoldiersSyringe: 士兵的注射器
-			TriTipDagger: 三尖匕首
-			RepulsionArmorPlate: 推斥护甲板
-			ArmorPiercingRounds: 穿甲弹
-			OddlyShapedOpal: 造型奇特的欧珀
-			LensMakersGlasses: 透镜制作者的眼镜
-			RollOfPennies: 一卷便士
-			StickyExplosives: 黏弹
-			BackupMagazine: 备用弹匣
-			BundleOfFireworks: 一捆烟花
-			Crowbar: 撬棍
-			DelicateWatch: 精致的手表
-			StunGrenade: 眩晕手雷
-			Gasoline: 汽油
-			FocusCrystal: 凝神水晶
+		Items: {
+			BlazingAspect: {
+				// DisplayName: Ifrit's Distinction
+				/* Tooltip:
+					'''
+					Become an aspect of fire
+					Leave behind a fiery trail
+					''' */
+			}
 
-			WillOTheWisp: 鬼火
-			WaxQuail: 蜡鹌鹑
-			WarHorn: 战争号角
-			RoseBuckler: 玫瑰壁垒
-			OldGuillotine: 老旧断头台
-			RunaldsBand: Runald的手环
-			KjarosBand: Kjaro的手环
-			Infusion: 注入物
-			BerzerkersPauldron: 狂战肩甲
-			Bandolier: 备用弹夹
-			Razorwire: 铁丝网
-			GhorsTome: Ghor的典籍
-			AtGMissileMk1: AtG导弹MK.1
-			DeathMark: 死亡标记
-			ReloadingShurikens: 再装填手里剑
-			HarvestersScythe: 收割者镰刀
+			CelestineAspect: {
+				// DisplayName: Spectral Circlet
+				/* Tooltip:
+					'''
+					Become an aspect of incorporeality
+					Make allies around you invisible to the eye
+					Slow enemies on hit
+					''' */
+			}
 
-			SoulboundCatalyst: 缚魂催化剂
-			Aegis: 庇护
-			DiosBestFriend: 迪奥最好的朋友
-
-			Shatterspleen: 易爆的脾脏
-
-			BisonSteak: 野牛肉排
-			RustedKey: 生锈的钥匙
-			PowerElixir: 强力药剂
-			
-			Chaos: 混沌神器
-			Command: 统率神器
-			Death: 死亡神器
-			Dissonance: 纷争神器
-			Enigma: 谜团神器
-			Evolution: 进化神器
-			WeakAssKnees: 脆弱神器
-			Glass: 玻璃神器
-			Honor: 荣耀神器
-			Kin: 亲族神器
-			Metamorphosis: 质变神器
-			Sacrifice: 牺牲神器
-			Soul: 灵魂神器
-			Spite: 恶意神器
-			Swarms: 虫群神器
-			Vengance: 复仇神器
-		}
-
-		ItemTooltip: {
-			Warbanner: 
-				'''
-				在击败15个敌人或降低25%Boss的生命值时在你的身后放置一面旗帜
-				旗帜会存在1分钟, 当你位于旗帜的光环内时会获得速度属性加成
-				'''
-			TopazBrooch: 在击败一名敌人时会获得15点临时的生命屏障
-			PersonalShieldGenerator: 
-				'''
-				获得一个相当于你最大生命值12%的护盾
-				该护盾会在你未受到伤害5秒后重新充能
-				'''
-			PaulsGoatHoof: 增加水平和垂直移动速度
-			TougherTimes: 有10%的几率闪避攻击
-			MonsterTooth:
-				'''
-				在击败一名敌人时会掉落一颗治疗球
-				恢复8点外加等同于最大生命值2%的生命值
-				'''
-			SoldiersSyringe:
-				'''
-				增加12%攻击速度
-				伤害降低12%
-				'''
-			TriTipDagger: 有10%的几率使敌人流血
-			RepulsionArmorPlate: 减益造成的伤害减少5点
+			OverloadingAspect: {
+				// DisplayName: Silence Between Two Strikes
+				/* Tooltip:
+					'''
+					Become an aspect of lightning
+					Half of your health is replaced by regenerating shield
+					Attach a lightning bomb to enemies on hit, which explodes after time
+					''' */
+			}
 
 			ArmorPiercingRounds: {
-				$parentVal: 对Boss敌人造成的伤害增加10%
-				TerminalTooltip: "对Boss敌人造成的伤害增加[0:10%]. 拥有[3:红色生命栏]的Boss和敌人会算作Boss."
-				TerminalLore: 订单: 穿甲弹, 50mm
+				// DisplayName: Armor Piercing Rounds
+				// Tooltip: 10% increased damage against bosses
 			}
+
 			BackupMagazine: {
-				$parentVal: 10%几率不消耗弹药
-				KeybindTooltip: 允许你使用{Keybind}来切换要使用的弹药
-				TerminalTooltip: "[2:10%]几率不消耗弹药. 允许你使用[2:{Keybind}]来[2:切换要使用的弹药]"
-				TerminalLore: 订单: 弹药盒, 标准弹药[45mm弹药]
+				// DisplayName: Backup Magazine
+				// Tooltip: 10% chance to not consume ammo
+				// KeybindTooltip: Allows you to swap between ammunitions using {Keybind}
 			}
+
 			BundleOfFireworks: {
-				$parentVal: 在击败一名敌人时会释放一个追踪烟花
-				TerminalTooltip: "在击败一名敌人时会释放一个[0:追踪烟花]. Deals 造成致死伤害的[0:50%]. 上限为[0:200]点伤害."
-				TerminalLore: 
-					'''
-					'嘿, 周年纪念快乐!
-
-					你真的以为我忘了?
-
-					你可以闭上眼睛. 听着. 啊 - 它在这! 在五...四...三...二...一...!'
-					'''
+				// DisplayName: Bundle Of Fireworks
+				// Tooltip: ""
 			}
+
 			BustlingFungus: {
-				$parentVal: 当站定不动时会治疗附近的队友
-				TerminalTooltip: "当站定不动时, 在[1:8.75格物块]的范围内创造一个增加附近队友最大生命值的[1:7.5%][1:生命恢复速度]的领域."
-				TerminalLore: 
-					'''
-					'你有一个问题.'
-
-					'什么? 怎么可能? 这些对我有好处, 它们...'
-
-					'是的, 它们有助于促进细胞修复, 碳平衡, 等等之类的...我已听过那套说辞一千次了. 不管它们对你有没有好处, 你不能只吃它们. 这是基础饮食科学!'
-					'''
+				// DisplayName: Bustling Fungus
+				// Tooltip: ""
 			}
+
 			CautiousSlug: {
-				$parentVal: 未处于战斗状态时会增加生命恢复速度
-				TerminalTooltip: "增加[1:25]点[1:生命恢复速度].当一名敌人离你[2:62.5格水平距离]或[2:31.25格垂直距离]并且可以攻击你时, 它会[1:隐藏]. 需要[1:2]秒来停止隐藏."
-				TerminalLore: 要记住, 有动物为伴最重要的一点是, 你们的关系建立在信任的基础上. 尽管人类具有敏锐的洞察力, 但我们往往被我们所看到的蒙蔽了双眼——我们忽视了隐藏在我们视野之外的危险. 动物和其他异种生物可以感知我们无法感知的东西.
+				// DisplayName: Cautious Slug
+				// Tooltip: ""
 			}
+
 			Crowbar: {
-				$parentVal: 对生命值超过90%的敌人造成的伤害增加25%
-				TerminalTooltip: "对生命值超过[0:90%]的敌人造成的伤害增加[0:25%]."
-				TerminalLore:
-					'''
-					'嘿, 扔给我一根撬棍?'
-
-					杰西走向工具箱, 四处翻找. 她从集装箱里拿出一根撬棍, 走向詹姆斯.
-
-					'谢谢', 试图撬开宝箱的他咕哝着.
-					'''
+				// DisplayName: Crowbar
+				// Tooltip: ""
 			}
+
 			DelicateWatch: {
-				$parentVal: 生命值超过50%时伤害增加8%
-				TerminalTooltip: "生命值超过[0:50%]时伤害增加[0:8%]."
-				TerminalLore: 风吹过平原. 两名士兵在例行巡逻中跋涉前行, 用随意的谈话来填补他们的无聊. '嗯. 嘿, 雪莉, 我有给你看过我的新Patex吗?' 昆顿自言自语着. 雪莉向他投去一个疑惑的目光. '告诉我, 你没有带一块价值75000美元的手表去一个危险的未知地区探险...'
+				// DisplayName: Delicate Watch
+				// Tooltip: ""
 			}
+
 			FocusCrystal: {
-				$parentVal: 附近的敌人会受到25%额外伤害
-				TerminalTooltip: "[0:15格物块]范围内的敌人会受到[0:25%]额外伤害."
-				TerminalLore: 订单: 凝聚态物质晶体 [50kg, 10cm × 10cm × 10cm]
+				// DisplayName: Focus Crystal
+				// Tooltip: ""
 			}
+
 			Gasoline: {
-				$parentVal: 在击败一名敌人时会点燃附近的其他敌人
-				TerminalTooltip: 在击败一名敌人时会[0:点燃][0:5格物块]范围内的敌人, 爆炸造成[0:150%]伤害. 对附近所有敌人造成[0:50%]伤害.
-				TerminalLore: 订单: 凝聚态物质晶体 [50kg, 10cm × 10cm × 10cm]
+				// DisplayName: Gasoline
+				// Tooltip: ""
 			}
+
 			LensMakersGlasses: {
-				$parentVal: 增加5%暴击率
-				TerminalTooltip: "增加[0:5%]暴击率"
-				TerminalLore:
-					'''
-					...我没有看到的是, 这个魔像正把激光对准我的背部. 我勉强躲开了它——纯粹是运气好——但爆炸把我打倒在地. 我的眼镜从脸上掉下来, 我仰面躺着, 目瞪口呆, 几乎无法理解自己...
-
-					我伸手去拿我的眼镜, 把它举到我的眼睛前, 这样我就可以看到了, 砰! 发射我最后的子弹.
-
-					而且, 嗯...我想我设法击中了它头部的重要部位. 在红色石头和玻璃中爆炸. 之后它就停止了移动.
-
-					如果不是因为那个射击, 我不会在这里讲述这个故事.'
-					'''
+				// DisplayName: Lens-Makers Glasses
+				// Tooltip: ""
 			}
+
 			Medkit: {
-				$parentVal:
-					'''
-					在受到伤害时会在短暂延迟后恢复生命值
-					恢复20点外加等同于最大生命值15%的生命值
-					'''
-				TerminalTooltip: "命中时会获得[1:2]秒的增益. 当增益消失时, 恢复[1:20]点外加等同于最大生命值[1:15%]的生命值."
-				TerminalLore: 
-					'''
-					'我建议你呆在家里休息.'
-
-					机器人正在和一个瘦削但强壮的高个子男人说话. '我很想去, 但我们的食物快用完了.' 尽管他的表情隐藏在他的蓝色战斗头盔下面, 但很明显这个人非常疲劳.' 其他人都在从昨晚的袭击中恢复过来. 如果没有执法人员, 我们可能不会——'
-
-					'我建议你呆在家里休息.'
-					'''
+				// DisplayName: Medkit
+				// Tooltip: ""
 			}
+
+			MonsterTooth: {
+				// DisplayName: Monster Tooth
+				// Tooltip: ""
+			}
+
 			OddlyShapedOpal: {
-				$parentVal:
-					'''
-					所受伤害降低
-					命中时, 该效果会获得5秒的冷却时间
-					'''
-				TerminalTooltip: "所受伤害降低[1:50%]. 命中时, 该效果会获得[1:5]秒的冷却时间"
-				TerminalLore: This is just a test 6st.
+				// DisplayName: Oddly-Shaped Opal
+				// Tooltip: ""
 			}
+
+			PaulsGoatHoof: {
+				// DisplayName: Paul's Goat Hoof
+				// Tooltip: ""
+			}
+
+			PersonalShieldGenerator: {
+				// DisplayName: Personal Shield Generator
+				// Tooltip: ""
+			}
+
+			RepulsionArmorPlate: {
+				// DisplayName: Repulsion Armor Plate
+				// Tooltip: ""
+			}
+
 			RollOfPennies: {
-				$parentVal: 受到伤害时会获得钱币
-				TerminalTooltip: "在伤害[0:来自一名敌人的伤害]时会获得[2:50铜币]."
-				TerminalLore: ggs.
+				// DisplayName: Roll of Pennies
+				// Tooltip: ""
 			}
+
+			SoldiersSyringe: {
+				// DisplayName: Soldier's Syringe
+				// Tooltip: ""
+			}
+
 			StickyExplosives: {
-				$parentVal: 有10%的几率对敌人使用一颗粘性炸弹
-				TerminalTooltip: "有[0:10%]的几率对敌人使用一颗总计造成[0:50%]伤害的[0:粘性炸弹]."
-				TerminalLore: ggs..
+				// DisplayName: Sticky Explosives
+				// Tooltip: ""
 			}
 
-			StunGrenade: 10%几率产生会降低防御的烟雾包围敌人
-
-			AtGMissileMk1: 命中一名敌人时有10%的几率发射一个导弹
-			DeathMark: 拥有4个及以上减益的敌人会受到10%的额外伤害
-
-				ReloadingShurikens: {
-				$parentVal:
-					'''
-					当你攻击时会向敌人发射手里剑
-					会随着时间流逝而重新装填
-					'''
-				TerminalTooltip: "当你[2:攻击时]会向敌人发射会造成你[2:手持武器]的[0:200%]伤害的[0:手里剑]. [0:手里剑]每过[0:2]秒便会重新装载一个."
-				TerminalLore: ggs....
+			StunGrenade: {
+				// DisplayName: Stun Grenade
+				// Tooltip: ""
 			}
 
-			HarvestersScythe: 攻击造成暴击时会为你治疗12点生命值
-			Razorwire: 命中敌人时会发射造成160%武器伤害的剃刀
-			GhorsTome:
-				'''
-				被击败的敌人有10%几率掉落金块
-				金块会给予钱币
-				'''
+			TopazBrooch: {
+				// DisplayName: Topaz Brooch
+				// Tooltip: ""
+			}
 
-			Aegis: 
-				'''
-				所有受到的治疗的一半会用于织构一道屏障
-				屏障剩下的10%不会衰减
-				'''
-			DiosBestFriend: 
-				'''
-				骗过死亡, 使用后有10分钟的冷却时间
-				'请让我活得再长一点 - 我也需要'
-				'''
+			TougherTimes: {
+				// DisplayName: Tougher Times
+				// Tooltip: ""
+			}
 
-			Shatterspleen:
-				'''
-				增加5%暴击率
-				攻击造成暴击时会使敌人流血
-				流血的敌人将会在死亡时血腥的爆炸
-				'''
+			TriTipDagger: {
+				// DisplayName: Tri-Tip Dagger
+				// Tooltip: ""
+			}
 
-			BisonSteak: "{$CommonItemTooltip.MajorStats}"
-			RustedKey: 打开生锈的锁盒
-			PowerElixir: 
-				'''
-				受到小于50%生命值的伤害时会自动消耗
-				延长抗药性的时间
-				'''
+			Warbanner: {
+				// DisplayName: Warbanner
+				// Tooltip: ""
+			}
 
-			Chaos: 玩家和怪物均启用友军误伤
-			Command: 选择你的物品
-			Death: 当一个玩家死亡时, 所有人都会死亡
-			Dissonance: 怪物可以出现在它们的常规环境之外
-			Enigma: 你的热键每3秒随机重新绑定一次
-			Evolution:
-				'''
-				怪物会在每个Boss被击败之后获得一件饰品
-				所有怪物的物品都会列在神器UI中
-				'''
-			WeakAssKnees: 跌落伤害加倍, 所有防止跌落伤害的饰品更弱
-			Glass: 造成500%的伤害, 但仅有10%生命值
-			Honor: 敌人只会以精英敌人的形式生成
-			Kin: 每一天的怪物只有一种类型
-			Metamorphosis:
-				'''
-				??? 
-				'''
-			Sacrifice:
-				'''
-				怪物在死亡时掉落宝箱战利品
-				但宝箱不会再与世界一同生成
-				'''
-			Soul: 敌人会从被击败的敌人中生成
-			Spite: 怪物死亡时会释放多枚手榴弹
-			Swarms: 怪物的生成数量翻倍, 但最大生命值减半
-			Vengance:
-				'''
-				???
-				'''
+			AtGMissileMk1: {
+				// DisplayName: AtG Missile Mk1
+				// Tooltip: ""
+			}
+
+			Bandolier: {
+				// DisplayName: Bandolier
+				// Tooltip: ""
+			}
+
+			BerzerkersPauldron: {
+				// DisplayName: Berzerker's Pauldron
+				// Tooltip: ""
+			}
+
+			Chronobauble: {
+				// DisplayName: Chronobauble
+				// Tooltip: ""
+			}
+
+			DeathMark: {
+				// DisplayName: Death Mark
+				// Tooltip: ""
+			}
+
+			Death: {
+				// DisplayName: Death
+				// Tooltip: ""
+			}
+
+			FuelCell: {
+				// DisplayName: Fuel Cell
+				// Tooltip: ""
+			}
+
+			GhorsTome: {
+				// DisplayName: Ghor's Tome
+				// Tooltip: ""
+			}
+
+			HarvestersScythe: {
+				// DisplayName: Harvester's Scythe
+				// Tooltip: ""
+			}
+
+			HopooFeather: {
+				// DisplayName: Hopoo Feather
+				// Tooltip: ""
+			}
+
+			HuntersHarpoon: {
+				// DisplayName: Hunter's Harpoon
+				// Tooltip: ""
+			}
+
+			IgnitionTank: {
+				// DisplayName: Ignition Tank
+				// Tooltip: ""
+			}
+
+			Infusion: {
+				// DisplayName: Infusion
+				// Tooltip: ""
+			}
+
+			KjarosBand: {
+				// DisplayName: Kjaro's Band
+				// Tooltip: ""
+			}
+
+			LeechingSeed: {
+				// DisplayName: Leeching Seed
+				// Tooltip: ""
+			}
+
+			LeptonDaisy: {
+				// DisplayName: Lepton Daisy
+				// Tooltip: ""
+			}
+
+			OldWarStealthkit: {
+				// DisplayName: Old War Stealthkit
+				// Tooltip: ""
+			}
+
+			PredatoryInstincts: {
+				// DisplayName: Predatory Instincts
+				// Tooltip: ""
+			}
+
+			Razorwire: {
+				// DisplayName: Razorwire
+				// Tooltip: ""
+			}
+
+			RedWhip: {
+				// DisplayName: Red Whip
+				// Tooltip: ""
+			}
+
+			ReloadingShurikens: {
+				// DisplayName: Reloading Shurikens
+				// Tooltip: ""
+			}
+
+			RoseBuckler: {
+				// DisplayName: Rose Buckler
+				// Tooltip: ""
+			}
+
+			RunaldsBand: {
+				// DisplayName: Runald's Band
+				// Tooltip: ""
+			}
+
+			Ukulele: {
+				// DisplayName: Ukulele
+				// Tooltip: ""
+			}
+
+			WarHorn: {
+				// DisplayName: War Horn
+				// Tooltip: ""
+			}
+
+			WaxQuail: {
+				// DisplayName: Wax Quail
+				// Tooltip: ""
+			}
+
+			WillOTheWisp: {
+				// DisplayName: Will O' the Wisp
+				// Tooltip: ""
+			}
+
+			Aegis: {
+				// DisplayName: Aegis
+				// Tooltip: ""
+			}
+
+			BrilliantBehemoth: {
+				// DisplayName: Brilliant Behemoth
+				// Tooltip: ""
+			}
+
+			DiosBestFriend: {
+				// DisplayName: Dio's Best Friend
+				// Tooltip: ""
+			}
+
+			SacrificialDagger: {
+				// DisplayName: Sacrificial Dagger
+				// Tooltip: ""
+			}
+
+			ShatteringJustice: {
+				// DisplayName: Shattering Justice
+				// Tooltip: ""
+			}
+
+			Shatterspleen: {
+				// DisplayName: Shatterspleen
+				// Tooltip: ""
+			}
+
+			Chaos: {
+				// DisplayName: Chaos
+				// Tooltip: ""
+			}
+
+			Dissonance: {
+				// DisplayName: Dissonance
+				// Tooltip: ""
+			}
+
+			Enigma: {
+				// DisplayName: Enigma
+				// Tooltip: ""
+			}
+
+			Glass: {
+				// DisplayName: Glass
+				// Tooltip: ""
+			}
+
+			Soul: {
+				// DisplayName: Soul
+				// Tooltip: ""
+			}
+
+			Spite: {
+				// DisplayName: Spite
+				// Tooltip: ""
+			}
+
+			WeakAssKnees: {
+				// DisplayName: Glass
+				// Tooltip: ""
+			}
+
+			BisonSteak: {
+				// DisplayName: Bison Steak
+				// Tooltip: ""
+			}
+
+			PowerElixir: {
+				// DisplayName: Power Elixir
+				// Tooltip: ""
+			}
+
+			RustedKey: {
+				// DisplayName: Rusted Key
+				// Tooltip: ""
+			}
+
+			LargeChest: {
+				// DisplayName: Large Chest
+				// Tooltip: ""
+			}
+
+			RustyLockbox: {
+				// DisplayName: Rusty Lockbox
+				// Tooltip: ""
+			}
+
+			SecurityChest: {
+				// DisplayName: Security Chest
+				// Tooltip: ""
+			}
+
+			EliteSpawner: {
+				// DisplayName: Elite Spawner
+				// Tooltip: ""
+			}
 		}
-		
+
 		BuffName: {
 			ShurikenBuff: Reloading Shurikens
 			BustlingFungusBuff: 爆裂真菌
 			DiosCooldown: 迪奥最好的朋友
 			WarbannerBuff: 战旗
 			MedkitBuff: 医疗包
+			// BandolierBuff: Bandolier
+			// BerzerkerBuff: War Cry
+			// PredatoryInstinctsBuff: Instinctual Rage
+			// WarHornBuff: Energized
+			// HuntersHarpoonBuff: Kill Move Speed
 		}
 
 		BuffDescription: {
@@ -312,10 +409,11 @@ Mods: {
 			DiosCooldown: 你无法使用迪奥最好的朋友来起死回生!
 			WarbannerBuff: 增加移动速度和武器攻速
 			MedkitBuff: 此增益消失时会为你恢复少量生命值
-		}
-
-		ProjectileName: {
-			ShatterspleenExplosion: 易爆的脾脏
+			// BandolierBuff: 100% reduced ammo consumption
+			// BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
+			// PredatoryInstinctsBuff: 20% increased attack speed
+			// WarHornBuff: 70% increased attack speed
+			// HuntersHarpoonBuff: Increased running speed
 		}
 
 		Announcements: {
@@ -324,9 +422,7 @@ Mods: {
 			ArtifactDisabled: "{1}禁用了{0}!"
 		}
 
-		DeathReason: {
-			DeathArtifact: "{1}已被由{0}激活的死亡神器击杀."
-		}
+		DeathReason.DeathArtifact: "{1}已被由{0}激活的死亡神器击杀."
 
 		Terminal: {
 		}
@@ -353,42 +449,35 @@ Mods: {
 			Pillars: 天界之缚
 		}
 
-		Containers: {
-			RustyLockboxTile: 锈蚀锁盒
-			SecurityChestTile: 保险箱
-		}
-
 		MapObject: {
 			RustyLockboxTile: 锈蚀锁盒
 			RustyLockboxTileLocked: 上锁的锈蚀锁盒
 			SecurityChestTile: 保险箱
 			SecurityChestTileLocked: 上锁的保险箱
+			// LargeChestTile: Large Chest
+			// LargeChestTileLocked: Large Security Chest
 		}
 
 		Configuration: {
 			EnemyHB: 敌人生命栏
-			EnemyHBTooltip: 
+			EnemyHBTooltip:
 				'''
 				设置生命栏的状态.
 				不要将此与Boss生命栏混淆, 这是普通的 生命栏
 				当NPC受伤时会绘制在NPC下方!
 				'''
-
 			NPCDrawBuff: 绘制Buffs
 			NPCDrawBuffTooltip: 决定是否在NPC的上方绘制Buffs
 			NPCDrawBuff_All: > 绘制所有Buffs
 			NPCDrawBuff_AllTooltip: 不会渲染没有Buffs的特殊UI材质.
-
 			PlayerHealthbarOverlay: 玩家生命栏覆盖
 			PlayerHealthbarOverlayTooltip: 是否启用玩家生命栏覆盖, 如果你有一个修改原版生命栏UI的Mod, 请禁用此选项
-
 			BossHealthbarActive: Boss生命栏状态
-			BossHealthbarActiveTooltip: 
+			BossHealthbarActiveTooltip:
 				'''
 				设置Boss生命栏的状态. 
 				'Enabled_AlwaysUse'会强制使用生命栏, 即使Boss有专门的生命栏.
 				'''
-
 			BossHealthbarBottom: Boss生命栏: 置于底部
 			BossHealthbarBottomTooltip: 将生命栏置于屏幕底部而非顶部
 		}
@@ -401,9 +490,132 @@ Mods: {
 		MalachiteElite: 孔雀石
 		CelestineElite: 天青石
 		PerfectedElite: 完美的
-
 		UnboundKey: 未绑定的按键
 		Revived: 恢复!
 		Blocked: 格挡!
+		// "Keybinds.Backup Magazine Swap.DisplayName": Mods.RiskOfTerrain.Keybinds.Backup Magazine Swap.DisplayName
+
+		Buffs: {
+			BandolierBuff: {
+				// DisplayName: Bandolier Buff
+				// Description: Mods.RiskOfTerrain.Buffs.BandolierBuff.Description
+			}
+
+			BerzerkerBuff: {
+				// DisplayName: Berzerker Buff
+				// Description: Mods.RiskOfTerrain.Buffs.BerzerkerBuff.Description
+			}
+
+			BustlingFungusBuff: {
+				// DisplayName: Bustling Fungus Buff
+				// Description: Mods.RiskOfTerrain.Buffs.BustlingFungusBuff.Description
+			}
+
+			CelestineInvis: {
+				// DisplayName: Celestine Invis
+				// Description: Mods.RiskOfTerrain.Buffs.CelestineInvis.Description
+			}
+
+			CelestineSlow: {
+				// DisplayName: Celestine Slow
+				// Description: Mods.RiskOfTerrain.Buffs.CelestineSlow.Description
+			}
+
+			BleedingDebuff: {
+				// DisplayName: Bleeding Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.BleedingDebuff.Description
+			}
+
+			ChronobaubleDebuff: {
+				// DisplayName: Chronobauble Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.ChronobaubleDebuff.Description
+			}
+
+			DeathMarkDebuff: {
+				// DisplayName: Death Mark Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.DeathMarkDebuff.Description
+			}
+
+			DiosCooldown: {
+				// DisplayName: Dios Cooldown
+				// Description: Mods.RiskOfTerrain.Buffs.DiosCooldown.Description
+			}
+
+			RunaldFreeze: {
+				// DisplayName: Runald Freeze
+				// Description: Mods.RiskOfTerrain.Buffs.RunaldFreeze.Description
+			}
+
+			ShatteredDebuff: {
+				// DisplayName: Shattered Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.ShatteredDebuff.Description
+			}
+
+			StunGrenadeDebuff: {
+				// DisplayName: Stun Grenade Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.StunGrenadeDebuff.Description
+			}
+
+			HuntersHarpoonBuff: {
+				// DisplayName: Hunters Harpoon Buff
+				// Description: Mods.RiskOfTerrain.Buffs.HuntersHarpoonBuff.Description
+			}
+
+			MedkitBuff: {
+				// DisplayName: Medkit Buff
+				// Description: Mods.RiskOfTerrain.Buffs.MedkitBuff.Description
+			}
+
+			PredatoryInstinctsBuff: {
+				// DisplayName: Predatory Instincts Buff
+				// Description: Mods.RiskOfTerrain.Buffs.PredatoryInstinctsBuff.Description
+			}
+
+			ShurikenBuff: {
+				// DisplayName: Shuriken Buff
+				// Description: Mods.RiskOfTerrain.Buffs.ShurikenBuff.Description
+			}
+
+			WarbannerBuff: {
+				// DisplayName: Warbanner Buff
+				// Description: Mods.RiskOfTerrain.Buffs.WarbannerBuff.Description
+			}
+
+			WarHornBuff: {
+				// DisplayName: War Horn Buff
+				// Description: Mods.RiskOfTerrain.Buffs.WarHornBuff.Description
+			}
+		}
+
+		Projectiles: {
+			// EliteSpawningProj.DisplayName: Elite Spawning Proj
+			// AtGMissileExplosion.DisplayName: At G Missile Explosion
+			// AtGMissileProj.DisplayName: At G Missile Proj
+			// BandolierProj.DisplayName: Bandolier Proj
+			// BehemothExplosion.DisplayName: Behemoth Explosion
+			// BustlingFungusProj.DisplayName: Bustling Fungus Proj
+			// CelestineProj.DisplayName: Celestine Proj
+			// DeathMarkProj.DisplayName: Death Mark Proj
+			// DioRevive.DisplayName: Dio Revive
+			// FireworksProj.DisplayName: Fireworks Proj
+			// FireworksSpawner.DisplayName: Fireworks Spawner
+			// FocusCrystalProj.DisplayName: Focus Crystal Proj
+			// GasolineProj.DisplayName: Gasoline Proj
+			// GhorsTomeProj.DisplayName: Ghors Tome Proj
+			// MonsterToothProj.DisplayName: Monster Tooth Proj
+			// OverloadingBomb.DisplayName: Overloading Bomb
+			// RazorwireProj.DisplayName: Razorwire Proj
+			// ReloadingShurikenProj.DisplayName: Reloading Shuriken Proj
+			// RunaldsBandExplosion.DisplayName: Runalds Band Explosion
+			// RunaldsBandShard.DisplayName: Runalds Band Shard
+			// SacrificialProj.DisplayName: Sacrificial Proj
+			// ShatterspleenExplosion.DisplayName: Shatterspleen Explosion
+			// StickyExplosivesExplosion.DisplayName: Sticky Explosives Explosion
+			// StickyExplosivesProj.DisplayName: Sticky Explosives Proj
+			// StunGrenadeProj.DisplayName: Stun Grenade Proj
+			// WarbannerProj.DisplayName: Warbanner Proj
+			// WilloExplosion.DisplayName: Willo Explosion
+			// ProjectileName.ShatterspleenExplosion: Shatterspleen
+		}
 	}
 }

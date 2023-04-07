@@ -70,8 +70,8 @@ namespace RiskOfTerrain.Graphics
         }
         private void LoadHooks()
         {
-            On.Terraria.Main.DoDraw_UpdateCameraPosition += Main_DoDraw_UpdateCameraPosition;
-            On.Terraria.Main.DrawDust += Hook_OnDrawDust;
+            Terraria.On_Main.DoDraw_UpdateCameraPosition += Main_DoDraw_UpdateCameraPosition;
+            Terraria.On_Main.DrawDust += Hook_OnDrawDust;
         }
 
         public override void Unload()
@@ -102,7 +102,7 @@ namespace RiskOfTerrain.Graphics
             Main.screenPosition += Shake.GetScreenOffset() * ClientConfig.Instance.ScreenShake;
         }
 
-        private static void Main_DoDraw_UpdateCameraPosition(On.Terraria.Main.orig_DoDraw_UpdateCameraPosition orig)
+        private static void Main_DoDraw_UpdateCameraPosition(Terraria.On_Main.orig_DoDraw_UpdateCameraPosition orig)
         {
             orig();
             foreach (var r in Renderers)
@@ -112,7 +112,7 @@ namespace RiskOfTerrain.Graphics
             }
         }
 
-        private static void Hook_OnDrawDust(On.Terraria.Main.orig_DrawDust orig, Main self)
+        private static void Hook_OnDrawDust(Terraria.On_Main.orig_DrawDust orig, Main self)
         {
             orig(self);
             try

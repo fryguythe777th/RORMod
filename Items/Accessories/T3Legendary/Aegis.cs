@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.RedTier.Add(Type);
         }
 

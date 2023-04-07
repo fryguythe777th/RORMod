@@ -10,7 +10,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add(Type);
         }
 

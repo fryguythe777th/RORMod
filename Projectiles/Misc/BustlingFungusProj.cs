@@ -194,7 +194,7 @@ namespace RiskOfTerrain.Projectiles.Misc
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.instance.PrepareDrawnEntityDrawing(Projectile, Main.player[Projectile.owner].ROR().cBungus);
+            Main.instance.PrepareDrawnEntityDrawing(Projectile, Main.player[Projectile.owner].ROR().cBungus, null);
             DrawAura(Projectile.Center - Main.screenPosition, Projectile.scale, Projectile.Opacity, ModContent.Request<Texture2D>(Texture + "Aura").Value, TextureAssets.Projectile[Type].Value);
             var fungus = ModContent.Request<Texture2D>($"{Texture}Fungus", AssetRequestMode.ImmediateLoad).Value;
             foreach (var f in fungusInfo)

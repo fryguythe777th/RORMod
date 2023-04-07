@@ -19,10 +19,10 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         {
             HitColor = new Color(244, 105, 200, 255);
             HitColorCrit = HitColor * 1.4f;
-            On.Terraria.CombatText.NewText_Rectangle_Color_string_bool_bool += CombatText_NewText_Rectangle_Color_string_bool_bool;
+            Terraria.On_CombatText.NewText_Rectangle_Color_string_bool_bool += CombatText_NewText_Rectangle_Color_string_bool_bool;
         }
 
-        private static int CombatText_NewText_Rectangle_Color_string_bool_bool(On.Terraria.CombatText.orig_NewText_Rectangle_Color_string_bool_bool orig, Rectangle location, Color color, string text, bool dramatic, bool dot)
+        private static int CombatText_NewText_Rectangle_Color_string_bool_bool(Terraria.On_CombatText.orig_NewText_Rectangle_Color_string_bool_bool orig, Rectangle location, Color color, string text, bool dramatic, bool dot)
         {
             if (HitNPCForMakingDamageNumberPurpleHack != null && location.X == (int)HitNPCForMakingDamageNumberPurpleHack.position.X && location.Y == (int)HitNPCForMakingDamageNumberPurpleHack.position.Y)
             {
@@ -46,7 +46,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -95,11 +95,11 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             player.ROR().cFocusCrystal = dyeItem.dye;
         }
 
-        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
         {
             if (entity.entity.Distance(victim.entity.Hitbox.ClosestDistance(entity.entity.Center)) < 240f)
             {
-                damage = (int)(damage * (1f + 0.25f * Stacks));
+                modifiers.ScalingBonusDamage += 0.25f;
                 HitNPCForMakingDamageNumberPurpleHack = victim.entity;
             }
         }

@@ -46,7 +46,7 @@ namespace RiskOfTerrain.Items.Accessories
         {
         }
 
-        public virtual void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit)
+        public virtual void OnHitBy(EntityInfo entity, EntityInfo attacker, Player.HurtInfo info)
         {
         }
 
@@ -54,11 +54,11 @@ namespace RiskOfTerrain.Items.Accessories
         {
         }
 
-        public virtual void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
+        public virtual void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
         {
         }
 
-        public virtual void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public virtual void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
         }
 
@@ -66,7 +66,7 @@ namespace RiskOfTerrain.Items.Accessories
         {
         }
 
-        public virtual bool PreHurt(Player player, RORPlayer ror, bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public virtual bool FreeDodge(Player player, Player.HurtInfo info)
         {
             return true;
         }
@@ -80,7 +80,7 @@ namespace RiskOfTerrain.Items.Accessories
         {
         }
 
-        public virtual void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public virtual void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
         {
         }
 

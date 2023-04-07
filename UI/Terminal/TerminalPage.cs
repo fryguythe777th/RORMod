@@ -6,7 +6,7 @@ namespace RiskOfTerrain.UI.Terminal
 {
     public abstract class TerminalPage : UIElement
     {
-        public TerminalUIState terminal;
+        //public TerminalUIState terminal;
 
         public abstract void DrawPage(SpriteBatch spriteBatch, Texture2D texture, CalculatedStyle d, Rectangle rect);
     }

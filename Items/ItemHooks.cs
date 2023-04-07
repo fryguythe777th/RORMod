@@ -12,7 +12,7 @@ namespace RiskOfTerrain.Items
     {
         void ILoadable.Load(Mod mod)
         {
-            On.Terraria.Player.UpdateItemDye += IUpdateItemDye.Player_UpdateItemDye;
+            Terraria.On_Player.UpdateItemDye += IUpdateItemDye.Player_UpdateItemDye;
         }
 
 
@@ -33,7 +33,7 @@ namespace RiskOfTerrain.Items
             /// <param name="isSetToHidden"></param>
             /// <param name="armorItem">If you are an equipped item, this is you.</param>
             /// <param name="dyeItem">If you are a dye, this is you.</param>
-            internal static void Player_UpdateItemDye(On.Terraria.Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
+            internal static void Player_UpdateItemDye(Terraria.On_Player.orig_UpdateItemDye orig, Player self, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
             {
                 orig(self, isNotInVanitySlot, isSetToHidden, armorItem, dyeItem);
                 if (armorItem.ModItem is IUpdateItemDye armorDye)

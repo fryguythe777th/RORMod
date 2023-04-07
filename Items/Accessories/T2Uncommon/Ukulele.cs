@@ -13,7 +13,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add(Type);
         }
 
@@ -28,11 +28,11 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (Main.rand.NextBool(10) && victim.entity is NPC npc)
             {
-                RORNPC.UkuleleLightning(npc, (int)(damage * 0.8), 0);
+                RORNPC.UkuleleLightning(npc, (int)(hit.Damage * 0.8), 0);
 
                 if (Main.netMode != NetmodeID.Server)
                 {

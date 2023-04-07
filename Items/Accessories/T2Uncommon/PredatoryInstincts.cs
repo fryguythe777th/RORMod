@@ -10,7 +10,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add(Type);
         }
 
@@ -28,9 +28,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             player.GetCritChance(DamageClass.Generic) += 5;
         }
 
-        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (crit && entity.entity is Player player)
+            if (hit.Crit)
             {
                 player.AddBuff(ModContent.BuffType<PredatoryInstinctsBuff>(), 300);
             }

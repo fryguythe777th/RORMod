@@ -78,7 +78,7 @@ namespace RiskOfTerrain.Content
                 [NPCID.MoonLordHead] = new Vector2(0f, 70f),
                 [NPCID.MoonLordHand] = new Vector2(0f, 40f),
             };
-            On.Terraria.Main.DrawHealthBar += Main_DrawHealthBar;
+            Terraria.On_Main.DrawHealthBar += Main_DrawHealthBar;
         }
 
         public override void Unload()
@@ -131,7 +131,7 @@ namespace RiskOfTerrain.Content
                 * (npcContext.life / (float)npcContext.lifeMax)), MixedStyleBarFill.Value.Height), color, 0f, origin, scale, SpriteEffects.None, 0f);
         }
 
-        private static void Main_DrawHealthBar(On.Terraria.Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale, bool noFlip)
+        private static void Main_DrawHealthBar(Terraria.On_Main.orig_DrawHealthBar orig, Main self, float X, float Y, int Health, int MaxHealth, float alpha, float scale, bool noFlip)
         {
             var state = ClientConfig.Instance.EnemyHBState;
             if (npcContext == null || instanceContext == null)
@@ -234,7 +234,7 @@ namespace RiskOfTerrain.Content
                     if (!renderAll)
                         continue;
 
-                    if (npc.buffType[i] < Main.maxBuffTypes)
+                    if (npc.buffType[i] < BuffID.Count)
                     {
                         texture = RiskOfTerrain.VanillaTexture + "Buff_" + npc.buffType[i];
                     }

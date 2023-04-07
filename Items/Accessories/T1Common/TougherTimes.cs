@@ -12,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add((Type, () => NPC.downedBoss1));
         }
 
@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override bool PreHurt(Player player, RORPlayer ror, bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override bool FreeDodge(Player player, Player.HurtInfo info)
         {
             if (player.whoAmI == Main.myPlayer && player.RollLuck(10) == 0)
             {
@@ -36,9 +36,9 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 }
                 player.SetImmuneTimeForAllTypes(60);
                 DoDodgeEffect(player);
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         public static void DoDodgeEffect(Entity entity)

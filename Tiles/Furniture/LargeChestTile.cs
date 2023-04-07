@@ -45,7 +45,7 @@ namespace RiskOfTerrain.Tiles.Furniture
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            ChestDrop = ModContent.ItemType<LargeChest>();
+            ItemDrop = ModContent.ItemType<LargeChest>();
         }
 
         public override int CalculateChestPrice()

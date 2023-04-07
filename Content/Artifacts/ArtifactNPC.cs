@@ -107,9 +107,9 @@ namespace RiskOfTerrain.Content.Artifacts
             }
         }
 
-        public override bool? CanHitNPC(NPC npc, NPC target)
+        public override bool CanHitNPC(NPC npc, NPC target)/* tModPorter Suggestion: Return true instead of null */
         {
-            return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? null : false;
+            return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? true : false;
         }
 
         public bool Chaos_CanDamageOtherNPC(NPC npc, NPC target)

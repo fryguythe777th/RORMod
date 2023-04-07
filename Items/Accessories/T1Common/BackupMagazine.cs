@@ -15,11 +15,11 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add(Type);
             LogbookPage.CustomTooltipConstructor.Add(Type, () =>
             {
-                return Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}][2:]" });
+                return Language.GetTextValueWith("Mods.RiskOfTerrain.Items.BackupMagazine.TerminalTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}][2:]" });
             });
         }
 
@@ -40,7 +40,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
-                Language.GetTextValueWith("Mods.RiskOfTerrain.ItemTooltip.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}]" })));
+                Language.GetTextValueWith("Mods.RiskOfTerrain.Items.BackupMagazine.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AmmoSwapKey)}]" })));
         }
 
         public override bool CanConsumeAmmo(Player player, RORPlayer ror)

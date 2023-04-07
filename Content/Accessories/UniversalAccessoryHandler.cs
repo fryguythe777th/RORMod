@@ -134,19 +134,19 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
-        public void ModifyHit(Entity entity, Entity victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
+        public void ModifyHit(Entity entity, Entity victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
         {
             foreach (var accessory in Accessories)
             {
-                accessory.ModifyHit(new EntityInfo(entity), new EntityInfo(victim), projOrItem, ref damage, ref knockBack, ref crit);
+                accessory.ModifyHit(new EntityInfo(entity), new EntityInfo(victim), projOrItem, ref damage, ref knockBack, ref modifiers);
             }
         }
 
-        public void OnHit(Entity entity, Entity victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public void OnHit(Entity entity, Entity victim, Entity projOrItem, NPC.HitInfo hit)
         {
             foreach (var accessory in Accessories)
             {
-                accessory.OnHit(new EntityInfo(entity), new EntityInfo(victim), projOrItem, damage, knockBack, crit);
+                accessory.OnHit(new EntityInfo(entity), new EntityInfo(victim), projOrItem, hit);
             }
         }
 
@@ -158,11 +158,11 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
-        public void OnHitBy(Entity entity, Entity attacker, int damage, float knockBack, bool crit)
+        public void OnHitBy(Entity entity, Entity attacker, Player.HurtInfo info)
         {
             foreach (var accessory in Accessories)
             {
-                accessory.OnHitBy(new EntityInfo(entity), new EntityInfo(attacker), damage, knockBack, crit);
+                accessory.OnHitBy(new EntityInfo(entity), new EntityInfo(attacker), info);
             }
         }
 
@@ -182,11 +182,11 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
-        public bool PreHurt(Player player, RORPlayer ror, bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public bool FreeDodge(Player player, Player.HurtInfo info)
         {
             foreach (var accessory in Accessories)
             {
-                if (!accessory.PreHurt(player, ror, pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter))
+                if (!accessory.FreeDodge(player, info))
                     return false;
             }
             return true;
@@ -210,11 +210,11 @@ namespace RiskOfTerrain.Content.Accessories
             }
         }
 
-        public void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
         {
             foreach (var accessory in Accessories)
             {
-                accessory.Hurt(player, ror, pvp, quiet, damage, hitDirection, crit, cooldownCounter);
+                accessory.Hurt(player, ror, info);
             }
         }
 

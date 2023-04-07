@@ -13,7 +13,7 @@ namespace RiskOfTerrain.Items.Accessories.T4Boss
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             RORItem.BossTier.Add(Type);
         }
 
@@ -31,9 +31,9 @@ namespace RiskOfTerrain.Items.Accessories.T4Boss
             player.GetCritChance<GenericDamageClass>() += 5;
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (!crit)
+            if (!hit.Crit)
                 return;
 
             if (victim.entity is NPC npc)
