@@ -551,7 +551,7 @@ Mods: {
 		}
 
 		MapObject: {
-			RustyLockboxTile: Rusty Lockbox
+			RustyLockboxTile: Rusty Lockbox 
 			RustyLockboxTileLocked: Locked Rusty Lockbox
 			SecurityChestTile: Security Chest
 			SecurityChestTileLocked: Locked Security Chest
