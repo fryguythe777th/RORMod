@@ -116,87 +116,87 @@ namespace RiskOfTerrain.UI.Terminal
 
         public override void DrawPage(SpriteBatch spriteBatch, Texture2D texture, CalculatedStyle d, Rectangle rect)
         {
-            //var clr = new Color(155, 155, 180, 255);
-            //var clr2 = new Color(72, 72, 100, 255);
-            //Helpers.DrawRectangle(new Rectangle((int)d.X + 200, (int)d.Y + 42 + 14, (int)d.Width - 212, (int)d.Height - 62), clr);
-            //Helpers.DrawRectangle(new Rectangle((int)d.X + 204, (int)d.Y + 42 + 14 + 4, (int)d.Width - 220, (int)d.Height - 62 - 8), clr2);
+            var clr = new Color(155, 155, 180, 255);
+            var clr2 = new Color(72, 72, 100, 255);
+            Helpers.DrawRectangle(new Rectangle((int)d.X + 200, (int)d.Y + 42 + 14, (int)d.Width - 212, (int)d.Height - 62), clr);
+            Helpers.DrawRectangle(new Rectangle((int)d.X + 204, (int)d.Y + 42 + 14 + 4, (int)d.Width - 220, (int)d.Height - 62 - 8), clr2);
 
-            //int x = 0;
-            //int y = 0;
-            //int width = 44;
-            //int height = 44;
-            //int spriteSize = 36;
-            //int maxWidth = (int)Math.Max((d.Width - 212) / 2, width) / width;
+            int x = 0;
+            int y = 0;
+            int width = 44;
+            int height = 44;
+            int spriteSize = 36;
+            int maxWidth = (int)Math.Max((d.Width - 212) / 2, width) / width;
 
-            //int iconInfoTabX = (int)d.X + 208 + maxWidth * width + width;
-            //int iconInfoTabY = (int)d.Y + 42 + 14 + 4;
-            //int iconInfoTabWidth = (int)d.Width - 224 - maxWidth * width - width;
-            //Helpers.DrawRectangle(new Rectangle(iconInfoTabX, iconInfoTabY, iconInfoTabWidth, (int)d.Height - 62 - 8), clr);
-            //Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 4, iconInfoTabY, 10, (int)d.Height - 62 - 8), clr2);
+            int iconInfoTabX = (int)d.X + 208 + maxWidth * width + width;
+            int iconInfoTabY = (int)d.Y + 42 + 14 + 4;
+            int iconInfoTabWidth = (int)d.Width - 224 - maxWidth * width - width;
+            Helpers.DrawRectangle(new Rectangle(iconInfoTabX, iconInfoTabY, iconInfoTabWidth, (int)d.Height - 62 - 8), clr);
+            Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 4, iconInfoTabY, 10, (int)d.Height - 62 - 8), clr2);
 
-            //DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, clr * 1.33f, new Color(100, 100, 120, 255), RORItem.WhiteTier);
-            //DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(25, 140, 25, 255) * 2, new Color(66, 90, 60, 255), RORItem.GreenTier);
-            //DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(140, 25, 25, 255) * 2, new Color(90, 60, 60, 255), RORItem.RedTier);
+            DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, clr * 1.33f, new Color(100, 100, 120, 255), RORItem.WhiteTier);
+            DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(25, 140, 25, 255) * 2, new Color(66, 90, 60, 255), RORItem.GreenTier);
+            DrawItems(spriteBatch, (int)d.X, (int)d.Y, ref x, ref y, width, height, spriteSize, maxWidth, new Color(140, 25, 25, 255) * 2, new Color(90, 60, 60, 255), RORItem.RedTier);
 
-            //if (selectedItem > 0)
-            //{
-            //    string text = Lang.GetItemNameValue(selectedItem);
-            //    iconInfoTabX += 12;
-            //    iconInfoTabWidth -= 12;
-            //    var font = FontAssets.MouseText.Value;
-            //    var textOrigin = new Vector2(font.MeasureString(text).X / 2f, 0f);
-            //    var t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, new Vector2(iconInfoTabX + iconInfoTabWidth / 2f, iconInfoTabY),
-            //        Color.White, new Color(35, 35, 66), 0f, textOrigin, Vector2.One, iconInfoTabWidth);
-            //    int textHeight = (int)(t.Y - iconInfoTabY);
-            //    Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + 28, iconInfoTabWidth - 4, (int)d.Height - 62 - 8 - textHeight - 28), clr2);
+            if (selectedItem > 0)
+            {
+                string text = Lang.GetItemNameValue(selectedItem);
+                iconInfoTabX += 12;
+                iconInfoTabWidth -= 12;
+                var font = FontAssets.MouseText.Value;
+                var textOrigin = new Vector2(font.MeasureString(text).X / 2f, 0f);
+                var t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, text, new Vector2(iconInfoTabX + iconInfoTabWidth / 2f, iconInfoTabY),
+                    Color.White, new Color(35, 35, 66), 0f, textOrigin, Vector2.One, iconInfoTabWidth);
+                int textHeight = (int)(t.Y - iconInfoTabY);
+                Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + 28, iconInfoTabWidth - 4, (int)d.Height - 62 - 8 - textHeight - 28), clr2);
 
-            //    if (string.IsNullOrEmpty(tt))
-            //    {
-            //        if (CustomTooltipConstructor.TryGetValue(selectedItem, out var dynamicTooltip))
-            //        {
-            //            tt = dynamicTooltip();
-            //        }
-            //        else if (selectedItem >= Main.maxItemType)
-            //        {
-            //            var modItem = ItemLoader.GetItem(selectedItem);
-            //            string detailedTTKey = $"Mods.{modItem.Mod.Name}.ItemTooltip.{modItem.Name}.TerminalTooltip";
-            //            string detailedTT = Language.GetTextValue(detailedTTKey);
-            //            if (detailedTT != detailedTTKey)
-            //            {
-            //                tt = detailedTT;
-            //            }
-            //        }
-            //        if (string.IsNullOrEmpty(tt))
-            //        {
-            //            tt = GetItemTooltipAsOneLine(selectedItem);
-            //        }
+                if (string.IsNullOrEmpty(tt))
+                {
+                    if (CustomTooltipConstructor.TryGetValue(selectedItem, out var dynamicTooltip))
+                    {
+                        tt = dynamicTooltip();
+                    }
+                    else if (selectedItem >= Main.maxItemTypes)
+                    {
+                        var modItem = ItemLoader.GetItem(selectedItem);
+                        string detailedTTKey = $"Mods.{modItem.Mod.Name}.ItemTooltip.{modItem.Name}.TerminalTooltip";
+                        string detailedTT = Language.GetTextValue(detailedTTKey);
+                        if (detailedTT != detailedTTKey)
+                        {
+                            tt = detailedTT;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(tt))
+                    {
+                        tt = GetItemTooltipAsOneLine(selectedItem);
+                    }
 
-            //        tt = GetColoredString(tt);
-            //    }
+                    tt = GetColoredString(tt);
+                }
 
-            //    t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, tt, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 32f),
-            //        Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
+                t = ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, tt, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 32f),
+                    Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
 
-            //    int descHeight = (int)(t.Y - iconInfoTabY);
-            //    Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + descHeight + 22, iconInfoTabWidth - 4, 4), clr);
+                int descHeight = (int)(t.Y - iconInfoTabY);
+                Helpers.DrawRectangle(new Rectangle(iconInfoTabX + 6, iconInfoTabY + textHeight + descHeight + 22, iconInfoTabWidth - 4, 4), clr);
 
-            //    if (log == null)
-            //    {
-            //        log = "";
-            //        if (DynamicLog.TryGetValue(selectedItem, out var dynamicLog))
-            //        {
-            //            log = dynamicLog();
-            //        }
-            //        else if (selectedItem >= ItemID.Count)
-            //        {
-            //            var modItem = ItemLoader.GetItem(selectedItem);
-            //            log = Language.GetTextValue($"Mods.{modItem.Mod.Name}.ItemTooltip.{modItem.Name}.TerminalLore");
-            //        }
-            //    }
+                if (log == null)
+                {
+                    log = "";
+                    if (DynamicLog.TryGetValue(selectedItem, out var dynamicLog))
+                    {
+                        log = dynamicLog();
+                    }
+                    else if (selectedItem >= Main.maxItemTypes)
+                    {
+                        var modItem = ItemLoader.GetItem(selectedItem);
+                        log = Language.GetTextValue($"Mods.{modItem.Mod.Name}.ItemTooltip.{modItem.Name}.TerminalLore");
+                    }
+                }
 
-            //    ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, log, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 30f + 28f + (t.Y - (iconInfoTabY + 28f))),
-            //        Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
-            //}
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, log, new Vector2(iconInfoTabX + 12f, iconInfoTabY + 30f + 28f + (t.Y - (iconInfoTabY + 28f))),
+                    Color.White, new Color(35, 35, 66), 0f, Vector2.Zero, Vector2.One * 0.75f, iconInfoTabWidth - 12);
+            }
         }
     }
 }

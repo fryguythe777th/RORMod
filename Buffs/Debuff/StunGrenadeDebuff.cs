@@ -18,7 +18,7 @@ namespace RiskOfTerrain.Buffs.Debuff
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.ROR().statDefense *= 0.9f;
+            npc.ROR().statDefense -= 10;
         }
     }
 }

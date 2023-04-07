@@ -2,7 +2,6 @@ using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
@@ -12,7 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.WhiteTier.Add((Type, () => NPC.downedBoss2));
         }
 
@@ -31,12 +30,12 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 soundDelay--;
         }
 
-        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
+        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
             if ((victim.entity is NPC npc && (npc.life >= npc.lifeMax * 0.9f)) ||
                 (victim.entity is Player player && (player.statLife >= player.statLifeMax * 0.9f)))
             {
-                modifiers.ScalingBonusDamage += 0.25f;
+                damage = (int)(damage * 1.25f);
                 if (soundDelay <= 0)
                     SoundEngine.PlaySound(RiskOfTerrain.GetSounds("crowbar/proc", 2, 0.1f, 0f, 0.1f), victim.entity.Center);
             }

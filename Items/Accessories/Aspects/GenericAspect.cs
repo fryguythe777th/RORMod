@@ -13,7 +13,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 

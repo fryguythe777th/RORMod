@@ -113,22 +113,12 @@ namespace RiskOfTerrain
 
         public override void Load()
         {
-            Terraria.On_Player.UpdateDead += Player_UpdateDead;
-            Terraria.On_Player.CheckSpawn += Player_CheckSpawn;
-            Terraria.On_Player.FindSpawn += Player_FindSpawn;
-            Terraria.On_Player.DropTombstone += Player_DropTombstone;
-            Terraria.On_Player.AddBuff_DetermineBuffTimeToAdd += Player_AddBuffTime;
-            Terraria.Graphics.Renderers.On_LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
-        }
-
-        private void Player_DropTombstone(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, NetworkText deathText, int hitDirection)
-        {
-            if (self.ROR().accDiosBestFriend > 0)
-            {
-                SoundEngine.PlaySound(RiskOfTerrain.GetSound("extralife", 0.1f, 0f, 0.1f));
-                return;
-            }
-            orig(self, coinsOwned, deathText, hitDirection);
+            On.Terraria.Player.UpdateDead += Player_UpdateDead;
+            On.Terraria.Player.CheckSpawn += Player_CheckSpawn;
+            On.Terraria.Player.FindSpawn += Player_FindSpawn;
+            On.Terraria.Player.DropTombstone += Player_DropTombstone;
+            On.Terraria.Player.AddBuff_DetermineBuffTimeToAdd += Player_AddBuffTime;
+            On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
         }
 
         public override void SetStaticDefaults()
@@ -149,7 +139,7 @@ namespace RiskOfTerrain
             }
         }
 
-        private static void LegacyPlayerRenderer_DrawPlayers(Terraria.Graphics.Renderers.On_LegacyPlayerRenderer.orig_DrawPlayers orig, Terraria.Graphics.Renderers.LegacyPlayerRenderer self, Terraria.Graphics.Camera camera, System.Collections.Generic.IEnumerable<Player> players)
+        private static void LegacyPlayerRenderer_DrawPlayers(On.Terraria.Graphics.Renderers.LegacyPlayerRenderer.orig_DrawPlayers orig, Terraria.Graphics.Renderers.LegacyPlayerRenderer self, Terraria.Graphics.Camera camera, System.Collections.Generic.IEnumerable<Player> players)
         {
             foreach (var p in players)
             {
@@ -166,14 +156,24 @@ namespace RiskOfTerrain
             }
         }
 
-        private static void Player_FindSpawn(Terraria.On_Player.orig_FindSpawn orig, Player self)
+        private static void Player_DropTombstone(On.Terraria.Player.orig_DropTombstone orig, Player self, int coinsOwned, NetworkText deathText, int hitDirection)
+        {
+            if (self.ROR().accDiosBestFriend > 0)
+            {
+                SoundEngine.PlaySound(RiskOfTerrain.GetSound("extralife", 0.1f, 0f, 0.1f));
+                return;
+            }
+            orig(self, coinsOwned, deathText, hitDirection);
+        }
+
+        private static void Player_FindSpawn(On.Terraria.Player.orig_FindSpawn orig, Player self)
         {
             if (SpawnHack)
                 return;
             orig(self);
         }
 
-        private static bool Player_CheckSpawn(Terraria.On_Player.orig_CheckSpawn orig, int x, int y)
+        private static bool Player_CheckSpawn(On.Terraria.Player.orig_CheckSpawn orig, int x, int y)
         {
             if (SpawnHack)
                 return true;
@@ -181,7 +181,7 @@ namespace RiskOfTerrain
             return orig(x, y);
         }
 
-        private static void Player_UpdateDead(Terraria.On_Player.orig_UpdateDead orig, Player player)
+        private static void Player_UpdateDead(On.Terraria.Player.orig_UpdateDead orig, Player player)
         {
             var ror = player.ROR();
             if (ror.accDiosBestFriend > 0 && ror.diosCooldown <= 0)
@@ -253,7 +253,7 @@ namespace RiskOfTerrain
             orig(player);
         }
 
-        private int Player_AddBuffTime(Terraria.On_Player.orig_AddBuff_DetermineBuffTimeToAdd orig, Player self, int type, int time1)
+        private int Player_AddBuffTime(On.Terraria.Player.orig_AddBuff_DetermineBuffTimeToAdd orig, Player self, int type, int time1)
         {
             if (self.ROR().accFuelCell && Main.debuff[type] == true)
             {
@@ -284,7 +284,7 @@ namespace RiskOfTerrain
             ROREffects.UpdateScreenPosition();
         }
 
-        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
+        public override void clientClone(ModPlayer clientClone)
         {
             var clone = (RORPlayer)clientClone;
             clone.barrierLife = barrierLife;
@@ -604,18 +604,14 @@ namespace RiskOfTerrain
             }
         }
 
-        public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             if (hitByBlazerProj)
             {
-                modifiers.HitDirectionOverride = 0;
+                hitDirection = 0;
                 hitByBlazerProj = false;
             }
-        }
-
-        public override bool FreeDodge(Player.HurtInfo info)
-        {
-            return Accessories.FreeDodge(Player, info);
+            return Accessories.PreHurt(Player, this, pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
         }
 
         public void CheckElixir()
@@ -637,13 +633,13 @@ namespace RiskOfTerrain
             }
         }
 
-        public override void OnHurt(Player.HurtInfo info)
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            Accessories.Hurt(Player, this, info);
+            Accessories.Hurt(Player, this, pvp, quiet, damage, hitDirection, crit, cooldownCounter);
             timeSinceLastHit = 0;
             if (barrierLife > 0f)
             {
-                barrierLife -= (int)info.Damage;
+                barrierLife -= (int)damage;
                 if (barrierLife < 0)
                 {
                     barrierLife = 0;
@@ -651,7 +647,7 @@ namespace RiskOfTerrain
             }
             else if (shield > 0f)
             {
-                shield = (float)Math.Max(shield - info.Damage / (float)Player.statLifeMax, 0f);
+                shield = (float)Math.Max(shield - damage / (float)Player.statLifeMax, 0f);
                 if (shield <= 0.01f)
                 {
                     shield = 0f;
@@ -696,34 +692,34 @@ namespace RiskOfTerrain
             //return Player.RollLuck(100) > (int)(backupMagAmmoReduction * 100f);
         }
 
-        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            Accessories.ModifyHit(Player, target, item, ref modifiers.FinalDamage, ref modifiers.Knockback, ref modifiers);
+            Accessories.ModifyHit(Player, target, null, ref damage, ref knockback, ref crit);
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            Accessories.ModifyHit(Player, target, proj, ref modifiers.FinalDamage, ref modifiers.Knockback, ref modifiers);
+            Accessories.ModifyHit(Player, target, proj, ref damage, ref knockback, ref crit);
         }
 
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            Accessories.OnHit(Player, target, item, hit);
+            Accessories.OnHit(Player, target, item, damage, knockback, crit);
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            Accessories.OnHit(Player, target, proj, hit);
+            Accessories.OnHit(Player, target, proj, damage, knockback, crit);
         }
 
-        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            Accessories.OnHitBy(Player, npc, hurtInfo);
+            Accessories.OnHitBy(Player, npc, damage, 1f, crit);
         }
 
-        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
         {
-            Accessories.OnHitBy(Player, proj, hurtInfo);
+            Accessories.OnHitBy(Player, proj, damage, 1f, crit);
         }
 
         public void OnKillEffect(int type, Vector2 position, int width, int height, int lifeMax, int lastHitDamage, BitsByte miscInfo, float value)

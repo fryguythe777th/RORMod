@@ -15,7 +15,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -43,7 +43,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             }
         }
 
-        public override void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
+        public override void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (ShieldActive())
             {

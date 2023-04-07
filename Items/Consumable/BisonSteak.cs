@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Items.Consumable
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 5;
+            SacrificeTotal = 5;
             ItemID.Sets.IsFood[Type] = true;
             ItemID.Sets.FoodParticleColors[Type] = new Color[] { new Color(180, 60, 60, 255), new Color(200, 90, 83, 255), new Color(205, 140, 125, 255), };
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(int.MaxValue, 3));

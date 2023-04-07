@@ -1,494 +1,465 @@
-
 Mods: {
 	RiskOfTerrain: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
 
-		Items: {
-			BlazingAspect: {
-				DisplayName: Ifrit's Distinction
-				Tooltip:
-					'''
-					Become an aspect of fire
-					Leave behind a fiery trail
-					'''
-			}
+		ItemName: {
+			Warbanner: Warbanner
+			BustlingFungus: Bustling Fungus
+			TopazBrooch: Topaz Brooch
+			PersonalShieldGenerator: Personal Shield Generator
+			PaulsGoatHoof: Paul's Goat Hoof
+			CautiousSlug: Cautious Slug
+			TougherTimes: Tougher Times
+			MonsterTooth: Monster Tooth
+			Medkit: Medkit
+			SoldiersSyringe: Soldier's Syringe
+			TriTipDagger: Tri-Tip Dagger
+			RepulsionArmorPlate: Repulsion Armor Plate
+			ArmorPiercingRounds: Armor Piercing Rounds
+			OddlyShapedOpal: Oddly-Shaped Opal
+			LensMakersGlasses: Lens-Maker's Glasses
+			RollOfPennies: Roll of Pennies
+			StickyExplosives: Sticky Explosives
+			BackupMagazine: Backup Magazine
+			BundleOfFireworks: Bundle of Fireworks
+			Crowbar: Crowbar
+			DelicateWatch: Delicate Watch
+			StunGrenade: Stun Grenade
+			Gasoline: Gasoline
+			FocusCrystal: Focus Crystal
 
-			CelestineAspect: {
-				DisplayName: Spectral Circlet
-				Tooltip:
-					'''
-					Become an aspect of incorporeality
-					Make allies around you invisible to the eye
-					Slow enemies on hit
-					'''
-			}
+			WillOTheWisp: Will-o'-the-Wisp
+			WaxQuail: Wax Quail
+			WarHorn: War Horn
+			RoseBuckler: Rose Buckler
+			OldGuillotine: Old Guillotine
+			RunaldsBand: Runald's Band
+			KjarosBand: Kjaro's Band
+			Infusion: Infusion
+			BerzerkersPauldron: Berzerker's Pauldron
+			Bandolier: Bandolier
+			Razorwire: Razorwire
+			GhorsTome: Ghor's Tome
+			AtGMissileMk1: AtG Missile Mk. 1
+			DeathMark: Death Mark
+			ReloadingShurikens: Reloading Shurikens
+			HarvestersScythe: Harvester's Scythe
+			LeechingSeed: Leeching Seed
+			HuntersHarpoon: Hunter's Harpoon
+			PredatoryInstincts: Predatory Instincts
+			IgnitionTank: Ignition Tank
+			OldWarStealthkit: Old War Stealthkit
+			LeptonDaisy: Lepton Daisy
+			Chronobauble: Chronobauble
+			HopooFeather: Hopoo Feather
+			RedWhip: Red Whip
+			Ukulele: Ukulele
+			FuelCell: Fuel Cell
 
-			OverloadingAspect: {
-				DisplayName: Silence Between Two Strikes
-				Tooltip:
-					'''
-					Become an aspect of lightning
-					Half of your health is replaced by regenerating shield
-					Attach a lightning bomb to enemies on hit, which explodes after time
-					'''
-			}
+			SoulboundCatalyst: SoulboundCatalyst
+			Aegis: Aegis
+			DiosBestFriend: Dio's Best Friend
 
+			Shatterspleen: Shatterspleen
+
+			BlazingAspect: Ifrit's Distinction
+			OverloadingAspect: Silence Between Two Strikes
+			GlacialAspect: Her Biting Embrace
+			MalachiteAspect: N'kuhana's Retort
+			CelestineAspect: Spectral Circlet
+			PerfectedAspect: Shared Design
+			MendingAspet: His Reassurance
+
+			BisonSteak: Bison Steak
+			RustedKey: Rusted Key
+			PowerElixir: Power Elixir
+
+			Chaos: Artifact of Chaos
+			Command: Artifact of Command
+			Death: Artifact of Death
+			Dissonance: Artifact of Dissonance
+			Enigma: Artifact of Enigma
+			Evolution: Artifact of Evolution
+			WeakAssKnees: Artifact of Frailty
+			Glass: Artifact of Glass
+			Honor: Artifact of Honor
+			Kin: Artifact of Kin
+			Metamorphosis: Artifact of Metamorphosis
+			Sacrifice: Artifact of Sacrifice
+			Soul: Artifact of Soul
+			Spite: Artifact of Spite
+			Swarms: Artifact of Swarms
+			Vengance: Artifact of Vengance
+
+			EliteSpawner: Elitinizer
+		}
+
+		ItemTooltip: {
 			ArmorPiercingRounds: {
-				DisplayName: Armor Piercing Rounds
-				Tooltip: 10% increased damage against bosses
+				$parentVal: 10% increased damage against bosses
+				TerminalTooltip: "[0:10%] increased damage against bosses. Bosses and enemies with [3:red health bars] count as bosses."
+				TerminalLore: Order: Armor-Piercing Rounds, 50mm
 			}
-
 			BackupMagazine: {
-				DisplayName: Backup Magazine
-				Tooltip: 10% chance to not consume ammo
-				KeybindTooltip: Allows you to swap between ammunitions using {Keybind}
+				$parentVal: 10% chance to not consume ammo
+				KeybindTooltip: Allows you to swap between ammo using {Keybind}
+				TerminalTooltip: "[2:10%] chance to not consume ammo. Allows you to [2:swap between ammo] using [2:{Keybind}]"
+				TerminalLore: Order: Ammo Magazine, Standard Ammunition [45mm Rounds]
 			}
-
 			BundleOfFireworks: {
-				DisplayName: Bundle of Fireworks
-				Tooltip: Release homing fireworks when killing an enemy
-			}
+				$parentVal: Release a homing firework when killing an enemy
+				TerminalTooltip: "Release a [0:homing firework on kill]. Deals [0:50%] of the total damage dealt on the killing blow. Capped at [0:200] damage."
+				TerminalLore: 
+					'''
+					'Hey, happy anniversary!
 
+					You really thought I forgot?
+
+					You can keep your eyes closed. Just listen. Ah - here it comes! In five... four... three... two... ONE...!'
+					'''
+			}
 			BustlingFungus: {
-				DisplayName: Bustling Fungus
-				Tooltip: Heal nearby allies while standing still
-			}
+				$parentVal: Heal nearby allies while standing still
+				TerminalTooltip: "While standing still, create a zone that [1:increases life regen] of allies by [1:7.5%] of their max life within [1:8.75 blocks]."
+				TerminalLore: 
+					'''
+					'You have a problem.'
 
+					'What? How? These are good for me, they...'
+
+					'Yeah, they help promote cell repair, carbon neutral, blah blah blah... I’ve heard that spiel a thousand times already. Whether they’re good for you or not, you can’t just have a diet consisting only of them. It’s basic dietary science!'
+					'''
+			}
 			CautiousSlug: {
-				DisplayName: Cautious Slug
-				Tooltip: Increased life regen while outside of battle
+				$parentVal: Increased life regen when outside of battle
+				TerminalTooltip: "[1:Increases life regen] by [1:25]. When an enemy is within [2:62.5 blocks horiztonally] or [2:31.25 blocks vertically] and can attack you, it will [1:hide]. Takes [1:2] seconds to stop hiding."
+				TerminalLore: One of the most crucial things to remember about having an animal companion is that your relationship is built on trust. Though humans are perceptive, we tend to be blinded by what we see – and we ignore the dangers that lurk beyond our vision. Animals, and other xenobiology, can sense things we can’t.
 			}
-
 			Crowbar: {
-				DisplayName: Crowbar
-				Tooltip: 25% increased damage to enemies above 90% life
-			}
+				$parentVal: 25% increased damage to enemies above 90% life
+				TerminalTooltip: "[0:25%] increased damage to enemies above [0:90% life]."
+				TerminalLore:
+					'''
+					'Hey, toss me a crowbar?'
 
+					Jesse walked over to the toolbox and rummaged around. Plucking a crowbar from the container, she went over to James.
+
+					'Thanks' he grunted, attempting to pry the chest open.
+					'''
+			}
 			DelicateWatch: {
-				DisplayName: Delicate Watch
-				Tooltip: 10% increased damage when above 50% life
+				$parentVal: 10% increased damage when above 50% life
+				TerminalTooltip: "[0:10%] increased damage when above [0:50% life]."
+				TerminalLore: The wind blows over the plains. Two soldiers trudge along on their routine patrol, filling their boredom with casual conversation. 'Hm. Hey, Shelly, have I ever showed you my new Patex?' Quinton mused. Shelly shot him a quizzical look. 'Tell me you didn't bring a $75,000 watch with you on a dangerous expedition into unknown territories...'
 			}
-
 			FocusCrystal: {
-				DisplayName: Focus Crystal
-				Tooltip: Nearby enemies receive 25% more damage
+				$parentVal: Nearby enemies take 25% extra damage
+				TerminalTooltip: "Enemies within [0:15 blocks] take [0:25%] extra damage."
+				TerminalLore: Order: Condensed Matter Crystal [50kg, 10cm by 10cm by 10cm]
 			}
-
 			Gasoline: {
-				DisplayName: Gasoline
-				Tooltip: Killing an enemy sets other nearby enemies on fire
+				$parentVal: Killing an enemy ignites other nearby enemies
+				TerminalTooltip: Killing an enemy [0:ignites] all enemies within [0:5 blocks] of the explosion for [0:150%] damage. Damages all enemies nearby for [0:50%] damage.
+				TerminalLore: Order: Condensed Matter Crystal [50kg, 10cm by 10cm by 10cm]
 			}
-
 			LensMakersGlasses: {
-				DisplayName: Lens-Makers Glasses
-				Tooltip: 10% increased critical strike chance
+				$parentVal: 10% increased critical strike chance
+				TerminalTooltip: "[0:10%] increased critical strike chance"
+				TerminalLore: N/A
 			}
-
 			Medkit: {
-				DisplayName: Medkit
-				Tooltip: 
+				$parentVal:
 					'''
-					After taking damage, receive a delayed heal
-					Heals 5% of maximum health, plus 10
+					After getting hurt, recieve a delayed heal
+					Heals 5% of maximum health plus 10
+					'''
+				TerminalTooltip: "Recieve a [1:2] second buff when hit. When the buff is cleared, [1:heal 5%] of maximum health plus [1:20]."
+				TerminalLore: 
+					'''
+					'I suggest you stay indoors and rest.'
+
+					The robot was speaking to a tall man, gaunt but strong. 'I'd love to, but we're running low on food.' Even though his expression was hidden underneath his blue combat helmet, it was obvious the man was extremely tired. 'And everyone else is recovering from last night's attacks. Without the enforcers, we probably wouldn't have-'
+					
+					'I suggest you stay indoors and rest.'
 					'''
 			}
-
 			MonsterTooth: {
-				DisplayName: Monster Tooth
-				Tooltip: 
+				$parentVal:
 					'''
-					Enemies drop healing orbs when they die
-					These heal 2% of maximum life, plus 8
+					Killed enemies drop a healing orb
+					Heals 2% of maximum health plus 8
 					'''
+				TerminalTooltip: Killed enemies drop a [1:healing orb] which heals [1:heal 2%] of maximum health plus [1:8].
+				TerminalLore: N/A
 			}
-
 			OddlyShapedOpal: {
-				DisplayName: Oddly-Shaped Opal
-				Tooltip: 
+				$parentVal: 
 					'''
 					50 defense
-					Taking damage negates this defense for 7 seconds
+					Taking damage deactivates this effect for 7 seconds
 					'''
+				TerminalTooltip: "[1:50 defense]. Taking damage deactivates this effect for 7 seconds."
+				TerminalLore: N/A
 			}
-
 			PaulsGoatHoof: {
-				DisplayName: Paul's Goat Hoof
-				Tooltip: Increased horizonal and vertical movement speed
+				$parentVal: Increased horizontal and vertical movement speed
+				TerminalTooltip: "[2:20%] increased movement speed. Allows the user to jump [2:2] extra blocks, walk [2:5 mph] faster with [2:50%] increased acceleration."
+				TerminalLore: N/A
 			}
-
 			PersonalShieldGenerator: {
-				DisplayName: Personal Shield Generator
-				Tooltip: 
+				$parentVal: 
 					'''
 					Gain a shield equal to 12% of your maximum health
-					This shield will recharge after not taking damage for 5 seconds
+					This shield will recharge after 5 seconds of not taking damage
 					'''
+				TerminalTooltip: Gain a [1:shield] equal to [1:12%] of your maximum health. This shield will recharge after [1:5] seconds of not taking damage.
+				TerminalLore: N/A
 			}
-
 			RepulsionArmorPlate: {
-				DisplayName: Repulsion Armor Plate
-				Tooltip: 5 flat damage reduction against debuffs
+				$parentVal: 5 flat damage reduction against debuffs
+				TerminalTooltip: "[1:10 defense]. [1:5] flat damage reduction against [0:debuffs]"
+				TerminalLore: N/A
 			}
-
 			RollOfPennies: {
-				DisplayName: Roll of Pennies
-				Tooltip: Receive money when damaged
+				$parentVal: Recieve money when damaged
+				TerminalTooltip: "Recieve [2:50 copper] on [0:taking damage] from an enemy."
+				TerminalLore: N/A
 			}
-
 			SoldiersSyringe: {
-				DisplayName: Soldier's Syringe
-				Tooltip: 
+				$parentVal: 
 					'''
 					12% increased attack speed
 					12% decreased damage
 					'''
+				TerminalTooltip: "[0:12%] increased attack speed. [0:12%] decreased damage."
+				TerminalLore: N/A
 			}
-
 			StickyExplosives: {
-				DisplayName: Sticky Explosives
-				Tooltip: 10% chance to apply a sticky bomb to enemies
+				$parentVal: 10% chance to apply a sticky bomb to enemies
+				TerminalTooltip: "[0:10%] chance to apply a [0:sticky bomb] which deals [0:50%] total damage to enemies."
+				TerminalLore: N/A
 			}
-
 			StunGrenade: {
-				DisplayName: Stun Grenade
-				Tooltip: 10% chance to encompass enemies in defense-reducing smoke
+				$parentVal: 10% chance to encompass enemies in defense reducing smoke
+				TerminalTooltip: "[0:10%] chance to encompass enemies in [0:defense reducing] smoke."
+				TerminalLore: N/A
 			}
-
 			TopazBrooch: {
-				DisplayName: Topaz Brooch
-				Tooltip: Gain a temporary 15-health barrier upon killing an enemy
+				$parentVal: When killing an enemy, gain 15 temporary barrier health points
+				TerminalTooltip: When killing an enemy, gain [1:15 temporary barrier] health points.
+				TerminalLore: N/A
 			}
-
 			TougherTimes: {
-				DisplayName: Tougher Times
-				Tooltip: 10% chance to dodge attacks
+				$parentVal: 10% chance to dodge attacks
+				TerminalTooltip: "[1:10%] chance to dodge attacks."
+				TerminalLore: N/A
 			}
-
 			TriTipDagger: {
-				DisplayName: Tri-Tip Dagger
-				Tooltip: 10% chance to inflict bleeding to enemies
+				$parentVal: 10% chance to inflict bleeding to enemies
+				TerminalTooltip: "[0:10%] chance to inflict [0:bleeding] to enemies."
+				TerminalLore: N/A
 			}
-
 			Warbanner: {
-				DisplayName: Warbanner
-				Tooltip: Drop a warbanner every 2 minutes that increases attack and move speed
+				$parentVal: Drop a warbanner every 2 minutes
+				TerminalTooltip: "Drop a [0:warbanner] every [0:2 minutes]."
+				TerminalLore: N/A
 			}
+			
 
-			AtGMissileMk1: {
-				DisplayName: AtG Missile Mk1
-				Tooltip: 10% chance to fire a missle when hitting an enemy
-			}
-
-			Bandolier: {
-				DisplayName: Bandolier
-				Tooltip: 
-					'''
-					20% chance for killed enemies to drop an ammo box
-					Ammo boxes temporarily give you 100% reduced ammo consumption
-					10% reduced ammo consumption
-					'''
-			}
-
-			BerzerkersPauldron: {
-				DisplayName: Berzerker's Pauldron
-				Tooltip: 
-					'''
-					Killing 4 enemies in quick succession puts you into a wild frenzy
-					While in this state, your movement and attack speed are significantly released
-					'''
-			}
-
-			Chronobauble: {
-				DisplayName: Chronobauble
-				Tooltip: Dealing damage slows the target down for 6 seconds
-			}
-
-			DeathMark: {
-				DisplayName: Death Mark
-				Tooltip: Enemies with 4 or more debuffs will take 10% more damage
-			}
-
-			Death: {
-				DisplayName: Death
-				Tooltip: When one player dies, everyone dies
-			}
-
-			FuelCell: {
-				DisplayName: Fuel Cell
-				Tooltip: 
-					'''
-					Debuffs last 15% shorter
-					Buffs last 15% longer
-					'''
-			}
-
-			GhorsTome: {
-				DisplayName: Ghor's Tome
-				Tooltip: 
-					'''
-					10% chance for killed enemies to drop a gold nugget
-					Gold nuggets grant money
-					'''
-			}
-
-			HarvestersScythe: {
-				DisplayName: Harvester's Scythe
-				Tooltip: Heal 12 life on critical hits
-			}
-
-			HopooFeather: {
-				DisplayName: Hopoo Feather
-				Tooltip: 
-					'''
-					Prevents fall damage
-					Increased jump height and speed
-					'''
-			}
-
-			HuntersHarpoon: {
-				DisplayName: Hunter's Harpoon
-				Tooltip: Killing an enemy grants a short speed boost
-			}
-
-			IgnitionTank: {
-				DisplayName: Ignition Tank
-				Tooltip: Applying the On Fire! debuff to enemies instead applies Cursed Inferno
-			}
-
-			Infusion: {
-				DisplayName: Infusion
-				Tooltip: Killing enemies gives a decaying max health upgrade up to +50 max health
-			}
-
-			KjarosBand: {
-				DisplayName: Kjaro's Band
-				Tooltip: 
-					'''
-					Killing an enemy with an attack that deals 60% of its max life spawns a flaming tornado
-					This effect has a 10 second cooldown
-					'''
-			}
-
-			LeechingSeed: {
-				DisplayName: Leeching Seed
-				Tooltip: Dealing damage heals you
-			}
-
-			LeptonDaisy: {
-				DisplayName: Lepton Daisy
-				Tooltip: During bosses and invasions, periodically heal all players for 20% of their max health
-			}
-
-			OldWarStealthkit: {
-				DisplayName: Old War Stealthkit
-				Tooltip: 
-					'''
-					When under 25% health, become invisible and gain a speed boost
-					Has a 30 second cooldown
-					'''
-			}
-
-			PredatoryInstincts: {
-				DisplayName: Predatory Instincts
-				Tooltip: 
-					'''
-					5% increased critical strike chance
-					Landing a critical strike grants a short attack speed boost
-					'''
-			}
-
-			Razorwire: {
-				DisplayName: Razorwire
-				Tooltip: Shoot homing razors on hit that deal 160% of your current weapon's damage
-			}
-
-			RedWhip: {
-				DisplayName: Red Whip
-				Tooltip: Increased movement speed out of battle
-			}
+			AtGMissileMk1: 10% chance to fire a missile when hitting an enemy
+			DeathMark: Enemies with 4 or more debuffs will take 10% more damage
+			LeechingSeed: Dealing damage heals you
+			Infusion: Killing enemies gives a decaying max health upgrade up to +50
 
 			ReloadingShurikens: {
-				DisplayName: Reloading Shurikens
-				Tooltip: 
+				$parentVal:
 					'''
-					Shoot shurikens at enemies as you attack
-					These shurikens recharge over time
+					Shoots shurikens at enemies while you are attacking
+					Recharges over time
 					'''
+				TerminalTooltip: "Shoots [0:shurikens] which deals [0:200%] of the damage of your [2:held weapon] while you are [2:attacking]. Each [0:shuriken] takes [0:2] seconds to reload."
+				TerminalLore: ggs....
 			}
 
-			RoseBuckler: {
-				DisplayName: Rose Buckler
-				Tooltip: 
-					'''
-					Gain 30 defense while sprinting
-					Sprinting is considered to be the running speed boost from boot accessories
-					'''
-			}
+			HarvestersScythe: Heal 12 life on critical hits
+			Razorwire: Shoot homing razors on hit that deal 160% current weapon's damage
+			GhorsTome:
+				'''
+				10% chance for killed enemies to drop a gold nugget
+				Gold nuggets grant money
+				'''
+			Bandolier:
+				'''
+				20% chance for killed enemies to drop an ammo box
+				Ammo boxes temporarily give you 100% reduced ammo consumption
+				10% reduced ammo consumption
+				'''
+			BerzerkersPauldron:
+				'''
+				Killing 4 enemies in quick succession puts you into a wild frenzy
+				While in this state your movement speed and attack speed are significantly increased
+				'''
+			KjarosBand: 
+				'''
+				Killing an enemy with an attack that deals 60% of its max life spawns a flaming tornado
+				Has a 10 second cooldown
+				'''
+			RunaldsBand:
+				'''
+				Killing an enemy with an attack that deals 60% of its max life spawns an icy explosion that freezes enemies
+				Has a 10 second cooldown
+				'''
+			HuntersHarpoon: Killing an enemy grants a short speed boost
+			PredatoryInstincts:
+				'''
+				5% increased critical strike chance
+				Landing a critical strike grants a short attack speed boost
+				'''
+			IgnitionTank: Applying the On Fire! debuff to enemies instead applies Cursed Inferno
+			OldWarStealthkit:
+				'''
+				When under 25% health, become invisible and gain a speed boost
+				Has a 30 second cooldown
+				'''
+			WaxQuail: 
+				'''
+				Jumping while sprinting grants a horizontal speed boost
+				Sprinting is considered to be the running speed boost from boot accessories
+				'''
+			LeptonDaisy: During bosses and invasions, periodically heal all players by 20% of their HP
+			Chronobauble: Dealing damage slows the enemy down for 6 seconds
+			WarHorn: Successfully quick buffing also gives 70% increased attack speed for 8 seconds
+			RoseBuckler:
+				'''
+				Gain 30 defense while sprinting
+				Sprinting is considered to be the running speed boost from boot accessories
+				'''
+			HopooFeather:
+				'''
+				Fall damage is disabled
+				Increased jump height and speed
+				'''
+			RedWhip: Increased movement speed out of battle
+			Ukulele:
+				'''
+				Chance for struck enemies to chain a lightning beam to nearby foes
+				This lightning beam can activate on hit effects
+				'...and his music was electric.'
+				'''
+			FuelCell:
+				'''
+				Debuffs last 15% shorter
+				Buffs last 15% longer
+				'''
+			WillOTheWisp: Enemies explode on death
+				
+			
+			Aegis: 
+				'''
+				Half of all healing is added as barrier
+				The last 10% of barrier will not naturally decay
+				'''
+			DiosBestFriend: 
+				'''
+				Cheats death, when used recieve a 10 minute cooldown
+				'Please live a long life - I'm needy too'
+				'''
 
-			RunaldsBand: {
-				DisplayName: Runald's Band
-				Tooltip: 
-					'''
-					Killing an enemy with an attack that deals 60% of its max life spawns an icy explosion, freezing enemies
-					Has a 10 second cooldown
-					'''
-			}
+			Shatterspleen:
+				'''
+				5% increased critical strike chance
+				All critical strikes will inflict Bleeding to enemies
+				Any enemy that dies with this Bleeding will erupt into a bloody explosion
+				'''
 
-			Ukulele: {
-				DisplayName: Ukulele
-				Tooltip: 
-					'''
-					Chance from struck enemies to chain a lightning beam to nearby foes
-					This lightning beam can activate on hit effects
-					'...and his music was electric'
-					'''
-			}
+			BlazingAspect:
+				'''
+				Become an aspect of fire
+				Leave behind a fiery trail
+				'''
+			OverloadingAspect:
+				'''
+				Become an aspect of lightning
+				Half of your health is replaced with regenerating shield
+				Attach a lightning bomb to enemies, which explodes after time
+				'''
+			GlacialAspect:
+				'''
+				Become an aspect of ice
+				Slow enemies on hit
+				On death, explode with a blast that freezes enemies
+				'''
+			MalachiteAspect:
+				'''
+				Become an aspect of corruption
+				Periodically release explosive spike balls
+				On death, summon an urchin to fire at enemies
+				'''
+			CelestineAspect:
+				'''
+				Become an aspect of incorporeality
+				Become invisible, and make allies around you invisible as well
+				Slow enemies on hit
+				'''
+			PerfectedAspect:
+				'''
+				Become an aspect of perfection
+				All of your health is replaced with a regenerating shield
+				Slow and weaken enemies on hit
+				Periodically fire a barrage of projectiles
+				'''
+			MendingAspect:
+				'''
+				Become an aspect of earth
+				Slowly heal nearby allies
+				On death, summon a healing core that greatly heals all nearby allies upon explosion
+				'''
 
-			WarHorn: {
-				DisplayName: War Horn
-				Tooltip: Successfully quick-buffing also gives 70% increased attack speed for 8 seconds
-			}
+			BisonSteak: "{$CommonItemTooltip.MajorStats}"
+			RustedKey: Opens one locked Rusty Lockbox
+			PowerElixir: 
+				'''
+				Automatically consumed when taking damage below 50% life
+				25% increased potion sickness time
+				'''
+			
+			Chaos: Friendly fire is enabled for both players and monsters alike
+			Command: Choose your items
+			Death: When one player dies, everyone dies
+			Dissonance: Monsters can appear outside their usual environments
+			Enigma: Your hotbar is shuffled every 3 seconds
+			Evolution:
+				'''
+				Monsters gain accessories after each boss
+				All monster items will be listed in the Artifact UI
+				'''
+			WeakAssKnees: Fall damage is doubled, and fall damage prevention accessories are weaker
+			Glass: Deal 500% damage, but have 10% health
+			Honor: Enemies can only spawn as elites
+			Kin: Monsters will be of only one type for a day
+			Metamorphosis:
+				'''
+				??? 
+				'''
+			Sacrifice:
+				'''
+				Monsters drop chest loot upon death
+				However chests will no longer generate with the world
+				'''
+			Soul: Enemies emerge from defeated monsters
+			Spite: Monsters release multiple grenades upon death
+			Swarms: Monster spawns are doubled, but monster maximum health is halved
+			Vengance:
+				'''
+				???
+				'''
 
-			WaxQuail: {
-				DisplayName: Wax Quail
-				Tooltip: 
-					'''
-					Jumping while sprinting grants a horizontal speed boost
-					Sprinting is considered to be the running speed boost from boot accessories
-					'''
-			}
-
-			WillOTheWisp: {
-				DisplayName: Will O' the Wisp
-				Tooltip: Enemies explode on death
-			}
-
-			Aegis: {
-				DisplayName: Aegis
-				Tooltip: 
-					'''
-					Half of all healing is added as barrier
-					The last 10% of barrier will not naturally decay
-					'''
-			}
-
-			BrilliantBehemoth: {
-				DisplayName: Brilliant Behemoth
-				Tooltip: All your attacks explode
-			}
-
-			DiosBestFriend: {
-				DisplayName: Dio's Best Friend
-				Tooltip: 
-					'''
-					Cheat death
-					When used, receive a 10 minute cooldown
-					'Please live a long life - I'm needy too'
-					'''
-			}
-
-			SacrificialDagger: {
-				DisplayName: Sacrificial Dagger
-				Tooltip: 
-					'''
-					Killing enemies releases a trio of haunted daggers
-					These daggers seek other enemies and sink to the ground when not angered
-					'''
-			}
-
-			ShatteringJustice: {
-				DisplayName: Shattering Justice
-				Tooltip: Striking enemies quickly in succession will decrease their defense
-			}
-
-			Shatterspleen: {
-				DisplayName: Shatterspleen
-				Tooltip: 
-					'''
-					5% increased critical strike chance
-					All critical strikes will inflict bleeding to enemies
-					Any enemy that dies with this bleeding will erupt into a bloody explosion
-					'''
-			}
-
-			Chaos: {
-				DisplayName: Chaos
-				Tooltip: Friendly fire is enabled for both players and monsters alike
-			}
-
-			Dissonance: {
-				DisplayName: Dissonance
-				Tooltip: Monsters can appear outside their usual environments
-			}
-
-			Enigma: {
-				DisplayName: Enigma
-				Tooltip: Your hotbar is shuffled every 3 seconds
-			}
-
-			Glass: {
-				DisplayName: Glass
-				Tooltip: Deal 500% damage, but have 10% health
-			}
-
-			Soul: {
-				DisplayName: Soul
-				Tooltip: Enemies emerge from defeated monsters
-			}
-
-			Spite: {
-				DisplayName: Spite
-				Tooltip: Monsters release multiple grenades upon death
-			}
-
-			WeakAssKnees: {
-				DisplayName: Frailty
-				Tooltip: Fall damage is doubled, and fall damage prevention accessories are weaker
-			}
-
-			BisonSteak: {
-				DisplayName: Bison Steak
-				Tooltip: "{$CommonItemTooltip.MajorStats}"
-			}
-
-			PowerElixir: {
-				DisplayName: Power Elixir
-				Tooltip: 
-					'''
-					Automatically consumed when taking damage below 50% life
-					25% increased potion sickness time
-					'''
-			}
-
-			RustedKey: {
-				DisplayName: Rusted Key
-				Tooltip: Opens one locked Rusty Lockbox
-			}
-
-			LargeChest: {
-				DisplayName: Large Chest
-				Tooltip: ""
-			}
-
-			RustyLockbox: {
-				DisplayName: Rusty Lockbox
-				Tooltip: ""
-			}
-
-			SecurityChest: {
-				DisplayName: Security Chest
-				Tooltip: ""
-			}
-
-			EliteSpawner: {
-				DisplayName: Elite Spawner
-				Tooltip: 
-					'''
-					Developer Tool
-					Click enemies to make them elites
-					Right click to cycle through the desired elite
-					'''
-			}
+			EliteSpawner:
+				'''
+				Developer Tool
+				Click enemies to make them elites
+				Right click to cycle through the desired elite
+				'''
 		}
 
 		BuffName: {
@@ -517,13 +488,19 @@ Mods: {
 			HuntersHarpoonBuff: Increased running speed
 		}
 
+		ProjectileName: {
+			ShatterspleenExplosion: Shatterspleen
+		}
+
 		Announcements: {
 			ChaosPVP: You can no longer control what team you are on!
 			ArtifactEnabled: "{0} has been enabled by {1}!"
 			ArtifactDisabled: "{0} has been disabled by {1}!"
 		}
 
-		DeathReason.DeathArtifact: "{1} has been slain by the Artifact of Death, activated by {0}."
+		DeathReason: {
+			DeathArtifact: "{1} has been slain by the Artifact of Death, activated by {0}."
+		}
 
 		Terminal: {
 		}
@@ -550,6 +527,12 @@ Mods: {
 			Pillars: Celestial Bindings
 		}
 
+		Containers: {
+			RustyLockboxTile: Rusty Lockbox
+			SecurityChestTile: Security Chest
+			LargeChestTile: Large Chest
+		}
+
 		MapObject: {
 			RustyLockboxTile: Rusty Lockbox
 			RustyLockboxTileLocked: Locked Rusty Lockbox
@@ -561,24 +544,28 @@ Mods: {
 
 		Configuration: {
 			EnemyHB: Enemy Healthbars
-			EnemyHBTooltip:
+			EnemyHBTooltip: 
 				'''
 				Sets the state of the healthbar.
 				Do NOT confuse this with the boss healthbar, this is the normal healthbar 
 				which draws below NPCs when they're injured!
 				'''
+
 			NPCDrawBuff: Draw Buffs
 			NPCDrawBuffTooltip: Whether or not to draw debuffs above NPC's heads
 			NPCDrawBuff_All: > Draw All Buffs
 			NPCDrawBuff_AllTooltip: Buffs without a special UI texture will not be rendered.
+
 			PlayerHealthbarOverlay: Player Healthbar Overlays
 			PlayerHealthbarOverlayTooltip: Whether or not to have player healthbar overlays enabled, disable this if you have a mod which changes vanilla Healthbar UI
+			
 			BossHealthbarActive: Boss Healthbar State
-			BossHealthbarActiveTooltip:
+			BossHealthbarActiveTooltip: 
 				'''
 				Sets the state of the boss healthbar. 
 				'Enabled_AlwaysUse' forces the healthbar to be used at all times, even if the boss has a specialized healthbar.
 				'''
+
 			BossHealthbarBottom: Boss Healthbar: Place on Bottom
 			BossHealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
 		}
@@ -591,132 +578,9 @@ Mods: {
 		MalachiteElite: Malachite
 		CelestineElite: Celestine
 		PerfectedElite: Perfected
+
 		UnboundKey: Unbound Key
 		Revived: REVIVED!
 		Blocked: BLOCKED!
-		"Keybinds.Backup Magazine Swap.DisplayName": Mods.RiskOfTerrain.Keybinds.Backup Magazine Swap.DisplayName
-
-		Buffs: {
-			BandolierBuff: {
-				DisplayName: Bandolier Buff
-				Description: Mods.RiskOfTerrain.Buffs.BandolierBuff.Description
-			}
-
-			BerzerkerBuff: {
-				DisplayName: Berzerker Buff
-				Description: Mods.RiskOfTerrain.Buffs.BerzerkerBuff.Description
-			}
-
-			BustlingFungusBuff: {
-				DisplayName: Bustling Fungus Buff
-				Description: Mods.RiskOfTerrain.Buffs.BustlingFungusBuff.Description
-			}
-
-			CelestineInvis: {
-				DisplayName: Celestine Invis
-				Description: Mods.RiskOfTerrain.Buffs.CelestineInvis.Description
-			}
-
-			CelestineSlow: {
-				DisplayName: Celestine Slow
-				Description: Mods.RiskOfTerrain.Buffs.CelestineSlow.Description
-			}
-
-			BleedingDebuff: {
-				DisplayName: Bleeding Debuff
-				Description: Mods.RiskOfTerrain.Buffs.BleedingDebuff.Description
-			}
-
-			ChronobaubleDebuff: {
-				DisplayName: Chronobauble Debuff
-				Description: Mods.RiskOfTerrain.Buffs.ChronobaubleDebuff.Description
-			}
-
-			DeathMarkDebuff: {
-				DisplayName: Death Mark Debuff
-				Description: Mods.RiskOfTerrain.Buffs.DeathMarkDebuff.Description
-			}
-
-			DiosCooldown: {
-				DisplayName: Dios Cooldown
-				Description: Mods.RiskOfTerrain.Buffs.DiosCooldown.Description
-			}
-
-			RunaldFreeze: {
-				DisplayName: Runald Freeze
-				Description: Mods.RiskOfTerrain.Buffs.RunaldFreeze.Description
-			}
-
-			ShatteredDebuff: {
-				DisplayName: Shattered Debuff
-				Description: Mods.RiskOfTerrain.Buffs.ShatteredDebuff.Description
-			}
-
-			StunGrenadeDebuff: {
-				DisplayName: Stun Grenade Debuff
-				Description: Mods.RiskOfTerrain.Buffs.StunGrenadeDebuff.Description
-			}
-
-			HuntersHarpoonBuff: {
-				DisplayName: Hunters Harpoon Buff
-				Description: Mods.RiskOfTerrain.Buffs.HuntersHarpoonBuff.Description
-			}
-
-			MedkitBuff: {
-				DisplayName: Medkit Buff
-				Description: Mods.RiskOfTerrain.Buffs.MedkitBuff.Description
-			}
-
-			PredatoryInstinctsBuff: {
-				DisplayName: Predatory Instincts Buff
-				Description: Mods.RiskOfTerrain.Buffs.PredatoryInstinctsBuff.Description
-			}
-
-			ShurikenBuff: {
-				DisplayName: Shuriken Buff
-				Description: Mods.RiskOfTerrain.Buffs.ShurikenBuff.Description
-			}
-
-			WarbannerBuff: {
-				DisplayName: Warbanner Buff
-				Description: Mods.RiskOfTerrain.Buffs.WarbannerBuff.Description
-			}
-
-			WarHornBuff: {
-				DisplayName: War Horn Buff
-				Description: Mods.RiskOfTerrain.Buffs.WarHornBuff.Description
-			}
-		}
-
-		Projectiles: {
-			EliteSpawningProj.DisplayName: Elite Spawning Proj
-			AtGMissileExplosion.DisplayName: At G Missile Explosion
-			AtGMissileProj.DisplayName: At G Missile Proj
-			BandolierProj.DisplayName: Bandolier Proj
-			BehemothExplosion.DisplayName: Behemoth Explosion
-			BustlingFungusProj.DisplayName: Bustling Fungus Proj
-			CelestineProj.DisplayName: Celestine Proj
-			DeathMarkProj.DisplayName: Death Mark Proj
-			DioRevive.DisplayName: Dio Revive
-			FireworksProj.DisplayName: Fireworks Proj
-			FireworksSpawner.DisplayName: Fireworks Spawner
-			FocusCrystalProj.DisplayName: Focus Crystal Proj
-			GasolineProj.DisplayName: Gasoline Proj
-			GhorsTomeProj.DisplayName: Ghors Tome Proj
-			MonsterToothProj.DisplayName: Monster Tooth Proj
-			OverloadingBomb.DisplayName: Overloading Bomb
-			RazorwireProj.DisplayName: Razorwire Proj
-			ReloadingShurikenProj.DisplayName: Reloading Shuriken Proj
-			RunaldsBandExplosion.DisplayName: Runalds Band Explosion
-			RunaldsBandShard.DisplayName: Runalds Band Shard
-			SacrificialProj.DisplayName: Sacrificial Proj
-			ShatterspleenExplosion.DisplayName: Shatterspleen Explosion
-			StickyExplosivesExplosion.DisplayName: Sticky Explosives Explosion
-			StickyExplosivesProj.DisplayName: Sticky Explosives Proj
-			StunGrenadeProj.DisplayName: Stun Grenade Proj
-			WarbannerProj.DisplayName: Warbanner Proj
-			WilloExplosion.DisplayName: Willo Explosion
-			ProjectileName.ShatterspleenExplosion: Shatterspleen
-		}
 	}
 }

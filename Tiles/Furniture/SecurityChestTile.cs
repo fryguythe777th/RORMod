@@ -76,9 +76,11 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public virtual void AddMapEntries()
         {
-            AddMapEntry(new Color(20, 80, 200), Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}"), MapChestName);
+            var name = CreateMapEntryName();
+            AddMapEntry(new Color(20, 80, 200), name, MapChestName);
 
-            AddMapEntry(new Color(20, 80, 200), Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}Locked"), MapChestName);
+            name = CreateMapEntryName(Name + "Locked");
+            AddMapEntry(new Color(20, 80, 200), name, MapChestName);
         }
 
         public override void SetStaticDefaults()
@@ -95,7 +97,7 @@ namespace RiskOfTerrain.Tiles.Furniture
             TileID.Sets.DisableSmartCursor[Type] = true;
 
             DustType = DustID.Cobalt;
-            ItemDrop = ModContent.ItemType<SecurityChest>();
+            ChestDrop = ModContent.ItemType<SecurityChest>();
             AdjTiles = new int[] { TileID.Containers };
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
@@ -170,7 +172,7 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemDrop);
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
             Chest.DestroyChest(i, j);
         }
 
@@ -241,7 +243,7 @@ namespace RiskOfTerrain.Tiles.Furniture
                     {
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
-                            NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
+                            NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
                         }
                     }
                 }
@@ -274,7 +276,7 @@ namespace RiskOfTerrain.Tiles.Furniture
         {
             if (Chest.IsLocked(left, top))
                 return ItemID.GoldCoin;
-            return ItemDrop;
+            return ChestDrop;
         }
 
         public override void MouseOver(int i, int j)
@@ -301,7 +303,7 @@ namespace RiskOfTerrain.Tiles.Furniture
             }
             else
             {
-                string defaultName = TileLoader.DefaultContainerName(tile.TileType, i, j)/* tModPorter Note: new method takes in FrameX and FrameY */;
+                string defaultName = TileLoader.ContainerName(tile.TileType);
                 player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : defaultName;
                 if (player.cursorItemIconText == defaultName)
                 {

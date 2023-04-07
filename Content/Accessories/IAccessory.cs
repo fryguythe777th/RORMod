@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Accessories
 {
@@ -17,17 +16,17 @@ namespace RiskOfTerrain.Content.Accessories
         void PostUpdate(EntityInfo entity);
         void UpdateLifeRegeneration(EntityInfo entity);
         void ModifyHitBy(EntityInfo entity, EntityInfo attacker, ref int damage, ref float knockBack, ref bool crit);
-        void OnHitBy(EntityInfo entity, EntityInfo attacker, Player.HurtInfo info);
+        void OnHitBy(EntityInfo entity, EntityInfo attacker, int damage, float knockBack, bool crit);
         void OnUseItem(EntityInfo entity, Item item);
-        void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers);
-        void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit);
+        void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit);
+        void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit);
         void OnKillEnemy(EntityInfo entity, OnKillInfo info);
 
         void ProcessTriggers(Player player, RORPlayer ror);
-        bool FreeDodge(Player player, Player.HurtInfo info);
+        bool PreHurt(Player player, RORPlayer ror, bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter);
         bool PreKill(Player player, RORPlayer ror, double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource);
         void Kill(Player player, RORPlayer ror, double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource);
-        void Hurt(Player player, RORPlayer ror, Player.HurtInfo info);
+        void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter);
         bool CanConsumeAmmo(Player player, RORPlayer ror);
     }
 }

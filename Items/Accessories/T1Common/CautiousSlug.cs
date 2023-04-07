@@ -20,7 +20,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -65,7 +65,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 if (entity.entity is Player player && player.lifeRegenTime < 3000)
                 {
                     player.lifeRegenTime += 2;
-                    regen += (int)Math.Min(player.lifeRegenTime, (int)3000) / 300;
+                    regen += Math.Min(player.lifeRegenTime, (int)3000) / 300;
                 }
                 entity.AddLifeRegen(regen);
                 return;

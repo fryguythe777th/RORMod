@@ -14,7 +14,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
@@ -29,7 +29,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (info.aistyle != 6 && info.lastHitProjectile != ModContent.ProjectileType<SacrificialProj>())
+            if (info.lastHitProjectile != ModContent.ProjectileType<SacrificialProj>())
             {
                 for (int i = 0; i < 3; i++)
                 {

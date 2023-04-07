@@ -12,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.GreenTier.Add(Type);
         }
 
@@ -25,7 +25,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 2);
         }
 
-        public override void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
+        public override void Hurt(Player player, RORPlayer ror, bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (Main.myPlayer != player.whoAmI)
                 return;

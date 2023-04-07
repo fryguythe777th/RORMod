@@ -15,7 +15,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
@@ -28,7 +28,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             Item.value = Item.sellPrice(gold: 5);
         }
 
-        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
+        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref int damage, ref float knockBack, ref bool crit)
         {
             int d;
             if (projOrItem is Item item)
@@ -41,7 +41,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             }
             else
             {
-                d = (int)(damage.Flat * 0.05f);
+                d = (int)(damage * 0.05);
             }
 
             SoundEngine.PlaySound(RiskOfTerrain.GetSounds("behemoth/item_proc_behemoth_0", 4).WithVolumeScale(0.2f), entity.entity.Center);

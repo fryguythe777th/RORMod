@@ -56,16 +56,16 @@ namespace RiskOfTerrain.Projectiles.Misc
                 SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
                 killCounter++;
 
-                for (int i = 0; i < Main.rand.Next(5, 10); i++)
+                for (int i = 0; i < Main.rand.Next(3, 8); i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 5).RotatedByRandom(6.2), ModContent.ProjectileType<RunaldsBandShard>(), 0, 0);
                 }
             }
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (hit.Damage > 0)
+            if (damage > 0)
             {
                 target.AddBuff(ModContent.BuffType<RunaldFreeze>(), 180);
             }
@@ -87,7 +87,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.height = 46;
             Projectile.friendly = true;
             Projectile.damage = 20;
-            Projectile.penetrate = -1; 
+            Projectile.penetrate = -1;
         }
 
         public int Size;
@@ -99,22 +99,22 @@ namespace RiskOfTerrain.Projectiles.Misc
             if (Size == 1)
             {
                 Projectile.frame = 4;
-                Projectile.timeLeft = 18;
+                Projectile.timeLeft = 12;
             }
             else if (Size == 2)
             {
                 Projectile.frame = 3;
-                Projectile.timeLeft = 24;
+                Projectile.timeLeft = 18;
             }
             else if (Size == 3)
             {
                 Projectile.frame = 2;
-                Projectile.timeLeft = 30;
+                Projectile.timeLeft = 24;
             }
             else
             {
                 Projectile.frame = 1;
-                Projectile.timeLeft = 36;
+                Projectile.timeLeft = 30;
             }
         }
 
@@ -123,7 +123,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.rotation = Projectile.velocity.ToRotation() +  MathHelper.PiOver2;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<RunaldFreeze>(), 180);
         }

@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            SacrificeTotal = 1;
             RORItem.WhiteTier.Add((Type, () => NPC.downedBoss1));
         }
 
@@ -24,7 +24,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, int damage, float knockBack, bool crit)
         {
             if (victim.entity is NPC npc && !npc.immortal)
             {
@@ -32,7 +32,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
                 {
                     Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, ModContent.ProjectileType<StickyExplosivesProj>(),
-                        (int)(hit.Damage * 0.5f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
+                        (int)(damage * 0.5f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
                 }
             }
         }

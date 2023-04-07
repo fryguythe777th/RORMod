@@ -229,18 +229,18 @@ namespace RiskOfTerrain.Content
                 {
                     Main.spriteBatch.Draw(pixel, drawPosition - new Vector2(0f, i * 2f), frame, hbColor * 0.4f * (1 - i * 0.25f), 0f, Vector2.Zero, new Vector2(scale.X * (lastHPVisual / (float)lifeMax), scale.Y) + new Vector2(0f, i * 4f), SpriteEffects.None, 0f);
                 }
-                if ((drawParams.Life / drawParams.LifeMax) > 0f)
+                if (drawParams.LifePercentToShow > 0f)
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        Main.spriteBatch.Draw(pixel, drawPosition - new Vector2(0f, i * 2f), frame, hbColor * (1 - i * 0.25f), 0f, Vector2.Zero, new Vector2(scale.X * (drawParams.Life / drawParams.LifeMax), scale.Y + i * 4f), SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(pixel, drawPosition - new Vector2(0f, i * 2f), frame, hbColor * (1 - i * 0.25f), 0f, Vector2.Zero, new Vector2(scale.X * drawParams.LifePercentToShow, scale.Y + i * 4f), SpriteEffects.None, 0f);
                     }
                 }
-                if ((drawParams.Shield / drawParams.ShieldMax)/* tModPorter Note: Removed. Suggest: Shield / ShieldMax */ > 0f)
+                if (drawParams.ShieldPercentToShow > 0f)
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        Main.spriteBatch.Draw(pixel, drawPosition - new Vector2(0f, i * 2f), frame, hbShieldColor * (1 - i * 0.25f), 0f, Vector2.Zero, new Vector2(scale.X * (drawParams.Shield / drawParams.ShieldMax), scale.Y + i * 4f), SpriteEffects.None, 0f);
+                        Main.spriteBatch.Draw(pixel, drawPosition - new Vector2(0f, i * 2f), frame, hbShieldColor * (1 - i * 0.25f), 0f, Vector2.Zero, new Vector2(scale.X * drawParams.ShieldPercentToShow, scale.Y + i * 4f), SpriteEffects.None, 0f);
                     }
                 }
 
