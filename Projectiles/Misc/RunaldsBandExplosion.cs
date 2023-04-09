@@ -18,6 +18,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.friendly = true;
             Projectile.damage = 0;
             Projectile.penetrate = -1;
+            Projectile.scale = 7f;
         }
 
         public bool dustToggle = false;
@@ -56,9 +57,9 @@ namespace RiskOfTerrain.Projectiles.Misc
                 SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode);
                 killCounter++;
 
-                for (int i = 0; i < Main.rand.Next(5, 10); i++)
+                for (int i = 0; i < Main.rand.Next(8, 10); i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 5).RotatedByRandom(6.2), ModContent.ProjectileType<RunaldsBandShard>(), 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 5).RotatedByRandom(6.2), ModContent.ProjectileType<RunaldsBandShard>(), 1 , 0, Owner: Projectile.owner);
                 }
             }
         }
@@ -87,7 +88,8 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.height = 46;
             Projectile.friendly = true;
             Projectile.damage = 20;
-            Projectile.penetrate = -1; 
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
         }
 
         public int Size;

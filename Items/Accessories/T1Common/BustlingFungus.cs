@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Items.Testing;
 using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.ID;

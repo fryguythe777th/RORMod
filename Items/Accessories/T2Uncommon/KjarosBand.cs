@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Projectiles.Misc;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
@@ -24,14 +26,11 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public int procCooldown;
 
-        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (info.lastHitDamage >= info.lifeMax * 0.6 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5 && procCooldown == 600)
+            if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown == 600)
             {
-                int i = Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ProjectileID.SandnadoHostile, 20, 0);
-                Main.projectile[i].hostile = false; 
-                Main.projectile[i].friendly = true;
-                Main.projectile[i].owner = Main.LocalPlayer.whoAmI;
+                int i = Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), new Vector2(npc.Center.X, npc.Center.Y - 20), Vector2.Zero, ModContent.ProjectileType<KjarosBandTornado>(), 5, 0, Owner: player.whoAmI);
                 procCooldown = 0;
             }
         }

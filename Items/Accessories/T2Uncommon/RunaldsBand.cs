@@ -26,11 +26,11 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public int procCooldown;
 
-        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (info.lastHitDamage >= info.lifeMax * 0.6 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5 && procCooldown == 600)
+            if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown == 600)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 0, 0, Owner:Main.LocalPlayer.whoAmI);
+                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), npc.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 1, 0, Owner: player.whoAmI);
                 procCooldown = 0;
             }
         }

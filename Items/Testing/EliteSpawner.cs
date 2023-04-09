@@ -79,6 +79,17 @@ namespace RiskOfTerrain.Items.Testing
         {
             return true;
         }
+
+        public override void AddRecipes()
+        {
+            //makes it so shimmering ELITINIZER will give you BUNGUS
+            CreateRecipe()
+                .AddCustomShimmerResult(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
+                .Register();
+        }
+
+        //TODOLIST
+        // - SCORPION W/ POPPER EFFECT
     }
 
     public class EliteSpawningProj : ModProjectile

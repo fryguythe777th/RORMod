@@ -86,7 +86,7 @@ Mods: {
 
 			Medkit: {
 				DisplayName: Medkit
-				Tooltip: 
+				Tooltip:
 					'''
 					After taking damage, receive a delayed heal
 					Heals 5% of maximum health, plus 10
@@ -95,7 +95,7 @@ Mods: {
 
 			MonsterTooth: {
 				DisplayName: Monster Tooth
-				Tooltip: 
+				Tooltip:
 					'''
 					Enemies drop healing orbs when they die
 					These heal 2% of maximum life, plus 8
@@ -104,7 +104,7 @@ Mods: {
 
 			OddlyShapedOpal: {
 				DisplayName: Oddly-Shaped Opal
-				Tooltip: 
+				Tooltip:
 					'''
 					50 defense
 					Taking damage negates this defense for 7 seconds
@@ -118,7 +118,7 @@ Mods: {
 
 			PersonalShieldGenerator: {
 				DisplayName: Personal Shield Generator
-				Tooltip: 
+				Tooltip:
 					'''
 					Gain a shield equal to 12% of your maximum health
 					This shield will recharge after not taking damage for 5 seconds
@@ -137,7 +137,7 @@ Mods: {
 
 			SoldiersSyringe: {
 				DisplayName: Soldier's Syringe
-				Tooltip: 
+				Tooltip:
 					'''
 					12% increased attack speed
 					12% decreased damage
@@ -181,7 +181,7 @@ Mods: {
 
 			Bandolier: {
 				DisplayName: Bandolier
-				Tooltip: 
+				Tooltip:
 					'''
 					20% chance for killed enemies to drop an ammo box
 					Ammo boxes temporarily give you 100% reduced ammo consumption
@@ -191,7 +191,7 @@ Mods: {
 
 			BerzerkersPauldron: {
 				DisplayName: Berzerker's Pauldron
-				Tooltip: 
+				Tooltip:
 					'''
 					Killing 4 enemies in quick succession puts you into a wild frenzy
 					While in this state, your movement and attack speed are significantly released
@@ -215,7 +215,7 @@ Mods: {
 
 			FuelCell: {
 				DisplayName: Fuel Cell
-				Tooltip: 
+				Tooltip:
 					'''
 					Debuffs last 15% shorter
 					Buffs last 15% longer
@@ -224,7 +224,7 @@ Mods: {
 
 			GhorsTome: {
 				DisplayName: Ghor's Tome
-				Tooltip: 
+				Tooltip:
 					'''
 					10% chance for killed enemies to drop a gold nugget
 					Gold nuggets grant money
@@ -238,7 +238,7 @@ Mods: {
 
 			HopooFeather: {
 				DisplayName: Hopoo Feather
-				Tooltip: 
+				Tooltip:
 					'''
 					Prevents fall damage
 					Increased jump height and speed
@@ -262,9 +262,9 @@ Mods: {
 
 			KjarosBand: {
 				DisplayName: Kjaro's Band
-				Tooltip: 
+				Tooltip:
 					'''
-					Killing an enemy with an attack that deals 60% of its max life spawns a flaming tornado
+					Hitting an enemy with an attack that deals 60% of its max life spawns a flaming tornado
 					This effect has a 10 second cooldown
 					'''
 			}
@@ -281,7 +281,7 @@ Mods: {
 
 			OldWarStealthkit: {
 				DisplayName: Old War Stealthkit
-				Tooltip: 
+				Tooltip:
 					'''
 					When under 25% health, become invisible and gain a speed boost
 					Has a 30 second cooldown
@@ -290,7 +290,7 @@ Mods: {
 
 			PredatoryInstincts: {
 				DisplayName: Predatory Instincts
-				Tooltip: 
+				Tooltip:
 					'''
 					5% increased critical strike chance
 					Landing a critical strike grants a short attack speed boost
@@ -309,7 +309,7 @@ Mods: {
 
 			ReloadingShurikens: {
 				DisplayName: Reloading Shurikens
-				Tooltip: 
+				Tooltip:
 					'''
 					Shoot shurikens at enemies as you attack
 					These shurikens recharge over time
@@ -318,7 +318,7 @@ Mods: {
 
 			RoseBuckler: {
 				DisplayName: Rose Buckler
-				Tooltip: 
+				Tooltip:
 					'''
 					Gain 30 defense while sprinting
 					Sprinting is considered to be the running speed boost from boot accessories
@@ -327,16 +327,16 @@ Mods: {
 
 			RunaldsBand: {
 				DisplayName: Runald's Band
-				Tooltip: 
+				Tooltip:
 					'''
-					Killing an enemy with an attack that deals 60% of its max life spawns an icy explosion, freezing enemies
-					Has a 10 second cooldown
+					Hitting an enemy with an attack that deals 60% of its max life spawns an icy explosion, freezing enemies
+					This effect has a 10 second cooldown
 					'''
 			}
 
 			Ukulele: {
 				DisplayName: Ukulele
-				Tooltip: 
+				Tooltip:
 					'''
 					Chance from struck enemies to chain a lightning beam to nearby foes
 					This lightning beam can activate on hit effects
@@ -351,7 +351,7 @@ Mods: {
 
 			WaxQuail: {
 				DisplayName: Wax Quail
-				Tooltip: 
+				Tooltip:
 					'''
 					Jumping while sprinting grants a horizontal speed boost
 					Sprinting is considered to be the running speed boost from boot accessories
@@ -365,7 +365,7 @@ Mods: {
 
 			Aegis: {
 				DisplayName: Aegis
-				Tooltip: 
+				Tooltip:
 					'''
 					Half of all healing is added as barrier
 					The last 10% of barrier will not naturally decay
@@ -379,7 +379,7 @@ Mods: {
 
 			DiosBestFriend: {
 				DisplayName: Dio's Best Friend
-				Tooltip: 
+				Tooltip:
 					'''
 					Cheat death
 					When used, receive a 10 minute cooldown
@@ -389,7 +389,7 @@ Mods: {
 
 			SacrificialDagger: {
 				DisplayName: Sacrificial Dagger
-				Tooltip: 
+				Tooltip:
 					'''
 					Killing enemies releases a trio of haunted daggers
 					These daggers seek other enemies and sink to the ground when not angered
@@ -403,7 +403,7 @@ Mods: {
 
 			Shatterspleen: {
 				DisplayName: Shatterspleen
-				Tooltip: 
+				Tooltip:
 					'''
 					5% increased critical strike chance
 					All critical strikes will inflict bleeding to enemies
@@ -453,7 +453,7 @@ Mods: {
 
 			PowerElixir: {
 				DisplayName: Power Elixir
-				Tooltip: 
+				Tooltip:
 					'''
 					Automatically consumed when taking damage below 50% life
 					25% increased potion sickness time
@@ -482,7 +482,7 @@ Mods: {
 
 			EliteSpawner: {
 				DisplayName: Elite Spawner
-				Tooltip: 
+				Tooltip:
 					'''
 					Developer Tool
 					Click enemies to make them elites
@@ -551,7 +551,7 @@ Mods: {
 		}
 
 		MapObject: {
-			RustyLockboxTile: Rusty Lockbox 
+			RustyLockboxTile: Rusty Lockbox
 			RustyLockboxTileLocked: Locked Rusty Lockbox
 			SecurityChestTile: Security Chest
 			SecurityChestTileLocked: Locked Security Chest
@@ -717,6 +717,7 @@ Mods: {
 			WarbannerProj.DisplayName: Warbanner Proj
 			WilloExplosion.DisplayName: Willo Explosion
 			ProjectileName.ShatterspleenExplosion: Shatterspleen
+			KjarosBandTornado.DisplayName: Kjaros Band Tornado
 		}
 	}
 }

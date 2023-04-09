@@ -105,10 +105,10 @@ namespace RiskOfTerrain.NPCs
 
         private int NPC_StrikeNPC(On_NPC.orig_StrikeNPC_int_float_int_bool_bool_bool orig, NPC self, int Damage, float knockBack, int hitDirection, bool crit, bool fromNet, bool noPlayerInteraction)
         {
-            if (self.TryGetGlobalNPC<RORNPC>(out var ror))
-            {
-                ror.lastHitDamage = Damage;
-            }
+            //if (self.TryGetGlobalNPC<RORNPC>(out var ror))
+            //{
+            //    ror.lastHitDamage = Damage;
+            //}
             return orig(self, Damage, knockBack, hitDirection, crit, fromNet, noPlayerInteraction);
         }
 
