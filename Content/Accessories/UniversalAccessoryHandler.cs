@@ -186,10 +186,10 @@ namespace RiskOfTerrain.Content.Accessories
         {
             foreach (var accessory in Accessories)
             {
-                if (!accessory.FreeDodge(player, info))
-                    return false;
+                if (accessory.FreeDodge(player, info))
+                    return true;
             }
-            return true;
+            return false;
         }
 
         public bool PreKill(Player player, RORPlayer ror, double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

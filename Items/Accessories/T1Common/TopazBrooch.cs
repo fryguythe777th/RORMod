@@ -34,7 +34,12 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             if (entity.entity is Player player)
             {
                 var ror = player.ROR();
-                ror.barrierLife = Math.Min(ror.barrierLife + 15, player.statLifeMax2);
+                //ror.barrierLife = Math.Min(ror.barrierLife + 15, player.statLifeMax2);
+                ror.barrierLife += 15;
+                if (ror.barrierLife > player.statLifeMax2)
+                {
+                    ror.barrierLife = player.statLifeMax2;
+                }
                 player.statLife += 15;
             }
         }

@@ -11,7 +11,6 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add(Type);
         }
 
@@ -20,7 +19,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.width = 24;
             Item.height = 24;
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(gold: 3);
         }
 

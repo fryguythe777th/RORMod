@@ -9,7 +9,6 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             RORItem.GreenTier.Add(Type);
         }
 
@@ -29,8 +28,8 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         {
             if (player.statLife <= player.statLifeMax * 0.25 && stealthModeCooldown <= 0)
             {
-                player.AddBuff(BuffID.Invisibility, 300);
-                stealthSpeedBoostCounter = 300;
+                player.AddBuff(BuffID.Invisibility, 500);
+                stealthSpeedBoostCounter = 500;
                 stealthModeCooldown = 1800;
             }
             else

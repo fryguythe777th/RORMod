@@ -32,7 +32,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
                 {
                     Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center + Main.rand.NextVector2Unit() * 100f, Vector2.Zero, ModContent.ProjectileType<StickyExplosivesProj>(),
-                        (int)(hit.Damage * 0.5f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
+                        (int)(hit.Damage * 0.75f * proc), 0f, entity.GetProjectileOwnerID(), npc.whoAmI);
                 }
             }
         }

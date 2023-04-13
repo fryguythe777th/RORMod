@@ -27,7 +27,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             if (entity.entity is not Player && (!Main.expertMode || entity.entity is not NPC))
                 return;
 
-            int[] coins = Utils.CoinsSplit(50 * info.Damage);
+            int[] coins = Utils.CoinsSplit(25 * info.Damage);
             var source = entity.entity.GetSource_FromThis();
             var loc = entity.entity.Center;
             if (coins[0] > 0)

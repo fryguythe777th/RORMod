@@ -65,6 +65,18 @@ namespace RiskOfTerrain.Projectiles.Misc
                         Main.player[i].AddBuff(ModContent.BuffType<BustlingFungusBuff>(), 4, quiet: true);
                     }
                 }
+
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    if (npc.active && npc.Distance(Projectile.Center) < Projectile.scale / 2f && (npc.friendly || npc.lifeMax <= 5 || npc.damage == 0))
+                    {
+                        if (npc.life < npc.lifeMax)
+                        {
+                            npc.life++;
+                        }
+                    }
+                }
             }
             else
             {

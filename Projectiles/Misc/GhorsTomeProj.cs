@@ -41,12 +41,15 @@ namespace RiskOfTerrain.Projectiles.Misc
             {
                 Projectile.localAI[0] = 1f;
                 Projectile.rotation = MathHelper.ToRadians(Main.rand.Next(0, 360));
+                Projectile.velocity = new Vector2(0, 1);
             }
 
-            if (Projectile.tileCollide)
-            {
-                Projectile.velocity *= 0.9f;
-            }
+            //if (Projectile.tileCollide)
+            //{
+            //    Projectile.velocity *= 0.9f;
+            //}
+
+            Projectile.velocity.Y *= 1.01f;
 
             int grabRange = 200;
             if (Main.player[Projectile.owner].treasureMagnet)
@@ -101,7 +104,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             else
             {
                 Projectile.velocity.X *= 0.99f;
-                Projectile.velocity.Y += 0.3f;
+                Projectile.velocity.Y *= 1.05f;
                 Projectile.tileCollide = true;
             }
 

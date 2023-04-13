@@ -12,7 +12,6 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             RORItem.WhiteTier.Add(Type);
         }
 
@@ -35,7 +34,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
         {
-            player.AddBuff(ModContent.BuffType<MedkitBuff>(), (int)Math.Clamp(360 * (Math.Clamp(player.statLife - info.Damage, 0, player.statLifeMax2) / (float)player.statLifeMax2), 120f, 360f));
+            player.AddBuff(ModContent.BuffType<MedkitBuff>(), /*(int)Math.Clamp(360 * (Math.Clamp(player.statLife - info.Damage, 0, player.statLifeMax2) / (float)player.statLifeMax2), 120f, 360f)*/ 420);
         }
     }
 }

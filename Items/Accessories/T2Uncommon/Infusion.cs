@@ -42,7 +42,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                 {
                     int subAmount = (int)Math.Round(ExtraMaxHp * 0.20) + 1;
                     ExtraMaxHp -= subAmount;
-                    CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 3, 3), Color.Yellow, -subAmount, false);
+                    CombatText.NewText(new Rectangle((int)player.Center.X, (int)player.Center.Y, 3, 3), Color.Red, -subAmount, false);
                 }
                 WearOffTimer = 0;
             }

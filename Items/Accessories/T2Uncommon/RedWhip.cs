@@ -35,13 +35,16 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         //ripped right from cautious slug mf
         public override void UpdateLifeRegeneration(EntityInfo entity)
         {
-            if (whipActive > 120)
+            if (whipActive == 120)
             {
-                if (Main.netMode != NetmodeID.Server && whipActive == 120)
+                if (Main.netMode != NetmodeID.Server)
                 {
                     SoundEngine.PlaySound(RiskOfTerrain.GetSounds("whip/item_proc_whip_", 4).WithVolumeScale(0.4f), entity.entity.Center);
                 }
+            }
 
+            if (whipActive > 120)
+            {
                 if (entity.InDanger())
                 {
                     whipActive = 0;

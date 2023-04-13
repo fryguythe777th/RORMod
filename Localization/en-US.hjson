@@ -194,7 +194,7 @@ Mods: {
 				Tooltip:
 					'''
 					Killing 4 enemies in quick succession puts you into a wild frenzy
-					While in this state, your movement and attack speed are significantly released
+					While in this state, your movement and attack speed are significantly increased
 					'''
 			}
 
@@ -598,93 +598,93 @@ Mods: {
 
 		Buffs: {
 			BandolierBuff: {
-				DisplayName: Bandolier Buff
-				Description: Mods.RiskOfTerrain.Buffs.BandolierBuff.Description
+				DisplayName: Ammunition Resupplied
+				Description: 100% reduced ammo consumption
 			}
 
 			BerzerkerBuff: {
-				DisplayName: Berzerker Buff
-				Description: Mods.RiskOfTerrain.Buffs.BerzerkerBuff.Description
+				DisplayName: Wild Frenzy
+				Description: Increased movement and attack speed
 			}
 
 			BustlingFungusBuff: {
-				DisplayName: Bustling Fungus Buff
-				Description: Mods.RiskOfTerrain.Buffs.BustlingFungusBuff.Description
+				DisplayName: Fungal Activity
+				Description: Natural healing increased
 			}
 
 			CelestineInvis: {
-				DisplayName: Celestine Invis
-				Description: Mods.RiskOfTerrain.Buffs.CelestineInvis.Description
+				DisplayName: Incorporeal
+				Description: You are a stranger to the light
 			}
 
 			CelestineSlow: {
-				DisplayName: Celestine Slow
-				Description: Mods.RiskOfTerrain.Buffs.CelestineSlow.Description
+				DisplayName: Lethargic
+				Description: The enveloping shadows slow your pace
 			}
 
 			BleedingDebuff: {
-				DisplayName: Bleeding Debuff
-				Description: Mods.RiskOfTerrain.Buffs.BleedingDebuff.Description
+				DisplayName: Bleeding
+				Description: Your lifeblood is seeping from your skin
 			}
 
 			ChronobaubleDebuff: {
-				DisplayName: Chronobauble Debuff
-				Description: Mods.RiskOfTerrain.Buffs.ChronobaubleDebuff.Description
+				DisplayName: Slow
+				Description: The hands of time grip you without yield
 			}
 
 			DeathMarkDebuff: {
-				DisplayName: Death Mark Debuff
-				Description: Mods.RiskOfTerrain.Buffs.DeathMarkDebuff.Description
+				DisplayName: Marked for Death
+				Description: Evil forces swiften your defeat and greaten your wounds
 			}
 
 			DiosCooldown: {
-				DisplayName: Dios Cooldown
-				Description: Mods.RiskOfTerrain.Buffs.DiosCooldown.Description
+				DisplayName: Extra Life on Cooldown
+				Description: Your revive item cannot activate until its cooldown ends
 			}
 
 			RunaldFreeze: {
-				DisplayName: Runald Freeze
-				Description: Mods.RiskOfTerrain.Buffs.RunaldFreeze.Description
+				DisplayName: Runic Freeze
+				Description: You are bound together by frigid ice
 			}
 
 			ShatteredDebuff: {
-				DisplayName: Shattered Debuff
-				Description: Mods.RiskOfTerrain.Buffs.ShatteredDebuff.Description
+				DisplayName: Shattered
+				Description: Your armor is broken, decreasing your defense
 			}
 
 			StunGrenadeDebuff: {
-				DisplayName: Stun Grenade Debuff
-				Description: Mods.RiskOfTerrain.Buffs.StunGrenadeDebuff.Description
+				DisplayName: Stunned
+				Description: You are disoriented, leaving you more vulnerable to attacks
 			}
 
 			HuntersHarpoonBuff: {
-				DisplayName: Hunters Harpoon Buff
-				Description: Mods.RiskOfTerrain.Buffs.HuntersHarpoonBuff.Description
+				DisplayName: On the Hunt
+				Description: Your speed is increased due to your adrenaline
 			}
 
 			MedkitBuff: {
-				DisplayName: Medkit Buff
-				Description: Mods.RiskOfTerrain.Buffs.MedkitBuff.Description
+				DisplayName: Delayed Heal
+				Description: Receive some life back upon this debuff's end
 			}
 
 			PredatoryInstinctsBuff: {
-				DisplayName: Predatory Instincts Buff
-				Description: Mods.RiskOfTerrain.Buffs.PredatoryInstinctsBuff.Description
+				DisplayName: Honed Instincts
+				Description: Your honed instincts give you more concentration and speed in combat
 			}
 
 			ShurikenBuff: {
-				DisplayName: Shuriken Buff
-				Description: Mods.RiskOfTerrain.Buffs.ShurikenBuff.Description
+				DisplayName: Shuriken
+				Description: This weapon will be fired when you next attack
 			}
 
 			WarbannerBuff: {
-				DisplayName: Warbanner Buff
-				Description: Mods.RiskOfTerrain.Buffs.WarbannerBuff.Description
+				DisplayName: Ready for War
+				Description: Your boosted morale grants you increased attack and movement speed
 			}
 
 			WarHornBuff: {
-				DisplayName: War Horn Buff
-				Description: Mods.RiskOfTerrain.Buffs.WarHornBuff.Description
+				DisplayName: Ready for War
+				Description: Your boosted morale grants you increased attack speed
 			}
 		}
 

@@ -82,14 +82,13 @@ namespace RiskOfTerrain.Items.Testing
 
         public override void AddRecipes()
         {
-            //makes it so shimmering ELITINIZER will give you BUNGUS
             CreateRecipe()
+                //makes it so shimmering ELITINIZER will give you BUNGUS
                 .AddCustomShimmerResult(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
+                .AddIngredient(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
+                .AddTile(LiquidID.Shimmer)
                 .Register();
         }
-
-        //TODOLIST
-        // - SCORPION W/ POPPER EFFECT
     }
 
     public class EliteSpawningProj : ModProjectile
@@ -132,3 +131,9 @@ namespace RiskOfTerrain.Items.Testing
         }
     }
 }
+
+/*
+ * personal testing notes:
+- aspects need sprites
+- fuel cell sprite
+*/

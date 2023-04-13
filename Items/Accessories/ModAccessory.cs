@@ -68,7 +68,7 @@ namespace RiskOfTerrain.Items.Accessories
 
         public virtual bool FreeDodge(Player player, Player.HurtInfo info)
         {
-            return true;
+            return false;
         }
 
         public virtual bool PreKill(Player player, RORPlayer ror, double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

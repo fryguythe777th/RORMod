@@ -28,11 +28,11 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             player.GetCritChance(DamageClass.Generic) += 5;
         }
 
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (hit.Crit)
             {
-                player.AddBuff(ModContent.BuffType<PredatoryInstinctsBuff>(), 300);
+                entity.AddBuff(ModContent.BuffType<PredatoryInstinctsBuff>(), 300);
             }
         }
     }

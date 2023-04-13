@@ -49,7 +49,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             projectile.Center = entity.entity.Center;
             var bungus = (BustlingFungusProj)projectile.ModProjectile;
             bungus.accessoryActive = true;
-            bungus.regenPercent = 0.1f;
+            bungus.regenPercent = 0.2f;
         }
 
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)

@@ -55,6 +55,7 @@ namespace RiskOfTerrain
 
         public int barrierLife;
         public float barrierMinimumFrac;
+        public int barrierDecayTimer;
 
         public float shield;
         public float maxShield;
@@ -541,11 +542,20 @@ namespace RiskOfTerrain
 
         public void UpdateBarrierDrainage()
         {
-            if (barrierLife > BarrierMinimum)
+            if (barrierDecayTimer == 6)
             {
-                barrierLife -= Math.Max((int)((Player.statLifeMax2 + barrierLife) * 0.05f), 1);
-                if (barrierLife < BarrierMinimum)
-                    barrierLife = BarrierMinimum;
+                if (barrierLife > BarrierMinimum)
+                {
+                    barrierLife -= 1;
+                    if (barrierLife < BarrierMinimum)
+                        barrierLife = BarrierMinimum;
+                }
+
+                barrierDecayTimer = 0;
+            }
+            else
+            {
+                barrierDecayTimer++;
             }
         }
 

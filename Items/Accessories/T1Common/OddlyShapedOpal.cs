@@ -1,7 +1,9 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using RiskOfTerrain.Graphics.PlayerLayers;
 
 namespace RiskOfTerrain.Items.Accessories.T1Common
 {
@@ -10,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     {
         public const int TimeToActivate = 60 * 7;
 
-        public int shieldActive;
+        public int shieldActive = 60 * 7;
         public bool hideVisual;
 
         public override void SetStaticDefaults()
