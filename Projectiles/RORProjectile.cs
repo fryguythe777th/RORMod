@@ -23,6 +23,80 @@ namespace RiskOfTerrain.Projectiles
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
+        
+        public static HashSet<int> CountsAsMissle { get; private set; }
+
+        public override void Load()
+        {
+            CountsAsMissle = new HashSet<int>()
+            {
+                ProjectileID.ElectrosphereMissile,
+                ProjectileID.RocketI,
+                ProjectileID.ProximityMineI,
+                ProjectileID.GrenadeI,
+                ProjectileID.RocketII,
+                ProjectileID.ProximityMineII,
+                ProjectileID.GrenadeII,
+                ProjectileID.RocketIII,
+                ProjectileID.ProximityMineIII,
+                ProjectileID.GrenadeIII,
+                ProjectileID.RocketIV,
+                ProjectileID.ProximityMineIV,
+                ProjectileID.GrenadeIV,
+                ProjectileID.RocketFireworkBlue,
+                ProjectileID.RocketFireworkRed,
+                ProjectileID.RocketFireworkGreen,
+                ProjectileID.RocketFireworkYellow,
+                ProjectileID.RocketSnowmanI,
+                ProjectileID.RocketSnowmanII,
+                ProjectileID.RocketSnowmanIII,
+                ProjectileID.RocketSnowmanIV,
+                ProjectileID.RocketFireworksBoxBlue,
+                ProjectileID.RocketFireworksBoxRed,
+                ProjectileID.RocketFireworksBoxGreen,
+                ProjectileID.RocketFireworksBoxYellow,
+                ProjectileID.VortexBeaterRocket,
+                ProjectileID.Celeb2Rocket,
+                ProjectileID.Celeb2RocketExplosive,
+                ProjectileID.Celeb2RocketLarge,
+                ProjectileID.Celeb2RocketExplosiveLarge,
+                ProjectileID.ClusterRocketI,
+                ProjectileID.ClusterMineI,
+                ProjectileID.ClusterGrenadeI,
+                ProjectileID.ClusterRocketII,
+                ProjectileID.ClusterMineII,
+                ProjectileID.ClusterGrenadeII,
+                ProjectileID.WetRocket,
+                ProjectileID.WetGrenade,
+                ProjectileID.WetMine,
+                ProjectileID.LavaRocket,
+                ProjectileID.LavaGrenade,
+                ProjectileID.LavaMine,
+                ProjectileID.HoneyRocket,
+                ProjectileID.HoneyGrenade,
+                ProjectileID.HoneyMine,
+                ProjectileID.MiniNukeRocketI,
+                ProjectileID.MiniNukeMineI,
+                ProjectileID.MiniNukeGrenadeI,
+                ProjectileID.MiniNukeRocketII,
+                ProjectileID.MiniNukeMineII,
+                ProjectileID.MiniNukeGrenadeII,
+                ProjectileID.DryRocket,
+                ProjectileID.DryGrenade,
+                ProjectileID.DryMine,
+                ProjectileID.ClusterSnowmanRocketI,
+                ProjectileID.ClusterSnowmanRocketII,
+                ProjectileID.WetSnowmanRocket,
+                ProjectileID.LavaSnowmanRocket,
+                ProjectileID.HoneySnowmanRocket,
+                ProjectileID.DrySnowmanRocket,
+                ProjectileID.MiniNukeSnowmanRocketI,
+                ProjectileID.MiniNukeSnowmanRocketII,
+                ProjectileID.SantankMountRocket,
+                ModContent.ProjectileType<AtGMissileProj>(),
+                ModContent.ProjectileType<FireworksProj>(),a
+            };
+        }
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -60,6 +134,16 @@ namespace RiskOfTerrain.Projectiles
                     {
                         hasCelestineProperties = true;
                     }
+                }
+            }
+
+            if (Main.player[projectile.owner].ROR().accICBM && projectile.friendly && CountsAsMissle.Contains(projectile.type))
+            {
+                projectile.damage = (int)(projectile.damage * 1.25f);
+                if (projectile.ai[2] != 69)
+                {
+                    Projectile.NewProjectile(Main.player[projectile.owner].GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(0.5), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], 69);
+                    Projectile.NewProjectile(Main.player[projectile.owner].GetSource_FromThis(), projectile.Center, projectile.velocity.RotatedBy(-0.5), projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1], 69); 
                 }
             }
         }

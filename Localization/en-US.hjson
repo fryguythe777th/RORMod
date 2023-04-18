@@ -1,4 +1,3 @@
-
 Mods: {
 	RiskOfTerrain: {
 		UnimplementedItem: This artifact is not implemented currently. Sorry!
@@ -488,6 +487,11 @@ Mods: {
 					Click enemies to make them elites
 					Right click to cycle through the desired elite
 					'''
+			}
+
+			ICBM: {
+				Tooltip: "Missiles, rockets, and fireworks are tripled and deal extra damage"
+				DisplayName: ICBM
 			}
 		}
 

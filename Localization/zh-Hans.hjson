@@ -1,4 +1,3 @@
-
 Mods: {
 	RiskOfTerrain: {
 		UnimplementedItem: 此神器目前尚未完全完成. 很抱歉!
@@ -488,6 +487,11 @@ Mods: {
 					Click enemies to make them elites
 					Right click to cycle through the desired elite
 					''' */
+			}
+
+			ICBM: {
+				// Tooltip: ""
+				// DisplayName: I C B M
 			}
 		}
 

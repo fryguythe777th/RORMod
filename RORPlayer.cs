@@ -35,6 +35,7 @@ namespace RiskOfTerrain
         public int aegisLifeCheck;
 
         public bool accAegis;
+        public bool accICBM;
 
         public Item accFocusCrystal;
         public bool focusCrystalVisible;
@@ -455,6 +456,7 @@ namespace RiskOfTerrain
             accIgnitionTank = false;
             accWaxQuail = false;
             accFuelCell = false;
+            accICBM = false;
             aspCelestine = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
