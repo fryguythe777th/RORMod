@@ -94,7 +94,7 @@ namespace RiskOfTerrain.Projectiles
                 ProjectileID.MiniNukeSnowmanRocketII,
                 ProjectileID.SantankMountRocket,
                 ModContent.ProjectileType<AtGMissileProj>(),
-                ModContent.ProjectileType<FireworksProj>(),a
+                ModContent.ProjectileType<FireworksProj>(),
             };
         }
 

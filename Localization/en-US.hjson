@@ -490,8 +490,22 @@ Mods: {
 			}
 
 			ICBM: {
-				Tooltip: "Missiles, rockets, and fireworks are tripled and deal extra damage"
 				DisplayName: ICBM
+				Tooltip: Missiles, rockets, and fireworks are tripled and deal extra damage
+			}
+
+			LazerScope: {
+				DisplayName: Lazer Scope
+				Tooltip: 100% increased critical strike damage
+			}
+
+			Clover: {
+				DisplayName: 57 Leaf Clover
+				Tooltip:
+					'''
+					Increased chance for chance-based effects to occur
+					Increased luck
+					'''
 			}
 		}
 

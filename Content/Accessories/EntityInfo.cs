@@ -64,6 +64,14 @@ namespace RiskOfTerrain.Content.Accessories
         {
             if (entity is Player player)
             {
+                if (player.ROR().accClover)
+                {
+                    int roll = player.RollLuck(range);
+                    if (roll == 0)
+                    {
+                        return 0;
+                    }
+                }
                 return player.RollLuck(range);
             }
             return Main.rand.Next(range);

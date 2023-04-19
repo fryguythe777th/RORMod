@@ -36,6 +36,7 @@ namespace RiskOfTerrain
 
         public bool accAegis;
         public bool accICBM;
+        public bool accClover;
 
         public Item accFocusCrystal;
         public bool focusCrystalVisible;
