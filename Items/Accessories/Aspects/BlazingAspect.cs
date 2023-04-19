@@ -17,9 +17,14 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
             Item.rare = ItemRarityID.Orange;
         }
 
-        public Vector2 blazeSpotPrev;
+        public static Vector2 blazeSpotPrev;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            BlazingUpdate(player);
+        }
+
+        public static void BlazingUpdate(Player player)
         {
             if (blazeSpotPrev == Vector2.Zero)
                 blazeSpotPrev = player.position;

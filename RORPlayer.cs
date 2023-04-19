@@ -458,6 +458,7 @@ namespace RiskOfTerrain
             accWaxQuail = false;
             accFuelCell = false;
             accICBM = false;
+            accClover = false;
             aspCelestine = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;

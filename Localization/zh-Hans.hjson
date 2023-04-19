@@ -495,7 +495,7 @@ Mods: {
 			}
 
 			LazerScope: {
-				// DisplayName: Lazer Scope
+				// DisplayName: Laser Scope
 				// Tooltip: 100% increased critical strike damage
 			}
 
@@ -506,6 +506,16 @@ Mods: {
 					Increased chance for chance-based effects to occur
 					Increased luck
 					''' */
+			}
+
+			OldGuillotine: {
+				// DisplayName: Old Guillotine
+				// Tooltip: ""
+			}
+
+			WakeOfVultures: {
+				// DisplayName: Wake Of Vultures
+				// Tooltip: ""
 			}
 		}
 
@@ -704,6 +714,21 @@ Mods: {
 				// DisplayName: Ready for War
 				// Description: Your boosted morale grants you increased attack speed
 			}
+
+			BlazingWOV: {
+				// DisplayName: Blazing W O V
+				// Description: Mods.RiskOfTerrain.Buffs.BlazingWOV.Description
+			}
+
+			CelestineWOV: {
+				// DisplayName: Celestine W O V
+				// Description: Mods.RiskOfTerrain.Buffs.CelestineWOV.Description
+			}
+
+			OverloadingWOV: {
+				// DisplayName: Overloading W O V
+				// Description: Mods.RiskOfTerrain.Buffs.OverloadingWOV.Description
+			}
 		}
 
 		Projectiles: {
@@ -736,6 +761,7 @@ Mods: {
 			// WilloExplosion.DisplayName: Willo Explosion
 			// ProjectileName.ShatterspleenExplosion: Shatterspleen
 			// KjarosBandTornado.DisplayName: Kjaros Band Tornado
+			// OnHitEffect.DisplayName: On Hit Effect
 		}
 	}
 }

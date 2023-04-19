@@ -21,11 +21,21 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            OverloadingUpdate(player);
+        }
+
+        public static void OverloadingUpdate(Player player)
+        {
             player.statLifeMax2 /= 2;
             player.ROR().maxShield += 0.5f;
         }
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
+        {
+            OverloadingOnHit(entity, victim, projOrItem);
+        }
+
+        public static void OverloadingOnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem)
         {
             if (victim.entity is NPC npc && entity.entity is Player player && projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>() && !projectile.ROR().spawnedFromElite && !npc.friendly)
             {

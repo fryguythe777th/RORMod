@@ -23,6 +23,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            CelestineUpdate(player);
+        }
+
+        public static void CelestineUpdate(Player player)
+        {
             player.ROR().aspCelestine = true;
 
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -59,6 +64,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
+            CelestineOnHit(victim);
+        }
+
+        public static void CelestineOnHit(EntityInfo victim)
+        {
             if (victim.entity is Player player)
             {
                 player.AddBuff(ModContent.BuffType<CelestineSlow>(), 180);
@@ -72,6 +82,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public override void PostUpdate(EntityInfo entity)
         {
+            CelestinePostUpdate(entity, Item);
+        }
+
+        public static void CelestinePostUpdate(EntityInfo entity, Item item)
+        {
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<CelestineProj>() && entity.OwnsThisProjectile(Main.projectile[i]))
@@ -80,11 +95,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
                     return;
                 }
             }
-            UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
+            UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(item), entity.entity.Center, Vector2.Zero,
                 ModContent.ProjectileType<CelestineProj>(), 0, 0f, entity.GetProjectileOwnerID()));
         }
 
-        public void UpdateProjectile(EntityInfo entity, Projectile projectile)
+        public static void UpdateProjectile(EntityInfo entity, Projectile projectile)
         {
             projectile.scale = MathHelper.Lerp(projectile.scale, 480f, 0.2f);
             projectile.Center = entity.entity.Center;

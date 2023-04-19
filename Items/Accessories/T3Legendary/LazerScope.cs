@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Content.OnHitEffects;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
@@ -30,6 +31,14 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
         {
             modifiers.CritDamage += 1f;
+        }
+
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
+        {
+            if (hit.Crit)
+            {
+                OnHitEffectSpawn.NewOnHitEffect(entity.entity, victim.entity, projOrItem, 0);
+            }
         }
     }
 }

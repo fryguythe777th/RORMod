@@ -495,7 +495,7 @@ Mods: {
 			}
 
 			LazerScope: {
-				DisplayName: Lazer Scope
+				DisplayName: Laser Scope
 				Tooltip: 100% increased critical strike damage
 			}
 
@@ -507,32 +507,16 @@ Mods: {
 					Increased luck
 					'''
 			}
-		}
 
-		BuffName: {
-			ShurikenBuff: Reloading Shurikens
-			BustlingFungusBuff: Bustling Fungus
-			DiosCooldown: Dio's Best Friend
-			WarbannerBuff: Warbanner
-			MedkitBuff: Medkit
-			BandolierBuff: Bandolier
-			BerzerkerBuff: War Cry
-			PredatoryInstinctsBuff: Instinctual Rage
-			WarHornBuff: Energized
-			HuntersHarpoonBuff: Kill Move Speed
-		}
+			OldGuillotine: {
+				DisplayName: Old Guillotine
+				Tooltip: Execute elites under 13% health
+			}
 
-		BuffDescription: {
-			ShurikenBuff: You can throw shurikens while attacking!
-			BustlingFungusBuff: Recieve healing by an ally
-			DiosCooldown: You cannot use Dio's Best Friend to revive!
-			WarbannerBuff: Increased movement and weapon speed
-			MedkitBuff: Heal a small amount of health after this buff is cleared
-			BandolierBuff: 100% reduced ammo consumption
-			BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
-			PredatoryInstinctsBuff: 20% increased attack speed
-			WarHornBuff: 70% increased attack speed
-			HuntersHarpoonBuff: Increased running speed
+			WakeOfVultures: {
+				DisplayName: Wake Of Vultures
+				Tooltip: Slaying an elite monster grants you their abilities for 15 seconds
+			}
 		}
 
 		Announcements: {
@@ -704,6 +688,21 @@ Mods: {
 				DisplayName: Ready for War
 				Description: Your boosted morale grants you increased attack speed
 			}
+
+			BlazingWOV: {
+				DisplayName: Blazing
+				Description: Gain the power of a Blazing Elite
+			}
+
+			CelestineWOV: {
+				DisplayName: Celestine
+				Description: Gain the power of a Celestine Elite
+			}
+
+			OverloadingWOV: {
+				DisplayName: Overloading
+				Description: Gain the power of an Overloading Elite
+			}
 		}
 
 		Projectiles: {
@@ -736,6 +735,7 @@ Mods: {
 			WilloExplosion.DisplayName: Willo Explosion
 			ProjectileName.ShatterspleenExplosion: Shatterspleen
 			KjarosBandTornado.DisplayName: Kjaros Band Tornado
+			OnHitEffect.DisplayName: On Hit Effect
 		}
 	}
 }

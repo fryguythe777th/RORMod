@@ -33,10 +33,5 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                 modifiers.SetInstantKill();
             }
         }
-
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
     }
 }

@@ -445,7 +445,8 @@ namespace RiskOfTerrain.NPCs
                             friendly = npc.friendly,
                             spawnedFromStatue = npc.SpawnedFromStatue,
                             lastHitProjectile = npc.ROR().lastHitProjectileType,
-                            aistyle = npc.aiStyle
+                            aistyle = npc.aiStyle,
+                            whoAmI = npc.whoAmI
                         });
                         continue;
                     }
@@ -471,6 +472,7 @@ namespace RiskOfTerrain.NPCs
                     p.Write(npc.SpawnedFromStatue);
                     p.Write(npc.ROR().lastHitProjectileType);
                     p.Write(npc.aiStyle);
+                    p.Write(npc.whoAmI);
                     p.Send(toClient: i);
                 }
             }
