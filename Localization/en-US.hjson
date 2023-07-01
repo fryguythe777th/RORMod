@@ -207,11 +207,6 @@ Mods: {
 				Tooltip: Enemies with 4 or more debuffs will take 10% more damage
 			}
 
-			Death: {
-				DisplayName: Death
-				Tooltip: When one player dies, everyone dies
-			}
-
 			FuelCell: {
 				DisplayName: Fuel Cell
 				Tooltip:
@@ -387,7 +382,7 @@ Mods: {
 			}
 
 			SacrificialDagger: {
-				DisplayName: Sacrificial Dagger
+				DisplayName: Ceremonial Dagger
 				Tooltip:
 					'''
 					Killing enemies releases a trio of haunted daggers
@@ -410,38 +405,43 @@ Mods: {
 					'''
 			}
 
+			Death: {
+				DisplayName: Artifact of Death
+				Tooltip: When one player dies, everyone dies
+			}
+
 			Chaos: {
-				DisplayName: Chaos
+				DisplayName: Artifact of Chaos
 				Tooltip: Friendly fire is enabled for both players and monsters alike
 			}
 
 			Dissonance: {
-				DisplayName: Dissonance
+				DisplayName: Artifact of Dissonance
 				Tooltip: Monsters can appear outside their usual environments
 			}
 
 			Enigma: {
-				DisplayName: Enigma
+				DisplayName: Artifact of Enigma
 				Tooltip: Your hotbar is shuffled every 3 seconds
 			}
 
 			Glass: {
-				DisplayName: Glass
+				DisplayName: Artifact of Glass
 				Tooltip: Deal 500% damage, but have 10% health
 			}
 
 			Soul: {
-				DisplayName: Soul
+				DisplayName: Artifact of Soul
 				Tooltip: Enemies emerge from defeated monsters
 			}
 
 			Spite: {
-				DisplayName: Spite
+				DisplayName: Artifact of Spite
 				Tooltip: Monsters release multiple grenades upon death
 			}
 
 			WeakAssKnees: {
-				DisplayName: Frailty
+				DisplayName: Artifact of Frailty
 				Tooltip: Fall damage is doubled, and fall damage prevention accessories are weaker
 			}
 
@@ -550,15 +550,6 @@ Mods: {
 			Deerclops: Winter Abomination
 			MartianSaucer: Alien Warship
 			Pillars: Celestial Bindings
-		}
-
-		MapObject: {
-			RustyLockboxTile: Rusty Lockbox
-			RustyLockboxTileLocked: Locked Rusty Lockbox
-			SecurityChestTile: Security Chest
-			SecurityChestTileLocked: Locked Security Chest
-			LargeChestTile: Large Chest
-			LargeChestTileLocked: Large Security Chest
 		}
 
 		Configuration: {
@@ -736,6 +727,23 @@ Mods: {
 			ProjectileName.ShatterspleenExplosion: Shatterspleen
 			KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			OnHitEffect.DisplayName: On Hit Effect
+		}
+
+		Tiles: {
+			LargeChestTile: {
+				MapEntry: Large Chest
+				MapEntry_Locked: Large Chest
+			}
+
+			SecurityChestTile: {
+				MapEntry: Security Chest
+				MapEntry_Locked: Security Chest
+			}
+
+			RustyLockboxTile: {
+				MapEntry: Rusty Lockbox
+				MapEntry_Locked: Rusty Lockbox
+			}
 		}
 
 		Configs: {

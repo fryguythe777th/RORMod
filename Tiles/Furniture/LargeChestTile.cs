@@ -12,6 +12,8 @@ namespace RiskOfTerrain.Tiles.Furniture
 {
     public class LargeChestTile : SecurityChestTile
     {
+        public override Color MapColor => base.MapColor;
+
         public override bool RollSpawnChance(int i, int j, int tileType)
         {
             return WorldGen.genRand.NextBool(3);
@@ -55,7 +57,6 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<LargeChest>());
             Chest.DestroyChest(i, j);
         }
 
