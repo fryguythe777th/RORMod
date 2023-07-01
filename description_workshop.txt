@@ -1,10 +1,11 @@
 [b][Overview][/b]
 Risk of Terrain is an in-development mod which re-imagines Risk of Rain content into the world of Terraria!
-This mod intends to function extremely well in Multiplayer!
 
 # WARNING: This comes with RORBossHealthbars merged inside! Do not enabled that mod with this one. #
 
 Report bugs on the Steam Workshop page or in the Risk of Terrain Discord server.
 
+Recently released: the Greens and Elites update! With over double the amount of items and with 2 new dangerous enemy variants.
+
 [b][Content][/b]
-[b]>[/b] 30+ Items
+[b]>[/b] 70+ Items
