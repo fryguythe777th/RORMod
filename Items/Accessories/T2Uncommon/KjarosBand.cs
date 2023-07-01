@@ -28,9 +28,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown == 600)
+            if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown >= 600)
             {
-                int i = Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), new Vector2(npc.Center.X, npc.Center.Y - 20), Vector2.Zero, ModContent.ProjectileType<KjarosBandTornado>(), 5, 0, Owner: player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), new Vector2(npc.Center.X, npc.Center.Y - 20), Vector2.Zero, ModContent.ProjectileType<KjarosBandTornado>(), 5, 0, Owner: player.whoAmI);
                 procCooldown = 0;
             }
         }

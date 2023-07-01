@@ -137,7 +137,7 @@ namespace RiskOfTerrain.Projectiles
                 }
             }
 
-            if (Main.player[projectile.owner].ROR().accICBM && projectile.friendly && CountsAsMissle.Contains(projectile.type))
+            if (projectile.friendly && CountsAsMissle.Contains(projectile.type) && Main.player[projectile.owner].ROR().accICBM)
             {
                 projectile.damage = (int)(projectile.damage * 1.25f);
                 if (projectile.ai[2] != 69)
@@ -157,11 +157,10 @@ namespace RiskOfTerrain.Projectiles
 
             if (hasOverloaderProperties)
             {
-                int p = Projectile.NewProjectile(Main.npc[projectile.owner].GetSource_FromThis(), target.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, ai0: target.whoAmI, ai1: 1);
+                int p = Projectile.NewProjectile(Main.npc[projectile.owner].GetSource_FromThis(), target.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: projectile.owner, ai2: target.whoAmI, ai1: 1);
                 Main.projectile[p].ROR().spawnedFromElite = true;
                 Main.projectile[p].friendly = false;
                 Main.projectile[p].hostile = true;
-                Main.projectile[p].ai[1] = 1;
             }
 
             if (hasCelestineProperties)

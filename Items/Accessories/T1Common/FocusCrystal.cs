@@ -66,7 +66,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void PostUpdate(EntityInfo entity)
         {
-            if (!hideVisual)
+            if (!hideVisual && entity.entity is Player player)
             {
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -76,7 +76,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                         return;
                     }
                 }
-                UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
+                UpdateProjectile(entity, Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero,
                     ModContent.ProjectileType<FocusCrystalProj>(), 0, 0f, entity.GetProjectileOwnerID()));
             }
         }

@@ -37,12 +37,25 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public static void OverloadingOnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem)
         {
-            if (victim.entity is NPC npc && entity.entity is Player player && projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>() && !projectile.ROR().spawnedFromElite && !npc.friendly)
+            if (victim.entity is NPC npc && entity.entity is Player player && !npc.friendly)
             {
-                int p = Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: player.whoAmI, ai0: npc.whoAmI, ai1: 2);
-                Main.projectile[p].ROR().spawnedFromElite = true;
-                Main.projectile[p].friendly = true;
-                Main.projectile[p].hostile = false;
+                if (projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<OverloadingBomb>() && !projectile.ROR().spawnedFromElite)
+                {
+                    int p = Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: player.whoAmI, ai2: npc.whoAmI, ai1: 2);
+                    Main.projectile[p].ROR().spawnedFromElite = true;
+                    Main.projectile[p].friendly = true;
+                    Main.projectile[p].hostile = false;
+                    Main.projectile[p].ai[1] = 2;
+                }
+
+                if (projOrItem is Item item)
+                {
+                    int p = Projectile.NewProjectile(player.GetSource_FromThis(), npc.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: player.whoAmI, ai2: npc.whoAmI, ai1: 2);
+                    Main.projectile[p].ROR().spawnedFromElite = true;
+                    Main.projectile[p].friendly = true;
+                    Main.projectile[p].hostile = false;
+                    Main.projectile[p].ai[1] = 2;
+                }
             }
         }
 

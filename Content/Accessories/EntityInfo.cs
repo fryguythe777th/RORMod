@@ -265,9 +265,16 @@ namespace RiskOfTerrain.Content.Accessories
             return Main.myPlayer;
         }
 
-        public IEntitySource GetSource_Accessory(Item item)
+        public IEntitySource? GetSource_Accessory(Item item)
         {
-            return entity.GetSource_Accessory(item);
+            if (entity is Player player)
+            {
+                return player.GetSource_Accessory(item);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

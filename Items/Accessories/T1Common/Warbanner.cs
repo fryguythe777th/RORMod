@@ -38,9 +38,9 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             timer++;
             if (timer > Math.Max(7200 / Item.stack, 600))
             {
-                if (entity.IsMe())
+                if (entity.IsMe() && entity.entity is Player player)
                 {
-                    Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center - new Vector2(0f, 30f), Vector2.UnitY, 
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), entity.entity.Center - new Vector2(0f, 30f), Vector2.UnitY, 
                         ModContent.ProjectileType<WarbannerProj>(), 0, 0f, entity.GetProjectileOwnerID());
                 }
                 timer = 0;

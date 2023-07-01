@@ -23,6 +23,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.hostile = false;
             Projectile.width = 68;
             Projectile.height = 151;
+            Projectile.tileCollide = false;
         }
 
         public override Color? GetAlpha(Color lightColor)

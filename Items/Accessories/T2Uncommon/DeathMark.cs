@@ -46,9 +46,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                     }
                     if (buffCount >= 2)
                     {
-                        if (!entity.HasBuff(ModContent.BuffType<DeathMarkDebuff>()))
+                        if (!entity.HasBuff(ModContent.BuffType<DeathMarkDebuff>()) && entity.entity is Player player)
                         {
-                            var p = Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(Item), new Vector2(entity.entity.position.X + entity.entity.width / 2f, entity.entity.position.Y - 100f),
+                            var p = Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), new Vector2(entity.entity.position.X + entity.entity.width / 2f, entity.entity.position.Y - 100f),
                                 new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, entity.GetProjectileOwnerID(), -1f);
                             if (entity.entity is NPC)
                             {

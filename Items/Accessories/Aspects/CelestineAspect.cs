@@ -95,8 +95,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
                     return;
                 }
             }
-            UpdateProjectile(entity, Projectile.NewProjectileDirect(entity.entity.GetSource_Accessory(item), entity.entity.Center, Vector2.Zero,
+            if (entity.entity is Player player)
+            {
+                UpdateProjectile(entity, Projectile.NewProjectileDirect(player.GetSource_Accessory(item), entity.entity.Center, Vector2.Zero,
                 ModContent.ProjectileType<CelestineProj>(), 0, 0f, entity.GetProjectileOwnerID()));
+            }
         }
 
         public static void UpdateProjectile(EntityInfo entity, Projectile projectile)

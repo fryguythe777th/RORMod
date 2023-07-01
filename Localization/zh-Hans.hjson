@@ -510,39 +510,13 @@ Mods: {
 
 			OldGuillotine: {
 				// DisplayName: Old Guillotine
-				// Tooltip: ""
+				// Tooltip: Execute elites under 13% health
 			}
 
 			WakeOfVultures: {
 				// DisplayName: Wake Of Vultures
-				// Tooltip: ""
+				// Tooltip: Slaying an elite monster grants you their abilities for 15 seconds
 			}
-		}
-
-		BuffName: {
-			ShurikenBuff: Reloading Shurikens
-			BustlingFungusBuff: 爆裂真菌
-			DiosCooldown: 迪奥最好的朋友
-			WarbannerBuff: 战旗
-			MedkitBuff: 医疗包
-			// BandolierBuff: Bandolier
-			// BerzerkerBuff: War Cry
-			// PredatoryInstinctsBuff: Instinctual Rage
-			// WarHornBuff: Energized
-			// HuntersHarpoonBuff: Kill Move Speed
-		}
-
-		BuffDescription: {
-			ShurikenBuff: 你可以在攻击时扔出手里剑!
-			BustlingFungusBuff: 正在受到一名队友的治疗
-			DiosCooldown: 你无法使用迪奥最好的朋友来起死回生!
-			WarbannerBuff: 增加移动速度和武器攻速
-			MedkitBuff: 此增益消失时会为你恢复少量生命值
-			// BandolierBuff: 100% reduced ammo consumption
-			// BerzerkerBuff: 100% increased attack speed and 50% increased movement speed
-			// PredatoryInstinctsBuff: 20% increased attack speed
-			// WarHornBuff: 70% increased attack speed
-			// HuntersHarpoonBuff: Increased running speed
 		}
 
 		Announcements: {
@@ -716,18 +690,18 @@ Mods: {
 			}
 
 			BlazingWOV: {
-				// DisplayName: Blazing W O V
-				// Description: Mods.RiskOfTerrain.Buffs.BlazingWOV.Description
+				// DisplayName: Blazing
+				// Description: Gain the power of a Blazing Elite
 			}
 
 			CelestineWOV: {
-				// DisplayName: Celestine W O V
-				// Description: Mods.RiskOfTerrain.Buffs.CelestineWOV.Description
+				// DisplayName: Celestine
+				// Description: Gain the power of a Celestine Elite
 			}
 
 			OverloadingWOV: {
-				// DisplayName: Overloading W O V
-				// Description: Mods.RiskOfTerrain.Buffs.OverloadingWOV.Description
+				// DisplayName: Overloading
+				// Description: Gain the power of an Overloading Elite
 			}
 		}
 
@@ -762,6 +736,57 @@ Mods: {
 			// ProjectileName.ShatterspleenExplosion: Shatterspleen
 			// KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			// OnHitEffect.DisplayName: On Hit Effect
+		}
+
+		Configs: {
+			ClientConfig: {
+				// DisplayName: Client Config
+
+				ScreenShake: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.ScreenShake}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.ScreenShakeTooltip}"
+				}
+
+				BossHealthbarActive: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarActive}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarActiveTooltip}"
+				}
+
+				BossHealthbarBottom: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarBottom}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarBottomTooltip}"
+				}
+
+				EnemyHBState: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.EnemyHB}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.EnemyHBTooltip}"
+				}
+
+				NPCDrawBuff: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuffTooltip}"
+				}
+
+				NPCDrawBuff_All: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff_All}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff_AllTooltip}"
+				}
+
+				PlayerHealthbarOverlay: {
+					// Label: "{$Mods.RiskOfTerrain.Configuration.PlayerHealthbarOverlay}"
+					// Tooltip: "{$Mods.RiskOfTerrain.Configuration.PlayerHealthbarOverlayTooltip}"
+				}
+			}
+
+			State: {
+				// Tooltip: ""
+				// Disabled.Label: Disabled
+				// Enabled.Label: Enabled
+				// Enabled_AlwaysUse.Label: Enabled_ Always Use
+				// Vanilla.Label: Vanilla
+				// RORTheme.Label: R O R Theme
+				// MixedTheme.Label: Mixed Theme
+			}
 		}
 	}
 }

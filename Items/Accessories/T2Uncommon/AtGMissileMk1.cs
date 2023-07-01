@@ -30,9 +30,9 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                 return;
 
             entity.GetProc(out float proc);
-            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0)
+            if (Main.rand.NextFloat(1f) <= proc && entity.RollLuck(10) == 0 && entity.entity is Player player)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, new Vector2(0f, -12f).RotatedBy(Main.rand.NextFloat(-0.1f, 0.1f)), ModContent.ProjectileType<AtGMissileProj>(),
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), entity.entity.Center, new Vector2(0f, -12f).RotatedBy(Main.rand.NextFloat(-0.1f, 0.1f)), ModContent.ProjectileType<AtGMissileProj>(),
                     (int)(hit.Damage * proc), 0f, entity.GetProjectileOwnerID(), -10f);
             }
         }

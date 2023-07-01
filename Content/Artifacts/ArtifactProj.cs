@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Artifacts
@@ -14,13 +15,13 @@ namespace RiskOfTerrain.Content.Artifacts
         {
             if (source is EntitySource_OnHit onHit)
             {
-                OwnerCheck(onHit.EntityStruck, projectile);
+                OwnerCheck(onHit.Victim, projectile);
             }
             else if (source is EntitySource_Parent parent)
             {
                 OwnerCheck(parent.Entity, projectile);
             }
-            else if (source is EntitySource_HitEffect hitEffect)
+            else if (source is EntitySource_Parent hitEffect)
             {
                 OwnerCheck(hitEffect.Entity, projectile);
             }

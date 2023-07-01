@@ -131,19 +131,14 @@ namespace RiskOfTerrain
             {
                 return false;
             }
-            if (source is EntitySource_OnHit onHit)
+            if (source is IEntitySource_OnHit onHit)
             {
-                entity = onHit.EntityStruck;
+                entity = onHit.Victim;
                 return true;
             }
             else if (source is EntitySource_Parent parent)
             {
                 entity = parent.Entity;
-                return true;
-            }
-            else if (source is EntitySource_HitEffect hitEffect)
-            {
-                entity = hitEffect.Entity;
                 return true;
             }
             else if (source is EntitySource_Death death)

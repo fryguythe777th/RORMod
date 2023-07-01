@@ -40,11 +40,15 @@ namespace RiskOfTerrain.Projectiles.Misc
         {
             if (Projectile.ai[1] == 0 || Projectile.ai[1] == 1)
             {
-                positionOffset = Projectile.Center - Main.player[(int)Projectile.ai[0]].Center;
+                positionOffset = Projectile.Center - Main.player[(int)Projectile.ai[2]].Center;
+                explodeCooldown = 90;
+                Projectile.frame = 0;
             }
             else if (Projectile.ai[1] == 2)
             {
-                positionOffset = Projectile.Center - Main.npc[(int)Projectile.ai[0]].Center;
+                positionOffset = Projectile.Center - Main.npc[(int)Projectile.ai[2]].Center;
+                explodeCooldown = 90;
+                Projectile.frame = 0;
             }
             explodeCooldown = 90;
             Projectile.frame = 0;
@@ -58,6 +62,7 @@ namespace RiskOfTerrain.Projectiles.Misc
             }
             else
             {
+                //not occuring
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter > 2)
                 {
@@ -66,21 +71,26 @@ namespace RiskOfTerrain.Projectiles.Misc
                     if (Projectile.frame == 7)
                     {
                         Projectile.damage = 50;
+                        //not occuring
                     }
                     if (Projectile.frame >= Main.projFrames[Type])
                     {
                         Projectile.Kill();
+                        //not occuring
                     }
                 }
             }
 
             if (Projectile.ai[1] == 1 || Projectile.ai[1] == 0)
             {
-                Projectile.Center = Main.player[(int)Projectile.ai[0]].Center + positionOffset;
+                Projectile.Center = Main.player[(int)Projectile.ai[2]].Center + positionOffset;
             }
             else if (Projectile.ai[1] == 2)
             {
-                Projectile.Center = Main.npc[(int)Projectile.ai[0]].Center + positionOffset;
+                if (Main.npc[(int)Projectile.ai[2]].active)
+                {
+                    Projectile.Center = Main.npc[(int)Projectile.ai[2]].Center + positionOffset;
+                }
             }
         }
 

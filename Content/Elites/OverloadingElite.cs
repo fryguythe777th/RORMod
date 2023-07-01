@@ -37,16 +37,17 @@ namespace RiskOfTerrain.Content.Elites
             npc.value *= 2;
         }
 
-        //public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        //public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         //{
         //    if (active)
         //    {
         //        //something's outside of an index
-        //        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), target.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, ai0: target.whoAmI, ai1: 1);
-        //        Main.projectile[p].ai[1] = 1;
+        //        int p = Projectile.NewProjectile(npc.GetSource_FromThis(), target.Center + new Vector2(Main.rand.Next(0, 16), Main.rand.Next(0, 16)), Vector2.Zero, ModContent.ProjectileType<OverloadingBomb>(), 0, 0, Owner: npc.whoAmI, ai2: target.whoAmI, ai1: 1);
         //        Main.projectile[p].ROR().spawnedFromElite = true;
         //        Main.projectile[p].friendly = false;
         //        Main.projectile[p].hostile = true;
+        //        Main.projectile[p].ai[1] = 1;
+        //        Main.NewText("gleeber");
         //    }
         //}
 

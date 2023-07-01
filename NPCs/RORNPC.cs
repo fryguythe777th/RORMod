@@ -140,8 +140,8 @@ namespace RiskOfTerrain.NPCs
 
         public static void UkuleleLightning(NPC npc, int damage, int timesProcced)
         {
-            if (timesProcced < 3)
-            {
+            //if (timesProcced < 3)
+            //{
                 npc.ROR().hasBeenStruckByUkuleleLightning = true;
 
                 NPC.HitInfo hit = new NPC.HitInfo
@@ -154,7 +154,6 @@ namespace RiskOfTerrain.NPCs
                     HitDirection = 0
                 };
                 npc.StrikeNPC(hit);
-                Lighting.AddLight(npc.Center, Color.LightBlue.R, Color.LightBlue.G, Color.LightBlue.B);
 
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
@@ -172,7 +171,7 @@ namespace RiskOfTerrain.NPCs
                         }
                     }
                 }
-            }
+            //}
         }
 
         public override void Unload()
@@ -389,9 +388,9 @@ namespace RiskOfTerrain.NPCs
             if (npc.HasBuff<DeathMarkDebuff>())
                 modifiers.SourceDamage *= 1.1f;
 
-            if (shatterizationCount > 0)
+            if (shatterizationCount == 3)
             {
-                modifiers.SourceDamage += (int)(1 + (0.5f * shatterizationCount));
+                modifiers.SourceDamage += 3f;
             }
 
             if (projOrPlayer is Projectile projectile)

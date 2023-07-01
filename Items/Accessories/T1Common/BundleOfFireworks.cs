@@ -27,9 +27,9 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (entity.IsMe() && entity.OwnedProjectilesCountLong(ModContent.ProjectileType<FireworksSpawner>()) <= 0 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5)
+            if (entity.IsMe() && entity.OwnedProjectilesCountLong(ModContent.ProjectileType<FireworksSpawner>()) <= 0 && !info.friendly && !info.spawnedFromStatue && info.lifeMax > 5 && entity.entity is Player player)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<FireworksSpawner>(),
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), entity.entity.Center, Vector2.Zero, ModContent.ProjectileType<FireworksSpawner>(),
                     Math.Clamp((int)(info.lastHitDamage * (Stacks * 0.5f)), 10, 100) / 8, 0, entity.GetProjectileOwnerID(), 8f + 4f * (Stacks - 1));
             }
         }

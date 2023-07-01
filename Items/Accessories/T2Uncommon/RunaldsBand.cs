@@ -29,7 +29,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         {
             if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown == 600)
             {
-                Projectile.NewProjectile(entity.entity.GetSource_Accessory(Item), npc.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 1, 0, Owner: player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), npc.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 1, 0, Owner: player.whoAmI);
                 procCooldown = 0;
             }
         }

@@ -95,7 +95,7 @@ namespace RiskOfTerrain.Tiles.Furniture
             TileID.Sets.DisableSmartCursor[Type] = true;
 
             DustType = DustID.Cobalt;
-            ItemDrop = ModContent.ItemType<SecurityChest>();
+            RegisterItemDrop(ModContent.ItemType<SecurityChest>());
             AdjTiles = new int[] { TileID.Containers };
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
@@ -170,7 +170,7 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemDrop);
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<SecurityChest>());
             Chest.DestroyChest(i, j);
         }
 
@@ -181,7 +181,7 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public virtual bool CheckLocked(int i, int j, int left, int top, Player player)
         {
-            return player.CanBuyItem(CalculateChestPrice(), -1);
+            return player.CanAfford(CalculateChestPrice(), -1);
         }
 
         public override bool RightClick(int i, int j)
@@ -274,7 +274,7 @@ namespace RiskOfTerrain.Tiles.Furniture
         {
             if (Chest.IsLocked(left, top))
                 return ItemID.GoldCoin;
-            return ItemDrop;
+            return ModContent.ItemType<SecurityChest>();
         }
 
         public override void MouseOver(int i, int j)

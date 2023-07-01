@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,6 +28,12 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.alpha = 80;
             //Projectile.scale = 2f;
             Projectile.localNPCHitCooldown = 2;
+            Projectile.tileCollide = false;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Main.NewText("sharing is kjaring");
         }
 
         public override void AI()
@@ -48,12 +55,6 @@ namespace RiskOfTerrain.Projectiles.Misc
             }
 
             Lighting.AddLight(Projectile.Center, TorchID.Orange);
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Main.EntitySpriteDraw((Texture2D)ModContent.Request<Texture2D>(Texture), Projectile.Center, null, new Color(0, 0, 0, Projectile.alpha), 0, Vector2.Zero, 4f, SpriteEffects.None);
-            return true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

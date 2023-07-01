@@ -4,6 +4,7 @@ using RiskOfTerrain.Items;
 using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Items.Placeable;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -57,7 +58,6 @@ namespace RiskOfTerrain.Tiles.Furniture
             Main.tileLighted[Type] = true;
 
             DustType = DustID.Iron;
-            ItemDrop = ModContent.ItemType<RustyLockbox>();
         }
 
         public override bool CheckLocked(int i, int j, int left, int top, Player player)
@@ -65,11 +65,17 @@ namespace RiskOfTerrain.Tiles.Furniture
             return player.ConsumeItem(ModContent.ItemType<RustedKey>());
         }
 
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<RustyLockbox>());
+            Chest.DestroyChest(i, j);
+        }
+
         public override int HoverItem(int i, int j, int left, int top)
         {
             if (Chest.IsLocked(left, top))
                 return ModContent.ItemType<RustedKey>();
-            return ItemDrop;
+            return ModContent.ItemType<RustyLockbox>();
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

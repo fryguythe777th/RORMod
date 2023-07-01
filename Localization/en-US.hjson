@@ -737,5 +737,56 @@ Mods: {
 			KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			OnHitEffect.DisplayName: On Hit Effect
 		}
+
+		Configs: {
+			ClientConfig: {
+				DisplayName: Client Config
+
+				ScreenShake: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.ScreenShake}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.ScreenShakeTooltip}"
+				}
+
+				BossHealthbarActive: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarActive}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarActiveTooltip}"
+				}
+
+				BossHealthbarBottom: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarBottom}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.BossHealthbarBottomTooltip}"
+				}
+
+				EnemyHBState: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.EnemyHB}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.EnemyHBTooltip}"
+				}
+
+				NPCDrawBuff: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuffTooltip}"
+				}
+
+				NPCDrawBuff_All: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff_All}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.NPCDrawBuff_AllTooltip}"
+				}
+
+				PlayerHealthbarOverlay: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.PlayerHealthbarOverlay}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.PlayerHealthbarOverlayTooltip}"
+				}
+			}
+
+			State: {
+				Tooltip: ""
+				Disabled.Label: Disabled
+				Enabled.Label: Enabled
+				Enabled_AlwaysUse.Label: Enabled_ Always Use
+				Vanilla.Label: Vanilla
+				RORTheme.Label: R O R Theme
+				MixedTheme.Label: Mixed Theme
+			}
+		}
 	}
 }
