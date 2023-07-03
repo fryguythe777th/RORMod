@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RiskOfTerrain.Common;
 using RiskOfTerrain.Items;
 using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Items.Placeable;
@@ -13,6 +14,8 @@ namespace RiskOfTerrain.Tiles.Furniture
 {
     public class RustyLockboxTile : SecurityChestTile
     {
+        public override Color MapColor => Color.Brown;
+
         public override bool RollSpawnChance(int i, int j, int tileType)
         {
             return WorldGen.genRand.NextBool(5);
@@ -44,13 +47,6 @@ namespace RiskOfTerrain.Tiles.Furniture
             }
         }
 
-        public override void AddMapEntries()
-        {
-            AddMapEntry(Color.Brown, Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}"), MapChestName);
-
-            AddMapEntry(Color.Brown, Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}Locked"), MapChestName);
-        }
-
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -62,12 +58,11 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override bool CheckLocked(int i, int j, int left, int top, Player player)
         {
-            return player.ConsumeItem(ModContent.ItemType<RustedKey>());
+            return player.ConsumeItemInInvOrVoidBag(ModContent.ItemType<RustedKey>());
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<RustyLockbox>());
             Chest.DestroyChest(i, j);
         }
 

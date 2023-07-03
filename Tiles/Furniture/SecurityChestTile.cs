@@ -17,8 +17,13 @@ using Terraria.ObjectData;
 
 namespace RiskOfTerrain.Tiles.Furniture
 {
+    /// <summary>
+    /// NOTE: These are forced to be 2x2 tiles and use frames of 18x18! If you decide to add a tile which inherits from this, and changes these dimensions, please check the logic in this class, and the logic in <see cref="RORItem.UseCheckLock(Item, Player)"/>
+    /// </summary>
     public class SecurityChestTile : ModTile
     {
+        public virtual Color MapColor => new Color(20, 80, 200);
+
         public virtual bool RollSpawnChance(int i, int j, int tileType)
         {
             return true;
@@ -76,9 +81,8 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public virtual void AddMapEntries()
         {
-            AddMapEntry(new Color(20, 80, 200), Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}"), MapChestName);
-
-            AddMapEntry(new Color(20, 80, 200), Language.GetText($"Mods.RiskOfTerrain.MapObject.{Name}Locked"), MapChestName);
+            AddMapEntry(MapColor, this.GetLocalization("MapEntry", PrettyPrintName), MapChestName);
+            AddMapEntry(MapColor, this.GetLocalization("MapEntry_Locked", PrettyPrintName), MapChestName);
         }
 
         public override void SetStaticDefaults()
@@ -109,6 +113,8 @@ namespace RiskOfTerrain.Tiles.Furniture
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
 
+            AddMapEntries();
+
             RORTile.SecurityChests.Add(this);
             RORTile.ChestsSpawnPreventionIDs.Add(Type);
         }
@@ -116,6 +122,10 @@ namespace RiskOfTerrain.Tiles.Furniture
         public override ushort GetMapOption(int i, int j)
         {
             return (ushort)(Main.tile[i, j].TileFrameX / 36);
+        }
+
+        public override LocalizedText DefaultContainerName(int frameX, int frameY) {
+            return frameX >= 36 ? this.GetLocalization("MapEntry_Locked", PrettyPrintName) : this.GetLocalization("MapEntry", PrettyPrintName);
         }
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
@@ -170,7 +180,6 @@ namespace RiskOfTerrain.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<SecurityChest>());
             Chest.DestroyChest(i, j);
         }
 

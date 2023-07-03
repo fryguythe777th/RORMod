@@ -1,10 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Common;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Tiles.Furniture;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items
@@ -153,9 +158,33 @@ namespace RiskOfTerrain.Items
             player.ROR().Accessories.AddItemStack(item);
         }
 
+        private bool? UseCheckLock(Item item, Player player) {
+            var tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
+            if (tile.TileFrameX >= 36 || TileLoader.GetTile(tile.TileType) is not SecurityChestTile) {
+                return null;
+            }
+
+            int left = Player.tileTargetX - tile.TileFrameX / 18;
+            int top = Player.tileTargetY - tile.TileFrameY / 18;
+            //Dust.NewDustPerfect(new Vector2(left * 16f, top * 16f), DustID.Torch).noGravity = true;
+            SoundEngine.PlaySound(SoundID.Unlock);
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Main.tile[left + i, top + j].TileFrameX += 36;
+                }
+            }
+            return true;
+        }
+
         public override bool? UseItem(Item item, Player player)
         {
             player.ROR().Accessories.OnUseItem(player, item);
+
+            if (player.whoAmI == Main.myPlayer && player.IsInTileInteractionRange(Player.tileTargetX, Player.tileTargetY, TileReachCheckSettings.Simple)) {
+                if (item.type == ItemID.ChestLock) {
+                    return UseCheckLock(item, player);
+                }
+            }
             return null;
         }
     }
