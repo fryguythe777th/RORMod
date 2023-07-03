@@ -92,6 +92,8 @@ namespace RiskOfTerrain
 
         public bool hitByBlazerProj;
 
+        public bool showMeatHook;
+
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>
@@ -478,6 +480,7 @@ namespace RiskOfTerrain
             Accessories.ResetEffects(Player);
             FocusCrystal.HitNPCForMakingDamageNumberPurpleHack = null;
             SpawnHack = false;
+            showMeatHook = false;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)

@@ -517,6 +517,16 @@ Mods: {
 				// DisplayName: Wake Of Vultures
 				// Tooltip: Slaying an elite monster grants you their abilities for 15 seconds
 			}
+
+			SentientMeatHook: {
+				// DisplayName: Sentient Meat Hook
+				// Tooltip: ""
+			}
+
+			SymbioticScorpion: {
+				// DisplayName: Symbiotic Scorpion
+				// Tooltip: ""
+			}
 		}
 
 		Announcements: {
@@ -736,6 +746,7 @@ Mods: {
 			// ProjectileName.ShatterspleenExplosion: Shatterspleen
 			// KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			// OnHitEffect.DisplayName: On Hit Effect
+			// MeatHookProjVanity.DisplayName: Meat Hook Proj Vanity
 		}
 
 		Configs: {

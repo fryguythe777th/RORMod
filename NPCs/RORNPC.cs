@@ -49,6 +49,7 @@ namespace RiskOfTerrain.NPCs
         public bool isAShielder = false;
 
         public int shatterizationCount = 0;
+        public int scorpionCount = 0;
 
         public int savedAlpha = -1;
 
@@ -390,8 +391,10 @@ namespace RiskOfTerrain.NPCs
 
             if (shatterizationCount == 3)
             {
-                modifiers.SourceDamage += 3f;
+                modifiers.SourceDamage += 0.5f;
             }
+
+            modifiers.SourceDamage += scorpionCount / 100;
 
             if (projOrPlayer is Projectile projectile)
             {

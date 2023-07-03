@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Content.OnHitEffects
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 4;
+            Main.projFrames[Type] = 8;
         }
 
         public override void SetDefaults()
@@ -26,11 +26,14 @@ namespace RiskOfTerrain.Content.OnHitEffects
             Projectile.alpha = 155;
         }
 
-        
-
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.frame = (int)Projectile.ai[2] * 4;
+
+            if (Projectile.ai[1] == 1)
+            {
+                Projectile.rotation = Main.rand.Next(0, 360);
+            }
         }
 
         public override void AI()
@@ -55,7 +58,7 @@ namespace RiskOfTerrain.Content.OnHitEffects
 
     public class OnHitEffectSpawn : ModSystem
     {
-        public static void NewOnHitEffect(Entity spawner, Entity victim, Entity? proj, float variant)
+        public static void NewOnHitEffect(Entity spawner, Entity victim, Entity? proj, float variant, bool randomRot)
         {
             int variationCoeff = 1;
             Entity where = victim;
@@ -64,7 +67,7 @@ namespace RiskOfTerrain.Content.OnHitEffects
                 variationCoeff = 2;
                 where = proj;
             }
-            Projectile.NewProjectile(spawner.GetSource_FromThis(), where.Center + new Vector2(Main.rand.Next(-5 * variationCoeff, (5 * variationCoeff) + 1), Main.rand.Next(-5 * variationCoeff, (5 * variationCoeff) + 1)), Vector2.Zero, ModContent.ProjectileType<OnHitEffect>(), 0, 0, ai2: variant);
+            Projectile.NewProjectile(spawner.GetSource_FromThis(), where.Center + new Vector2(Main.rand.Next(-5 * variationCoeff, (5 * variationCoeff) + 1), Main.rand.Next(-5 * variationCoeff, (5 * variationCoeff) + 1)), Vector2.Zero, ModContent.ProjectileType<OnHitEffect>(), 0, 0, ai2: variant, ai1: randomRot.ToInt());
         }
     }
 }

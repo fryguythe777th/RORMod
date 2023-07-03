@@ -7,37 +7,35 @@ using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Projectiles.Misc;
+using Terraria.DataStructures;
 using RiskOfTerrain.Content.OnHitEffects;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
-    public class LazerScope : ModAccessory
+    public class SymbioticScorpion : ModAccessory
     {
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.RedTier.Add(Type);
+            RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 38;
+            Item.width = 42;
+            Item.height = 40;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(gold: 5);
-        }
-
-        public override void ModifyHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, ref StatModifier damage, ref StatModifier knockBack, ref NPC.HitModifiers modifiers)
-        {
-            modifiers.CritDamage += 1f;
         }
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (hit.Crit)
+            if (victim.entity is NPC target)
             {
-                OnHitEffectSpawn.NewOnHitEffect(entity.entity, victim.entity, projOrItem, 0, false);
+                target.ROR().scorpionCount++;
+                CombatText.NewText(new Rectangle((int)target.Center.X, (int)target.Center.Y, 0, 0), Color.Brown, target.ROR().scorpionCount, dot: true);
+                OnHitEffectSpawn.NewOnHitEffect(entity.entity, victim.entity, projOrItem, 1, true);
             }
         }
     }
