@@ -136,11 +136,7 @@ Mods: {
 
 			SoldiersSyringe: {
 				// DisplayName: Soldier's Syringe
-				/* Tooltip:
-					'''
-					12% increased attack speed
-					12% decreased damage
-					''' */
+				// Tooltip: 12% increased attack speed
 			}
 
 			StickyExplosives: {
