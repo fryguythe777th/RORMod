@@ -62,5 +62,10 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
             if (spawnHook) { Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<MeatHookProjVanity>(), 0, 0, Owner: player.whoAmI); }
         }
+
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
     }
 }

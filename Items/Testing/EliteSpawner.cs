@@ -80,15 +80,15 @@ namespace RiskOfTerrain.Items.Testing
             return true;
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                //makes it so shimmering ELITINIZER will give you BUNGUS
-                .AddCustomShimmerResult(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
-                .AddIngredient(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
-                .AddTile(LiquidID.Shimmer)
-                .Register();
-        }
+        //public override void AddRecipes()
+        //{
+        //    CreateRecipe()
+        //        //makes it so shimmering ELITINIZER will give you BUNGUS
+        //        .AddCustomShimmerResult(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
+        //        .AddIngredient(ModContent.ItemType<Accessories.T1Common.BustlingFungus>())
+        //        .AddTile(LiquidID.Shimmer)
+        //        .Register();
+        //}
     }
 
     public class EliteSpawningProj : ModProjectile
