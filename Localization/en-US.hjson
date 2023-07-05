@@ -8,7 +8,7 @@ Mods: {
 				Tooltip:
 					'''
 					Become an aspect of fire
-					Leave behind a fiery trail
+					Leave a fiery trail in your wake
 					'''
 			}
 
@@ -28,7 +28,7 @@ Mods: {
 					'''
 					Become an aspect of lightning
 					Half of your health is replaced by regenerating shield
-					Attach a lightning bomb to enemies on hit, which explodes after time
+					Attach a lightning bomb to enemies on hit, which explodes shortly after
 					'''
 			}
 
@@ -156,12 +156,12 @@ Mods: {
 
 			TougherTimes: {
 				DisplayName: Tougher Times
-				Tooltip: 10% chance to dodge attacks
+				Tooltip: 10% chance to dodge an attack
 			}
 
 			TriTipDagger: {
 				DisplayName: Tri-Tip Dagger
-				Tooltip: 10% chance to inflict bleeding to enemies
+				Tooltip: 10% chance to inflict bleeding onto an enemy
 			}
 
 			Warbanner: {
@@ -171,7 +171,7 @@ Mods: {
 
 			AtGMissileMk1: {
 				DisplayName: AtG Missile Mk1
-				Tooltip: 10% chance to fire a missle when hitting an enemy
+				Tooltip: 10% chance to fire a missile when hitting an enemy
 			}
 
 			Bandolier: {
@@ -247,7 +247,7 @@ Mods: {
 
 			Infusion: {
 				DisplayName: Infusion
-				Tooltip: Killing enemies gives a decaying max health upgrade up to +50 max health
+				Tooltip: Killing enemies gives a decaying max health upgrade, up to +50 max health
 			}
 
 			KjarosBand: {
@@ -289,7 +289,7 @@ Mods: {
 
 			Razorwire: {
 				DisplayName: Razorwire
-				Tooltip: Shoot homing razors on hit that deal 160% of your current weapon's damage
+				Tooltip: Shoot homing razors when struck that deal 160% of your current weapon's damage
 			}
 
 			RedWhip: {
@@ -516,17 +516,12 @@ Mods: {
 
 			SentientMeatHook: {
 				DisplayName: Sentient Meat Hook
-				Tooltip: ""
+				Tooltip: "Chance to hook enemies on hit"
 			}
 
 			SymbioticScorpion: {
 				DisplayName: Symbiotic Scorpion
-				Tooltip: Damaging enemies slightly reduces their defense
-			}
-
-			AlienHead: {
-				DisplayName: Alien Head
-				Tooltip: ""
+				Tooltip: "Strikes on enemies permanently reduce their armor"
 			}
 		}
 
