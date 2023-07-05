@@ -521,6 +521,11 @@ Mods: {
 
 			SymbioticScorpion: {
 				DisplayName: Symbiotic Scorpion
+				Tooltip: Damaging enemies slightly reduces their defense
+			}
+
+			AlienHead: {
+				DisplayName: Alien Head
 				Tooltip: ""
 			}
 		}
