@@ -8,7 +8,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.GreenTier.Add(Type);
+            RORItem.GreenTier.Add((Type, () => NPC.downedBoss2));
         }
 
         public override void SetDefaults()

@@ -11,7 +11,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
     {
         public override void SetStaticDefaults()
         {
-            RORItem.GreenTier.Add(Type);
+            RORItem.GreenTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()
@@ -23,21 +23,14 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 3);
         }
 
-        public int procCooldown;
-
-        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
-        {
-            if (victim.entity is NPC npc && entity.entity is Player player && (hit.Damage >= npc.lifeMax * 0.6 || hit.InstantKill) && !npc.friendly && !npc.SpawnedFromStatue && npc.lifeMax > 5 && procCooldown == 600)
-            {
-                Projectile.NewProjectile(player.GetSource_Accessory(Item), npc.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 1, 0, Owner: player.whoAmI);
-                procCooldown = 0;
-            }
-        }
+        public static int procCooldown;
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             if (procCooldown < 600)
                 procCooldown++;
+
+            player.ROR().accRunalds = true;
         }
     }
 }

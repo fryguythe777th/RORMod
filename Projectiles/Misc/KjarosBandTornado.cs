@@ -31,11 +31,6 @@ namespace RiskOfTerrain.Projectiles.Misc
             Projectile.tileCollide = false;
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            Main.NewText("sharing is kjaring");
-        }
-
         public override void AI()
         {
             Projectile.frameCounter++;

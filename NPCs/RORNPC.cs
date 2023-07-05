@@ -286,8 +286,16 @@ namespace RiskOfTerrain.NPCs
 
             if (convertToCursedFlames && npc.HasBuff(BuffID.OnFire))
             {
+                int time = npc.buffTime[npc.FindBuffIndex(BuffID.OnFire)];
                 npc.DelBuff(npc.FindBuffIndex(BuffID.OnFire));
-                npc.AddBuff(BuffID.CursedInferno, 2400);
+                npc.AddBuff(BuffID.CursedInferno, time);
+            }
+
+            if (convertToCursedFlames && npc.HasBuff(BuffID.OnFire3))
+            {
+                int time = npc.buffTime[npc.FindBuffIndex(BuffID.OnFire3)];
+                npc.DelBuff(npc.FindBuffIndex(BuffID.OnFire3));
+                npc.AddBuff(BuffID.CursedInferno, time);
             }
 
             if (isAShielder)

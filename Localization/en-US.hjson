@@ -516,12 +516,12 @@ Mods: {
 
 			SentientMeatHook: {
 				DisplayName: Sentient Meat Hook
-				Tooltip: "Chance to hook enemies on hit"
+				Tooltip: Chance to hook enemies on hit
 			}
 
 			SymbioticScorpion: {
 				DisplayName: Symbiotic Scorpion
-				Tooltip: "Strikes on enemies permanently reduce their armor"
+				Tooltip: Strikes on enemies permanently reduce their armor
 			}
 		}
 
@@ -593,7 +593,7 @@ Mods: {
 		UnboundKey: Unbound Key
 		Revived: REVIVED!
 		Blocked: BLOCKED!
-		"Keybinds.Backup Magazine Swap.DisplayName": Mods.RiskOfTerrain.Keybinds.Backup Magazine Swap.DisplayName
+		"Keybinds.Backup Magazine Swap.DisplayName": Backup Magazine Swap
 
 		Buffs: {
 			BandolierBuff: {

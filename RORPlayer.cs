@@ -6,6 +6,7 @@ using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Artifacts;
 using RiskOfTerrain.Graphics;
 using RiskOfTerrain.Items.Accessories.T1Common;
+using RiskOfTerrain.Items.Accessories.T2Uncommon;
 using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Projectiles.Misc;
 using RiskOfTerrain.UI;
@@ -73,6 +74,8 @@ namespace RiskOfTerrain
         public bool accIgnitionTank;
         public bool accWaxQuail;
         public bool accFuelCell;
+        public bool accRunalds;
+        public bool accKjaros;
 
         public bool aspCelestine;
 
@@ -459,6 +462,8 @@ namespace RiskOfTerrain
             accIgnitionTank = false;
             accWaxQuail = false;
             accFuelCell = false;
+            accRunalds = false;
+            accKjaros = false;
             accICBM = false;
             accClover = false;
             aspCelestine = false;
@@ -726,11 +731,34 @@ namespace RiskOfTerrain
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
         {
             Accessories.OnHit(Player, target, item, hit);
+            BandsProc(Player, target);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
         {
             Accessories.OnHit(Player, target, proj, hit);
+            if (proj.type != ModContent.ProjectileType<KjarosBandTornado>() && proj.type != ModContent.ProjectileType<RunaldsBandExplosion>() && proj.type != ModContent.ProjectileType<RunaldsBandShard>())
+            {
+                BandsProc(Player, target);
+            }
+        }
+
+        public void BandsProc(Player player, NPC victim)
+        {
+            if (Main.rand.Next(25) < 2 && !victim.friendly && !victim.SpawnedFromStatue && victim.lifeMax > 5)
+            {
+                if (player.ROR().accRunalds && RunaldsBand.procCooldown == 600)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), victim.Center, Vector2.Zero, ModContent.ProjectileType<RunaldsBandExplosion>(), 1, 0, Owner: player.whoAmI);
+                    RunaldsBand.procCooldown = 0;
+                }
+
+                if (player.ROR().accKjaros && KjarosBand.procCooldown == 600)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), new Vector2(victim.Center.X, victim.Center.Y - 20), Vector2.Zero, ModContent.ProjectileType<KjarosBandTornado>(), 5, 0, Owner: player.whoAmI);
+                    KjarosBand.procCooldown = 0;
+                }
+            }
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

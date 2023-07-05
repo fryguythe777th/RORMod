@@ -12,7 +12,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.GreenTier.Add(Type);
+            RORItem.GreenTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()
