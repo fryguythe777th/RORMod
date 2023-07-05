@@ -31,5 +31,10 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         {
             player.GetAttackSpeed<GenericDamageClass>() += 0.5f;
         }
+
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
     }
 }
