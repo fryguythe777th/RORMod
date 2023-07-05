@@ -254,8 +254,9 @@ Mods: {
 				DisplayName: Kjaro's Band
 				Tooltip:
 					'''
-					Hitting an enemy with an attack that deals 60% of its max life spawns a flaming tornado
+					8% chance on hit to summon a flaming tornado
 					This effect has a 10 second cooldown
+					Will activate in sync with Runald's Band
 					'''
 			}
 
@@ -319,8 +320,9 @@ Mods: {
 				DisplayName: Runald's Band
 				Tooltip:
 					'''
-					Hitting an enemy with an attack that deals 60% of its max life spawns an icy explosion, freezing enemies
+					8% chance on hit to summon an icy explosion, freezing enemies
 					This effect has a 10 second cooldown
+					Will activate in sync with Kjaro's band
 					'''
 			}
 
