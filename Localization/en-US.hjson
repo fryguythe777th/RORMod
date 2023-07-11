@@ -555,6 +555,15 @@ Mods: {
 					Upon taking damage, the souls are released and seek other enemies
 					'''
 			}
+
+			BensRaincoat: {
+				DisplayName: Ben's Raincoat
+				Tooltip:
+					'''
+					When a debuff is inflicted on you, it is removed and a 50-health barrier is given to you
+					This effect has a 20 second cooldown
+					'''
+			}
 		}
 
 		Announcements: {
@@ -736,12 +745,17 @@ Mods: {
 				DisplayName: Overloading
 				Description: Gain the power of an Overloading Elite
 			}
+
+			BensRaincoatBuff: {
+				DisplayName: Ben's Raincoat Cooldown
+				Description: Your debuff protection is on cooldown
+			}
 		}
 
 		Projectiles: {
 			EliteSpawningProj.DisplayName: Elite Spawning Proj
-			AtGMissileExplosion.DisplayName: At G Missile Explosion
-			AtGMissileProj.DisplayName: At G Missile Proj
+			AtGMissileExplosion.DisplayName: AtG Missile Explosion
+			AtGMissileProj.DisplayName: AtG Missile Proj
 			BandolierProj.DisplayName: Bandolier Proj
 			BehemothExplosion.DisplayName: Behemoth Explosion
 			BustlingFungusProj.DisplayName: Bustling Fungus Proj

@@ -27,7 +27,7 @@ Mods: {
 				/* Tooltip:
 					'''
 					Become an aspect of lightning
-					Half of your health is replaced by regenerating shield
+					Half of your health is replaced by a regenerating shield
 					Attach a lightning bomb to enemies on hit, which explodes shortly after
 					''' */
 			}
@@ -555,6 +555,11 @@ Mods: {
 					Upon taking damage, the souls are released and seek other enemies
 					''' */
 			}
+
+			BensRaincoat: {
+				// DisplayName: Bens Raincoat
+				// Tooltip: ""
+			}
 		}
 
 		Announcements: {
@@ -735,6 +740,11 @@ Mods: {
 			OverloadingWOV: {
 				// DisplayName: Overloading
 				// Description: Gain the power of an Overloading Elite
+			}
+
+			BensRaincoatBuff: {
+				// DisplayName: Bens Raincoat Buff
+				// Description: Mods.RiskOfTerrain.Buffs.BensRaincoatBuff.Description
 			}
 		}
 
