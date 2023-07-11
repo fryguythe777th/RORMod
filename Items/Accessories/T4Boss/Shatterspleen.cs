@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.NPCs;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

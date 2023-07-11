@@ -549,7 +549,11 @@ Mods: {
 
 			SoulboundCatalyst: {
 				// DisplayName: Soulbound Catalyst
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Harvest the souls of fallen enemies
+					Upon taking damage, the souls are released and seek other enemies
+					''' */
 			}
 		}
 

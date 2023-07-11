@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Items.Accessories.Aspects;
 using RiskOfTerrain.Buffs.WakeOfVultures;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Elite;
 using RiskOfTerrain.Content.OnHitEffects;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.NPCs;

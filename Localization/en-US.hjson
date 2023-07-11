@@ -27,7 +27,7 @@ Mods: {
 				Tooltip:
 					'''
 					Become an aspect of lightning
-					Half of your health is replaced by regenerating shield
+					Half of your health is replaced by a regenerating shield
 					Attach a lightning bomb to enemies on hit, which explodes shortly after
 					'''
 			}
@@ -549,7 +549,11 @@ Mods: {
 
 			SoulboundCatalyst: {
 				DisplayName: Soulbound Catalyst
-				Tooltip: ""
+				Tooltip:
+					'''
+					Harvest the souls of fallen enemies
+					Upon taking damage, the souls are released and seek other enemies
+					'''
 			}
 		}
 

@@ -6,7 +6,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Damaging;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {

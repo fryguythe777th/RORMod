@@ -2,7 +2,7 @@
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Common;
 using RiskOfTerrain.Content.Accessories;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using RiskOfTerrain.Tiles.Furniture;
 using System;
 using System.Collections.Generic;

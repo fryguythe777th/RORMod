@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;

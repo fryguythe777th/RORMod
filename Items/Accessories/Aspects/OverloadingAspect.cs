@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.NPCs;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

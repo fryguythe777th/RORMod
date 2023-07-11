@@ -61,7 +61,10 @@ namespace RiskOfTerrain.Content.Elites
                 parentNPC.GetElitePrefixes(out var prefixes);
                 foreach (var p in prefixes)
                 {
-                    npc.GetGlobalNPC(p).Active = true;
+                    if (p.Name != "CelestineElite")
+                    {
+                        npc.GetGlobalNPC(p).Active = true;
+                    }
                 }
             }
             else if (Main.netMode != NetmodeID.MultiplayerClient && !npc.townNPC && !npc.friendly && !NPCID.Sets.CountsAsCritter[npc.type] && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteBlacklist.Contains(npc.type) && !npc.IsElite())

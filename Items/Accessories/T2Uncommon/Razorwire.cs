@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using System;
 using Terraria;
 using Terraria.GameContent;

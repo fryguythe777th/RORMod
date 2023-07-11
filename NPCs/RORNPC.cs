@@ -7,7 +7,7 @@ using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.Items.Consumable;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -529,7 +529,7 @@ namespace RiskOfTerrain.NPCs
                 npc.confused = true;
             }
 
-            Texture2D texture = ModContent.Request<Texture2D>("RiskOfTerrain/Projectiles/Misc/UkuleleLightning").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("RiskOfTerrain/Projectiles/Accessory/Damaging/UkuleleLightning").Value;
 
             if (LightningDrawPoints != null)
             {

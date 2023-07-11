@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Items.Accessories.Aspects;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;

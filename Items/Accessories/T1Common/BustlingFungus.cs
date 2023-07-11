@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Items.Testing;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Utility;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

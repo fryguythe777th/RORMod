@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Accessories;
-using RiskOfTerrain.Projectiles.Misc;
+using RiskOfTerrain.Projectiles.Accessory.Visual;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
