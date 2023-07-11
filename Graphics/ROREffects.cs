@@ -45,6 +45,7 @@ namespace RiskOfTerrain.Graphics
                 Intensity = intensity;
                 MultiplyPerTick = multiplier;
             }
+
             public void Clear()
             {
                 Intensity = 0f;

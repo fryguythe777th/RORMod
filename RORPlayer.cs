@@ -97,6 +97,10 @@ namespace RiskOfTerrain
 
         public bool showMeatHook;
 
+        public bool releaseTheGhosts = false;
+        public int boundSoulCount;
+        public int boundSoulRotTick;
+
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>

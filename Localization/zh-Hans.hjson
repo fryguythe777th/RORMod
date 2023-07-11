@@ -254,8 +254,9 @@ Mods: {
 				// DisplayName: Kjaro's Band
 				/* Tooltip:
 					'''
-					Hitting an enemy with an attack that deals 60% of its max life spawns a flaming tornado
+					8% chance on hit to summon a flaming tornado
 					This effect has a 10 second cooldown
+					Will activate in sync with Runald's Band
 					''' */
 			}
 
@@ -319,8 +320,9 @@ Mods: {
 				// DisplayName: Runald's Band
 				/* Tooltip:
 					'''
-					Hitting an enemy with an attack that deals 60% of its max life spawns an icy explosion, freezing enemies
+					8% chance on hit to summon an icy explosion, freezing enemies
 					This effect has a 10 second cooldown
+					Will activate in sync with Kjaro's band
 					''' */
 			}
 
@@ -523,6 +525,32 @@ Mods: {
 				// DisplayName: Symbiotic Scorpion
 				// Tooltip: Strikes on enemies permanently reduce their armor
 			}
+
+			NkuhanasOpinion: {
+				// DisplayName: N'kuhana's Opinion
+				// Tooltip: Fire homing skulls as you heal that becomes more powerful the more you heal
+			}
+
+			HappiestMask: {
+				// DisplayName: Happiest Mask
+				// Tooltip: 7% chance to turn killed enemies into ghosts
+			}
+
+			Headset: {
+				// DisplayName: H3AD-5T v2
+				// Tooltip: ""
+				/* KeybindTooltip:
+					'''
+					Stomp by pressing {Keybind}, which deals damage to enemies below you based on how far you fell
+					Increased jump height and speed, and you are immune to fall damage
+					The stomp and jump boost share a 10 second cooldown
+					''' */
+			}
+
+			SoulboundCatalyst: {
+				// DisplayName: Soulbound Catalyst
+				// Tooltip: ""
+			}
 		}
 
 		Announcements: {
@@ -593,7 +621,11 @@ Mods: {
 		UnboundKey: 未绑定的按键
 		Revived: 恢复!
 		Blocked: 格挡!
-		// "Keybinds.Backup Magazine Swap.DisplayName": Backup Magazine Swap
+
+		Keybinds: {
+			// "Backup Magazine Swap.DisplayName": Backup Magazine Swap
+			// "H3AD-5T Keybind.DisplayName": H3AD-5T v2 Stomp
+		}
 
 		Buffs: {
 			BandolierBuff: {
@@ -734,6 +766,9 @@ Mods: {
 			// KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			// OnHitEffect.DisplayName: On Hit Effect
 			// MeatHookProjVanity.DisplayName: Meat Hook Proj Vanity
+			// NkuhanaSkull.DisplayName: Nkuhana Skull
+			// HeadsetSmash.DisplayName: Headset Smash
+			// BoundSoul.DisplayName: Bound Soul
 		}
 
 		Tiles: {
@@ -797,9 +832,9 @@ Mods: {
 				// Tooltip: ""
 				// Disabled.Label: Disabled
 				// Enabled.Label: Enabled
-				// Enabled_AlwaysUse.Label: Enabled_ Always Use
+				// Enabled_AlwaysUse.Label: Enabled_AlwaysUse
 				// Vanilla.Label: Vanilla
-				// RORTheme.Label: R O R Theme
+				// RORTheme.Label: ROR Theme
 				// MixedTheme.Label: Mixed Theme
 			}
 		}

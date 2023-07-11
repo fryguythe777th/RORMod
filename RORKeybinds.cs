@@ -5,18 +5,18 @@ using Microsoft.Xna.Framework;
 public class RORKeybinds : ModSystem
 {
 
-    //public static ModKeybind SprintKey { get; private set; }
+    public static ModKeybind HeadsetKey { get; private set; }
     public static ModKeybind AmmoSwapKey { get; private set; }
 
     public override void Load()
     {
-        //SprintKey = KeybindLoader.RegisterKeybind(Mod, "Sprint Keybind", "X");
+        HeadsetKey = KeybindLoader.RegisterKeybind(Mod, "H3AD-5T Keybind", "X");
         AmmoSwapKey = KeybindLoader.RegisterKeybind(Mod, "Backup Magazine Swap", "Mouse2");
     }
 
     public override void Unload()
     {
-        //SprintKey = null;
+        HeadsetKey = null;
         AmmoSwapKey = null;
     }
 }
