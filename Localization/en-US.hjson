@@ -564,6 +564,15 @@ Mods: {
 					This effect has a 20 second cooldown
 					'''
 			}
+
+			BottledChaos: {
+				DisplayName: Bottled Chaos
+				Tooltip:
+					'''
+					Drinking a potion will grant you another random buff for 10 seconds
+					This effect will not activate if you already have the buff the original potion grants
+					'''
+			}
 		}
 
 		Announcements: {
@@ -787,6 +796,7 @@ Mods: {
 			NkuhanaSkull.DisplayName: Nkuhana Skull
 			HeadsetSmash.DisplayName: Headset Smash
 			BoundSoul.DisplayName: Bound Soul
+			BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
 		}
 
 		Tiles: {
