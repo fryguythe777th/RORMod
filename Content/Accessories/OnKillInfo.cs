@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using RiskOfTerrain.Content.Elites;
 using Terraria;
 
 namespace RiskOfTerrain.Content.Accessories

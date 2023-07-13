@@ -567,7 +567,11 @@ Mods: {
 
 			BottledChaos: {
 				// DisplayName: Bottled Chaos
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Drinking a potion will grant you another random buff for 10 seconds
+					This effect will not activate if you already have the buff the original potion grants
+					''' */
 			}
 		}
 

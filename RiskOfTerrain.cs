@@ -131,7 +131,7 @@ namespace RiskOfTerrain
                             miscInfo = misc,
                             value = value,
                             friendly = friendly,
-                            spawnedFromStatue = spawnedfromstatue
+                            spawnedFromStatue = spawnedfromstatue,
                         });
                     }
                     break;

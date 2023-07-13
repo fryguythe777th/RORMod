@@ -7,6 +7,9 @@ using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
+using RiskOfTerrain.Content.Elites;
+using RiskOfTerrain.Buffs.WakeOfVultures;
+using RiskOfTerrain.NPCs;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
@@ -45,11 +48,41 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             savedLife = player.statLife;
         }
 
+        public override void OnUnequip(EntityInfo entity)
+        {
+            if (entity.entity is Player player)
+            {
+                player.ROR().releaseTheGhosts = true;
+                player.ROR().boundSoulCount = 0;
+                soulIndex = 0;
+            }
+        }
+
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (!info.friendly && info.lifeMax > 5 && !info.spawnedFromStatue && entity.entity is Player player)
+            if (!info.friendly && info.lifeMax > 5 && !info.spawnedFromStatue && entity.entity is Player player && info.lastHitProjectile != ModContent.ProjectileType<BoundSoul>())
             {
-                Projectile.NewProjectile(entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ModContent.ProjectileType<BoundSoul>(), 0, 0, entity.GetProjectileOwnerID(), soulIndex);
+                int elite = 0;
+                int boss = 0;
+                NPC killed = Main.npc[info.whoAmI];
+
+                if (killed.boss)
+                {
+                    boss = 1;
+                }
+
+                NPC npc = Main.npc[info.whoAmI];
+
+                for (int i = 0; i < RORNPC.RegisteredElites.Count; i++)
+                {
+                    var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
+                    if (npc.GetGlobalNPC(l[i]).Active == true)
+                    {
+                        elite = i + 1;
+                    }
+                }
+
+                Projectile.NewProjectile(entity.GetSource_Accessory(Item), info.Center, Vector2.Zero, ModContent.ProjectileType<BoundSoul>(), 0, 0, entity.GetProjectileOwnerID(), soulIndex, boss, elite);
                 player.ROR().boundSoulCount++;
                 soulIndex++;
             }
