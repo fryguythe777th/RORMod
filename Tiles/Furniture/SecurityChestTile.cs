@@ -252,6 +252,7 @@ namespace RiskOfTerrain.Tiles.Furniture
                         {
                             NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
                         }
+                        player.BuyItem(CalculateChestPrice());
                     }
                 }
                 else

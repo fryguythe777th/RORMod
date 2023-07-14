@@ -797,6 +797,7 @@ Mods: {
 			HeadsetSmash.DisplayName: Headset Smash
 			BoundSoul.DisplayName: Bound Soul
 			BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
+			MendingMender.DisplayName: Mending Mender
 		}
 
 		Tiles: {

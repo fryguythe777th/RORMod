@@ -51,7 +51,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
             }
             if (Main.netMode != NetmodeID.Server && Projectile.numUpdates == -1)
             {
-                ManageBungalTendices(Main.player[Projectile.owner], ror, active);
+                ManageBungalTendencies(Main.player[Projectile.owner], ror, active);
             }
 
             if (active)
@@ -102,7 +102,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
 
             Lighting.AddLight(Projectile.Center, new Vector3(0.1f, 1f, 0.2f) * Projectile.scale / 280f);
         }
-        public void ManageBungalTendices(Player player, RORPlayer ror, bool active)
+        public void ManageBungalTendencies(Player player, RORPlayer ror, bool active)
         {
             if (fungusInfo == null)
                 fungusInfo = new List<Vector3>();
@@ -129,7 +129,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
                     }
                 }
 
-                if (validSpots.Count > 0)
+                if (validSpots.Count > 5 && validSpots != null)
                 {
                     while (validSpots.Count > 0)
                     {
