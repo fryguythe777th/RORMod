@@ -529,6 +529,10 @@ namespace RiskOfTerrain
 
             ManageLifeSupplements(shield, lifeMax);
             BarrierMinimum = (int)(Player.statLifeMax2 * barrierMinimumFrac);
+            if (barrierLife > Player.statLifeMax2)
+            {
+                barrierLife = Player.statLifeMax2;
+            }
             if (Player.statLife == Player.statLifeMax2)
             {
                 Player.statLife += barrierLife;

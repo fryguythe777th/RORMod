@@ -69,7 +69,6 @@ namespace RiskOfTerrain.Items.Testing
             }
             else
             {
-                Main.NewText(addedPrefixIndex);
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<EliteSpawningProj>(), 0, 0, ai0: addedPrefixIndex, Owner: player.whoAmI);
 
                 return true;

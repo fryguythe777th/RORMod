@@ -55,6 +55,8 @@ namespace RiskOfTerrain.NPCs
 
         public int lastHitProjectileType = -1;
 
+        public bool isMending;
+
         public override bool InstancePerEntity => true;
 
         public static List<EliteNPCBase> RegisteredElites { get; private set; }
@@ -143,35 +145,35 @@ namespace RiskOfTerrain.NPCs
         {
             //if (timesProcced < 3)
             //{
-                npc.ROR().hasBeenStruckByUkuleleLightning = true;
+            npc.ROR().hasBeenStruckByUkuleleLightning = true;
 
-                NPC.HitInfo hit = new NPC.HitInfo
-                {
-                    DamageType = DamageClass.Default,
-                    SourceDamage = damage,
-                    Damage = damage,
-                    Crit = false,
-                    Knockback = 0f,
-                    HitDirection = 0
-                };
-                npc.StrikeNPC(hit);
+            NPC.HitInfo hit = new NPC.HitInfo
+            {
+                DamageType = DamageClass.Default,
+                SourceDamage = damage,
+                Damage = damage,
+                Crit = false,
+                Knockback = 0f,
+                HitDirection = 0
+            };
+            npc.StrikeNPC(hit);
 
-                for (int i = 0; i < Main.maxNPCs; i++)
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i].active && RORNPC.Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
                 {
-                    if (Main.npc[i].active && RORNPC.Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
+                    RORNPC.UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
+
+                    for (int j = 0; j < Distance(npc, Main.npc[i]); j++)
                     {
-                        RORNPC.UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
-
-                        for (int j = 0; j < Distance(npc, Main.npc[i]); j++)
+                        float angle = npc.Center.AngleTo(Main.npc[i].Center) - MathHelper.ToRadians(90);
+                        if (LightningDrawPoints != null)
                         {
-                            float angle = npc.Center.AngleTo(Main.npc[i].Center) - MathHelper.ToRadians(90);
-                            if (LightningDrawPoints != null)
-                            {
-                                LightningDrawPoints.Add(npc.Center + new Vector2(0, j).RotatedBy(angle));
-                            }
+                            LightningDrawPoints.Add(npc.Center + new Vector2(0, j).RotatedBy(angle));
                         }
                     }
                 }
+            }
             //}
         }
 
@@ -196,7 +198,7 @@ namespace RiskOfTerrain.NPCs
             statDefense = 0;
             npc.ROR().npcSpeedStat = 1f;
             hasBeenStruckByUkuleleLightning = false;
-            
+
             if (LightningDrawPoints != null)
             {
                 LightningDrawPoints.Clear();
@@ -209,6 +211,7 @@ namespace RiskOfTerrain.NPCs
             }
 
             timeSinceLastHit++;
+            isMending = false;
         }
 
         public void CheckGasoline(NPC npc)

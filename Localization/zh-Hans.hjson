@@ -798,6 +798,7 @@ Mods: {
 			// BoundSoul.DisplayName: Bound Soul
 			// BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
 			// MendingMender.DisplayName: Mending Mender
+			// MendingBomb.DisplayName: Mending Bomb
 		}
 
 		Tiles: {

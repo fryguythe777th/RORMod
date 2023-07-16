@@ -37,6 +37,7 @@ namespace RiskOfTerrain.Projectiles.Elite
                 Projectile.Kill();
             }
         }
+
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCsAndTiles.Add(index);
@@ -44,7 +45,6 @@ namespace RiskOfTerrain.Projectiles.Elite
 
         public override bool PreDraw(ref Color lightColor)
         {
-            //Main.instance.PrepareDrawnEntityDrawing(Projectile, Main.player[Projectile.owner].ROR().cFocusCrystal);
             BustlingFungusProj.DrawAura(Projectile.Center - Main.screenPosition, Projectile.scale, Projectile.Opacity * 0.4f, ModContent.Request<Texture2D>(Texture + "Aura").Value, TextureAssets.Projectile[Type].Value);
             return false;
         }

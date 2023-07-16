@@ -12,12 +12,12 @@ namespace RiskOfTerrain.Content.Artifacts
         private MethodInfo NPC_GetHurtByOtherNPCs;
 
         public static HashSet<int> Soul_SpawnBlacklist { get; private set; }
-        public static Dictionary<int, HashSet<int>> Chaos_HitBlacklist { get; private set; }
+        //public static Dictionary<int, HashSet<int>> Chaos_HitBlacklist { get; private set; }
 
         public static NPCEquips EvolutionItems;
 
         public int npcParent;
-        public int chaosHitDelay;
+        //public int chaosHitDelay;
 
         public bool soulSpawn;
         public bool swarmsSpawn;
@@ -28,70 +28,70 @@ namespace RiskOfTerrain.Content.Artifacts
         public ArtifactNPC()
         {
             npcParent = -1;
-            chaosHitDelay = 0;
+            //chaosHitDelay = 0;
             swarmsSpawn = false;
         }
 
         public override void Load()
         {
-            NPC_GetHurtByOtherNPCs = typeof(NPC).GetMethod("GetHurtByOtherNPCs", BindingFlags.NonPublic | BindingFlags.Instance);
+            //NPC_GetHurtByOtherNPCs = typeof(NPC).GetMethod("GetHurtByOtherNPCs", BindingFlags.NonPublic | BindingFlags.Instance);
             Soul_SpawnBlacklist = new HashSet<int>()
             {
                 NPCID.DungeonSpirit,
             };
-            Chaos_HitBlacklist = new Dictionary<int, HashSet<int>>()
-            {
-                [NPCID.PumpkingBlade] = new HashSet<int>() { NPCID.Pumpking, },
-                [NPCID.BlueSlime] = new HashSet<int>() { NPCID.KingSlime, },
-                [NPCID.SlimeSpiked] = new HashSet<int>() { NPCID.KingSlime, },
-                [NPCID.KingSlime] = new HashSet<int>() { NPCID.BlueSlime, NPCID.SlimeSpiked, },
-                [NPCID.QueenSlimeMinionBlue] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
-                [NPCID.QueenSlimeMinionPink] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
-                [NPCID.QueenSlimeMinionPurple] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
-                [NPCID.QueenSlimeBoss] = new HashSet<int>() { NPCID.QueenSlimeMinionBlue, NPCID.QueenSlimeMinionPink, NPCID.QueenSlimeMinionPurple, },
-                [NPCID.SkeletronHand] = new HashSet<int>() { NPCID.SkeletronHead, },
-                [NPCID.SkeletronHead] = new HashSet<int>() { NPCID.SkeletronHand, },
-                [NPCID.SkeletronPrime] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
-                [NPCID.PrimeCannon] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
-                [NPCID.PrimeLaser] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
-                [NPCID.PrimeSaw] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
-                [NPCID.PrimeVice] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
-                [NPCID.Plantera] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
-                [NPCID.PlanterasHook] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
-                [NPCID.PlanterasTentacle] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
-                [NPCID.Golem] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
-                [NPCID.GolemFistRight] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
-                [NPCID.GolemFistLeft] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
-                [NPCID.MoonLordCore] = new HashSet<int>() { NPCID.MoonLordCore, NPCID.MoonLordHead, NPCID.MoonLordHand, NPCID.MoonLordFreeEye, NPCID.MoonLordLeechBlob },
-                [NPCID.PirateShip] = new HashSet<int>() { NPCID.PirateShip, NPCID.PirateShipCannon, },
-                [NPCID.PirateShipCannon] = new HashSet<int>() { NPCID.PirateShip, NPCID.PirateShipCannon, },
-                [NPCID.Creeper] = new HashSet<int>() { NPCID.Creeper, },
-                [NPCID.EaterofWorldsHead] = new HashSet<int>() { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail, },
-                [NPCID.TheDestroyer] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
-                [NPCID.TheDestroyerBody] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
-                [NPCID.TheDestroyerTail] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
-                [NPCID.MartianSaucer] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
-                [NPCID.MartianSaucerCannon] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
-                [NPCID.MartianSaucerCore] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
-                [NPCID.MartianSaucerTurret] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
-                [NPCID.ForceBubble] = new HashSet<int>() { NPCID.ForceBubble, NPCID.MartianOfficer, },
-                [NPCID.MartianOfficer] = new HashSet<int>() { NPCID.ForceBubble, NPCID.MartianOfficer, },
-            };
+            //Chaos_HitBlacklist = new Dictionary<int, HashSet<int>>()
+            //{
+            //    [NPCID.PumpkingBlade] = new HashSet<int>() { NPCID.Pumpking, },
+            //    [NPCID.BlueSlime] = new HashSet<int>() { NPCID.KingSlime, },
+            //    [NPCID.SlimeSpiked] = new HashSet<int>() { NPCID.KingSlime, },
+            //    [NPCID.KingSlime] = new HashSet<int>() { NPCID.BlueSlime, NPCID.SlimeSpiked, },
+            //    [NPCID.QueenSlimeMinionBlue] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
+            //    [NPCID.QueenSlimeMinionPink] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
+            //    [NPCID.QueenSlimeMinionPurple] = new HashSet<int>() { NPCID.QueenSlimeBoss, },
+            //    [NPCID.QueenSlimeBoss] = new HashSet<int>() { NPCID.QueenSlimeMinionBlue, NPCID.QueenSlimeMinionPink, NPCID.QueenSlimeMinionPurple, },
+            //    [NPCID.SkeletronHand] = new HashSet<int>() { NPCID.SkeletronHead, },
+            //    [NPCID.SkeletronHead] = new HashSet<int>() { NPCID.SkeletronHand, },
+            //    [NPCID.SkeletronPrime] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
+            //    [NPCID.PrimeCannon] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
+            //    [NPCID.PrimeLaser] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
+            //    [NPCID.PrimeSaw] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
+            //    [NPCID.PrimeVice] = new HashSet<int>() { NPCID.SkeletronPrime, NPCID.PrimeCannon, NPCID.PrimeLaser, NPCID.PrimeSaw, NPCID.PrimeVice, },
+            //    [NPCID.Plantera] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
+            //    [NPCID.PlanterasHook] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
+            //    [NPCID.PlanterasTentacle] = new HashSet<int>() { NPCID.Plantera, NPCID.PlanterasHook, NPCID.PlanterasTentacle, },
+            //    [NPCID.Golem] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
+            //    [NPCID.GolemFistRight] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
+            //    [NPCID.GolemFistLeft] = new HashSet<int>() { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, },
+            //    [NPCID.MoonLordCore] = new HashSet<int>() { NPCID.MoonLordCore, NPCID.MoonLordHead, NPCID.MoonLordHand, NPCID.MoonLordFreeEye, NPCID.MoonLordLeechBlob },
+            //    [NPCID.PirateShip] = new HashSet<int>() { NPCID.PirateShip, NPCID.PirateShipCannon, },
+            //    [NPCID.PirateShipCannon] = new HashSet<int>() { NPCID.PirateShip, NPCID.PirateShipCannon, },
+            //    [NPCID.Creeper] = new HashSet<int>() { NPCID.Creeper, },
+            //    [NPCID.EaterofWorldsHead] = new HashSet<int>() { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail, },
+            //    [NPCID.TheDestroyer] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
+            //    [NPCID.TheDestroyerBody] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
+            //    [NPCID.TheDestroyerTail] = new HashSet<int>() { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail, },
+            //    [NPCID.MartianSaucer] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
+            //    [NPCID.MartianSaucerCannon] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
+            //    [NPCID.MartianSaucerCore] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
+            //    [NPCID.MartianSaucerTurret] = new HashSet<int>() { NPCID.MartianSaucer, NPCID.MartianSaucerCannon, NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, },
+            //    [NPCID.ForceBubble] = new HashSet<int>() { NPCID.ForceBubble, NPCID.MartianOfficer, },
+            //    [NPCID.MartianOfficer] = new HashSet<int>() { NPCID.ForceBubble, NPCID.MartianOfficer, },
+            //};
         }
 
         public override void Unload()
         {
             Soul_SpawnBlacklist?.Clear();
             Soul_SpawnBlacklist = null;
-            Chaos_HitBlacklist?.Clear();
-            Chaos_HitBlacklist = null;
+            //Chaos_HitBlacklist?.Clear();
+            //Chaos_HitBlacklist = null;
             NPC_GetHurtByOtherNPCs = null;
         }
 
         public override void SetDefaults(NPC npc)
         {
             npcParent = -1;
-            chaosHitDelay = 0;
+            //chaosHitDelay = 0;
         }
 
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -107,17 +107,17 @@ namespace RiskOfTerrain.Content.Artifacts
             }
         }
 
-        public override bool CanHitNPC(NPC npc, NPC target)/* tModPorter Suggestion: Return true instead of null */
-        {
-            return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? true : false;
-        }
+        //public override bool CanHitNPC(NPC npc, NPC target)/* tModPorter Suggestion: Return true instead of null */
+        //{
+        //    return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? true : false;
+        //}
 
-        public bool Chaos_CanDamageOtherNPC(NPC npc, NPC target)
-        {
-            return npc.whoAmI != target.whoAmI && !(Chaos_HitBlacklist.TryGetValue(target.netID, out var l) && l.Contains(npc.netID)) &&
-                target.aiStyle != NPCAIStyleID.Worm &&
-                target.realLife != npc.whoAmI && target.whoAmI != npc.realLife && npc.realLife != target.realLife;
-        }
+        //public bool Chaos_CanDamageOtherNPC(NPC npc, NPC target)
+        //{
+        //    return npc.whoAmI != target.whoAmI && !(Chaos_HitBlacklist.TryGetValue(target.netID, out var l) && l.Contains(npc.netID)) &&
+        //        target.aiStyle != NPCAIStyleID.Worm &&
+        //        target.realLife != npc.whoAmI && target.whoAmI != npc.realLife && npc.realLife != target.realLife;
+        //}
 
         public override void PostAI(NPC npc)
         {
@@ -125,15 +125,15 @@ namespace RiskOfTerrain.Content.Artifacts
             {
                 npcParent = -1;
             }
-            if (ArtifactSystem.chaos)
-            {
-                if (chaosHitDelay < 30)
-                {
-                    chaosHitDelay++;
-                    return;
-                }
-                NPC_GetHurtByOtherNPCs.Invoke(npc, new object[] { NPCID.Sets.AllNPCs });
-            }
+            //if (ArtifactSystem.chaos)
+            //{
+            //    if (chaosHitDelay < 30)
+            //    {
+            //        chaosHitDelay++;
+            //        return;
+            //    }
+            //    NPC_GetHurtByOtherNPCs.Invoke(npc, new object[] { NPCID.Sets.AllNPCs });
+            //}
         }
 
         public override bool SpecialOnKill(NPC npc)
