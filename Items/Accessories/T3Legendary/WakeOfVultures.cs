@@ -43,6 +43,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
                 CelestineAspect.CelestineUpdate(player);
             }
 
+            if (player.HasBuff(ModContent.BuffType<MendingWOV>()))
+            {
+                MendingAspect.MendingUpdate(player);
+            }
+
             if (player.HasBuff(ModContent.BuffType<OverloadingWOV>()))
             {
                 OverloadingAspect.OverloadingUpdate(player);
@@ -67,6 +72,14 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             if (entity.HasBuff(ModContent.BuffType<CelestineWOV>()))
             {
                 CelestineAspect.CelestinePostUpdate(entity, Item);
+            }
+        }
+
+        public override void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
+        {
+            if (player.HasBuff(ModContent.BuffType<MendingWOV>()))
+            {
+                MendingAspect.MendingHurt(player, info);
             }
         }
 
@@ -98,7 +111,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
                             break;
 
                         case 4:
-                            //entity.AddBuff(ModContent.BuffType<MendingWOV>(), 900);
+                            entity.AddBuff(ModContent.BuffType<MendingWOV>(), 900);
                             break;
 
                         case 5:

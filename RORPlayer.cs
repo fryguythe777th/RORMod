@@ -80,6 +80,7 @@ namespace RiskOfTerrain
         public bool accKjaros;
 
         public bool aspCelestine;
+        public bool aspMending;
 
         public int accRepulsionPlate;
 
@@ -473,6 +474,7 @@ namespace RiskOfTerrain
             accICBM = false;
             accClover = false;
             aspCelestine = false;
+            aspMending = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;

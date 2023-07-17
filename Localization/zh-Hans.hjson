@@ -573,6 +573,11 @@ Mods: {
 					This effect will not activate if you already have the buff the original potion grants
 					''' */
 			}
+
+			MendingAspect: {
+				// DisplayName: Mending Aspect
+				// Tooltip: ""
+			}
 		}
 
 		Announcements: {
@@ -759,6 +764,11 @@ Mods: {
 				// DisplayName: Ben's Raincoat Cooldown
 				// Description: Your debuff protection is on cooldown
 			}
+
+			MendingWOV: {
+				// DisplayName: Mending W O V
+				// Description: Mods.RiskOfTerrain.Buffs.MendingWOV.Description
+			}
 		}
 
 		Projectiles: {
@@ -799,6 +809,7 @@ Mods: {
 			// BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
 			// MendingMender.DisplayName: Mending Mender
 			// MendingBomb.DisplayName: Mending Bomb
+			// MendingAspectMender.DisplayName: Mending Aspect Mender
 		}
 
 		Tiles: {

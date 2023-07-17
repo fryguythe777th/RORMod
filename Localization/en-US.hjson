@@ -22,6 +22,16 @@ Mods: {
 					'''
 			}
 
+			MendingAspect: {
+				DisplayName: His Reassurance
+				Tooltip:
+					'''
+					Become an aspect of earth
+					Slowly heal nearby injured allies
+					Upon taking heavy damage, release a healing explosion
+					'''
+			}
+
 			OverloadingAspect: {
 				DisplayName: Silence Between Two Strikes
 				Tooltip:
@@ -750,6 +760,11 @@ Mods: {
 				Description: Gain the power of a Celestine Elite
 			}
 
+			MendingWOV: {
+				DisplayName: Mending
+				Description: Gain the power of a Mending Elite
+			}
+
 			OverloadingWOV: {
 				DisplayName: Overloading
 				Description: Gain the power of an Overloading Elite
@@ -799,6 +814,7 @@ Mods: {
 			BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
 			MendingMender.DisplayName: Mending Mender
 			MendingBomb.DisplayName: Mending Bomb
+			MendingAspectMender.DisplayName: Mending Aspect Mender
 		}
 
 		Tiles: {

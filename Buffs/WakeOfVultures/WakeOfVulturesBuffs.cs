@@ -15,11 +15,15 @@ namespace RiskOfTerrain.Buffs.WakeOfVultures
     {
     }
 
-    public class OverloadingWOV : BasicWOVBuff
+    public class CelestineWOV : BasicWOVBuff
     {
     }
 
-    public class CelestineWOV : BasicWOVBuff
+    public class MendingWOV : BasicWOVBuff
+    {
+    }
+
+    public class OverloadingWOV : BasicWOVBuff
     {
     }
 }
