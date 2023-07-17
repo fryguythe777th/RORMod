@@ -583,6 +583,21 @@ Mods: {
 					This effect will not activate if you already have the buff the original potion grants
 					'''
 			}
+
+			AlienHead: {
+				DisplayName: Alien Head
+				Tooltip: 10% increased attack speed
+			}
+
+			Brainstalks: {
+				DisplayName: Brainstalks
+				Tooltip: After killing an elite, gain 70% increased attack speed for 10 seconds
+			}
+
+			RejuvenationRack: {
+				DisplayName: Rejuvenation Rack
+				Tooltip: Whenever you gain health, the healing is doubled
+			}
 		}
 
 		Announcements: {
@@ -773,6 +788,11 @@ Mods: {
 			BensRaincoatBuff: {
 				DisplayName: Ben's Raincoat Cooldown
 				Description: Your debuff protection is on cooldown
+			}
+
+			BrainstalksBuff: {
+				DisplayName: Flowering Stalks
+				Description: 70% increased attack speed
 			}
 		}
 

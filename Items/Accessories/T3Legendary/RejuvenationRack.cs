@@ -9,12 +9,12 @@ using RiskOfTerrain.Buffs.Debuff;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
-    public class AlienHead : ModAccessory
+    public class RejuvenationRack : ModAccessory
     {
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.RedTier.Add(Type);
+            RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()
@@ -26,9 +26,24 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             Item.value = Item.sellPrice(gold: 5);
         }
 
+        public int savedHealth;
+
+        public override void OnEquip(EntityInfo entity)
+        {
+            if (entity.entity is Player player)
+            {
+                savedHealth = player.statLife;
+            }
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed<GenericDamageClass>() += 0.1f;
+            if (player.statLife > savedHealth)
+            {
+                player.statLife += (int)MathHelper.Min((float)(player.statLife - savedHealth), (float)(player.statLifeMax2 - player.statLife));
+            }
+
+            savedHealth = player.statLife;
         }
     }
 }
