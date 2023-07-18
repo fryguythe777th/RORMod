@@ -601,7 +601,11 @@ Mods: {
 
 			InterstellarDeskPlant: {
 				DisplayName: Interstellar Desk Plant
-				Tooltip: ""
+				Tooltip:
+					'''
+					Killing an enemy spawns a healing plant
+					Only three of these plants can be present at once
+					'''
 			}
 		}
 
