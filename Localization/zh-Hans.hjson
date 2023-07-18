@@ -7,7 +7,7 @@ Mods: {
 				// DisplayName: Ifrit's Distinction
 				/* Tooltip:
 					'''
-					Become an aspect of fire
+					Become an aspect of [c/fa3924:fire]
 					Leave a fiery trail in your wake
 					''' */
 			}
@@ -16,9 +16,19 @@ Mods: {
 				// DisplayName: Spectral Circlet
 				/* Tooltip:
 					'''
-					Become an aspect of incorporeality
+					Become an aspect of [c/649791:incorporeality]
 					Make allies around you invisible to the eye
 					Slow enemies on hit
+					''' */
+			}
+
+			GlacialAspect: {
+				// DisplayName: Her Biting Embrace
+				/* Tooltip:
+					'''
+					Become an aspect of [c/5e7e8f:ice]
+					Slow enemies on hit
+					Upon taking heavy damage, release a freezing explosion
 					''' */
 			}
 
@@ -26,7 +36,7 @@ Mods: {
 				// DisplayName: His Reassurance
 				/* Tooltip:
 					'''
-					Become an aspect of earth
+					Become an aspect of [c/baf27d:earth]
 					Slowly heal nearby injured allies
 					Upon taking heavy damage, release a healing explosion
 					''' */
@@ -36,7 +46,7 @@ Mods: {
 				// DisplayName: Silence Between Two Strikes
 				/* Tooltip:
 					'''
-					Become an aspect of lightning
+					Become an aspect of [c/7dd9f2:lightning]
 					Half of your health is replaced by a regenerating shield
 					Attach a lightning bomb to enemies on hit, which explodes shortly after
 					''' */
@@ -601,7 +611,11 @@ Mods: {
 
 			InterstellarDeskPlant: {
 				// DisplayName: Interstellar Desk Plant
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Killing an enemy spawns a healing plant
+					Only three of these plants can be present at once
+					''' */
 			}
 		}
 
@@ -780,6 +794,11 @@ Mods: {
 				// Description: Gain the power of a Celestine Elite
 			}
 
+			GlacialWOV: {
+				// DisplayName: Glacial
+				// Description: Gain the power of a Glacial Elite
+			}
+
 			MendingWOV: {
 				// DisplayName: Mending
 				// Description: Gain the power of a Mending Elite
@@ -798,6 +817,11 @@ Mods: {
 			BrainstalksBuff: {
 				// DisplayName: Flowering Stalks
 				// Description: 70% increased attack speed
+			}
+
+			GlacialSlow: {
+				// DisplayName: Chilled
+				// Description: The biting embrace of ice slows you down
 			}
 		}
 
@@ -840,7 +864,8 @@ Mods: {
 			// MendingMender.DisplayName: Mending Mender
 			// MendingBomb.DisplayName: Mending Bomb
 			// MendingAspectMender.DisplayName: Mending Aspect Mender
-			// IDPPlant.DisplayName: I D P Plant
+			// IDPPlant.DisplayName: IDP Plant
+			// GlacialBomb.DisplayName: Glacial Bomb
 		}
 
 		Tiles: {

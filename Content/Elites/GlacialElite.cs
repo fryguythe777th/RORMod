@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -20,19 +21,26 @@ namespace RiskOfTerrain.Content.Elites
         {
         }
 
-        public override void OnKill(NPC npc)
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             if (active)
             {
-                //int i = Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlacialEliteProj>(), 0, 0);
-                //Main.projectile[i].scale = 0.33f;
-                //wip glacial elite blast i was working on
+                target.AddBuff(ModContent.BuffType<GlacialSlow>(), 300);
             }
+        }
+
+        public override bool PreKill(NPC npc)
+        {
+            if (active)
+            {
+                Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, Vector2.Zero, ModContent.ProjectileType<GlacialBomb>(), 0, 0, ai0: 0);
+            }
+            return true;
         }
 
         public override bool CanRoll(NPC npc)
         {
-            return false;
+            return true;
         }
     }
 }

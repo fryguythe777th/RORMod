@@ -144,7 +144,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
         public static void MendingHurt(Player player, Player.HurtInfo info)
         {
-            if (info.Damage > player.statLifeMax * 0.25)
+            if (info.Damage > player.statLifeMax * 0.15)
             {
                 Projectile.NewProjectile(player.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<MendingBomb>(), 0, 0);
             }

@@ -19,6 +19,10 @@ namespace RiskOfTerrain.Buffs.WakeOfVultures
     {
     }
 
+    public class GlacialWOV : BasicWOVBuff
+    {
+    }
+
     public class MendingWOV : BasicWOVBuff
     {
     }

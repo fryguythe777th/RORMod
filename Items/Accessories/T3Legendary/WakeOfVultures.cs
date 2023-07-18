@@ -61,6 +61,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
                 CelestineAspect.CelestineOnHit(victim);
             }
 
+            if (entity.HasBuff(ModContent.BuffType<GlacialWOV>()))
+            {
+                GlacialAspect.GlacialOnHit(victim);
+            }
+
             if (entity.HasBuff(ModContent.BuffType<OverloadingWOV>()))
             {
                 OverloadingAspect.OverloadingOnHit(entity, victim, projOrItem);
@@ -77,6 +82,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void Hurt(Player player, RORPlayer ror, Player.HurtInfo info)
         {
+            if (player.HasBuff(ModContent.BuffType<GlacialWOV>()))
+            {
+                GlacialAspect.GlacialHurt(player, info);
+            }
+
             if (player.HasBuff(ModContent.BuffType<MendingWOV>()))
             {
                 MendingAspect.MendingHurt(player, info);
@@ -103,7 +113,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
                             break;
 
                         case 2:
-                            //entity.AddBuff(ModContent.BuffType<GlacialWOV>(), 900);
+                            entity.AddBuff(ModContent.BuffType<GlacialWOV>(), 900);
                             break;
 
                         case 3:
