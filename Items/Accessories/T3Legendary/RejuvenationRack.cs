@@ -36,11 +36,20 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             }
         }
 
+        public bool beginningState = true;
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.statLife > savedHealth)
+            if (!beginningState)
             {
-                player.statLife += (int)MathHelper.Min((float)(player.statLife - savedHealth), (float)(player.statLifeMax2 - player.statLife));
+                if (player.statLife > savedHealth)
+                {
+                    player.statLife += (int)MathHelper.Min((float)(player.statLife - savedHealth), (float)(player.statLifeMax2 - player.statLife));
+                }
+            }
+            else
+            {
+                beginningState = false;
             }
 
             savedHealth = player.statLife;

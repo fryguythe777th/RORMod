@@ -61,7 +61,7 @@ namespace RiskOfTerrain.Content.Elites
                 parentNPC.GetElitePrefixes(out var prefixes);
                 foreach (var p in prefixes)
                 {
-                    if (p.Name != "CelestineElite")
+                    if (p.Name != "CelestineElite" && p.Name != "MendingElite")
                     {
                         npc.GetGlobalNPC(p).Active = true;
                     }

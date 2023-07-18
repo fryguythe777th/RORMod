@@ -598,6 +598,11 @@ Mods: {
 				// DisplayName: Rejuvenation Rack
 				// Tooltip: Whenever you gain health, the healing is doubled
 			}
+
+			InterstellarDeskPlant: {
+				// DisplayName: Interstellar Desk Plant
+				// Tooltip: ""
+			}
 		}
 
 		Announcements: {
@@ -835,6 +840,7 @@ Mods: {
 			// MendingMender.DisplayName: Mending Mender
 			// MendingBomb.DisplayName: Mending Bomb
 			// MendingAspectMender.DisplayName: Mending Aspect Mender
+			// IDPPlant.DisplayName: I D P Plant
 		}
 
 		Tiles: {
