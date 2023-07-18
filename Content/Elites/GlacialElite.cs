@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Items.Accessories.Aspects;
 using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.Graphics.Shaders;
@@ -41,6 +42,19 @@ namespace RiskOfTerrain.Content.Elites
         public override bool CanRoll(NPC npc)
         {
             return true;
+        }
+
+        public override void OnKill(NPC npc)
+        {
+            if (active)
+            {
+                int rollNumber = npc.boss ? 1000 : 4000;
+                if (Main.player[Player.FindClosest(npc.Center, 500, 500)].RollLuck(rollNumber) == 0)
+                {
+                    int i = Item.NewItem(npc.GetSource_GiftOrReward(), npc.Center, ModContent.ItemType<GlacialAspect>());
+                    Main.item[i].velocity = new Vector2(0, -4);
+                }
+            }
         }
     }
 }
