@@ -617,6 +617,16 @@ Mods: {
 					Only three of these plants can be present at once
 					'''
 			}
+
+			ResonanceDisc: {
+				DisplayName: Resonance Disc
+				Tooltip:
+					'''
+					Gain a disc that charges up after every kill
+					Charges decay over time
+					Upon reaching 6 charges, the disc shoots out and bounces between enemies, exploding on kill
+					'''
+			}
 		}
 
 		Announcements: {
@@ -631,10 +641,10 @@ Mods: {
 		}
 
 		BossDesc: {
-			EyeofCthulhu: Nighttime Terror
+			EyeofCthulhu: Night-time Terror
 			EaterofWorlds: Spawn of Malice
 			BrainofCthulhu: Crimson Mastermind
-			KingSlime: Lord of all things Slimy
+			KingSlime: Lord of All Things Slimy
 			Skeletron: Accursed Tyrant
 			QueenBee: Matriarch of the Hive
 			WallOfFlesh: Core of the World
@@ -786,27 +796,27 @@ Mods: {
 
 			BlazingWOV: {
 				DisplayName: Blazing
-				Description: Gain the power of a Blazing Elite
+				Description: Gain the power of a [c/fa3924:Blazing Elite]
 			}
 
 			CelestineWOV: {
 				DisplayName: Celestine
-				Description: Gain the power of a Celestine Elite
+				Description: Gain the power of a [c/649791:Celestine Elite]
 			}
 
 			GlacialWOV: {
 				DisplayName: Glacial
-				Description: Gain the power of a Glacial Elite
+				Description: Gain the power of a [c/5e7e8f:Glacial Elite]
 			}
 
 			MendingWOV: {
 				DisplayName: Mending
-				Description: Gain the power of a Mending Elite
+				Description: Gain the power of a [c/baf27d:Mending Elite]
 			}
 
 			OverloadingWOV: {
 				DisplayName: Overloading
-				Description: Gain the power of an Overloading Elite
+				Description: Gain the power of an [c/7dd9f2:Overloading Elite]
 			}
 
 			BensRaincoatBuff: {
@@ -866,6 +876,7 @@ Mods: {
 			MendingAspectMender.DisplayName: Mending Aspect Mender
 			IDPPlant.DisplayName: IDP Plant
 			GlacialBomb.DisplayName: Glacial Bomb
+			ResonanceDiscProj.DisplayName: Resonance Disc Proj
 		}
 
 		Tiles: {

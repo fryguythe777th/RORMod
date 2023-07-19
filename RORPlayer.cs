@@ -100,6 +100,8 @@ namespace RiskOfTerrain
 
         public bool showMeatHook;
 
+        public int resDiscID;
+
         public bool releaseTheGhosts = false;
         public int boundSoulCount;
         public int boundSoulRotTick;
