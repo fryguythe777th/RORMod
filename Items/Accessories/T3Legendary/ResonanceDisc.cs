@@ -27,6 +27,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             Item.value = Item.sellPrice(gold: 5);
         }
 
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.ROR().accResonanceDisc = true;
+        }
+
         public override void OnEquip(EntityInfo entity)
         {
             if (entity.entity is Player player)

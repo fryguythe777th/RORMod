@@ -620,6 +620,16 @@ Mods: {
 
 			ResonanceDisc: {
 				// DisplayName: Resonance Disc
+				/* Tooltip:
+					'''
+					Gain a disc that charges up after every kill
+					Charges decay over time
+					Upon reaching 6 charges, the disc shoots out and bounces between enemies, exploding on kill
+					''' */
+			}
+
+			FrostRelic: {
+				// DisplayName: Frost Relic
 				// Tooltip: ""
 			}
 		}
@@ -872,6 +882,7 @@ Mods: {
 			// IDPPlant.DisplayName: IDP Plant
 			// GlacialBomb.DisplayName: Glacial Bomb
 			// ResonanceDiscProj.DisplayName: Resonance Disc Proj
+			// FrostRelicIcicle.DisplayName: Frost Relic Icicle
 		}
 
 		Tiles: {

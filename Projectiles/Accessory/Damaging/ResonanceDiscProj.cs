@@ -104,9 +104,12 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
 
         public override void Kill(int timeLeft)
         {
-            int i = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.Grenade, 30, 2, Projectile.owner);
-            Main.projectile[i].timeLeft = 2;
-            Main.player[Projectile.owner].ROR().resDiscID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.player[Projectile.owner].Center, Vector2.Zero, ModContent.ProjectileType<ResonanceDiscProj>(), 0, 0, Projectile.owner);
+            if (Main.player[Projectile.owner].ROR().accResonanceDisc)
+            {
+                int i = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.Grenade, 30, 2, Projectile.owner);
+                Main.projectile[i].timeLeft = 2;
+                Main.player[Projectile.owner].ROR().resDiscID = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Main.player[Projectile.owner].Center, Vector2.Zero, ModContent.ProjectileType<ResonanceDiscProj>(), 0, 0, Projectile.owner);
+            }
         }
     }
 }

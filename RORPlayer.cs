@@ -78,6 +78,7 @@ namespace RiskOfTerrain
         public bool accFuelCell;
         public bool accRunalds;
         public bool accKjaros;
+        public bool accResonanceDisc;
 
         public bool aspCelestine;
         public bool aspMending;
@@ -475,6 +476,8 @@ namespace RiskOfTerrain
             accKjaros = false;
             accICBM = false;
             accClover = false;
+            accResonanceDisc = false;
+
             aspCelestine = false;
             aspMending = false;
 
