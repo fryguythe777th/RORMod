@@ -630,7 +630,7 @@ Mods: {
 
 			FrostRelic: {
 				DisplayName: Frost Relic
-				Tooltip: Killing an enemy summons three icicles that orbit you for 8 seconds
+				Tooltip: Killing an enemy summons three damaging icicles that orbit you for 8 seconds
 			}
 		}
 
