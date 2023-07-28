@@ -21,6 +21,7 @@ namespace RiskOfTerrain.Projectiles
         public bool spawnedFromElite = false;
         public bool hasOverloaderProperties = false;
         public bool hasCelestineProperties = false;
+        public bool hasMalachiteProperties = false;
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -135,6 +136,10 @@ namespace RiskOfTerrain.Projectiles
                     {
                         hasCelestineProperties = true;
                     }
+                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.MalachiteElite"))
+                    {
+                        hasMalachiteProperties = true;
+                    }
                 }
             }
 
@@ -167,6 +172,11 @@ namespace RiskOfTerrain.Projectiles
             if (hasCelestineProperties)
             {
                 target.AddBuff(ModContent.BuffType<CelestineSlow>(), 180);
+            }
+
+            if (hasMalachiteProperties)
+            {
+                target.AddBuff(BuffID.Bleeding, 480);
             }
         }
     }

@@ -423,6 +423,11 @@ Mods: {
 					'''
 			}
 
+			Honor: {
+				DisplayName: Artifact of Honor
+				Tooltip: Greatly increase the spawnrate of elites
+			}
+
 			Death: {
 				DisplayName: Artifact of Death
 				Tooltip: When one player dies, everyone dies
@@ -632,7 +637,43 @@ Mods: {
 				DisplayName: Frost Relic
 				Tooltip: Killing an enemy summons three damaging icicles that orbit you for 8 seconds
 			}
+
+			ArtificerBody: {
+				DisplayName: ENV Visor
+				Tooltip:
+					'''
+					Increases maximum mana by 30
+					While holding the jump button, you hover slowly downwards
+					'''
+			}
+
+			ArtificerHead: {
+				DisplayName: ENV Suit
+				Tooltip:
+					'''
+					Increases maximum mana by 30
+					7% increased magic damage
+					13% increased magic critical strike chance
+					'''
+			}
+
+			ArtificerLegs: {
+				DisplayName: ENV Boots
+				Tooltip:
+					'''
+					Increases maximum mana by 30
+					Prevents fall damage
+					'''
+				KeybindTooltip: Launch yourself into the air using {Keybind}, dealing damage to enemies around you
+			}
+
+			ArtificerBoltWeapon: {
+				DisplayName: Artificer Bolt Weapon
+				Tooltip: ""
+			}
 		}
+
+		SetBonuses.ArtificerSet: 10% reduced mana cost
 
 		Announcements: {
 			ChaosPVP: You can no longer control what team you are on!
@@ -706,6 +747,7 @@ Mods: {
 		Keybinds: {
 			"Backup Magazine Swap.DisplayName": Backup Magazine Swap
 			"H3AD-5T Keybind.DisplayName": H3AD-5T v2 Stomp
+			"Armor Effect Key.DisplayName": Armor  Effect  Key
 		}
 
 		Buffs: {
@@ -883,6 +925,9 @@ Mods: {
 			GlacialBomb.DisplayName: Glacial Bomb
 			ResonanceDiscProj.DisplayName: Resonance Disc Proj
 			FrostRelicIcicle.DisplayName: Frost Relic Icicle
+			PlasmaBolt.DisplayName: Plasma Bolt
+			PlasmaBoltImpact.DisplayName: Plasma Bolt Impact
+			FireBolt.DisplayName: Fire Bolt
 		}
 
 		Tiles: {
@@ -952,5 +997,7 @@ Mods: {
 				MixedTheme.Label: Mixed Theme
 			}
 		}
+
+		NPCs.MalachiteUrchin.DisplayName: Malachite Urchin
 	}
 }

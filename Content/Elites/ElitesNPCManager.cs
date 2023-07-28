@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Elites
 {
-    public class ElitesNPCManager : GlobalNPC
+    public class EliteNPCManager : GlobalNPC
     {
         public static HashSet<int> EliteBlacklist { get; private set; }
 
@@ -45,6 +45,8 @@ namespace RiskOfTerrain.Content.Elites
                 NPCID.RainbowSlime,
                 NPCID.SpikeBall,
                 NPCID.CultistTablet,
+
+                ModContent.NPCType<MalachiteUrchin>(),
             };
         }
 

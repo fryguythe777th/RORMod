@@ -29,8 +29,6 @@ namespace RiskOfTerrain
 
         public static Color BossSummonMessage => new Color(175, 75, 255, 255);
 
-        public static int numCelestinesIngame = 0;
-
         public override void Load()
         {
             Instance = this;
@@ -79,7 +77,7 @@ namespace RiskOfTerrain
                     ROR2BossHealthBar.BossDesc.Add((int)args[1], args[2] as string);
                     return "Success";
             }
-            return "Failiure";
+            return "Failure";
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI)

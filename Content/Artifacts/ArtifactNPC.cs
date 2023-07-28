@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using RiskOfTerrain.Content.Elites;
+using RiskOfTerrain.NPCs;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,7 +14,7 @@ namespace RiskOfTerrain.Content.Artifacts
         private MethodInfo NPC_GetHurtByOtherNPCs;
 
         public static HashSet<int> Soul_SpawnBlacklist { get; private set; }
-        //public static Dictionary<int, HashSet<int>> Chaos_HitBlacklist { get; private set; }
+       // public static Dictionary<int, HashSet<int>> Chaos_HitBlacklist { get; private set; }
 
         public static NPCEquips EvolutionItems;
 
@@ -85,7 +87,7 @@ namespace RiskOfTerrain.Content.Artifacts
             Soul_SpawnBlacklist = null;
             //Chaos_HitBlacklist?.Clear();
             //Chaos_HitBlacklist = null;
-            NPC_GetHurtByOtherNPCs = null;
+            //NPC_GetHurtByOtherNPCs = null;
         }
 
         public override void SetDefaults(NPC npc)
@@ -105,10 +107,94 @@ namespace RiskOfTerrain.Content.Artifacts
             {
                 npcParent = parent.Entity.whoAmI;
             }
+
+            if (ArtifactSystem.honor)
+            {
+                if (Main.netMode != NetmodeID.MultiplayerClient && !npc.townNPC && !npc.friendly && !NPCID.Sets.CountsAsCritter[npc.type] && !npc.immortal && npc.damage > 0 && !NPCID.Sets.BelongsToInvasionOldOnesArmy[npc.type] && !npc.boss && !RORNPC.CountsAsBoss.Contains(npc.type) && !EliteNPCManager.EliteBlacklist.Contains(npc.type) && !npc.IsElite())
+                {
+                    while (!npc.IsElite()) 
+                    {
+                        PickHonorElite(npc, 6);
+                    }
+                    if (Main.rand.NextBool(30))
+                    {
+                        PickHonorElite(npc, 6);
+                    }
+                }
+
+                npc.GetElitePrefixes(out var myPrefixes);
+                if (myPrefixes.Count > 0)
+                {
+                    npc.netUpdate = true;
+                    npc.ROR().syncLifeMax = true;
+                }
+                foreach (var p in myPrefixes)
+                {
+                    p.OnBecomeElite(npc);
+                }
+            }
+        }
+
+        public static void PickHonorElite(NPC npc, int rand)
+        {
+            int eliteToAssign = -1;
+
+            switch(Main.rand.Next(rand))
+            {
+                case 0: //blazing
+                    eliteToAssign = 0; break;
+
+                case 1: //glacial
+                    eliteToAssign = 2; break;
+
+                case 2: //mending
+                    eliteToAssign = 4; break;
+
+                case 3: //overloading
+                    eliteToAssign = 5; break;
+
+                case 4: //celestine (hm only)
+                    eliteToAssign = 1; break;
+
+                case 5: //malachite (hm only)
+                    eliteToAssign = 3; break;
+            }
+
+            if (eliteToAssign > -1)
+            {
+                var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
+                if (npc.GetGlobalNPC(l[eliteToAssign]).CanRoll(npc) && !npc.GetGlobalNPC(l[eliteToAssign]).Active)
+                {
+                    npc.GetGlobalNPC(l[eliteToAssign]).Active = true;
+                }
+            }
         }
 
         //public override bool CanHitNPC(NPC npc, NPC target)/* tModPorter Suggestion: Return true instead of null */
         //{
+        //    //if (npc.friendly)
+        //    //{
+        //    //    if (target.friendly)
+        //    //    {
+        //    //        return artifactsystem.chaos && chaos_candamageothernpc(npc, target) ? true : false;
+        //    //    }
+        //    //    if (!target.friendly && target.lifemax > 5 && target.damage > 0)
+        //    //    {
+        //    //        return true;
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    if (!target.friendly)
+        //    //    {
+        //    //        return artifactsystem.chaos && chaos_candamageothernpc(npc, target) ? true : false;
+        //    //    }
+        //    //    if (target.friendly || target.lifemax < 6 || target.damage < 1)
+        //    //    {
+        //    //        return true;
+        //    //    }
+        //    //}
+        //    //return true;
         //    return ArtifactSystem.chaos && Chaos_CanDamageOtherNPC(npc, target) ? true : false;
         //}
 

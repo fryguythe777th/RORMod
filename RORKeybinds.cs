@@ -7,16 +7,19 @@ public class RORKeybinds : ModSystem
 
     public static ModKeybind HeadsetKey { get; private set; }
     public static ModKeybind AmmoSwapKey { get; private set; }
+    public static ModKeybind ArmorEffectKey { get; private set; }
 
     public override void Load()
     {
         HeadsetKey = KeybindLoader.RegisterKeybind(Mod, "H3AD-5T Keybind", "X");
         AmmoSwapKey = KeybindLoader.RegisterKeybind(Mod, "Backup Magazine Swap", "Mouse2");
+        ArmorEffectKey = KeybindLoader.RegisterKeybind(Mod, "Armor Effect Key", "Z");
     }
 
     public override void Unload()
     {
         HeadsetKey = null;
         AmmoSwapKey = null;
+        ArmorEffectKey = null;
     }
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Items.Accessories.Aspects;
+using RiskOfTerrain.NPCs;
 using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
@@ -15,6 +18,8 @@ namespace RiskOfTerrain.Content.Elites
         public override ArmorShaderData Shader => GameShaders.Armor.GetShaderFromItemId(ItemID.FogboundDye);
 
         public bool hasSpawnedBubble = false;
+
+        public static int numCelestinesIngame = 0;
 
         public override void SetStaticDefaults()
         {
@@ -85,14 +90,7 @@ namespace RiskOfTerrain.Content.Elites
 
         public override bool CanRoll(NPC npc)
         {
-            if (RiskOfTerrain.numCelestinesIngame == 0 && Main.hardMode)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Main.hardMode;
         }
 
         public override void OnBecomeElite(NPC npc)
@@ -101,15 +99,12 @@ namespace RiskOfTerrain.Content.Elites
             npc.life = (int)(npc.life * 4f);
             npc.npcSlots *= 8f;
             npc.value *= 4;
-            RiskOfTerrain.numCelestinesIngame += 1;
         }
 
         public override void OnKill(NPC npc)
         {
             if (active)
             {
-                RiskOfTerrain.numCelestinesIngame -= 1;
-
                 int rollNumber = npc.boss ? 1000 : 4000;
                 if (Main.player[Player.FindClosest(npc.Center, 500, 500)].RollLuck(rollNumber) == 0)
                 {

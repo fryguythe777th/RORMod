@@ -38,7 +38,7 @@ namespace RiskOfTerrain.Items.Artifacts
         {
             ActiveFlag = !ActiveFlag;
             if (Main.myPlayer == player.whoAmI)
-                RiskOfTerrain.BroadcastMessageKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), RiskOfTerrain.BossSummonMessage, "Mods.RiskOfTerrain.ItemName." + Name, player.name);
+                RiskOfTerrain.BroadcastMessageKeys("Announcements.Artifact" + (ActiveFlag ? "Enabled" : "Disabled"), RiskOfTerrain.BossSummonMessage, "Mods.RiskOfTerrain.Items." + Name + ".DisplayName", player.name);
             return true;
         }
 

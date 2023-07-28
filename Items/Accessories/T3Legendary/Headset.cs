@@ -38,6 +38,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
             if (StompReady)
             {
+                player.ROR().accHeadsetJumpReady = true;
                 player.jumpBoost = true;
                 player.jumpSpeedBoost += 3f;
 

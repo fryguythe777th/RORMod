@@ -109,6 +109,14 @@ namespace RiskOfTerrain.Content.Elites
             return true;
         }
 
+        public override void OnBecomeElite(NPC npc)
+        {
+            npc.lifeMax = (int)(npc.lifeMax * 1.5f);
+            npc.life = (int)(npc.life * 1.5f);
+            npc.npcSlots *= 3f;
+            npc.value *= 2;
+        }
+
         public override void OnKill(NPC npc)
         {
             if (active)

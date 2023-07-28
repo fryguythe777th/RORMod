@@ -79,6 +79,7 @@ namespace RiskOfTerrain
         public bool accRunalds;
         public bool accKjaros;
         public bool accResonanceDisc;
+        public bool accHeadsetJumpReady;
 
         public bool aspCelestine;
         public bool aspMending;
@@ -477,6 +478,8 @@ namespace RiskOfTerrain
             accICBM = false;
             accClover = false;
             accResonanceDisc = false;
+
+            accHeadsetJumpReady = false;
 
             aspCelestine = false;
             aspMending = false;

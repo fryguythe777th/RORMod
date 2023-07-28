@@ -174,7 +174,6 @@ namespace RiskOfTerrain.NPCs
                     }
                 }
             }
-            //}
         }
 
         public override void Unload()
