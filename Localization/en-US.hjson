@@ -694,6 +694,11 @@ Mods: {
 				DisplayName: Frag Grenade
 				Tooltip: Throw a grenade that explodes with a 5 second cooldown
 			}
+
+			UnstableTeslaCoil: {
+				DisplayName: Unstable Tesla Coil
+				Tooltip: Every 2 seconds, shock all enemies around you
+			}
 		}
 
 		SetBonuses.ArtificerSet: 10% reduced mana cost

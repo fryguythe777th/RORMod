@@ -148,26 +148,13 @@ namespace RiskOfTerrain.NPCs
 
         public static void UkuleleLightning(NPC npc, int damage, int timesProcced)
         {
-            //if (timesProcced < 3)
-            //{
             npc.ROR().hasBeenStruckByUkuleleLightning = true;
-
-            NPC.HitInfo hit = new NPC.HitInfo
-            {
-                DamageType = DamageClass.Default,
-                SourceDamage = damage,
-                Damage = damage,
-                Crit = false,
-                Knockback = 0f,
-                HitDirection = 0
-            };
-            npc.StrikeNPC(hit);
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].active && RORNPC.Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
+                if (Main.npc[i].active && Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
                 {
-                    RORNPC.UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
+                    UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
 
                     for (int j = 0; j < Distance(npc, Main.npc[i]); j++)
                     {
@@ -179,6 +166,43 @@ namespace RiskOfTerrain.NPCs
                     }
                 }
             }
+
+            NPC.HitInfo hit = new NPC.HitInfo
+            {
+                DamageType = DamageClass.Default,
+                SourceDamage = damage,
+                Damage = damage,
+                Crit = false,
+                Knockback = 0f,
+                HitDirection = 0
+            };
+            npc.StrikeNPC(hit);
+        }
+
+        public static void TeslaLightning(Player player, NPC npc, int damage)
+        {
+            if (npc.active)
+            {
+                for (int j = 0; j < Distance(player, npc); j++)
+                {
+                    float angle = player.Center.AngleTo(npc.Center) - MathHelper.ToRadians(90);
+                    if (LightningDrawPoints != null)
+                    {
+                        LightningDrawPoints.Add(player.Center + new Vector2(0, j).RotatedBy(angle));
+                    }
+                }
+            }
+
+            NPC.HitInfo hit = new NPC.HitInfo
+            {
+                DamageType = DamageClass.Default,
+                SourceDamage = damage,
+                Damage = damage,
+                Crit = false,
+                Knockback = 0f,
+                HitDirection = 0
+            };
+            npc.StrikeNPC(hit);
         }
 
         public override void Unload()
@@ -202,11 +226,6 @@ namespace RiskOfTerrain.NPCs
             statDefense = 0;
             npc.ROR().npcSpeedStat = 1f;
             hasBeenStruckByUkuleleLightning = false;
-
-            if (LightningDrawPoints != null)
-            {
-                LightningDrawPoints.Clear();
-            }
 
             if (isAShielder)
             {
@@ -573,6 +592,7 @@ namespace RiskOfTerrain.NPCs
                 {
                     spriteBatch.Draw(texture, pos - screenPos, Color.LightBlue);
                 }
+                LightningDrawPoints.Clear();
             }
         }
 
