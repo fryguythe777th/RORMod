@@ -2,6 +2,7 @@
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Common;
 using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using RiskOfTerrain.Tiles.Furniture;
 using System;
@@ -108,6 +109,17 @@ namespace RiskOfTerrain.Items
             VoidTier = null;
             Equipment?.Clear();
             Equipment = null;
+        }
+
+        public override void OnSpawn(Item item, IEntitySource source)
+        {
+            if (source is EntitySource_Loot death)
+            {
+                if (death.Entity is NPC npc && npc.GetGlobalNPC<GhostElite>().Active)
+                {
+                    item.TurnToAir();
+                }
+            } 
         }
 
         public static int GetIndex(List<TooltipLine> tooltips, string lineName)
