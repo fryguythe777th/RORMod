@@ -33,7 +33,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<StunDebuff>(), 60);
+            Projectile.damage = (int)(Projectile.damage * 1.4f);
         }
     }
 

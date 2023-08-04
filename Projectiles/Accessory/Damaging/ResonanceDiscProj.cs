@@ -89,6 +89,10 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
                 {
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity, (Main.npc[probableTarget].Center - Projectile.Center).SafeNormalize(-Vector2.UnitY) * 12f, 0.2f);
                 }
+                else
+                {
+                    Projectile.Kill();
+                }
             }
         }
 

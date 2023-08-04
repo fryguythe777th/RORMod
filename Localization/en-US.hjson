@@ -737,6 +737,8 @@ Mods: {
 		}
 
 		Configuration: {
+			ScreenShake: Screenshake Amount
+			ScreenShakeTooltip: Sets the intensity of screenshake effects
 			EnemyHB: Enemy Healthbars
 			EnemyHBTooltip:
 				'''
@@ -758,18 +760,28 @@ Mods: {
 				'''
 			BossHealthbarBottom: Boss Healthbar: Place on Bottom
 			BossHealthbarBottomTooltip: Places the healthbar on the bottom of the screen instead of the top
+			BlazingElitesDisable: Disable Blazing Elites
+			BlazingElitesDisableTooltip: Blazing elites will no longer spawn
+			CelestineElitesDisable: Disable Celestine Elites
+			CelestineElitesDisableTooltip: Celestine elites will no longer spawn
+			GlacialElitesDisable: Disable Glacial Elites
+			GlacialElitesDisableTooltip: Glacial elites will no longer spawn
+			MendingElitesDisable: Disable Mending Elites
+			MendingElitesDisableTooltip: Mending elites will no longer spawn
+			OverloadingElitesDisable: Disable Overloading Elites
+			OverloadingElitesDisableTooltip: Overloading elites will no longer spawn
 		}
 
 		BlazingElite: Blazing
-		OverloadingElite: Overloading
+		CelestineElite: Celestine
 		GhostElite: Ghostly
 		GlacialElite: Glacial
-		MendingElite: Mending
-		VoidtouchedElite: Voidtouched
 		MalachiteElite: Malachite
-		CelestineElite: Celestine
+		MendingElite: Mending
+		OverloadingElite: Overloading
 		PerfectedElite: Perfected
 		TrollElite: Golden
+		VoidtouchedElite: Voidtouched
 		UnboundKey: Unbound Key
 		Revived: REVIVED!
 		Blocked: BLOCKED!
@@ -1038,6 +1050,35 @@ Mods: {
 				Vanilla.Label: Vanilla
 				RORTheme.Label: ROR Theme
 				MixedTheme.Label: Mixed Theme
+			}
+
+			ServerConfig: {
+				DisplayName: Server Config
+
+				BlazingElitesDisable: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.BlazingElitesDisable}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.BlazingElitesDisableTooltip}"
+				}
+
+				CelestineElitesDisable: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.CelestineElitesDisable}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.CelestineElitesDisableTooltip}"
+				}
+
+				GlacialElitesDisable: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.GlacialElitesDisable}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.GlacialElitesDisableTooltip}"
+				}
+
+				MendingElitesDisable: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.MendingElitesDisable}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.MendingElitesDisableTooltip}"
+				}
+
+				OverloadingElitesDisable: {
+					Label: "{$Mods.RiskOfTerrain.Configuration.OverloadingElitesDisable}"
+					Tooltip: "{$Mods.RiskOfTerrain.Configuration.OverloadingElitesDisableTooltip}"
+				}
 			}
 		}
 

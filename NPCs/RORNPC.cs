@@ -294,22 +294,6 @@ namespace RiskOfTerrain.NPCs
 
         public override void PostAI(NPC npc)
         {
-            if (npc.netUpdate)
-                Sync(npc.whoAmI);
-
-            if (Main.dedServ)
-                return;
-
-            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()))
-            {
-                if (Main.GameUpdateCount % 20 == 0)
-                {
-                    var d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
-                    d.velocity.X *= 0.5f;
-                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
-                }
-            }
-
             if (convertToCursedFlames && npc.HasBuff(BuffID.OnFire))
             {
                 int time = npc.buffTime[npc.FindBuffIndex(BuffID.OnFire)];
@@ -350,25 +334,41 @@ namespace RiskOfTerrain.NPCs
                     //adds whichever is smaller- current life + potential health gain, or your max life (with shield)
                     npc.life = Math.Min(npc.life + (int)(regularMaxLife * shield), npc.lifeMax);
                 }
-            }
 
-            //if you take damage or lose health through wacky means
-            if (savedLife > npc.life)
-            {
-                //reset cooldown
-                timeSinceLastHit = 0;
-
-                //reduce shield by the amount of damage taken
-                if (shield > 0f)
+                //if you take damage or lose health through wacky means
+                if (savedLife > npc.life)
                 {
-                    shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
-                    if (shield <= 0.01f)
+                    //reset cooldown
+                    timeSinceLastHit = 0;
+
+                    //reduce shield by the amount of damage taken
+                    if (shield > 0f)
                     {
-                        shield = 0f;
+                        shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
+                        if (shield <= 0.01f)
+                        {
+                            shield = 0f;
+                        }
                     }
                 }
+                savedLife = npc.life;
             }
-            savedLife = npc.life;
+
+            if (npc.netUpdate)
+                Sync(npc.whoAmI);
+
+            if (Main.dedServ)
+                return;
+
+            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()))
+            {
+                if (Main.GameUpdateCount % 20 == 0)
+                {
+                    var d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Blood, Main.rand.NextBool().ToDirectionInt(), -1f, 0, Scale: 1.5f);
+                    d.velocity.X *= 0.5f;
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("bleed_", 6, 0.3f, 0.1f, 0.25f), npc.Center);
+                }
+            }
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -475,7 +475,7 @@ namespace RiskOfTerrain.NPCs
         {
             var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
 
-            if (mostRecentHitHadMask && Main.rand.NextBool(14) && !npc.GetGlobalNPC<GhostElite>().Active && !EliteNPCManager.EliteBlacklist.Contains(npc.type) && !npc.boss && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0)
+            if (mostRecentHitHadMask && Main.player[happiestMaskHolder].RollLuck(14) == 0 && !npc.GetGlobalNPC<GhostElite>().Active && !EliteNPCManager.EliteBlacklist.Contains(npc.type) && !npc.boss && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0)
             {
                 int i = NPC.NewNPC(npc.GetSource_Death(), (int)npc.Center.X, (int)npc.Center.Y, npc.type);
                 Main.npc[i].GetGlobalNPC<GhostElite>().Active = true;

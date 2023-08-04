@@ -57,6 +57,11 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
                 Projectile.scale = 1.5f;
             }
 
+            if (Projectile.ai[2] == 3)
+            {
+                Projectile.alpha = 100;
+            }
+
             if (state == 1) //first ai state, trying to reach orbital position
             {
                 if (player.ROR().releaseTheGhosts) //go to state 3 if the player takes dmg
@@ -201,21 +206,27 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
                     shader = GameShaders.Armor.GetShaderFromItemId(ItemID.FogboundDye);
                     break;
                 case 3:
-                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.SilverDye);
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.FogboundDye);
                     break;
                 case 4:
-                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.GreenandBlackDye);
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.SilverDye);
                     break;
                 case 5:
-                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.GreenDye);
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.GreenandBlackDye);
                     break;
                 case 6:
-                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BlueDye);
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.GreenDye);
                     break;
                 case 7:
-                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BlueAcidDye);
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BlueDye);
                     break;
                 case 8:
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.BlueAcidDye);
+                    break;
+                case 9:
+                    shader = GameShaders.Armor.GetShaderFromItemId(ItemID.ReflectiveGoldDye);
+                    break;
+                case 9:
                     shader = GameShaders.Armor.GetShaderFromItemId(ItemID.PurpleDye);
                     break;
             }

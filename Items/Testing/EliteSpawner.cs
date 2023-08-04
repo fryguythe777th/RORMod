@@ -137,3 +137,41 @@ namespace RiskOfTerrain.Items.Testing
         }
     }
 }
+
+/*MULTIPLAYER BUGS
+ * overloading elites crash / flicker between states
+ * they also crash the client when struck and dont attach bombs
+ * tesla damage is instantly healed
+ * artificer weapon is not under player all the time
+ * celestine circle sometimes dies instantly
+ * ifrits distinction doesnt work on some players?
+ * spectral circlet proj only shows up if there are npcs present
+ * his reassurance doesnt work between players
+ * silence two strike bombs only show up on client
+ * focus crystal numbers are only purple on client
+ * blazing plops dont have knockback off
+ * infusion max health upgrade doesnt show for other players
+ * with ukulele, enemies arent shown to take damage, and the lazer doesnt appear. the whole accessory is client side
+ * war horn sucks
+ * behemoth projectile doesnt rotate on spawn for other players
+ * happiest mask doesnt use rollluck
+ * ghosts never spawn
+ * ghosts tend to vanish
+ * ghosts dont get their projectiles ghosted (probably just make happiest mask a "buggy in multiplayer" item
+ * other players see that those who hold headstompers have jump boost applied regardless of whether or not it is on cooldown
+ * resonance disc looks like its never doing anything besides rotating for other players
+ * it also disappears sometimes (maybe because theres no enemies to chase?) -TEST-
+ * shattering justice doesnt make enemies different color
+ * also probably isnt syncing the rornpc stat that makes it work
+ * sbc souls are client side
+ * forgot to shift bound soul shaders to coincide with new prefixes -TEST-
+ * nvm sbc just doesnt work at all
+ * artifacts dont display in chat that you activated them
+ * artifact of dissonance does not work at all
+ * enigma doesnt work on the other player
+ * artifact of soul does not work at all
+ * artifact of spite does not work at all
+ * artifact of honor does not work at all
+ * when you do the arti jump the other player sees you teleport
+ * double tap doesnt have extra damage post penetratum -TEST-
+*/
