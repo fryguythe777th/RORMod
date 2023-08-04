@@ -72,8 +72,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
 
             if (Main.myPlayer == Projectile.owner)
             {
-                int p = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.RocketFireworkRed + Main.rand.Next(4), Projectile.damage, 1f, Projectile.owner);
-                Main.projectile[p].timeLeft = 2;
+                Projectile.NewProjectile(Main.player[Projectile.owner].GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FireworkBlast>(), 10, 4, Projectile.owner);
             }
         }
     }

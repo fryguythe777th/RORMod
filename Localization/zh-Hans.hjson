@@ -52,6 +52,15 @@ Mods: {
 					''' */
 			}
 
+			TrollAspect: {
+				// DisplayName: Coven of Gold
+				/* Tooltip:
+					'''
+					Become an aspect of [c/cfff53:fortune]
+					Come back when you're a little, mmm, richer...
+					''' */
+			}
+
 			ArmorPiercingRounds: {
 				// DisplayName: Armor Piercing Rounds
 				// Tooltip: 10% increased damage against bosses
@@ -671,6 +680,20 @@ Mods: {
 				// DisplayName: Artificer Bolt Weapon
 				// Tooltip: ""
 			}
+
+			CommandoGunWeapon: {
+				// DisplayName: Double Tap
+				/* Tooltip:
+					'''
+					While firing, right click to shoot a phase round
+					This bullet pierces enemies and deals increasing damage the more enemies pierced
+					''' */
+			}
+
+			CommandoGrenadeWeapon: {
+				// DisplayName: Frag Grenade
+				// Tooltip: Throw a grenade that explodes with a 5 second cooldown
+			}
 		}
 
 		// SetBonuses.ArtificerSet: 10% reduced mana cost
@@ -734,12 +757,14 @@ Mods: {
 
 		BlazingElite: 炽热的
 		OverloadingElite: 过载的
+		// GhostElite: Ghostly
 		GlacialElite: 冰川的
 		MendingElite: 修复的
 		VoidtouchedElite: 电磁的
 		MalachiteElite: 孔雀石
 		CelestineElite: 天青石
 		PerfectedElite: 完美的
+		// TrollElite: Golden
 		UnboundKey: 未绑定的按键
 		Revived: 恢复!
 		Blocked: 格挡!
@@ -880,6 +905,11 @@ Mods: {
 				// DisplayName: Chilled
 				// Description: The biting embrace of ice slows you down
 			}
+
+			StunDebuff: {
+				// DisplayName: Stun Debuff
+				// Description: Mods.RiskOfTerrain.Buffs.StunDebuff.Description
+			}
 		}
 
 		Projectiles: {
@@ -928,6 +958,14 @@ Mods: {
 			// PlasmaBolt.DisplayName: Plasma Bolt
 			// PlasmaBoltImpact.DisplayName: Plasma Bolt Impact
 			// FireBolt.DisplayName: Fire Bolt
+			// ArtificerBarDrawingProj.DisplayName: Artificer Bar Drawing Proj
+			// ProjOwnedBustlingFungusProj.DisplayName: Proj Owned Bustling Fungus Proj
+			// IonSurgeVisual.DisplayName: Ion Surge Visual
+			// FireworkBlast.DisplayName: Firework Blast
+			// Nanobomb.DisplayName: Nanobomb
+			// DoubleTapPierce.DisplayName: Double Tap Pierce
+			// GrenadeExplosion.DisplayName: Grenade Explosion
+			// GrenadeProj.DisplayName: Grenade Proj
 		}
 
 		Tiles: {

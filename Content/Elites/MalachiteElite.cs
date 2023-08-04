@@ -21,7 +21,7 @@ namespace RiskOfTerrain.Content.Elites
 
         public override bool CanRoll(NPC npc)
         {
-            return Main.hardMode;
+            return false;
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

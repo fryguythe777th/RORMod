@@ -79,7 +79,7 @@ namespace RiskOfTerrain
         public bool accRunalds;
         public bool accKjaros;
         public bool accResonanceDisc;
-        public bool accHeadsetJumpReady;
+        public bool accHappiestMask;
 
         public bool aspCelestine;
         public bool aspMending;
@@ -107,6 +107,8 @@ namespace RiskOfTerrain
         public bool releaseTheGhosts = false;
         public int boundSoulCount;
         public int boundSoulRotTick;
+
+        public float artificerCharge;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -478,8 +480,7 @@ namespace RiskOfTerrain
             accICBM = false;
             accClover = false;
             accResonanceDisc = false;
-
-            accHeadsetJumpReady = false;
+            accHappiestMask = false;
 
             aspCelestine = false;
             aspMending = false;

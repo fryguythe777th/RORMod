@@ -4,6 +4,7 @@ using RiskOfTerrain.NPCs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,6 +46,14 @@ namespace RiskOfTerrain.Content.Elites
                 NPCID.RainbowSlime,
                 NPCID.SpikeBall,
                 NPCID.CultistTablet,
+                NPCID.BlackRecluse,
+                NPCID.BlackRecluseWall,
+                NPCID.JungleCreeper,
+                NPCID.JungleCreeperWall,
+                NPCID.BloodCrawler,
+                NPCID.BloodCrawlerWall,
+                NPCID.DesertScorpionWalk,
+                NPCID.DesertScorpionWall,
 
                 ModContent.NPCType<MalachiteUrchin>(),
             };

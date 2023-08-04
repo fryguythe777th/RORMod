@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RiskOfTerrain.Buffs.Debuff;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -58,6 +60,14 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             }
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Projectile.ai[0] == 1)
+            {
+                target.AddBuff(ModContent.BuffType<StunDebuff>(), 180);
+            }
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             float opacity = (float)Math.Sin(Projectile.Opacity * MathHelper.Pi);
@@ -73,10 +83,15 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
 
     public class PlasmaBolt : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 10;
+        }
+
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 30;
+            Projectile.width = 24;
+            Projectile.height = 22;
             Projectile.penetrate = 1;
             Projectile.tileCollide = true;
             Projectile.friendly = true;
@@ -86,13 +101,80 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
+
+            if (++Projectile.frameCounter >= 5)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.BlueFlare, Vector2.Zero);
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
+            }
+            Lighting.AddLight(Projectile.Center, TorchID.Blue);
         }
 
         public override void Kill(int timeLeft)
         {
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center,
                     Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 10, 3f, Projectile.owner);
+            SoundStyle pvz = new SoundStyle();
+            pvz.SoundPath = "RiskOfTerrain/Assets/Sounds/firepea";
+            pvz.PitchVariance = 0.25f;
+            pvz.Pitch = -3f;
+            pvz.Volume = 5f;
+            SoundEngine.PlaySound(pvz);
+        }
+    }
+
+    public class Nanobomb : ModProjectile
+    {
+        public override string Texture => "RiskOfTerrain/Items/CharacterSets/Artificer/PlasmaBolt";
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 10;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 24;
+            Projectile.height = 22;
+            Projectile.penetrate = 1;
+            Projectile.tileCollide = true;
+            Projectile.friendly = true;
+            Projectile.damage = 10;
+            Projectile.aiStyle = -1;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.scale = 1.5f;
+        }
+
+        public override void AI()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+
+            if (++Projectile.frameCounter >= 5)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.BlueFlare, Vector2.Zero);
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
+            }
+            Lighting.AddLight(Projectile.Center, TorchID.Blue);
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center,
+                    Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 40, 3f, Projectile.owner, 1);
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IonSurgeVisual>(), 0, 0, Projectile.owner, 1);
+            SoundStyle pvz = new SoundStyle();
+            pvz.SoundPath = "RiskOfTerrain/Assets/Sounds/firepea";
+            pvz.PitchVariance = 0.25f;
+            pvz.Pitch = -3f;
+            pvz.Volume = 5f;
+            SoundEngine.PlaySound(pvz);
         }
     }
 
@@ -102,6 +184,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
         {
             Main.projFrames[Type] = 5;
         }
+
         public override void SetDefaults()
         {
             Projectile.width = 60;
@@ -135,10 +218,43 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
 
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Dig);
+            SoundStyle pvz = new SoundStyle();
+            pvz.SoundPath = "RiskOfTerrain/Assets/Sounds/firepea";
+            pvz.PitchVariance = 0.25f;
+            pvz.Volume = 5f;
+            SoundEngine.PlaySound(pvz);
             for (int i = 0; i < Main.rand.Next(3, 8); i++)
             {
                 Dust.NewDust(Projectile.Center, 1, 1, DustID.Flare, Main.rand.Next(-3, 4), Main.rand.Next(-3, 4));
+            }
+        }
+    }
+
+    public class IonSurgeVisual : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 10;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 268;
+            Projectile.height = 268;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.damage = 0;
+            Projectile.knockBack = 0;
+        }
+
+        public override void AI()
+        {
+            if (++Projectile.frameCounter >= 3)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.Kill();
             }
         }
     }

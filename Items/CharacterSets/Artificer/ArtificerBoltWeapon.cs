@@ -1,5 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using Terraria;
 using Terraria.Audio;
@@ -46,6 +48,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             {
                 charge = ChargeMaximum;
             }
+
+            player.ROR().artificerCharge = charge;
 
             if (fireState == 1 || fireState == 2)
             {
@@ -135,6 +139,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             else if (fireState == 3)
             {
                 type = ProjectileID.Flames;
+                damage = 10;
                 specialAttackTimer--;
                 if (specialAttackTimer == 0)
                 {
@@ -149,7 +154,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
                 {
                     specialAttackTimer = 30;
                     fireState = 2;
-                    type = ProjectileID.StarWrath;
+                    type = ModContent.ProjectileType<Nanobomb>();
                 }
             }
         }

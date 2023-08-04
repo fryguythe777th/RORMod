@@ -26,12 +26,27 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             Item.defense = 6;
         }
 
+        int dustCooldown = 15;
+
         public override void UpdateEquip(Player player)
         {
             player.statManaMax2 += 30;
             if (player.controlJump && Math.Sign(player.velocity.Y) == 1 && player.mount._type == MountID.None && !player.pulley)
             {
                 player.velocity.Y = MathHelper.Lerp(player.velocity.Y, 0.1f, 0.40f);
+                Lighting.AddLight(player.Center, TorchID.Torch);
+                if (dustCooldown == 0)
+                {
+                    dustCooldown = 15;
+                    if (!Main.dedServ)
+                    {
+                        Dust.NewDust(player.Center, 2, 2, DustID.Flare, 0, 3);
+                    }
+                }
+                else
+                {
+                    dustCooldown--;
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ using RiskOfTerrain.Content;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.NPCs;
+using RiskOfTerrain.Projectiles.Accessory.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -135,6 +136,30 @@ namespace RiskOfTerrain
                     break;
             }
         }
+
+        //public override void PostSetupContent()
+        //{
+        //    if (ModLoader.TryGetMod("Aequus", out Mod aequus))
+        //    {
+        //        aequus.Call("SentryAccessory", ModContent.ItemType<BustlingFungus>(), (Projectile sentry, Item bungus, Player impostor) =>
+        //        {
+        //            bool bungusSpotted = false;
+        //            for (int i = 0; i < Main.maxProjectiles; i++)
+        //            {
+        //                if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<ProjOwnedBustlingFungusProj>() && sentry.whoAmI == Main.projectile[i].owner)
+        //                {
+        //                    bungusSpotted = true;
+        //                    return;
+        //                }
+        //            }
+
+        //            if (!bungusSpotted)
+        //            {
+        //                Projectile.NewProjectile(sentry.GetSource_FromThis(), sentry.Center, Vector2.Zero, ModContent.ProjectileType<ProjOwnedBustlingFungusProj>(), 0, 0, sentry.whoAmI);
+        //            }
+        //        });
+        //    }
+        //}
 
         internal static SoundStyle GetSounds(string name, int num, float volume = 1f, float pitch = 0f, float variance = 0f)
         {

@@ -22,7 +22,7 @@ namespace RiskOfTerrain.Items.Testing
         {
             if (player.altFunctionUse == 2)
             {
-                if (addedPrefixIndex == 7)
+                if (addedPrefixIndex == 8)
                 {
                     addedPrefixIndex = 0;
                 }
@@ -43,21 +43,27 @@ namespace RiskOfTerrain.Items.Testing
                         t = "Celestine";
                         break;
                     case 2:
-                        t = "Glacial";
+                        t = "Ghostly";
                         break;
                     case 3:
-                        t = "Malachite";
+                        t = "Glacial";
                         break;
                     case 4:
-                        t = "Mending";
+                        t = "Malachite";
                         break;
                     case 5:
-                        t = "Overloading";
+                        t = "Mending";
                         break;
                     case 6:
-                        t = "Perfected";
+                        t = "Overloading";
                         break;
                     case 7:
+                        t = "Perfected";
+                        break;
+                    case 8:
+                        t = "???";
+                        break;
+                    case 9:
                         t = "Voidtouched";
                         break;
                     default:
@@ -131,9 +137,3 @@ namespace RiskOfTerrain.Items.Testing
         }
     }
 }
-
-/*
- * personal testing notes:
-- aspects need sprites
-- fuel cell sprite
-*/

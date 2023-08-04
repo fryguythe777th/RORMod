@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using RiskOfTerrain.Buffs;
@@ -13,8 +14,10 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Projectiles.Accessory.Utility
 {
-    public class BustlingFungusProj : ModProjectile
+    public class ProjOwnedBustlingFungusProj : ModProjectile
     {
+        public override string Texture => "RiskOfTerrain/Projectiles/Accessory/Utility/BustlingFungusProj";
+
         public List<Vector3> fungusInfo;
         public bool playedSound;
         public bool accessoryActive;
@@ -43,7 +46,6 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
                 playedSound = true;
             }
             float scale = Projectile.scale;
-            var ror = Main.player[Projectile.owner].ROR();
             bool active = true;
             if (Projectile.numUpdates == -1)
             {
@@ -52,15 +54,14 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
             }
             if (Main.netMode != NetmodeID.Server && Projectile.numUpdates == -1)
             {
-                ManageBungalTendencies(Main.player[Projectile.owner], ror, active);
+                ManageBungalTendencies(active);
             }
 
             if (active)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
-                    if (Main.player[i].active && !Main.player[i].dead && Main.player[i].Distance(Projectile.Center) < Projectile.scale / 2f &&
-                        (!Main.player[i].hostile || !Main.player[Projectile.owner].hostile || Main.player[i].team == Main.player[Projectile.owner].team))
+                    if (Main.player[i].active && !Main.player[i].dead && Main.player[i].Distance(Projectile.Center) < Projectile.scale / 2f)
                     {
                         Main.player[i].AddBuff(ModContent.BuffType<BustlingFungusBuff>(), 4, quiet: true);
 
@@ -93,6 +94,16 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
                 Projectile.scale = MathHelper.Lerp(Projectile.scale, 0f, 0.2f);
             }
 
+
+            if (Main.projectile[Projectile.owner].active)
+            {
+                Projectile.scale = MathHelper.Lerp(Projectile.scale, 312f, 0.2f);
+                Projectile.Center = Main.projectile[Projectile.owner].Center;
+                var bungus = (ProjOwnedBustlingFungusProj)Projectile.ModProjectile;
+                bungus.accessoryActive = true;
+                bungus.regenPercent = 0.2f;
+            }
+
             if (Projectile.scale > 0.1f)
             {
                 Projectile.timeLeft = 2;
@@ -112,7 +123,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
 
             Lighting.AddLight(Projectile.Center, new Vector3(0.1f, 1f, 0.2f) * Projectile.scale / 280f);
         }
-        public void ManageBungalTendencies(Player player, RORPlayer ror, bool active)
+        public void ManageBungalTendencies(bool active)
         {
             if (fungusInfo == null)
                 fungusInfo = new List<Vector3>();
@@ -161,10 +172,6 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
                         var d = Dust.NewDustPerfect(endLoc, DustID.TintableDustLighted, Velocity: new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-1f, -0.2f)), newColor: new Color(100, 255, 160, 80));
                         d.scale *= 0.4f;
                         d.fadeIn = d.scale / 0.4f;
-                        if (ror.cBungus != 0)
-                        {
-                            d.shader = GameShaders.Armor.GetSecondaryShader(ror.cBungus, player);
-                        }
                         float diff = d.position.X - Projectile.Center.X;
                         bool end = true;
                         if (Math.Abs(diff) > Projectile.scale / 2f - 16f)
@@ -216,7 +223,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.instance.PrepareDrawnEntityDrawing(Projectile, Main.player[Projectile.owner].ROR().cBungus, null);
+            Main.instance.PrepareDrawnEntityDrawing(Projectile, 0, null);
             DrawAura(Projectile.Center - Main.screenPosition, Projectile.scale, Projectile.Opacity, ModContent.Request<Texture2D>(Texture + "Aura").Value, TextureAssets.Projectile[Type].Value);
             var fungus = ModContent.Request<Texture2D>($"{Texture}Fungus", AssetRequestMode.ImmediateLoad).Value;
             foreach (var f in fungusInfo)

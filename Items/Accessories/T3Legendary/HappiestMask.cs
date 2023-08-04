@@ -6,6 +6,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
+using RiskOfTerrain.NPCs;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
@@ -26,12 +27,9 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             Item.value = Item.sellPrice(gold: 5);
         }
 
-        public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (Main.rand.NextBool(14))
-            {
-
-            }
+            player.ROR().accHappiestMask = true;
         }
     }
 }

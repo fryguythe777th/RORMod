@@ -17,7 +17,9 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
         public override void SetDefaults()
         {
             Projectile.DefaultToExplosion(200, DamageClass.Generic, 20);
-            Projectile.usesLocalNPCImmunity = false;
+            //Projectile.usesLocalNPCImmunity = false;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 60;
             Projectile.scale = 0.8f;
             Projectile.ROR().procRate = 0f;
         }

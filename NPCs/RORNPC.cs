@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
@@ -6,6 +7,7 @@ using RiskOfTerrain.Content;
 using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Content.Elites;
 using RiskOfTerrain.Items.Accessories.T1Common;
+using RiskOfTerrain.Items.CharacterSets.Artificer;
 using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using System;
@@ -56,6 +58,9 @@ namespace RiskOfTerrain.NPCs
         public int lastHitProjectileType = -1;
 
         public bool isMending;
+
+        public bool mostRecentHitHadMask = false;
+        public int happiestMaskHolder = -1;
 
         public override bool InstancePerEntity => true;
 
@@ -383,12 +388,29 @@ namespace RiskOfTerrain.NPCs
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
         {
             ModifyHit(npc, player, ref modifiers);
+            mostRecentHitHadMask = player.ROR().accHappiestMask;
+            if (mostRecentHitHadMask)
+            {
+                happiestMaskHolder = player.whoAmI;
+            }
+            else
+            {
+                happiestMaskHolder = -1;
+            }
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             ModifyHit(npc, projectile, ref modifiers);
-
+            mostRecentHitHadMask = Main.player[projectile.owner].ROR().accHappiestMask;
+            if (mostRecentHitHadMask)
+            {
+                happiestMaskHolder = projectile.owner;
+            }
+            else
+            {
+                happiestMaskHolder = -1;
+            }
             lastHitProjectileType = projectile.type;
         }
 
@@ -432,10 +454,17 @@ namespace RiskOfTerrain.NPCs
 
         public override void OnKill(NPC npc)
         {
+            var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
+
+            if (mostRecentHitHadMask && Main.rand.NextBool(14) && !npc.GetGlobalNPC<GhostElite>().Active && !EliteNPCManager.EliteBlacklist.Contains(npc.type) && !npc.boss && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0)
+            {
+                int i = NPC.NewNPC(npc.GetSource_Death(), (int)npc.Center.X, (int)npc.Center.Y, npc.type);
+                Main.npc[i].GetGlobalNPC<GhostElite>().Active = true;
+                Main.npc[i].GetGlobalNPC<GhostElite>().owner = happiestMaskHolder;
+            }
+
             if (npc.SpawnedFromStatue || npc.friendly || npc.lifeMax < 5)
                 return;
-
-            var closest = Main.player[Player.FindClosest(npc.position, npc.width, npc.height)];
 
             var bb = new BitsByte(bleedShatterspleen);
             for (int i = 0; i < Main.maxPlayers; i++)
@@ -517,6 +546,11 @@ namespace RiskOfTerrain.NPCs
                 drawColor = Color.LightBlue;
             }
 
+            if (npc.HasBuff(ModContent.BuffType<StunDebuff>()))
+            {
+                drawColor = Color.LightGray;
+            }
+
             if (shatterizationCount > 0)
             {
                 Color shatterDraw = new Color(drawColor.R, drawColor.G - (30 * shatterizationCount), drawColor.B - (30 * shatterizationCount));
@@ -539,6 +573,17 @@ namespace RiskOfTerrain.NPCs
                 {
                     spriteBatch.Draw(texture, pos - screenPos, Color.LightBlue);
                 }
+            }
+        }
+
+        public override void ModifyShop(NPCShop shop)
+        {
+            if (shop.NpcType == NPCID.Mechanic)
+            {
+                shop.Add(ModContent.ItemType<ArtificerHead>(), Condition.NightOrEclipse);
+                shop.Add(ModContent.ItemType<ArtificerBody>(), Condition.NightOrEclipse);
+                shop.Add(ModContent.ItemType<ArtificerLegs>(), Condition.NightOrEclipse);
+                shop.Add(ModContent.ItemType<ArtificerBoltWeapon>(), Condition.NightOrEclipse);
             }
         }
 

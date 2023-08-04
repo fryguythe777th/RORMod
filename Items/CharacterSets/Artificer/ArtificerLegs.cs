@@ -39,7 +39,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             {
                 player.velocity.Y -= 20;
                 ROREffects.Shake.Set(4);
-                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<HeadsetSmash>(), 30, 4, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 30, 4, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<IonSurgeVisual>(), 0, 0, player.whoAmI);
                 jumpReady = false;
                 jumpCooldown = 0;
             }

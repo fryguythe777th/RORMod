@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Buffs;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Content.Elites;
@@ -8,6 +9,7 @@ using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using RiskOfTerrain.Projectiles.Elite;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -22,6 +24,7 @@ namespace RiskOfTerrain.Projectiles
         public bool hasOverloaderProperties = false;
         public bool hasCelestineProperties = false;
         public bool hasMalachiteProperties = false;
+        public bool hasGhostlyProperties = false;
 
         public override bool InstancePerEntity => true;
         protected override bool CloneNewInstances => true;
@@ -128,17 +131,24 @@ namespace RiskOfTerrain.Projectiles
                 parentNPC.GetElitePrefixes(out var prefixes);
                 foreach (var p in prefixes)
                 {
-                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.OverloadingElite"))
-                    {
-                        hasOverloaderProperties = true;
-                    }
                     if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.CelestineElite"))
                     {
                         hasCelestineProperties = true;
                     }
+                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.GhostElite"))
+                    {
+                        hasGhostlyProperties = true;
+                        projectile.friendly = true;
+                        projectile.hostile = false;
+                        projectile.alpha = 100;
+                    }
                     if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.MalachiteElite"))
                     {
                         hasMalachiteProperties = true;
+                    }
+                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.OverloadingElite"))
+                    {
+                        hasOverloaderProperties = true;
                     }
                 }
             }
@@ -154,11 +164,26 @@ namespace RiskOfTerrain.Projectiles
             }
         }
 
+        public override void AI(Projectile projectile)
+        {
+            if (hasGhostlyProperties)
+            {
+                projectile.friendly = true;
+                projectile.hostile = false;
+                projectile.alpha = 100;
+            }
+        }
+
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
             if (spawnedFromElite)
             {
                 target.ROR().hitByBlazerProj = true;
+            }
+
+            if (hasCelestineProperties)
+            {
+                target.AddBuff(ModContent.BuffType<CelestineSlow>(), 180);
             }
 
             if (hasOverloaderProperties)
@@ -169,14 +194,37 @@ namespace RiskOfTerrain.Projectiles
                 Main.projectile[p].hostile = true;
             }
 
-            if (hasCelestineProperties)
-            {
-                target.AddBuff(ModContent.BuffType<CelestineSlow>(), 180);
-            }
-
             if (hasMalachiteProperties)
             {
                 target.AddBuff(BuffID.Bleeding, 480);
+            }
+        }
+
+        public ArmorShaderData ghostShader = GameShaders.Armor.GetShaderFromItemId(ItemID.FogboundDye);
+        public static bool DrawingGhost;
+
+        public override bool PreDraw(Projectile projectile, ref Color lightColor)
+        {
+            if (hasGhostlyProperties)
+            {
+                if (ghostShader != null)
+                {
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+                    ghostShader.Apply(projectile);
+                    DrawingGhost = true;
+                }
+            }
+            return true;
+        }
+
+        public override void PostDraw(Projectile projectile, Color lightColor)
+        {
+            if (DrawingGhost)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.Transform);
+                DrawingGhost = false;
             }
         }
     }
