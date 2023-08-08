@@ -367,7 +367,7 @@ Mods: {
 
 			WarHorn: {
 				DisplayName: War Horn
-				Tooltip: Successfully quick-buffing also gives 70% increased attack speed for 8 seconds
+				Tooltip: Hitting an enemy for the first time gives 70% increased attack speed for 1 second
 			}
 
 			WaxQuail: {
@@ -677,8 +677,15 @@ Mods: {
 			}
 
 			ArtificerBoltWeapon: {
-				DisplayName: Artificer Bolt Weapon
-				Tooltip: ""
+				DisplayName: Arcane Gauntlets
+				Tooltip:
+					'''
+					Has three modes which can be cycled with right click
+					In the first mode, shoot fireballs that set enemies on fire
+					In the second mode, shoot plasma balls that explode in an aura
+					In the third mode, shoot ice spears that pierce and freeze enemies
+					Build charge by moving around and right click at full charge to unleash a special attack
+					'''
 			}
 
 			CommandoGunWeapon: {
@@ -927,6 +934,11 @@ Mods: {
 				DisplayName: Stun Debuff
 				Description: Mods.RiskOfTerrain.Buffs.StunDebuff.Description
 			}
+
+			ArtiFreeze: {
+				DisplayName: Arti Freeze
+				Description: Mods.RiskOfTerrain.Buffs.ArtiFreeze.Description
+			}
 		}
 
 		Projectiles: {
@@ -983,6 +995,11 @@ Mods: {
 			DoubleTapPierce.DisplayName: Double Tap Pierce
 			GrenadeExplosion.DisplayName: Grenade Explosion
 			GrenadeProj.DisplayName: Grenade Proj
+			IceWall.DisplayName: Ice Wall
+			IceWallSpawner.DisplayName: Ice Wall Spawner
+			IceSpear.DisplayName: Ice Spear
+			ElementIcon.DisplayName: Element Icon
+			MeatHookProjDamaging.DisplayName: Meat Hook Proj Damaging
 		}
 
 		Tiles: {

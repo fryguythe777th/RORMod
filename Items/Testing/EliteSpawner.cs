@@ -146,15 +146,15 @@ namespace RiskOfTerrain.Items.Testing
  * celestine circle sometimes dies instantly
  * ifrits distinction doesnt work on some players?
  * spectral circlet proj only shows up if there are npcs present
- * his reassurance doesnt work between players
+ * his reassurance doesnt work between players -TEST-
  * silence two strike bombs only show up on client
  * focus crystal numbers are only purple on client
  * blazing plops dont have knockback off
  * infusion max health upgrade doesnt show for other players
  * with ukulele, enemies arent shown to take damage, and the lazer doesnt appear. the whole accessory is client side
- * war horn sucks
+ * war horn sucks -TEST-
  * behemoth projectile doesnt rotate on spawn for other players
- * happiest mask doesnt use rollluck
+ * happiest mask doesnt use rollluck -TEST-
  * ghosts never spawn
  * ghosts tend to vanish
  * ghosts dont get their projectiles ghosted (probably just make happiest mask a "buggy in multiplayer" item

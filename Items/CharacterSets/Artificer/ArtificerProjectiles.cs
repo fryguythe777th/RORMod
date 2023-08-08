@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.Buffs.Debuff;
+using Steamworks;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace RiskOfTerrain.Items.CharacterSets.Artificer
 {
@@ -126,6 +129,49 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
         }
     }
 
+    public class IceSpear : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.width = 106;
+            Projectile.height = 18;
+            Projectile.penetrate = 4;
+            Projectile.tileCollide = true;
+            Projectile.friendly = true;
+            Projectile.damage = 20;
+            Projectile.aiStyle = -1;
+            Projectile.alpha = 30;
+        }
+
+        public override void AI()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<ArtiFreeze>(), 200);
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Shatter.WithPitchOffset(Main.rand.NextFloat(-0.5f, 0.6f)));
+
+            if (!Main.dedServ)
+            {
+                for (int i = 0; i < Main.rand.Next(5, 11); i++)
+                {
+                    Dust.NewDust(Projectile.Center, 2, 2, DustID.Glass, Main.rand.Next(-2, 3), Main.rand.Next(-2, 3), 30);
+                }
+            }
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            overPlayers.Add(index);
+        }
+    }
+
     public class Nanobomb : ModProjectile
     {
         public override string Texture => "RiskOfTerrain/Items/CharacterSets/Artificer/PlasmaBolt";
@@ -169,12 +215,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center,
                     Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 40, 3f, Projectile.owner, 1);
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IonSurgeVisual>(), 0, 0, Projectile.owner, 1);
-            SoundStyle pvz = new SoundStyle();
-            pvz.SoundPath = "RiskOfTerrain/Assets/Sounds/firepea";
-            pvz.PitchVariance = 0.25f;
-            pvz.Pitch = -3f;
-            pvz.Volume = 5f;
-            SoundEngine.PlaySound(pvz);
+            SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artinanobomb/mage_m2_impact_elec_v2_", 4));
         }
     }
 
@@ -255,6 +296,253 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.Kill();
+            }
+        }
+    }
+
+    public class IceWallSpawner : ModProjectile
+    {
+        public override string Texture => "RiskOfTerrain/Items/Accessories/T1Common/BustlingFungus";
+
+        public override void SetDefaults()
+        {
+            Projectile.alpha = 255;
+            Projectile.penetrate = -1;
+            Projectile.ignoreWater = true;
+            Projectile.damage = 0;
+            Projectile.knockBack = 0;
+            Projectile.width = 1;
+            Projectile.height = 1;
+        }
+
+        public int spawningStage = 1;
+        public int spawnTimer = 10;
+
+        public override void AI()
+        {
+            Projectile.velocity = new Vector2(0, 50);
+            if (spawnTimer == 0)
+            {
+                spawnTimer = 10;
+
+                if (spawningStage == 1)
+                {
+                    spawningStage = 2;
+                    SpawnIceWall(0);
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artibuild/mage_shift_wall_build_ice_0", 4), Projectile.Center);
+                }
+                else if (spawningStage == 2)
+                {
+                    spawningStage = 3;
+                    SpawnIceWall(30);
+                    SpawnIceWall(-30);
+                }
+                else if (spawningStage == 3)
+                {
+                    SpawnIceWall(60);
+                    SpawnIceWall(-60);
+                    Projectile.Kill();
+                }
+            }
+            else
+            {
+                spawnTimer--;
+            }
+        }
+
+        public void SpawnIceWall(int xOffset)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X + xOffset, Projectile.Center.Y + 42), Vector2.Zero, ModContent.ProjectileType<IceWall>(), 30, 0, Projectile.owner);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity = Vector2.Zero;
+            return false;
+        }
+    }
+
+    public class IceWall : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 4;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.penetrate = 1;
+            Projectile.damage = 30;
+            Projectile.knockBack = 0;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.width = 36;
+            Projectile.height = 84;
+            Projectile.alpha = 30;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.frame = Main.rand.Next(0, 4);
+        }
+
+        public override void AI()
+        {
+            if (Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height - 4))
+            {
+                Projectile.velocity = new Vector2(0, -5);
+            }
+            else if (Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height + 1))
+            {
+                Projectile.velocity = Vector2.Zero;
+            }
+            else
+            {
+                Projectile.velocity = new Vector2(0, 50);
+            }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.boss)
+            {
+                target.AddBuff(ModContent.BuffType<ArtiFreeze>(), 600);
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            SoundStyle iceShatter = RiskOfTerrain.GetSounds("artishatter/mage_shift_wall_explode_ice_0", 4);
+            iceShatter.PitchVariance = 0.5f;
+            iceShatter.Pitch = 0;
+            iceShatter.Volume = 0.5f;
+            SoundEngine.PlaySound(iceShatter);
+
+            if (!Main.dedServ)
+            {
+                for (int i = 0; i < Main.rand.Next(5, 11); i++)
+                {
+                    Dust.NewDust(Projectile.Center, 2, 2, DustID.Glass, Main.rand.Next(-2, 3), Main.rand.Next(-2, 3), 30);
+                }
+            }
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindNPCsAndTiles.Add(index);
+        }
+    }
+
+    public class ElementIcon : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Type] = 3;
+        }
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 22;
+            Projectile.height = 22;
+            Projectile.penetrate = -1;
+            Projectile.tileCollide = false;
+            Projectile.ignoreWater = true;
+            Projectile.damage = 0;
+            Projectile.knockBack = 0;
+            Projectile.timeLeft = 50;
+        }
+
+        Vector2 presentOffset;
+        Vector2 targetOffset;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            string position = "center";
+            if (Projectile.ai[0] == 1) //is a fireball
+            {
+                Projectile.frame = 0;
+
+                if (Projectile.ai[1] == 1) //fireball is being selected
+                {
+                    position = "right";
+                }
+                else if (Projectile.ai[1] == 2) //plasma is being selected
+                {
+                    position = "center";
+                }
+                else if (Projectile.ai[1] == 3) //ice is being selected
+                {
+                    position = "left";
+                }
+            }
+            else if (Projectile.ai[0] == 2) //is a plasma
+            {
+                Projectile.frame = 1;
+
+                if (Projectile.ai[1] == 1) //fireball is being selected
+                {
+                    position = "left";
+                }
+                else if (Projectile.ai[1] == 2) //plasma is being selected
+                {
+                    position = "right";
+                }
+                else if (Projectile.ai[1] == 3) //ice is being selected
+                {
+                    position = "center";
+                }
+            }
+            else //is ice
+            {
+                Projectile.frame = 2;
+
+                if (Projectile.ai[1] == 1) //fireball is being selected
+                {
+                    position = "center";
+                }
+                else if (Projectile.ai[1] == 2) //plasma is being selected
+                {
+                    position = "left";
+                }
+                else if (Projectile.ai[1] == 3) //ice is being selected
+                {
+                    position = "right";
+                }
+            }
+
+            switch (position)
+            {
+                case "left":
+                    presentOffset = new Vector2(40, -40);
+                    Projectile.Center = Main.player[Projectile.owner].Center + presentOffset;
+                    targetOffset = new Vector2(20, -40);
+                    break;
+                case "center":
+                    presentOffset = new Vector2(-0, -40);
+                    Projectile.Center = Main.player[Projectile.owner].Center + presentOffset;
+                    targetOffset = new Vector2(-20, -40);
+                    break;
+                case "right":
+                    presentOffset = new Vector2(20, -40);
+                    Projectile.Center = Main.player[Projectile.owner].Center + presentOffset;
+                    targetOffset = new Vector2(0, -40);
+                    break;
+            }
+        }
+
+        public override void AI()
+        {
+            Projectile.alpha = (int)Math.Abs(Projectile.Center.X - Main.player[Projectile.owner].Center.X) * 10;
+            Projectile.scale = (20 - Math.Abs(Projectile.Center.X - Main.player[Projectile.owner].Center.X) + 1) / 20;
+
+            presentOffset = Vector2.Lerp(presentOffset, targetOffset, 0.06f);
+            Projectile.Center = Main.player[Projectile.owner].Center + presentOffset;
+
+            if (Math.Abs(Main.player[Projectile.owner].Center.X + presentOffset.X - Main.player[Projectile.owner].Center.X + targetOffset.X) < 1f)
+            {
+                Projectile.Kill();
             }
         }
     }

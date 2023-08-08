@@ -226,7 +226,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
                 case 9:
                     shader = GameShaders.Armor.GetShaderFromItemId(ItemID.ReflectiveGoldDye);
                     break;
-                case 9:
+                case 10:
                     shader = GameShaders.Armor.GetShaderFromItemId(ItemID.PurpleDye);
                     break;
             }

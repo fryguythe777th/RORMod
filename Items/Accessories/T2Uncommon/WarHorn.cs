@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RiskOfTerrain.Buffs;
+using RiskOfTerrain.Content.Accessories;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -24,19 +25,15 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 1, silver: 50);
         }
 
-        public int playerBuffCount;
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (PlayerInput.Triggers.Current.QuickBuff)
+            if (victim.entity is NPC npc)
             {
-                if (player.CountBuffs() > playerBuffCount)
+                if (npc.life + hit.Damage == npc.lifeMax)
                 {
-                    player.AddBuff(ModContent.BuffType<WarHornBuff>(), 480);
+                    entity.AddBuff(ModContent.BuffType<WarHornBuff>(), 60);
                 }
             }
-
-            playerBuffCount = player.CountBuffs();
         }
     }
 }

@@ -76,7 +76,7 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
                 if (mendTarget.active
                     && mendTarget.Distance(player.Center) <= 800
                     && mendTarget.team == player.team
-                    && mendTarget.ROR().aspMending
+                    && !mendTarget.ROR().aspMending
                     && mendTarget.statLifeMax2 - mendTarget.statLife > savedLifeDiff)
                 {
                     savedTarget = i;

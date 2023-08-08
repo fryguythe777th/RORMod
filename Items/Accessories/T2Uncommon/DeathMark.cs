@@ -35,28 +35,28 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (victim.GetBuffs(out var buffTypes, out var buffTimes, out int maxBuffs))
+            if (victim.GetBuffs(out var buffTypes, out var buffTimes, out int maxBuffs) && victim.entity is NPC npc)
             {
                 int buffCount = 0;
-                for (int i = 0; i < maxBuffs; i++)
+                for (int i = 0; i < npc.buffType.Length; i++)
                 {
-                    if (buffTypes[i] != 0 && Main.debuff[buffTypes[i]] && DoesntCountAsDebuff.Contains(buffTypes[i]))
+                    if (npc.buffType[i] != 0 && Main.debuff[npc.buffType[i]] && !DoesntCountAsDebuff.Contains(npc.buffType[i]))
                     {
                         buffCount++;
                     }
                     if (buffCount >= 2)
                     {
-                        if (!entity.HasBuff(ModContent.BuffType<DeathMarkDebuff>()) && entity.entity is Player player)
+                        if (!victim.HasBuff(ModContent.BuffType<DeathMarkDebuff>()) && entity.entity is Player player)
                         {
-                            var p = Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), new Vector2(entity.entity.position.X + entity.entity.width / 2f, entity.entity.position.Y - 100f),
-                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, entity.GetProjectileOwnerID(), -1f);
-                            if (entity.entity is NPC)
+                            var p = Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), new Vector2(victim.entity.position.X + victim.entity.width / 2f, victim.entity.position.Y - 100f),
+                                new Vector2(0f, -2f), ModContent.ProjectileType<DeathMarkProj>(), 0, 0f, entity.GetProjectileOwnerID(), victim.entity.whoAmI);
+                            if (victim.entity is NPC)
                             {
-                                p.ai[0] = entity.entity.whoAmI;
+                                p.ai[0] = victim.entity.whoAmI;
                                 p.netUpdate = true;
                             }
                         }
-                        entity.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
+                        victim.AddBuff(ModContent.BuffType<DeathMarkDebuff>(), 420);
                         break;
                     }
                 }

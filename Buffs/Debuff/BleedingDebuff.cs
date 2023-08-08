@@ -13,6 +13,7 @@ namespace RiskOfTerrain.Buffs.Debuff
         {
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
+            Main.debuff[Type] = true;
             EnemyHealthBar.BuffIconData.Add(Type, "RiskOfTerrain/Buffs/Mini/Buff_30");
         }
 

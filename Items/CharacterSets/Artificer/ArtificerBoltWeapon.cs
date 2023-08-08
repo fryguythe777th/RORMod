@@ -32,15 +32,22 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             Item.mana = 5;
         }
 
-        public int fireState = 1; //1 = fireball, 2 = plasmaball, 3 = flamethrower, 4 = nanobomb
+        public int fireState = 1; //1 = fireball, 2 = plasmaball, 3 = ice spear, 4 = flamethrower, 5 = nanobomb, 6 = ice wall
         public float charge = 0;
         public const int ChargeMaximum = 100;
         public int specialAttackTimer = 30;
         public int rightClickSwitchTimer = 90;
 
+        private void SpawnElementIcon(Player player, int switchingTo)
+        {
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<ElementIcon>(), 0, 0, player.whoAmI, 1, switchingTo);
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<ElementIcon>(), 0, 0, player.whoAmI, 2, switchingTo);
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<ElementIcon>(), 0, 0, player.whoAmI, 3, switchingTo);
+        }
+
         public override void HoldItem(Player player)
         {
-            if (fireState < 3)
+            if (fireState < 4)
             {
                 charge += 1 * (Math.Abs(player.velocity.X / 60) + Math.Abs(player.velocity.Y / 60));
             }
@@ -55,11 +62,25 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             {
                 Item.useTime = 20;
                 Item.useAnimation = 20;
+                Item.useStyle = ItemUseStyleID.Shoot;
             }
-            else
+            else if (fireState == 3)
+            {
+                Item.useTime = 40;
+                Item.useAnimation = 20;
+                Item.useStyle = ItemUseStyleID.Swing;
+            }
+            else if (fireState == 4 || fireState == 5)
             {
                 Item.useTime = 4;
                 Item.useAnimation = 4;
+                Item.useStyle = ItemUseStyleID.Shoot;
+            }
+            else if (fireState == 6)
+            {
+                Item.useTime = 120;
+                Item.useAnimation = 120;
+                Item.useStyle = ItemUseStyleID.Shoot;
             }
 
             if (Main.mouseRight)
@@ -70,11 +91,12 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
                     {
                         if (charge >= ChargeMaximum)
                         {
-                            fireState = 3;
+                            fireState = 4;
                             charge = 0;
                         }
                         else
                         {
+                            SpawnElementIcon(player, 2);
                             fireState = 2;
                         }
                     }
@@ -82,11 +104,25 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
                     {
                         if (charge >= ChargeMaximum)
                         {
-                            fireState = 4;
+                            fireState = 5;
                             charge = 0;
                         }
                         else
                         {
+                            SpawnElementIcon(player, 3);
+                            fireState = 3;
+                        }
+                    }
+                    else if (fireState == 3)
+                    {
+                        if (charge >= ChargeMaximum)
+                        {
+                            fireState = 6;
+                            charge = 0;
+                        }
+                        else
+                        {
+                            SpawnElementIcon(player, 1);
                             fireState = 1;
                         }
                     }
@@ -104,11 +140,19 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
         {
             if (fireState == 3)
             {
+                mult = 2f;
+            }
+            if (fireState == 4)
+            {
                 mult = 0.1f;
             }
-            if (fireState == 4 && specialAttackTimer > 1)
+            if (fireState == 5 && specialAttackTimer > 1)
             {
                 mult = 0f;
+            }
+            if (fireState == 6)
+            {
+                mult = 5f;
             }
         }
 
@@ -138,31 +182,65 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             }
             else if (fireState == 3)
             {
+                type = ModContent.ProjectileType<IceSpear>();
+                velocity *= 1.5f;
+
+                SoundStyle icespear = new SoundStyle();
+                icespear.SoundPath = SoundID.Item28.SoundPath;
+                icespear.PitchVariance = 1f;
+                icespear.Pitch = 0;
+                icespear.Volume = 2f;
+                SoundEngine.PlaySound(icespear);
+            }
+            else if (fireState == 4)
+            {
                 type = ProjectileID.Flames;
                 damage = 10;
+                if (specialAttackTimer == 30)
+                {
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("artiflamethrower/mage_R_start_01").WithVolumeScale(0.7f));
+                }
                 specialAttackTimer--;
                 if (specialAttackTimer == 0)
                 {
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("artiflamethrower/mage_R_end_01").WithVolumeScale(0.7f));
                     specialAttackTimer = 30;
                     fireState = 1;
                 }
             }
-            else if (fireState == 4)
+            else if (fireState == 5)
             {
+                if (specialAttackTimer == 30)
+                {
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artinanobomb/mage_m2_charge_elec_v2_", 4));
+                }
                 specialAttackTimer--;
                 if (specialAttackTimer == 0)
                 {
                     specialAttackTimer = 30;
                     fireState = 2;
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artinanobomb/mage_m2_shoot_elec_v2_", 4).WithVolumeScale(0.5f));
+                    SoundEngine.PlaySound(RiskOfTerrain.GetSound("artinanobomb/mage_m2_shoot_sweetener").WithVolumeScale(0.5f));
                     type = ModContent.ProjectileType<Nanobomb>();
                 }
             }
+            else if (fireState == 6)
+            {
+                type = ModContent.ProjectileType<IceWallSpawner>();
+                specialAttackTimer = 30;
+                fireState = 3;
+            } 
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (fireState == 4 && specialAttackTimer > 0)
+            if (fireState == 5 && specialAttackTimer > 0)
             {
+                return false;
+            }
+            if (type == ModContent.ProjectileType<IceWallSpawner>())
+            {
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<IceWallSpawner>(), 0, 0, player.whoAmI);
                 return false;
             }
             return true;

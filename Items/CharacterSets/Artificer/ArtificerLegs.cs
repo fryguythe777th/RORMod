@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using RiskOfTerrain.Graphics;
 using RiskOfTerrain.Items.Accessories.T3Legendary;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -39,6 +40,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             {
                 player.velocity.Y -= 20;
                 ROREffects.Shake.Set(4);
+                SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artinanobomb/mage_m2_impact_elec_v2_", 4));
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 30, 4, player.whoAmI);
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<IonSurgeVisual>(), 0, 0, player.whoAmI);
                 jumpReady = false;

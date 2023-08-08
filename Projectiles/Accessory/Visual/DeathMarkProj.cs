@@ -30,7 +30,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Visual
         {
             if ((int)Projectile.ai[0] >= 0)
             {
-                var npc = Main.npc[(int)Projectile.ai[0] - 1];
+                var npc = Main.npc[(int)Projectile.ai[0]];
                 Projectile.Center = new Vector2(npc.position.X + npc.width / 2f, npc.position.Y - 50f);
             }
             Projectile.frameCounter++;

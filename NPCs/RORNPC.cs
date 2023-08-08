@@ -16,6 +16,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -61,6 +62,8 @@ namespace RiskOfTerrain.NPCs
 
         public bool mostRecentHitHadMask = false;
         public int happiestMaskHolder = -1;
+
+        public bool warHornHasBeenHit { get; set; }
 
         public override bool InstancePerEntity => true;
 
@@ -469,6 +472,20 @@ namespace RiskOfTerrain.NPCs
                     convertToCursedFlames = false;
                 }
             }
+
+            if (npc.HasBuff(ModContent.BuffType<ArtiFreeze>()) && npc.life <= npc.lifeMax * 0.3)
+            {
+                NPC.HitInfo hit = new NPC.HitInfo();
+                hit.Damage = npc.life;
+                npc.StrikeNPC(hit);
+
+                SoundStyle iceShatter = new SoundStyle();
+                iceShatter.SoundPath = SoundID.Shatter.SoundPath;
+                iceShatter.PitchVariance = 0.5f;
+                iceShatter.Pitch = 0;
+                iceShatter.Volume = 0.5f;
+                SoundEngine.PlaySound(iceShatter);
+            }
         }
 
         public override void OnKill(NPC npc)
@@ -560,7 +577,7 @@ namespace RiskOfTerrain.NPCs
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (npc.HasBuff(ModContent.BuffType<RunaldFreeze>()))
+            if (npc.HasBuff(ModContent.BuffType<RunaldFreeze>()) || npc.HasBuff(ModContent.BuffType<ArtiFreeze>()))
             {
                 drawColor = Color.LightBlue;
             }

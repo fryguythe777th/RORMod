@@ -27,8 +27,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
 
             Item.noMelee = true;
             Item.DamageType = DamageClass.Ranged;
-            Item.damage = 1;
-            Item.knockBack = 1;
+            Item.damage = 2;
+            Item.knockBack = 2;
 
             Item.shootSpeed = 16f;
             Item.useAmmo = AmmoID.Bullet;
@@ -57,7 +57,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
             else
             {
                 damage = 2;
-                knockback = 10;
+                knockback = 2;
             }
         }
     }
