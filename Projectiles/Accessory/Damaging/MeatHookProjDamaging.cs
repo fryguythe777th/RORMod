@@ -18,7 +18,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Visual
         private static Asset<Texture2D> hookTexture;
         public bool flipped;
 
-        public override string Texture => "RiskOfTerrain/Projectiles/Accessory/Visual/MeatHookProjChain";
+        public override string Texture => "RiskOfTerrain/Projectiles/Accessory/Visual/MeatHookProjVanity";
 
         public override void Load()
         {
@@ -34,8 +34,8 @@ namespace RiskOfTerrain.Projectiles.Accessory.Visual
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 20;
+            Projectile.width = 18;
+            Projectile.height = 14;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 2;

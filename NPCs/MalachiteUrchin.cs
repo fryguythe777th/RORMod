@@ -22,6 +22,11 @@ namespace RiskOfTerrain.NPCs
 {
     public class MalachiteUrchin : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             NPC.lifeMax = 5;

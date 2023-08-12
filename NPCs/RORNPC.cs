@@ -19,6 +19,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace RiskOfTerrain.NPCs
 {
@@ -180,6 +181,11 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                npc.netUpdate = true;
+            }
         }
 
         public static void TeslaLightning(Player player, NPC npc, int damage)
@@ -206,6 +212,21 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                npc.netUpdate = true;
+            }
+        }
+
+        public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write7BitEncodedInt(shatterizationCount);
+        }
+
+        public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+        {
+            shatterizationCount = binaryReader.ReadInt32();
         }
 
         public override void Unload()
@@ -313,6 +334,7 @@ namespace RiskOfTerrain.NPCs
 
             if (isAShielder)
             {
+                npc.netUpdate = true;
                 //makes sure shield doesnt go over your max shield
                 shield = Math.Min(shield, maxShield);
                 //sets your shield to max after not getting hit for a while

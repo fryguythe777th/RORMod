@@ -23,6 +23,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace RiskOfTerrain
 {
@@ -69,6 +70,7 @@ namespace RiskOfTerrain
         public bool glubbyHide;
         public byte glubbyActive;
 
+        public int accRepulsionPlate;
         public bool accTopazBrooch;
         public bool accShieldGenerator;
         public Item accDeathMark;
@@ -83,8 +85,6 @@ namespace RiskOfTerrain
 
         public bool aspCelestine;
         public bool aspMending;
-
-        public int accRepulsionPlate;
 
         public int killStreak;
         public int killStreakClearTimer;
@@ -313,6 +313,9 @@ namespace RiskOfTerrain
             clone.diosCooldown = diosCooldown;
             clone.diosDead = diosDead;
             clone.timeSinceLastHit = timeSinceLastHit;
+            clone.releaseTheGhosts = releaseTheGhosts;
+            clone.boundSoulCount = boundSoulCount;
+            clone.boundSoulRotTick = boundSoulRotTick;
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
@@ -324,7 +327,10 @@ namespace RiskOfTerrain
                 client.barrierLife != barrierLife,
                 client.shield != shield,
                 client.diosCooldown != diosCooldown || client.diosDead != diosDead,
-                client.timeSinceLastHit != timeSinceLastHit);
+                client.timeSinceLastHit != timeSinceLastHit,
+                client.releaseTheGhosts != releaseTheGhosts,
+                client.boundSoulCount != boundSoulCount,
+                client.boundSoulRotTick != boundSoulRotTick);
 
             p.Write(Player.whoAmI);
             p.Write(bb);
@@ -347,6 +353,18 @@ namespace RiskOfTerrain
             if (bb[4])
             {
                 p.Write(timeSinceLastHit);
+            }
+            if (bb[5])
+            {
+                p.Write(releaseTheGhosts);
+            }
+            if (bb[6])
+            {
+                p.Write(boundSoulCount);
+            }
+            if (bb[7])
+            {
+                p.Write(boundSoulRotTick);
             }
         }
 
@@ -372,6 +390,18 @@ namespace RiskOfTerrain
             if (bb[4])
             {
                 timeSinceLastHit = reader.ReadInt32();
+            }
+            if (bb[5])
+            {
+                releaseTheGhosts = reader.ReadBoolean();
+            }
+            if (bb[6])
+            {
+                boundSoulCount = reader.ReadInt32();
+            }
+            if (bb[7])
+            {
+                boundSoulRotTick = reader.ReadInt32();
             }
         }
 

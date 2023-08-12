@@ -31,8 +31,8 @@ namespace RiskOfTerrain.Projectiles.Accessory.Visual
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 20;
+            Projectile.width = 18;
+            Projectile.height = 14;
             Projectile.friendly = true;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 2;

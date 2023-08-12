@@ -32,9 +32,19 @@ namespace RiskOfTerrain.Projectiles.Elite
 
             Lighting.AddLight(Projectile.Center, new Vector3(1f, 0.95f, 0.85f) * Projectile.scale / 280f);
 
-            if (!Main.npc[(int)Projectile.ai[0]].active)
+            if (Projectile.ai[1] == 0)
             {
-                Projectile.Kill();
+                if (!Main.npc[(int)Projectile.ai[0]].active)
+                {
+                    Projectile.Kill();
+                }
+            }
+            else
+            {
+                if (!Main.player[(int)Projectile.ai[0]].active)
+                {
+                    Projectile.Kill();
+                }
             }
         }
 

@@ -34,6 +34,11 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.rotation = Main.rand.Next(0, 360);
+
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Projectile.netUpdate = true;
+            }
         }
 
         public override void AI()

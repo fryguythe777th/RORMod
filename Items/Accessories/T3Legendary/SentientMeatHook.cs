@@ -22,8 +22,8 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 38;
+            Item.width = 50;
+            Item.height = 32;
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(gold: 5);
@@ -35,7 +35,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             {
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
-                    if (RORNPC.Distance(Main.npc[i], npc) <= 360 && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0 && i != npc.whoAmI)
+                    if (RORNPC.Distance(Main.npc[i], npc) <= 400 && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0 && i != npc.whoAmI)
                     {
                         Projectile.NewProjectile(entity.GetSource_Accessory(Item), victim.Center, Vector2.Zero, ModContent.ProjectileType<MeatHookProjDamaging>(), 0, 0, entity.GetProjectileOwnerID(), i, npc.whoAmI);
                     }

@@ -706,6 +706,11 @@ Mods: {
 				DisplayName: Unstable Tesla Coil
 				Tooltip: Every 2 seconds, shock all enemies around you
 			}
+
+			HardlightAfterburner: {
+				DisplayName: Hardlight Afterburner
+				Tooltip: ""
+			}
 		}
 
 		SetBonuses.ArtificerSet: 10% reduced mana cost
@@ -797,6 +802,7 @@ Mods: {
 			"Backup Magazine Swap.DisplayName": Backup Magazine Swap
 			"H3AD-5T Keybind.DisplayName": H3AD-5T v2 Stomp
 			"Armor Effect Key.DisplayName": Armor  Effect  Key
+			"Hardlight Afterburner Dash Key.DisplayName": Hardlight Afterburner Dash
 		}
 
 		Buffs: {
@@ -938,6 +944,11 @@ Mods: {
 			ArtiFreeze: {
 				DisplayName: Arti Freeze
 				Description: Mods.RiskOfTerrain.Buffs.ArtiFreeze.Description
+			}
+
+			AfterburnerBuff: {
+				DisplayName: Afterburner Buff
+				Description: Mods.RiskOfTerrain.Buffs.AfterburnerBuff.Description
 			}
 		}
 
@@ -1099,6 +1110,14 @@ Mods: {
 			}
 		}
 
-		NPCs.MalachiteUrchin.DisplayName: Malachite Urchin
+		NPCs: {
+			MalachiteUrchin.DisplayName: Malachite Urchin
+			CautiousSlugCritter.DisplayName: Cautious Slug
+		}
+
+		Bestiary: {
+			MalachiteUrchin: ...
+			CautiousSlugCritter: Reclusive cave critter. Tends to hide from predators, rarely being found outside its nest.
+		}
 	}
 }

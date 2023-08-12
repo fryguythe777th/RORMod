@@ -1,4 +1,5 @@
 ﻿using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -31,6 +32,15 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.accessory = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(silver: 50);
+
+            Item.consumable = true;
+            Item.makeNPC = ModContent.NPCType<CautiousSlugCritter>();
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.autoReuse = true;
+            Item.useTurn = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.noUseGraphic = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

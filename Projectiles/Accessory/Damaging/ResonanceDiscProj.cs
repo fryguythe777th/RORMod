@@ -94,6 +94,11 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
                     Projectile.Kill();
                 }
             }
+
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Projectile.netUpdate = true;
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
