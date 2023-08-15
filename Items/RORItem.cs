@@ -281,6 +281,13 @@ namespace RiskOfTerrain.Items
                                 }
                             }
                         }
+                        if (style == 2)
+                        {
+                            if (r.NextBool(7))
+                            {
+                                AddItem(c, ModContent.ItemType<ReloadingShurikens>(), prefix: -1);
+                            }
+                        }
                         if (style == 50)
                         {
                             if (r.NextBool(2))
