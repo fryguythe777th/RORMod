@@ -78,6 +78,18 @@ namespace RiskOfTerrain.NPCs
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<HappiestMask>(), 40, 20));
             }
+            if (npc.type == NPCID.GoblinSummoner) 
+            {
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BottledChaos>(), 6, 3);
+            }
+            if (npc.type == NPCID.BigMimicCorruption) 
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Brainstalks>(), 5);
+            }
+            if (npc.type == NPCID.BigMimicCrimson)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BerzerkersPauldron>(), 5);
+            }
         }
 
         public override void ModifyShop(NPCShop shop)
@@ -143,7 +155,6 @@ namespace RiskOfTerrain.NPCs
  * 
  * AtG
  * Bandolier
- * Berzerker's Pauldron
  * Chronobauble
  * Fuel Cell
  * Ghor's Tome
@@ -156,7 +167,7 @@ namespace RiskOfTerrain.NPCs
  * Old War Stealthkit
  * Predatory Instincts
  * Razorwire
- * Reloading Shurikens
+ * Reloading Shurikens - ADD TO SHADOW CHESTS?
  * Rose Buckler
  * Runald's Band - ELDER LEMURIANS
  * Ukulele
@@ -164,8 +175,6 @@ namespace RiskOfTerrain.NPCs
  * Will o' the Wisp - WISPS
  * 
  * Ben's Raincoat
- * Bottled Chaos
- * Brainstalks
  * Clover - TILE
  * Dio's Best Friend - CELESTINES?
  * Hardlight Afterburner
