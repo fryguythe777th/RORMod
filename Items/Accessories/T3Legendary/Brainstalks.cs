@@ -20,7 +20,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.RedTier.Add(Type);
+            RORItem.RedTier.Add((Type, () => Main.hardMode));
         }
 
         public override void SetDefaults()
