@@ -11,7 +11,21 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Terraria;
+using Terraria.GameContent.Biomes;
+using Terraria.GameContent.Generation;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.Social;
+using Terraria.Utilities;
+using Terraria.WorldBuilding;
+using RiskOfTerrain.Items.Accessories.T3Legendary;
 
 namespace RiskOfTerrain.Items
 {
@@ -119,7 +133,7 @@ namespace RiskOfTerrain.Items
                 {
                     item.TurnToAir();
                 }
-            } 
+            }
         }
 
         public static int GetIndex(List<TooltipLine> tooltips, string lineName)
@@ -198,6 +212,78 @@ namespace RiskOfTerrain.Items
                 }
             }
             return null;
+        }
+    }
+
+    public class RORItemSystem : ModSystem
+    {
+        public override void AddRecipeGroups()
+        {
+            RecipeGroup copperOrTin = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.CopperBar)}", ItemID.CopperBar, ItemID.TinBar);
+            RecipeGroup.RegisterGroup(nameof(ItemID.CopperBar), copperOrTin);
+        }
+
+        public static Item AddItem(Chest chest, int item, int stack = 1, int prefix = 0)
+        {
+            Item emptySlot = null;
+            for (int i = 0; i < Chest.maxItems; i++)
+            {
+                if (chest.item[i].IsAir && emptySlot == null)
+                {
+                    emptySlot = chest.item[i];
+                }
+            }
+
+            if (emptySlot != null)
+            {
+                emptySlot.SetDefaults(item);
+                emptySlot.stack = stack;
+                if (prefix > 0 || prefix < 0)
+                {
+                    emptySlot.Prefix(prefix);
+                }
+            }
+            return emptySlot;
+        }
+
+        public override void PostWorldGen()
+        {
+            var r = WorldGen.genRand;
+
+            for (int k = 0; k < Main.maxChests; k++)
+            {
+                Chest c = Main.chest[k];
+
+                if (c != null && WorldGen.InWorld(c.x, c.y, 40))
+                {
+                    var tile = Main.tile[c.x, c.y];
+                    var wall = tile.WallType;
+                    if (wall == WallID.SandstoneBrick)
+                    {
+                        continue;
+                    }
+
+                    int style = Main.tile[c.x, c.y].TileFrameX / 36;
+
+                    if (Main.tile[c.x, c.y].TileType == TileID.Containers)
+                    {
+                        if (style == 50)
+                        {
+                            if (r.NextBool(2))
+                            {
+                                AddItem(c, ModContent.ItemType<ShatteringJustice>(), prefix: -1);
+                            }
+                        }
+                        else if (style == 51)
+                        {
+                            if (r.NextBool(2))
+                            {
+                                AddItem(c, ModContent.ItemType<Aegis>(), prefix: -1);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

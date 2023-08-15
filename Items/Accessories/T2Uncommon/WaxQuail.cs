@@ -24,5 +24,13 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         {
             player.ROR().accWaxQuail = true;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.BeeWax, 15)
+                .AddTile(TileID.GlassKiln)
+                .Register();
+        }
     }
 }

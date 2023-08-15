@@ -44,8 +44,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
                 return;
             }
             centerOnPlayer = false;
-            Left.Set(Main.LocalPlayer.Center.X - Main.screenPosition.X - Width.Pixels / 2f, 0f);
-            Top.Set(Main.LocalPlayer.Center.Y - Main.screenPosition.Y - Height.Pixels / 2f, 0f);
+            //Left.Set(-Main.LocalPlayer.Center.X + Main.screenPosition.X - Width.Pixels / 2f, 0f);
+            //Top.Set(-Main.LocalPlayer.Center.Y + Main.screenPosition.Y - Height.Pixels / 2f, 0f);
+            Left.Set(-600, 0f);
+            Top.Set(5, 0f);
             Recalculate();
         }
 

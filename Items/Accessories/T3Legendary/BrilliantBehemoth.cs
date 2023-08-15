@@ -8,6 +8,7 @@ using RiskOfTerrain.Content.Accessories;
 using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using Terraria.Audio;
+using System;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
@@ -35,14 +36,20 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             {
                 d = (int)(item.damage * 0.05);
             }
-            else if (projOrItem is Projectile projectile && projectile.type != ModContent.ProjectileType<BehemothExplosion>())
+            else if (projOrItem is Projectile projectile)
             {
+                if (projectile.type == ModContent.ProjectileType<BehemothExplosion>())
+                {
+                    return;
+                }
                 d = (int)(projectile.damage * 0.05);
             }
             else
             {
                 d = (int)(damage.Flat * 0.05f);
             }
+
+            d = Math.Max(d, 1);
 
             SoundEngine.PlaySound(RiskOfTerrain.GetSounds("behemoth/item_proc_behemoth_0", 4).WithVolumeScale(0.2f), entity.entity.Center);
 

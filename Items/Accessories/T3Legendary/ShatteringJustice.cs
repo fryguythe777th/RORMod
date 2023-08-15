@@ -30,6 +30,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             if (victim.entity is NPC target && target.ROR().shatterizationCount < 3 && target.ROR().timeSinceLastHit < 60)
             {
                 target.ROR().shatterizationCount++;
+                //target.netUpdate = true;
                 target.AddBuff(ModContent.BuffType<ShatteredDebuff>(), 10800);
             }
         }

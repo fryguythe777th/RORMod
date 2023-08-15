@@ -17,7 +17,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.RedTier.Add((Type, () => Main.hardMode));
+            RORItem.RedTier.Add(Type);
         }
 
         public override void SetDefaults()
@@ -31,11 +31,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
-            if (victim.entity is NPC npc && Main.rand.NextBool(5))
+            if (victim.entity is NPC npc && entity.RollLuck(5) == 0)
             {
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
-                    if (RORNPC.Distance(Main.npc[i], npc) <= 400 && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0 && i != npc.whoAmI)
+                    if (RORNPC.Distance(Main.npc[i], npc) <= 400 && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0 && i != npc.whoAmI && npc.aiStyle != NPCAIStyleID.Worm)
                     {
                         Projectile.NewProjectile(entity.GetSource_Accessory(Item), victim.Center, Vector2.Zero, ModContent.ProjectileType<MeatHookProjDamaging>(), 0, 0, entity.GetProjectileOwnerID(), i, npc.whoAmI);
                     }

@@ -86,6 +86,7 @@ namespace RiskOfTerrain
             var t = (PacketType)reader.ReadByte();
             switch (t)
             {
+                //HOW THE FUCK DID I MAKE THIS STOP WORKING WTF
                 case PacketType.SyncRORNPC:
                     {
                         int npc = reader.ReadInt32();

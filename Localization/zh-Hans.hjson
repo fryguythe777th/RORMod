@@ -677,7 +677,7 @@ Mods: {
 			}
 
 			ArtificerBoltWeapon: {
-				// DisplayName: Arcane Gauntlets
+				// DisplayName: ENV Gauntlets
 				/* Tooltip:
 					'''
 					Has three modes which can be cycled with right click
@@ -709,7 +709,12 @@ Mods: {
 
 			HardlightAfterburner: {
 				// DisplayName: Hardlight Afterburner
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					You can hold up to three dashes at once
+					Dashes have a 10 second cooldown
+					''' */
+				// KeybindTooltip: Dash towards your mouse using {Keybind}
 			}
 		}
 

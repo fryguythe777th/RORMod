@@ -24,6 +24,8 @@ namespace RiskOfTerrain.Projectiles.Accessory.Damaging
             Projectile.hostile = false;
             Projectile.width = 48;
             Projectile.height = 48;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 20;
         }
 
         public override Color? GetAlpha(Color lightColor)

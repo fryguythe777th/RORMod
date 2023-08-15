@@ -43,5 +43,14 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 player.statLife += 15;
             }
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Turtle)
+                .AddIngredient(ItemID.Topaz, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
     }
 }

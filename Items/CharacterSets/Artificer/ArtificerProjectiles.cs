@@ -150,7 +150,14 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<ArtiFreeze>(), 200);
+            if (!target.boss)
+            {
+                target.AddBuff(ModContent.BuffType<ArtiFreeze>(), 200);
+            }
+            else if (Main.player[Projectile.owner].RollLuck(20) == 0)
+            {
+                target.AddBuff(ModContent.BuffType<ArtiFreeze>(), 200);
+            }
         }
 
         public override void Kill(int timeLeft)

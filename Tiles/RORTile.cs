@@ -3,6 +3,7 @@ using RiskOfTerrain.Tiles.Furniture;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Tiles

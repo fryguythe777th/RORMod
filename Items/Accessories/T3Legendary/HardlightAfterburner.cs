@@ -119,5 +119,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
                 }
             }
         }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Insert(RORItem.GetIndex(tooltips, "Consumable"), new TooltipLine(Mod, "Consumable",
+                Language.GetTextValueWith("Mods.RiskOfTerrain.Items.HardlightAfterburner.KeybindTooltip", new { Keybind = $"[{Helpers.GetKeyName(RORKeybinds.AfterburnerDashKey)}]" })));
+        }
     }
 }

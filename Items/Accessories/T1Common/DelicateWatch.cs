@@ -29,5 +29,15 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
                 player.GetDamage(DamageClass.Generic) += 0.1f;
             }
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddRecipeGroup(nameof(ItemID.CopperBar), 5)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 3)
+                .AddTile(TileID.Chairs)
+                .AddTile(TileID.Tables)
+                .Register();
+        }
     }
 }

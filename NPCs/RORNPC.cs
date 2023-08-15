@@ -181,11 +181,6 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                npc.netUpdate = true;
-            }
         }
 
         public static void TeslaLightning(Player player, NPC npc, int damage)
@@ -212,21 +207,6 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                npc.netUpdate = true;
-            }
-        }
-
-        public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
-        {
-            binaryWriter.Write7BitEncodedInt(shatterizationCount);
-        }
-
-        public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
-        {
-            shatterizationCount = binaryReader.ReadInt32();
         }
 
         public override void Unload()
@@ -635,22 +615,11 @@ namespace RiskOfTerrain.NPCs
             }
         }
 
-        public override void ModifyShop(NPCShop shop)
-        {
-            if (shop.NpcType == NPCID.Mechanic)
-            {
-                shop.Add(ModContent.ItemType<ArtificerHead>(), Condition.NightOrEclipse);
-                shop.Add(ModContent.ItemType<ArtificerBody>(), Condition.NightOrEclipse);
-                shop.Add(ModContent.ItemType<ArtificerLegs>(), Condition.NightOrEclipse);
-                shop.Add(ModContent.ItemType<ArtificerBoltWeapon>(), Condition.NightOrEclipse);
-            }
-        }
-
         public void Send(int whoAmI, BinaryWriter writer)
         {
             writer.Write(bleedingStacks);
 
-            var bb = new BitsByte(bleedShatterspleen, syncLifeMax, gasolineDamage > 0);
+            var bb = new BitsByte(bleedShatterspleen, syncLifeMax, gasolineDamage > 0/*, shatterizationCount > 0*/);
             writer.Write(bb);
 
             if (bb[1])
@@ -662,6 +631,11 @@ namespace RiskOfTerrain.NPCs
             {
                 writer.Write(gasolineDamage);
             }
+
+            //if (bb[3])
+            //{
+            //    writer.Write(shatterizationCount);
+            //}
 
             Main.npc[whoAmI].GetElitePrefixes(out var prefixes);
             writer.Write((byte)prefixes.Count);
@@ -687,6 +661,11 @@ namespace RiskOfTerrain.NPCs
             {
                 gasolineDamage = reader.ReadInt32();
             }
+
+            //if (bb[3])
+            //{
+            //    shatterizationCount = reader.ReadInt32();
+            //}
 
             int elitePrefixesCount = reader.ReadByte();
             for (int i = 0; i < elitePrefixesCount; i++)
