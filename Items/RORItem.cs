@@ -267,6 +267,20 @@ namespace RiskOfTerrain.Items
 
                     if (Main.tile[c.x, c.y].TileType == TileID.Containers)
                     {
+                        if (style == 1)
+                        {
+                            if (r.NextBool(10))
+                            {
+                                if (r.NextBool())
+                                {
+                                    AddItem(c, ModContent.ItemType<OldGuillotine>(), prefix: -1);
+                                }
+                                else 
+                                {
+                                    AddItem(c, ModContent.ItemType<OldWarStealthkit>(), prefix: -1);
+                                }
+                            }
+                        }
                         if (style == 50)
                         {
                             if (r.NextBool(2))
