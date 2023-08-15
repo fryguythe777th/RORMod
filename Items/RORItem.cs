@@ -25,6 +25,7 @@ using Terraria.ModLoader;
 using Terraria.Social;
 using Terraria.Utilities;
 using Terraria.WorldBuilding;
+using RiskOfTerrain.Items.Accessories.T2Uncommon;
 using RiskOfTerrain.Items.Accessories.T3Legendary;
 
 namespace RiskOfTerrain.Items
