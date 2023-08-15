@@ -163,11 +163,8 @@ namespace RiskOfTerrain.NPCs
  * Infusion
  * Kjaro's Band - ELDER LEMURIANS
  * Lepton Daisy - TILE
- * Old Guillotine
- * Old War Stealthkit
  * Predatory Instincts
  * Razorwire
- * Reloading Shurikens - ADD TO SHADOW CHESTS?
  * Rose Buckler
  * Runald's Band - ELDER LEMURIANS
  * Ukulele
