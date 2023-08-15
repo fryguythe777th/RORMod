@@ -267,7 +267,7 @@ namespace RiskOfTerrain.Items
 
                     if (Main.tile[c.x, c.y].TileType == TileID.Containers)
                     {
-                        if (style == 1)
+                        if (style == 0)
                         {
                             if (r.NextBool(10))
                             {
