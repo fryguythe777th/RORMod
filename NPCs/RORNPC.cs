@@ -156,7 +156,7 @@ namespace RiskOfTerrain.NPCs
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].active && Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false)
+                if (Main.npc[i].active && Distance(npc, Main.npc[i]) <= 150 && Main.npc[i].ROR().hasBeenStruckByUkuleleLightning == false && !Main.npc[i].friendly && Main.npc[i].lifeMax > 5 && Main.npc[i].damage > 0)
                 {
                     UkuleleLightning(Main.npc[i], damage, timesProcced + 1);
 
@@ -183,7 +183,7 @@ namespace RiskOfTerrain.NPCs
             npc.StrikeNPC(hit);
         }
 
-        public static void TeslaLightning(Player player, NPC npc, int damage)
+        public static void TeslaLightning(Entity player, NPC npc, int damage)
         {
             if (npc.active)
             {
@@ -440,6 +440,8 @@ namespace RiskOfTerrain.NPCs
 
         public void ModifyHit(NPC npc, Entity projOrPlayer, ref NPC.HitModifiers modifiers)
         {
+            timeSinceLastHit = 0;
+
             modifiers.Defense *= npc.ROR().statDefense;
 
             if (npc.HasBuff<DeathMarkDebuff>())

@@ -165,7 +165,7 @@ Mods: {
 
 			SoldiersSyringe: {
 				// DisplayName: Soldier's Syringe
-				// Tooltip: 12% increased attack speed
+				// Tooltip: 10% increased attack speed
 			}
 
 			StickyExplosives: {
@@ -351,7 +351,7 @@ Mods: {
 					'''
 					8% chance on hit to summon an icy explosion, freezing enemies
 					This effect has a 10 second cooldown
-					Will activate in sync with Kjaro's band
+					Will activate in sync with Kjaro's Band
 					''' */
 			}
 
@@ -562,7 +562,7 @@ Mods: {
 
 			NkuhanasOpinion: {
 				// DisplayName: N'kuhana's Opinion
-				// Tooltip: Fire homing skulls as you heal that becomes more powerful the more you heal
+				// Tooltip: Fire homing skulls as you heal that become more powerful the more you heal
 			}
 
 			HappiestMask: {
@@ -610,7 +610,7 @@ Mods: {
 
 			AlienHead: {
 				// DisplayName: Alien Head
-				// Tooltip: 10% increased attack speed
+				// Tooltip: 15% increased attack speed
 			}
 
 			Brainstalks: {
@@ -715,6 +715,11 @@ Mods: {
 					Dashes have a 10 second cooldown
 					''' */
 				// KeybindTooltip: Dash towards your mouse using {Keybind}
+			}
+
+			EngineerTurretSpawner: {
+				// DisplayName: Engineer Turret Spawner
+				// Tooltip: ""
 			}
 		}
 
@@ -1016,6 +1021,8 @@ Mods: {
 			// IceSpear.DisplayName: Ice Spear
 			// ElementIcon.DisplayName: Element Icon
 			// MeatHookProjDamaging.DisplayName: Meat Hook Proj Damaging
+			// EngineerTurret.DisplayName: Engineer Turret
+			// EngineerTurretBullet.DisplayName: Engineer Turret Bullet
 		}
 
 		Tiles: {

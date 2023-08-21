@@ -24,7 +24,7 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed(DamageClass.Generic) += 0.12f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.1f;
         }
     }
 }

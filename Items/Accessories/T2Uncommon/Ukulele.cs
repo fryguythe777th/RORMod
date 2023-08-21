@@ -26,8 +26,6 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 1, silver: 50);
         }
 
-        
-
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
             if (Main.rand.NextBool(10) && victim.entity is NPC npc)

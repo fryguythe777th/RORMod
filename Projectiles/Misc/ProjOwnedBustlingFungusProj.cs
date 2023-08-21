@@ -95,7 +95,7 @@ namespace RiskOfTerrain.Projectiles.Accessory.Utility
             }
 
 
-            if (Main.projectile[Projectile.owner].active)
+            if (Main.projectile[Projectile.owner].active && Main.player[Main.projectile[Projectile.owner].whoAmI].ROR().accBungus)
             {
                 Projectile.scale = MathHelper.Lerp(Projectile.scale, 312f, 0.2f);
                 Projectile.Center = Main.projectile[Projectile.owner].Center;

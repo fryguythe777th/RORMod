@@ -80,15 +80,15 @@ namespace RiskOfTerrain.NPCs
             }
             if (npc.type == NPCID.GoblinSummoner) 
             {
-                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BottledChaos>(), 6, 3);
+                npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<BottledChaos>(), 6, 3));
             }
             if (npc.type == NPCID.BigMimicCorruption) 
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Brainstalks>(), 5);
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Brainstalks>(), 5));
             }
             if (npc.type == NPCID.BigMimicCrimson)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BerzerkersPauldron>(), 5);
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BerzerkersPauldron>(), 5));
             }
         }
 

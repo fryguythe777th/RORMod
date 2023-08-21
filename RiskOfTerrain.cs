@@ -138,29 +138,29 @@ namespace RiskOfTerrain
             }
         }
 
-        //public override void PostSetupContent()
-        //{
-        //    if (ModLoader.TryGetMod("Aequus", out Mod aequus))
-        //    {
-        //        aequus.Call("SentryAccessory", ModContent.ItemType<BustlingFungus>(), (Projectile sentry, Item bungus, Player impostor) =>
-        //        {
-        //            bool bungusSpotted = false;
-        //            for (int i = 0; i < Main.maxProjectiles; i++)
-        //            {
-        //                if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<ProjOwnedBustlingFungusProj>() && sentry.whoAmI == Main.projectile[i].owner)
-        //                {
-        //                    bungusSpotted = true;
-        //                    return;
-        //                }
-        //            }
+        public override void PostSetupContent()
+        {
+            if (ModLoader.TryGetMod("Aequus", out Mod aequus))
+            {
+                aequus.Call("SentryAccessory", ModContent.ItemType<BustlingFungus>(), (Projectile sentry, Item bungus, Player impostor) =>
+                {
+                    bool bungusSpotted = false;
+                    for (int i = 0; i < Main.maxProjectiles; i++)
+                    {
+                        if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<ProjOwnedBustlingFungusProj>())
+                        {
+                            bungusSpotted = true;
+                            return;
+                        }
+                    }
 
-        //            if (!bungusSpotted)
-        //            {
-        //                Projectile.NewProjectile(sentry.GetSource_FromThis(), sentry.Center, Vector2.Zero, ModContent.ProjectileType<ProjOwnedBustlingFungusProj>(), 0, 0, sentry.whoAmI);
-        //            }
-        //        });
-        //    }
-        //}
+                    if (!bungusSpotted)
+                    {
+                        Projectile.NewProjectile(sentry.GetSource_FromThis(), sentry.Center, Vector2.Zero, ModContent.ProjectileType<ProjOwnedBustlingFungusProj>(), 0, 0, sentry.whoAmI);
+                    }
+                });
+            }
+        }
 
         internal static SoundStyle GetSounds(string name, int num, float volume = 1f, float pitch = 0f, float variance = 0f)
         {

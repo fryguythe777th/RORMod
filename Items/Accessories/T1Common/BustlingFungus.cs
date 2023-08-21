@@ -26,6 +26,11 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
             Item.value = Item.sellPrice(gold: 1);
         }
 
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.ROR().accBungus = true;
+        }
+
         public override void PostUpdate(EntityInfo entity)
         {
             if (entity.IdleTime() > 60 && entity.entity is Player player)
