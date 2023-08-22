@@ -5,6 +5,8 @@ using RiskOfTerrain.Content.Elites;
 using Terraria.ID;
 using RiskOfTerrain.NPCs;
 using System.Collections.Generic;
+using Terraria.Chat;
+using Terraria.Localization;
 
 namespace RiskOfTerrain.Items.Testing
 {
@@ -75,9 +77,18 @@ namespace RiskOfTerrain.Items.Testing
             }
             else
             {
-                Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<EliteSpawningProj>(), 0, 0, ai0: addedPrefixIndex, Owner: player.whoAmI);
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && Main.npc[i].Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X-5, (int)Main.MouseWorld.Y-5, 10,10)))
+                    {
+                        Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<EliteSpawningProj>(), 0, 0, ai0: addedPrefixIndex, ai1:i, Owner: player.whoAmI);
+                        Main.combatText[i].text = $"Converting {Main.npc[i].FullName} Id:{i} to elite";
+                        return true;
+                    }
+                }
 
-                return true;
+                return false;
+                
             }
         }
 
@@ -115,22 +126,24 @@ namespace RiskOfTerrain.Items.Testing
 
         public override void AI()
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox))
+                // Validate that npc is still active
+                var npcId = (int)Projectile.ai[1];
+                if (Main.npc[npcId].active)
                 {
-                    NPC target = Main.npc[i];
+                    // Check so the npc is not already elite
+
+                    var target = Main.npc[npcId];
                     var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
-                    target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
-                    target.GetElitePrefixes(out var myPrefixes);
-                    if (myPrefixes.Count > 0)
+                    if (!target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active)
                     {
-                        target.netUpdate = true;
-                        target.ROR().syncLifeMax = true;
+                        target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral($"Server converted npc to elite {target.whoAmI} - {target.lifeMax}"), new Color(255, 240, 20), Projectile.owner);
                     }
-                    foreach (var p in myPrefixes)
+                    else
                     {
-                        p.OnBecomeElite(target);
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Target is already elite"), new Color(255, 240, 20), Projectile.owner);
                     }
                 }
             }

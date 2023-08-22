@@ -1023,6 +1023,7 @@ Mods: {
 			MeatHookProjDamaging.DisplayName: Meat Hook Proj Damaging
 			EngineerTurret.DisplayName: Engineer Turret
 			EngineerTurretBullet.DisplayName: Engineer Turret Bullet
+			LightningEffectProj.DisplayName: Lightning Effect Proj
 		}
 
 		Tiles: {

@@ -181,6 +181,8 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
+            NetMessage.SendStrikeNPC(npc, hit);
+            
         }
 
         public static void TeslaLightning(Entity player, NPC npc, int damage)
@@ -207,6 +209,7 @@ namespace RiskOfTerrain.NPCs
                 HitDirection = 0
             };
             npc.StrikeNPC(hit);
+            NetMessage.SendStrikeNPC(npc, hit);
         }
 
         public override void Unload()
@@ -359,13 +362,7 @@ namespace RiskOfTerrain.NPCs
                 savedLife = npc.life;
             }
 
-            if (npc.netUpdate)
-                Sync(npc.whoAmI);
-
-            if (Main.dedServ)
-                return;
-
-            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()))
+            if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()) && !Main.dedServ)
             {
                 if (Main.GameUpdateCount % 20 == 0)
                 {
@@ -482,6 +479,7 @@ namespace RiskOfTerrain.NPCs
                 NPC.HitInfo hit = new NPC.HitInfo();
                 hit.Damage = npc.life;
                 npc.StrikeNPC(hit);
+                NetMessage.SendStrikeNPC(npc, hit);
 
                 SoundStyle iceShatter = new SoundStyle();
                 iceShatter.SoundPath = SoundID.Shatter.SoundPath;
@@ -617,6 +615,16 @@ namespace RiskOfTerrain.NPCs
             }
         }
 
+        public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+        {
+            base.SendExtraAI(npc, bitWriter, binaryWriter);
+        }
+
+        public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+        {
+            base.ReceiveExtraAI(npc, bitReader, binaryReader);
+        }
+
         public void Send(int whoAmI, BinaryWriter writer)
         {
             writer.Write(bleedingStacks);
@@ -683,10 +691,10 @@ namespace RiskOfTerrain.NPCs
 
             if (Main.npc[npc].TryGetGlobalNPC<RORNPC>(out var ror))
             {
-                var p = RiskOfTerrain.GetPacket(PacketType.SyncRORNPC);
-                p.Write(npc);
-                ror.Send(npc, p);
-                p.Send();
+                //var p = RiskOfTerrain.GetPacket(PacketType.SyncRORNPC);
+                //p.Write(npc);
+                //ror.Send(npc, p);
+                //p.Send();
             }
         }
     }
