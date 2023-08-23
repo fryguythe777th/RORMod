@@ -140,38 +140,32 @@ namespace RiskOfTerrain.Items.Testing
                     {
                         target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
                         ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral($"Server converted npc to elite {target.whoAmI} - {target.lifeMax}"), new Color(255, 240, 20), Projectile.owner);
-                    }
-                    else
-                    {
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Target is already elite"), new Color(255, 240, 20), Projectile.owner);
-                    }
                 }
+                else
+                {
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Target is already elite"), new Color(255, 240, 20), Projectile.owner);
+                }
+            }
             }
         }
     }
 }
 
 /*MULTIPLAYER BUGS
- * they also crash the client when struck and dont attach bombs
- * tesla damage is instantly healed
- * artificer weapon is not under player all the time
- * celestine circle sometimes dies instantly
+ * overloading elites crash the client when struck, dont have real health, and dont attach bombs
  * ifrits distinction doesnt work on some players?
+ * his reassurance health is reset when healing npcs (like how tesla damage was reset)
  * his reassurance heal line doesnt show up for the holder
  * silence two strike bombs only show up on client
  * focus crystal numbers are only purple on client
  * blazing plops dont have knockback off
  * infusion max health upgrade doesnt show for other players
- * with ukulele, enemies arent shown to take damage,
- * and the lazer doesnt appear. the whole accessory is client side
  * behemoth projectile doesnt rotate on spawn for other players
  * ghosts never spawn
- * ghosts tend to vanish
+ * ghosts tend to vanish w/ an index out of bounds error
  * ghosts dont get their projectiles ghosted (probably just make happiest mask a "buggy in multiplayer" item
  * other players see that those who hold headstompers have jump boost applied regardless of whether or not it is on cooldown
- * shattering justice doesnt make enemies different color
- * also probably isnt syncing the rornpc stat that makes it work
- * nvm sbc just doesnt work at all
+ * soulbound catalyst just doesnt work at all when viewed by other players
  * artifacts dont display in chat that you activated them
  * artifact of dissonance does not work at all
  * enigma doesnt work on the other player
@@ -179,4 +173,5 @@ namespace RiskOfTerrain.Items.Testing
  * artifact of spite does not work at all
  * artifact of honor does not work at all
  * when you do the arti jump the other player sees you teleport
+ * there are a bunch of "read underflow" errors that started popping up recently as a result of something i did which i cannot remember
 */
