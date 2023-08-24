@@ -140,12 +140,12 @@ namespace RiskOfTerrain.Items.Testing
                     {
                         target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
                         ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral($"Server converted npc to elite {target.whoAmI} - {target.lifeMax}"), new Color(255, 240, 20), Projectile.owner);
+                    }
                 }
                 else
                 {
                     ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Target is already elite"), new Color(255, 240, 20), Projectile.owner);
                 }
-            }
             }
         }
     }
