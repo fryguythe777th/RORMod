@@ -721,6 +721,11 @@ Mods: {
 				DisplayName: Engineer Turret Spawner
 				Tooltip: ""
 			}
+
+			MinerPickaxeWeapon: {
+				DisplayName: Miner Pickaxe Weapon
+				Tooltip: ""
+			}
 		}
 
 		SetBonuses.ArtificerSet: 10% reduced mana cost
