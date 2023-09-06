@@ -726,6 +726,21 @@ Mods: {
 				DisplayName: Miner Pickaxe Weapon
 				Tooltip: ""
 			}
+
+			MinerBody: {
+				DisplayName: Miner Body
+				Tooltip: ""
+			}
+
+			MinerHead: {
+				DisplayName: Miner Head
+				Tooltip: ""
+			}
+
+			MinerLegs: {
+				DisplayName: Miner Legs
+				Tooltip: ""
+			}
 		}
 
 		SetBonuses.ArtificerSet: 10% reduced mana cost

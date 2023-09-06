@@ -503,6 +503,17 @@ namespace RiskOfTerrain.NPCs
                 Main.npc[i].GetGlobalNPC<GhostElite>().owner = happiestMaskHolder;
             }
 
+            if (closest.ROR().minerSetBonusActive)
+            {
+                RORPlayer miner = closest.ROR();
+
+                miner.minerFuel += 400;
+                if (miner.minerFuel > 2000)
+                {
+                    miner.minerFuel = 2000;
+                }
+            }
+
             if (npc.SpawnedFromStatue || npc.friendly || npc.lifeMax < 5)
                 return;
 

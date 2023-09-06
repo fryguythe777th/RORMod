@@ -19,35 +19,17 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
         public override void OnInitialize()
         {
             barOutline = new UIImage(ModContent.Request<Texture2D>("RiskOfTerrain/Items/CharacterSets/Artificer/ChargeBarOutline"));
-            barOutline.Left.Set(/*-(38 + (Main.screenWidth / 2))*/0, 1f);
-            barOutline.Top.Set(/*35 + Main.screenHeight / 2*/0, 0f);
+            barOutline.Left.Set(-42, 1f);
+            barOutline.Top.Set(35, 0f);
             barOutline.Width.Set(42, 0f);
             barOutline.Height.Set(18, 0f);
+            barOutline.HAlign = -0.5f;
+            barOutline.VAlign = 0.5f;
 
             gradientA = new Color(255, 187, 96);
             gradientB = new Color(82, 217, 255);
 
             Append(barOutline);
-        }
-
-        public override void OnActivate()
-        {
-            base.OnActivate();
-            centerOnPlayer = true;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            if (!centerOnPlayer)
-            {
-                return;
-            }
-            centerOnPlayer = false;
-            Left.Set(-Main.screenWidth / 2, 0f);
-            Top.Set(Main.screenHeight / 2, 0f);
-            Recalculate();
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

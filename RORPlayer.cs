@@ -110,6 +110,9 @@ namespace RiskOfTerrain
         public int boundSoulRotTick;
 
         public float artificerCharge;
+        public float minerDashCharge;
+        public bool minerSetBonusActive;
+        public float minerFuel;
 
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
@@ -516,6 +519,8 @@ namespace RiskOfTerrain
 
             aspCelestine = false;
             aspMending = false;
+
+            minerSetBonusActive = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
             maxShield = 0f;

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using rail;
 using ReLogic.Content;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
 using Terraria;
@@ -33,7 +34,6 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
             Item.pick = 165;
         }
 
-        public int dashCharge = 0;
         public int dashCooldown = 0; //set to 480
         public int dashTime = 0;
         public float savedY = 0;
@@ -42,17 +42,17 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
         {
             if (Main.mouseRight && dashCooldown == 0)
             {
-                dashCharge++;
+                player.ROR().minerDashCharge++;
             }
 
             if (!Main.mouseRight)
             {
-                dashCharge = 0;
+                player.ROR().minerDashCharge = 0;
             }
 
-            if (dashCharge == 120)
+            if (player.ROR().minerDashCharge == 120)
             {
-                dashCharge = 0;
+                player.ROR().minerDashCharge = 0;
                 dashCooldown = 480;
                 dashTime = 30;
                 player.eocDash = 30;
@@ -118,9 +118,23 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
                 {
                     if (!Main.npc[i].friendly && Main.npc[i].lifeMax > 5 && Main.npc[i].damage > 0 && Main.npc[i].active && Main.npc[i].Hitbox.Intersects(player.Hitbox))
                     {
-                        Main.npc[i].StrikeNPC
+                        NPC.HitInfo hit = new NPC.HitInfo
+                        {
+                            DamageType = DamageClass.Default,
+                            SourceDamage = 40,
+                            Damage = 40,
+                            Crit = false,
+                            Knockback = 10f,
+                            HitDirection = player.direction
+                        };
+                        Main.npc[i].StrikeNPC(hit);
+                        NetMessage.SendStrikeNPC(Main.npc[i], hit);
                     }
                 }
+
+                //axis of awesome 4 chords
+                //mix and match lyrics
+                //stairway to gilligan's island
             }
         }
 
