@@ -48,7 +48,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
             base.DrawSelf(spriteBatch);
 
             var modPlayer = Main.LocalPlayer.ROR();
-            float quotient = (float)modPlayer.minerDashCharge / 120;
+            float quotient = (float)modPlayer.minerDashCharge / modPlayer.minerMaxCharge;
             quotient = Utils.Clamp(quotient, 0f, 1f);
 
             Rectangle hitbox = barOutline.GetInnerDimensions().ToRectangle();

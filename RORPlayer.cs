@@ -111,6 +111,7 @@ namespace RiskOfTerrain
 
         public float artificerCharge;
         public float minerDashCharge;
+        public float minerMaxCharge = 120;
         public bool minerSetBonusActive;
         public float minerFuel;
 
@@ -790,6 +791,31 @@ namespace RiskOfTerrain
         {
             Accessories.OnHit(Player, target, item, hit);
             BandsProc(Player, target);
+
+            if (minerSetBonusActive)
+            {
+                minerFuel += 20;
+                if (minerFuel > 2000)
+                {
+                    minerFuel = 2000;
+                }
+            }
+
+            if (minerFuel >= 500 && minerFuel < 1000 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+            }
+
+            if (minerFuel >= 1000 && minerFuel < 1500 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire3, 180);
+            }
+
+            if (minerFuel >= 1500 && minerFuel <= 2000 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire3, 180);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<BehemothExplosion>(), (int)(hit.Damage * 0.05), 0, Player.whoAmI);
+            }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
@@ -798,6 +824,31 @@ namespace RiskOfTerrain
             if (proj.type != ModContent.ProjectileType<KjarosBandTornado>() && proj.type != ModContent.ProjectileType<RunaldsBandExplosion>() && proj.type != ModContent.ProjectileType<RunaldsBandShard>())
             {
                 BandsProc(Player, target);
+            }
+
+            if (minerSetBonusActive)
+            {
+                minerFuel += 20;
+                if (minerFuel > 2000)
+                {
+                    minerFuel = 2000;
+                }
+            }
+
+            if (minerFuel >= 500 && minerFuel < 1000 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire, 180);
+            }
+
+            if (minerFuel >= 1000 && minerFuel < 1500 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire3, 180);
+            }
+
+            if (minerFuel >= 1500 && minerFuel <= 2000 && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.OnFire3, 180);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<BehemothExplosion>(), (int)(hit.Damage * 0.05), 0, Player.whoAmI);
             }
         }
 

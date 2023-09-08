@@ -95,5 +95,20 @@ namespace RiskOfTerrain.Tiles
                 }
             }
         }
+
+        public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            Player closest = Main.player[Player.FindClosest(new Vector2(i, j), 1, 1)];
+
+            if (closest.ROR().minerSetBonusActive)
+            {
+                RORPlayer miner = closest.ROR();
+                miner.minerFuel += 20;
+                if (miner.minerFuel > 2000)
+                {
+                    miner.minerFuel = 2000;
+                }
+            }
+        }
     }
 }

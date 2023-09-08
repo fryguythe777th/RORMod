@@ -68,7 +68,7 @@ namespace RiskOfTerrain.Projectiles.Elite
                     if (Main.player[i].active && !Main.player[i].dead && Main.player[i].Distance(Projectile.Center) < Projectile.scale / 2f)
                     {
                         Main.player[i].Hurt(PlayerDeathReason.ByNPC(Projectile.owner), 40, 0);
-                        Main.player[i].AddBuff(BuffID.Frozen, 300);
+                        Main.player[i].AddBuff(BuffID.Frozen, 150);
                     }
                 }
 

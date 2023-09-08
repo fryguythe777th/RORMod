@@ -40,19 +40,39 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 
         public override void HoldItem(Player player)
         {
+            RORPlayer miner = player.ROR();
+
+            if (miner.minerDashCharge > 0)
+            {
+                if (miner.minerFuel < 1000)
+                {
+                    miner.minerMaxCharge = 120;
+                }
+
+                if (miner.minerFuel >= 1000 && miner.minerFuel < 1500)
+                {
+                    miner.minerMaxCharge = 90;
+                }
+
+                if (miner.minerFuel >= 1500 && miner.minerFuel <= 2000)
+                {
+                    miner.minerMaxCharge = 60;
+                }
+            }
+
             if (Main.mouseRight && dashCooldown == 0)
             {
-                player.ROR().minerDashCharge++;
+                miner.minerDashCharge++;
             }
 
             if (!Main.mouseRight)
             {
-                player.ROR().minerDashCharge = 0;
+                miner.minerDashCharge = 0;
             }
 
-            if (player.ROR().minerDashCharge == 120)
+            if (miner.minerDashCharge == miner.minerMaxCharge)
             {
-                player.ROR().minerDashCharge = 0;
+                miner.minerDashCharge = 0;
                 dashCooldown = 480;
                 dashTime = 30;
                 player.eocDash = 30;
@@ -104,6 +124,16 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
                             else
                             {
                                 WorldGen.KillTile(playerTileCoordsX, playerTileCoordsY);
+
+                                if (player.ROR().minerSetBonusActive)
+                                {
+                                    RORPlayer miner = player.ROR();
+                                    miner.minerFuel += 20;
+                                    if (miner.minerFuel > 2000)
+                                    {
+                                        miner.minerFuel = 2000;
+                                    }
+                                }
                             }
                         }
                     }

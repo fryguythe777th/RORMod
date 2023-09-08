@@ -10,6 +10,8 @@ using RiskOfTerrain.Items.Accessories.T1Common;
 using RiskOfTerrain.Items.CharacterSets.Artificer;
 using RiskOfTerrain.Items.Consumable;
 using RiskOfTerrain.Projectiles.Accessory.Damaging;
+using RiskOfTerrain.Projectiles.Accessory.Utility;
+using RiskOfTerrain.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -505,12 +507,9 @@ namespace RiskOfTerrain.NPCs
 
             if (closest.ROR().minerSetBonusActive)
             {
-                RORPlayer miner = closest.ROR();
-
-                miner.minerFuel += 400;
-                if (miner.minerFuel > 2000)
+                if (npc.lifeMax > 5 && npc.friendly == false && npc.SpawnedFromStatue == false && Main.rand.NextBool(5))
                 {
-                    miner.minerFuel = 2000;
+                    Projectile.NewProjectile(closest.GetSource_FromThis(), npc.Center, Vector2.Zero, ModContent.ProjectileType<FuelProj>(), 0, 0);
                 }
             }
 

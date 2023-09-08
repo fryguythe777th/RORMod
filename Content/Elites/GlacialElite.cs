@@ -26,7 +26,7 @@ namespace RiskOfTerrain.Content.Elites
         {
             if (active)
             {
-                target.AddBuff(ModContent.BuffType<GlacialSlow>(), 300);
+                target.AddBuff(ModContent.BuffType<GlacialSlow>(), 150);
             }
         }
 

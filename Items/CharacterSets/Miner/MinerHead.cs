@@ -46,6 +46,21 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
             {
                 miner.minerFuel--;
             }
+
+            if (miner.minerFuel >= 500 && miner.minerFuel < 1000)
+            {
+                player.GetAttackSpeed<MeleeDamageClass>() += 0.1f;
+            }
+
+            if (miner.minerFuel >= 1000 && miner.minerFuel < 1500)
+            {
+                player.GetAttackSpeed<MeleeDamageClass>() += 0.2f;
+            }
+
+            if (miner.minerFuel >= 1500 && miner.minerFuel <= 2000)
+            {
+                player.GetAttackSpeed<MeleeDamageClass>() += 0.3f;
+            }
         }
     }
 }

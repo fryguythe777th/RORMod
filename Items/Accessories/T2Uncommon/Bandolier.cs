@@ -32,6 +32,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), info.Center, Vector2.Zero, ModContent.ProjectileType<BandolierProj>(), 0, 0, ai1: info.lifeMax);
             }
         }
+
         public override bool CanConsumeAmmo(Player player, RORPlayer ror)
         {
             return Main.rand.NextFloat(1f) < (1f - Stacks * 0.1f);
