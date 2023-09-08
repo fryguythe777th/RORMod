@@ -36,6 +36,7 @@ namespace RiskOfTerrain.Content.Elites
                     hit.Damage = (int)Math.Round(npc.lifeMax / 60f);
                     hit.DamageType = DamageClass.Default;
                     npc.StrikeNPC(hit);
+                    NetMessage.SendStrikeNPC(npc, hit);
                     damageTimer = 60;
                 }
                 else
@@ -67,6 +68,7 @@ namespace RiskOfTerrain.Content.Elites
                         }
 
                         Main.npc[i].StrikeNPC(meleeHit);
+                        NetMessage.SendStrikeNPC(Main.npc[i], meleeHit);
                         Main.npc[i].immune[owner] = 10;
                     }
                 }

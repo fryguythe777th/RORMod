@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using RiskOfTerrain.NPCs;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Content.Elites
@@ -90,6 +92,7 @@ namespace RiskOfTerrain.Content.Elites
                         continue;
                     }
                     npc.GetGlobalNPC(l[rolled]).Active = true;
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spawned npc as elite"), new Color(255, 240, 20));
                     l.RemoveAt(rolled);
                 }
             }

@@ -5,6 +5,8 @@ using RiskOfTerrain.Content.Elites;
 using Terraria.ID;
 using RiskOfTerrain.NPCs;
 using System.Collections.Generic;
+using Terraria.Chat;
+using Terraria.Localization;
 
 namespace RiskOfTerrain.Items.Testing
 {
@@ -75,9 +77,18 @@ namespace RiskOfTerrain.Items.Testing
             }
             else
             {
-                Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<EliteSpawningProj>(), 0, 0, ai0: addedPrefixIndex, Owner: player.whoAmI);
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    if (Main.npc[i].active && Main.npc[i].Hitbox.Intersects(new Rectangle((int)Main.MouseWorld.X-5, (int)Main.MouseWorld.Y-5, 10,10)))
+                    {
+                        Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<EliteSpawningProj>(), 0, 0, ai0: addedPrefixIndex, ai1:i, Owner: player.whoAmI);
+                        Main.combatText[i].text = $"Converting {Main.npc[i].FullName} Id:{i} to elite";
+                        return true;
+                    }
+                }
 
-                return true;
+                return false;
+                
             }
         }
 
@@ -115,23 +126,25 @@ namespace RiskOfTerrain.Items.Testing
 
         public override void AI()
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (Main.npc[i].Hitbox.Intersects(Projectile.Hitbox))
+                // Validate that npc is still active
+                var npcId = (int)Projectile.ai[1];
+                if (Main.npc[npcId].active)
                 {
-                    NPC target = Main.npc[i];
+                    // Check so the npc is not already elite
+
+                    var target = Main.npc[npcId];
                     var l = new List<EliteNPCBase>(RORNPC.RegisteredElites);
-                    target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
-                    target.GetElitePrefixes(out var myPrefixes);
-                    if (myPrefixes.Count > 0)
+                    if (!target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active)
                     {
-                        target.netUpdate = true;
-                        target.ROR().syncLifeMax = true;
+                        target.GetGlobalNPC(l[(int)Projectile.ai[0]]).Active = true;
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral($"Server converted npc to elite {target.whoAmI} - {target.lifeMax}"), new Color(255, 240, 20), Projectile.owner);
                     }
-                    foreach (var p in myPrefixes)
-                    {
-                        p.OnBecomeElite(target);
-                    }
+                }
+                else
+                {
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Target is already elite"), new Color(255, 240, 20), Projectile.owner);
                 }
             }
         }
@@ -139,26 +152,20 @@ namespace RiskOfTerrain.Items.Testing
 }
 
 /*MULTIPLAYER BUGS
- * they also crash the client when struck and dont attach bombs
- * tesla damage is instantly healed
- * artificer weapon is not under player all the time
- * celestine circle sometimes dies instantly
+ * overloading elites crash the client when struck, dont have real health, and dont attach bombs
  * ifrits distinction doesnt work on some players?
+ * his reassurance health is reset when healing npcs (like how tesla damage was reset)
  * his reassurance heal line doesnt show up for the holder
  * silence two strike bombs only show up on client
  * focus crystal numbers are only purple on client
  * blazing plops dont have knockback off
  * infusion max health upgrade doesnt show for other players
- * with ukulele, enemies arent shown to take damage,
- * and the lazer doesnt appear. the whole accessory is client side
  * behemoth projectile doesnt rotate on spawn for other players
  * ghosts never spawn
- * ghosts tend to vanish
+ * ghosts tend to vanish w/ an index out of bounds error
  * ghosts dont get their projectiles ghosted (probably just make happiest mask a "buggy in multiplayer" item
  * other players see that those who hold headstompers have jump boost applied regardless of whether or not it is on cooldown
- * shattering justice doesnt make enemies different color
- * also probably isnt syncing the rornpc stat that makes it work
- * nvm sbc just doesnt work at all
+ * soulbound catalyst just doesnt work at all when viewed by other players
  * artifacts dont display in chat that you activated them
  * artifact of dissonance does not work at all
  * enigma doesnt work on the other player
@@ -166,4 +173,5 @@ namespace RiskOfTerrain.Items.Testing
  * artifact of spite does not work at all
  * artifact of honor does not work at all
  * when you do the arti jump the other player sees you teleport
+ * there are a bunch of "read underflow" errors that started popping up recently as a result of something i did which i cannot remember
 */

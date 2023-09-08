@@ -1045,6 +1045,7 @@ Mods: {
 			EngineerTurret.DisplayName: Engineer Turret
 			EngineerTurretBullet.DisplayName: Engineer Turret Bullet
 			FuelProj.DisplayName: Miner Fuel Tank
+			LightningEffectProj.DisplayName: Lightning Effect Proj
 		}
 
 		Tiles: {

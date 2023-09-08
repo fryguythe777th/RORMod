@@ -98,6 +98,7 @@ namespace RiskOfTerrain.Projectiles.Elite
                         hit.Knockback = 0;
 
                         npc.StrikeNPC(hit);
+                        NetMessage.SendStrikeNPC(npc, hit);
                         npc.AddBuff(ModContent.BuffType<RunaldFreeze>(), 600);
                     }
                 }
