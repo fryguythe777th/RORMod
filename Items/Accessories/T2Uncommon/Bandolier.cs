@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
+    [AutoloadEquip(EquipType.Neck)]
     public class Bandolier : ModAccessory
     {
         public override void SetStaticDefaults()

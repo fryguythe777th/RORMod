@@ -261,6 +261,7 @@ Mods: {
 					'''
 					Prevents fall damage
 					Increased jump height and speed
+					Grants an extra double jump
 					'''
 			}
 
@@ -297,11 +298,6 @@ Mods: {
 			LeptonDaisy: {
 				DisplayName: Lepton Daisy
 				Tooltip: During bosses and invasions, periodically heal all players for 20% of their max health
-			}
-
-			OldGuillotine: {
-				DisplayName: Old Guillotine
-				Tooltip: Execute elites under 13% health
 			}
 
 			OldWarStealthkit: {
@@ -398,46 +394,9 @@ Mods: {
 					'''
 			}
 
-			AlienHead: {
-				DisplayName: Alien Head
-				Tooltip: 15% increased attack speed
-			}
-
-			BensRaincoat: {
-				DisplayName: Ben's Raincoat
-				Tooltip:
-					'''
-					When a debuff is inflicted on you, it is removed and a 50-health barrier is given to you
-					This effect has a 20 second cooldown
-					'''
-			}
-
-			BottledChaos: {
-				DisplayName: Bottled Chaos
-				Tooltip:
-					'''
-					Drinking a potion will grant you another random buff for 10 seconds
-					This effect will not activate if you already have the buff the original potion grants
-					'''
-			}
-
-			Brainstalks: {
-				DisplayName: Brainstalks
-				Tooltip: After killing an elite, gain 70% increased attack speed for 10 seconds
-			}
-
 			BrilliantBehemoth: {
 				DisplayName: Brilliant Behemoth
 				Tooltip: All your attacks explode
-			}
-
-			Clover: {
-				DisplayName: 57 Leaf Clover
-				Tooltip:
-					'''
-					Increased chance for chance-based effects to occur
-					Increased luck
-					'''
 			}
 
 			DiosBestFriend: {
@@ -450,76 +409,6 @@ Mods: {
 					'''
 			}
 
-			FrostRelic: {
-				DisplayName: Frost Relic
-				Tooltip: Killing an enemy summons three damaging icicles that orbit you for 8 seconds
-			}
-
-			HappiestMask: {
-				DisplayName: Happiest Mask
-				Tooltip: 7% chance to turn killed enemies into ghosts
-			}
-
-			HardlightAfterburner: {
-				DisplayName: Hardlight Afterburner
-				Tooltip:
-					'''
-					You can hold up to three dashes at once
-					Dashes have a 10 second cooldown
-					'''
-				KeybindTooltip: Dash towards your mouse using {Keybind}
-			}
-
-			Headset: {
-				DisplayName: H3AD-5T v2
-				Tooltip: ""
-				KeybindTooltip:
-					'''
-					Stomp by pressing {Keybind}, which deals damage to enemies below you based on how far you fell
-					Increased jump height and speed, and you are immune to fall damage
-					The stomp and jump boost share a 10 second cooldown
-					'''
-			}
-
-			ICBM: {
-				DisplayName: ICBM
-				Tooltip: Missiles, rockets, and fireworks are tripled and deal extra damage
-			}
-
-			InterstellarDeskPlant: {
-				DisplayName: Interstellar Desk Plant
-				Tooltip:
-					'''
-					Killing an enemy spawns a healing plant
-					Only three of these plants can be present at once
-					'''
-			}
-
-			LazerScope: {
-				DisplayName: Laser Scope
-				Tooltip: 100% increased critical strike damage
-			}
-
-			NkuhanasOpinion: {
-				DisplayName: N'kuhana's Opinion
-				Tooltip: Fire homing skulls as you heal that become more powerful the more you heal
-			}
-
-			RejuvenationRack: {
-				DisplayName: Rejuvenation Rack
-				Tooltip: Whenever you gain health, the healing is doubled
-			}
-
-			ResonanceDisc: {
-				DisplayName: Resonance Disc
-				Tooltip:
-					'''
-					Gain a disc that charges up after every kill
-					Charges decay over time
-					Upon reaching 6 charges, the disc shoots out and bounces between enemies, exploding on kill
-					'''
-			}
-
 			SacrificialDagger: {
 				DisplayName: Ceremonial Dagger
 				Tooltip:
@@ -529,38 +418,9 @@ Mods: {
 					'''
 			}
 
-			SentientMeatHook: {
-				DisplayName: Sentient Meat Hook
-				Tooltip: Chance to hook enemies on hit
-			}
-
 			ShatteringJustice: {
 				DisplayName: Shattering Justice
 				Tooltip: Striking enemies quickly in succession will decrease their defense
-			}
-
-			SoulboundCatalyst: {
-				DisplayName: Soulbound Catalyst
-				Tooltip:
-					'''
-					Harvest the souls of fallen enemies
-					Upon taking damage, the souls are released and seek other enemies
-					'''
-			}
-
-			SymbioticScorpion: {
-				DisplayName: Symbiotic Scorpion
-				Tooltip: Strikes on enemies permanently reduce their armor
-			}
-
-			UnstableTeslaCoil: {
-				DisplayName: Unstable Tesla Coil
-				Tooltip: Every 2 seconds, shock all enemies around you
-			}
-
-			WakeOfVultures: {
-				DisplayName: Wake Of Vultures
-				Tooltip: Slaying an elite monster grants you their abilities for 15 seconds
 			}
 
 			Shatterspleen: {
@@ -662,6 +522,132 @@ Mods: {
 					'''
 			}
 
+			ICBM: {
+				DisplayName: ICBM
+				Tooltip: Missiles, rockets, and fireworks are tripled and deal extra damage
+			}
+
+			LazerScope: {
+				DisplayName: Laser Scope
+				Tooltip: 100% increased critical strike damage
+			}
+
+			Clover: {
+				DisplayName: 57 Leaf Clover
+				Tooltip:
+					'''
+					Increased chance for chance-based effects to occur
+					Increased luck
+					'''
+			}
+
+			OldGuillotine: {
+				DisplayName: Old Guillotine
+				Tooltip: Execute elites under 13% health
+			}
+
+			WakeOfVultures: {
+				DisplayName: Wake Of Vultures
+				Tooltip: Slaying an elite monster grants you their abilities for 15 seconds
+			}
+
+			SentientMeatHook: {
+				DisplayName: Sentient Meat Hook
+				Tooltip: Chance to hook enemies on hit
+			}
+
+			SymbioticScorpion: {
+				DisplayName: Symbiotic Scorpion
+				Tooltip: Strikes on enemies permanently reduce their armor
+			}
+
+			NkuhanasOpinion: {
+				DisplayName: N'kuhana's Opinion
+				Tooltip: Fire homing skulls as you heal that become more powerful the more you heal
+			}
+
+			HappiestMask: {
+				DisplayName: Happiest Mask
+				Tooltip: 7% chance to turn killed enemies into ghosts
+			}
+
+			Headset: {
+				DisplayName: H3AD-5T v2
+				Tooltip: ""
+				KeybindTooltip:
+					'''
+					Stomp by pressing {Keybind}, which deals damage to enemies below you based on how far you fell
+					Increased jump height and speed, and you are immune to fall damage
+					The stomp and jump boost share a 10 second cooldown
+					'''
+			}
+
+			SoulboundCatalyst: {
+				DisplayName: Soulbound Catalyst
+				Tooltip:
+					'''
+					Harvest the souls of fallen enemies
+					Upon taking damage, the souls are released and seek other enemies
+					'''
+			}
+
+			BensRaincoat: {
+				DisplayName: Ben's Raincoat
+				Tooltip:
+					'''
+					When a debuff is inflicted on you, it is removed and a 50-health barrier is given to you
+					This effect has a 20 second cooldown
+					'''
+			}
+
+			BottledChaos: {
+				DisplayName: Bottled Chaos
+				Tooltip:
+					'''
+					Drinking a potion will grant you another random buff for 10 seconds
+					This effect will not activate if you already have the buff the original potion grants
+					'''
+			}
+
+			AlienHead: {
+				DisplayName: Alien Head
+				Tooltip: 15% increased attack speed
+			}
+
+			Brainstalks: {
+				DisplayName: Brainstalks
+				Tooltip: After killing an elite, gain 70% increased attack speed for 10 seconds
+			}
+
+			RejuvenationRack: {
+				DisplayName: Rejuvenation Rack
+				Tooltip: Whenever you gain health, the healing is doubled
+			}
+
+			InterstellarDeskPlant: {
+				DisplayName: Interstellar Desk Plant
+				Tooltip:
+					'''
+					Killing an enemy spawns a healing plant
+					Only three of these plants can be present at once
+					'''
+			}
+
+			ResonanceDisc: {
+				DisplayName: Resonance Disc
+				Tooltip:
+					'''
+					Gain a disc that charges up after every kill
+					Charges decay over time
+					Upon reaching 6 charges, the disc shoots out and bounces between enemies, exploding on kill
+					'''
+			}
+
+			FrostRelic: {
+				DisplayName: Frost Relic
+				Tooltip: Killing an enemy summons three damaging icicles that orbit you for 8 seconds
+			}
+
 			ArtificerBody: {
 				DisplayName: ENV Visor
 				Tooltip:
@@ -703,11 +689,6 @@ Mods: {
 					'''
 			}
 
-			CommandoGrenadeWeapon: {
-				DisplayName: Frag Grenade
-				Tooltip: Throw a grenade that explodes with a 5 second cooldown
-			}
-
 			CommandoGunWeapon: {
 				DisplayName: Double Tap
 				Tooltip:
@@ -717,8 +698,33 @@ Mods: {
 					'''
 			}
 
+			CommandoGrenadeWeapon: {
+				DisplayName: Frag Grenade
+				Tooltip: Throw a grenade that explodes with a 5 second cooldown
+			}
+
+			UnstableTeslaCoil: {
+				DisplayName: Unstable Tesla Coil
+				Tooltip: Every 2 seconds, shock all enemies around you
+			}
+
+			HardlightAfterburner: {
+				DisplayName: Hardlight Afterburner
+				Tooltip:
+					'''
+					You can hold up to three dashes at once
+					Dashes have a 10 second cooldown
+					'''
+				KeybindTooltip: Dash towards your mouse using {Keybind}
+			}
+
 			EngineerTurretSpawner: {
 				DisplayName: Engineer Turret Spawner
+				Tooltip: ""
+			}
+
+			MinerPickaxeWeapon: {
+				DisplayName: Miner Pickaxe Weapon
 				Tooltip: ""
 			}
 
@@ -737,14 +743,17 @@ Mods: {
 				Tooltip: ""
 			}
 
-			MinerPickaxeWeapon: {
-				DisplayName: Miner Pickaxe Weapon
-				Tooltip: ""
+			WeepingFungus: {
+				DisplayName: Weeping Fungus
+				Tooltip:
+					'''
+					Heal for 2% of your helth every second while sprinting
+					Sprinting is considered to be the running speed boost from boot accessories
+					'''
 			}
 		}
 
 		SetBonuses.ArtificerSet: 10% reduced mana cost
-		SetBonuses.MinerSet: 
 
 		Announcements: {
 			ChaosPVP: You can no longer control what team you are on!
@@ -984,67 +993,67 @@ Mods: {
 		}
 
 		Projectiles: {
-			EliteSpawningProj.DisplayName: Elite Spawning Helper
+			EliteSpawningProj.DisplayName: Elite Spawning Proj
 			AtGMissileExplosion.DisplayName: AtG Missile Explosion
-			AtGMissileProj.DisplayName: AtG Missile
-			BandolierProj.DisplayName: Bandolier Ammo Box
-			BehemothExplosion.DisplayName: Brilliant Behemoth Explosion
-			BustlingFungusProj.DisplayName: Bungus Aura
-			CelestineProj.DisplayName: Celestine Aura
-			DeathMarkProj.DisplayName: Death Mark Visual
-			DioRevive.DisplayName: Dio Revive Visual
-			FireworksProj.DisplayName: Firework
-			FireworksSpawner.DisplayName: Firework Spawner
-			FocusCrystalProj.DisplayName: Focus Crystal Aura
-			GasolineProj.DisplayName: Gasoline Explosion
-			GhorsTomeProj.DisplayName: Ghor's Tome Nugget
-			MonsterToothProj.DisplayName: Monster Tooth Orb
-			OverloadingBomb.DisplayName: Overloading Elite Bomb
-			RazorwireProj.DisplayName: Razorwire Needle
-			ReloadingShurikenProj.DisplayName: Reloading Shuriken
-			RunaldsBandExplosion.DisplayName: Runald's Band Explosion
-			RunaldsBandShard.DisplayName: Runald's Band Icicle
-			SacrificialProj.DisplayName: Sacrificial Dagger
+			AtGMissileProj.DisplayName: AtG Missile Proj
+			BandolierProj.DisplayName: Bandolier Proj
+			BehemothExplosion.DisplayName: Behemoth Explosion
+			BustlingFungusProj.DisplayName: Bustling Fungus Proj
+			CelestineProj.DisplayName: Celestine Proj
+			DeathMarkProj.DisplayName: Death Mark Proj
+			DioRevive.DisplayName: Dio Revive
+			FireworksProj.DisplayName: Fireworks Proj
+			FireworksSpawner.DisplayName: Fireworks Spawner
+			FocusCrystalProj.DisplayName: Focus Crystal Proj
+			GasolineProj.DisplayName: Gasoline Proj
+			GhorsTomeProj.DisplayName: Ghors Tome Proj
+			MonsterToothProj.DisplayName: Monster Tooth Proj
+			OverloadingBomb.DisplayName: Overloading Bomb
+			RazorwireProj.DisplayName: Razorwire Proj
+			ReloadingShurikenProj.DisplayName: Reloading Shuriken Proj
+			RunaldsBandExplosion.DisplayName: Runalds Band Explosion
+			RunaldsBandShard.DisplayName: Runalds Band Shard
+			SacrificialProj.DisplayName: Sacrificial Proj
 			ShatterspleenExplosion.DisplayName: Shatterspleen Explosion
 			StickyExplosivesExplosion.DisplayName: Sticky Explosives Explosion
-			StickyExplosivesProj.DisplayName: Sticky Explosive
-			StunGrenadeProj.DisplayName: Stun Grenade Smoke
-			WarbannerProj.DisplayName: Warbanner
-			WilloExplosion.DisplayName: Will O' the Wisp Explosion
-			ProjectileName.ShatterspleenExplosion: Shatterspleen Explosion
-			KjarosBandTornado.DisplayName: Kjaro's Band Tornado
+			StickyExplosivesProj.DisplayName: Sticky Explosives Proj
+			StunGrenadeProj.DisplayName: Stun Grenade Proj
+			WarbannerProj.DisplayName: Warbanner Proj
+			WilloExplosion.DisplayName: Willo Explosion
+			ProjectileName.ShatterspleenExplosion: Shatterspleen
+			KjarosBandTornado.DisplayName: Kjaros Band Tornado
 			OnHitEffect.DisplayName: On Hit Effect
-			MeatHookProjVanity.DisplayName: Sentient Meat Hook Vanity
-			NkuhanaSkull.DisplayName: N'kuhana's Opinion Skull
+			MeatHookProjVanity.DisplayName: Meat Hook Proj Vanity
+			NkuhanaSkull.DisplayName: Nkuhana Skull
 			HeadsetSmash.DisplayName: Headset Smash
-			BoundSoul.DisplayName: Soulbound Catalyst Soul
-			BottledChaosIndicator.DisplayName: Bottled Chaos Buff Icon
-			MendingMender.DisplayName: Mending Elite Healing Chain
-			MendingBomb.DisplayName: Mending Elite Bomb
-			MendingAspectMender.DisplayName: Mending Aspect Healing Chain
-			IDPPlant.DisplayName: Interstellar Desk Plant
-			GlacialBomb.DisplayName: Glacial Elite Bomb
-			ResonanceDiscProj.DisplayName: Resonance Disc
+			BoundSoul.DisplayName: Bound Soul
+			BottledChaosIndicator.DisplayName: Bottled Chaos Indicator
+			MendingMender.DisplayName: Mending Mender
+			MendingBomb.DisplayName: Mending Bomb
+			MendingAspectMender.DisplayName: Mending Aspect Mender
+			IDPPlant.DisplayName: IDP Plant
+			GlacialBomb.DisplayName: Glacial Bomb
+			ResonanceDiscProj.DisplayName: Resonance Disc Proj
 			FrostRelicIcicle.DisplayName: Frost Relic Icicle
-			PlasmaBolt.DisplayName: Artificer Plasma Bolt
-			PlasmaBoltImpact.DisplayName: Artificer Plasma Bolt Impact
-			FireBolt.DisplayName: Artificer Fire Bolt
-			ArtificerBarDrawingProj.DisplayName: Artificer Bar Drawing Projectile (obsolete)
-			ProjOwnedBustlingFungusProj.DisplayName: Projectile-Owned Bungus Aura
-			IonSurgeVisual.DisplayName: Artificer Ion Surge Visual
+			PlasmaBolt.DisplayName: Plasma Bolt
+			PlasmaBoltImpact.DisplayName: Plasma Bolt Impact
+			FireBolt.DisplayName: Fire Bolt
+			ArtificerBarDrawingProj.DisplayName: Artificer Bar Drawing Proj
+			ProjOwnedBustlingFungusProj.DisplayName: Proj Owned Bustling Fungus Proj
+			IonSurgeVisual.DisplayName: Ion Surge Visual
 			FireworkBlast.DisplayName: Firework Blast
-			Nanobomb.DisplayName: Artificer Nanobomb
-			DoubleTapPierce.DisplayName: Commando Double Tap Piercing Bolt
-			GrenadeExplosion.DisplayName: Commando Grenade Explosion
-			GrenadeProj.DisplayName: Commando Grenade
-			IceWall.DisplayName: Artificer Ice Wall Chunk
-			IceWallSpawner.DisplayName: Artificer Ice Wall Spawner
-			IceSpear.DisplayName: Artificer Ice Spear
-			ElementIcon.DisplayName: Artificer Element Icon
-			MeatHookProjDamaging.DisplayName: Sentient Meat Hook
+			Nanobomb.DisplayName: Nanobomb
+			DoubleTapPierce.DisplayName: Double Tap Pierce
+			GrenadeExplosion.DisplayName: Grenade Explosion
+			GrenadeProj.DisplayName: Grenade Proj
+			IceWall.DisplayName: Ice Wall
+			IceWallSpawner.DisplayName: Ice Wall Spawner
+			IceSpear.DisplayName: Ice Spear
+			ElementIcon.DisplayName: Element Icon
+			MeatHookProjDamaging.DisplayName: Meat Hook Proj Damaging
 			EngineerTurret.DisplayName: Engineer Turret
 			EngineerTurretBullet.DisplayName: Engineer Turret Bullet
-			FuelProj.DisplayName: Miner Fuel Tank
+			FuelProj.DisplayName: Fuel Proj
 			LightningEffectProj.DisplayName: Lightning Effect Proj
 		}
 

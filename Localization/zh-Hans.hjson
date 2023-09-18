@@ -741,6 +741,15 @@ Mods: {
 				// DisplayName: Miner Legs
 				// Tooltip: ""
 			}
+
+			WeepingFungus: {
+				// DisplayName: Weeping Fungus
+				/* Tooltip:
+					'''
+					Heal for 2% of your helth every second while sprinting
+					Sprinting is considered to be the running speed boost from boot accessories
+					''' */
+			}
 		}
 
 		// SetBonuses.ArtificerSet: 10% reduced mana cost
@@ -1044,6 +1053,7 @@ Mods: {
 			// EngineerTurret.DisplayName: Engineer Turret
 			// EngineerTurretBullet.DisplayName: Engineer Turret Bullet
 			// FuelProj.DisplayName: Fuel Proj
+			// LightningEffectProj.DisplayName: Lightning Effect Proj
 		}
 
 		Tiles: {

@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using RiskOfTerrain.Content.Accessories;
-using RiskOfTerrain.Buffs.Debuff;
 
 namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {

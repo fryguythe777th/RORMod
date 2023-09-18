@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
+    [AutoloadEquip(EquipType.HandsOn)]
     public class KjarosBand : ModAccessory
     {
         public override void SetStaticDefaults()

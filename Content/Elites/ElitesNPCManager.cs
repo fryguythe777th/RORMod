@@ -92,7 +92,7 @@ namespace RiskOfTerrain.Content.Elites
                         continue;
                     }
                     npc.GetGlobalNPC(l[rolled]).Active = true;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spawned npc as elite"), new Color(255, 240, 20));
+                    //ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spawned npc as elite"), new Color(255, 240, 20));
                     l.RemoveAt(rolled);
                 }
             }

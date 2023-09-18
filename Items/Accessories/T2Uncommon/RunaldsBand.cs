@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 {
+    [AutoloadEquip(EquipType.HandsOff)]
     public class RunaldsBand : ModAccessory
     {
         public override void SetStaticDefaults()

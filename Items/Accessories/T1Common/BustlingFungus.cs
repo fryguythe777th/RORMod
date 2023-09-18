@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RiskOfTerrain.Content.Accessories;
+using RiskOfTerrain.Items.Accessories.Void;
 using RiskOfTerrain.Items.Testing;
 using RiskOfTerrain.Projectiles.Accessory.Utility;
 using Terraria;
@@ -60,6 +61,14 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
         void ItemHooks.IUpdateItemDye.UpdateItemDye(Player player, bool isNotInVanitySlot, bool isSetToHidden, Item armorItem, Item dyeItem)
         {
             player.ROR().cBungus = dyeItem.dye;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<WeepingFungus>())
+                .AddCondition(Condition.NearShimmer)
+                .Register();
         }
     }
 }
