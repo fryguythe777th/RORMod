@@ -19,6 +19,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Golf;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -47,11 +48,11 @@ namespace RiskOfTerrain.NPCs
 
         public bool hasBeenStruckByUkuleleLightning;
 
-        public float shield;
-        public float maxShield;
+        public int shield;
+        public int maxShield;
         public int timeSinceLastHit = 300;
-        public int regularMaxLife;
-        public int savedLife;
+        public bool HasShield { get => maxShield > 0; } // Easy bool for checking (maxShield > 0) ~L
+        public bool ShieldActive { get => shield > 0; } // Easy bool for checking (shield > 0) ~L
         public bool isAShielder = false;
 
         public int shatterizationCount = 0;
@@ -236,10 +237,14 @@ namespace RiskOfTerrain.NPCs
             npc.ROR().npcSpeedStat = 1f;
             hasBeenStruckByUkuleleLightning = false;
 
-            if (isAShielder)
+            if (isAShielder && HasShield)
             {
-                maxShield = 0f;
-                npc.lifeMax = regularMaxLife;
+                npc.life -= shield; // Remove shield from life ~L
+                npc.lifeMax -= maxShield; // Remove max shield from max life ~L
+                // This creates an effect where life values are added in PostAI and removed again in ResetEffects ~L
+                // From all the testing I've done this works perfectly as intended without the need for mp syncing ~L
+                // If a shield is suddenly removed, the stats it gives will also be removed ~L
+                // In OverloadingElite.cs, this also prevents maxShield from continuously adding to itself ~L
             }
 
             timeSinceLastHit++;
@@ -261,7 +266,6 @@ namespace RiskOfTerrain.NPCs
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             convertToCursedFlames = false;
-            regularMaxLife = npc.lifeMax;
         }
 
         public override bool PreAI(NPC npc)
@@ -319,49 +323,57 @@ namespace RiskOfTerrain.NPCs
 
             if (isAShielder)
             {
-                npc.netUpdate = true;
-                //makes sure shield doesnt go over your max shield
-                shield = Math.Min(shield, maxShield);
-                //sets your shield to max after not getting hit for a while
-                if (maxShield > 0f && timeSinceLastHit >= 300)
+                // I don't think max shield should be a negative (useful for testing dynamic changes) ~L
+                if (maxShield < 0) maxShield = 0;
+                
+                // This if statement prevents manipulating life values without a shield for safety (you *probably* don't need it) ~L
+                if (HasShield)
                 {
-                    shield = maxShield;
-                }
-
-                //calculates how much health you can gain from a shield
-                int add = (int)(regularMaxLife * shield);
-                if (npc.life == npc.lifeMax)
-                {
-                    //adds extra health once (life does not decay)
-                    npc.life += add;
-                }
-                //adds extra max life consistently, based on max shield rather than shield
-                npc.lifeMax += (int)(regularMaxLife * maxShield); // was += add
-
-                //adds regained shield upon hitting 6 seconds without damage
-                if (shield > 0f && timeSinceLastHit == 300)
-                {
-                    //adds whichever is smaller- current life + potential health gain, or your max life (with shield)
-                    npc.life = Math.Min(npc.life + (int)(regularMaxLife * shield), npc.lifeMax);
-                }
-
-                //if you take damage or lose health through wacky means
-                if (savedLife > npc.life)
-                {
-                    //reset cooldown
-                    timeSinceLastHit = 0;
-
-                    //reduce shield by the amount of damage taken
-                    if (shield > 0f)
+                    //makes sure shield doesnt go over your max shield
+                    shield = Math.Min(shield, maxShield);
+                    //sets your shield to max after not getting hit for a while
+                    if (maxShield > 0f && timeSinceLastHit >= 300)
                     {
-                        shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
-                        if (shield <= 0.01f)
+                        shield = maxShield;
+                    }
+
+                    // Adds shield's max value to npc's max life ~L
+                    npc.lifeMax += maxShield;
+                    // Adds current shield value to npc's current life ~L
+                    npc.life += shield;
+                    // See: ResetEffects()
+
+                    /* This is no longer necessary and calculations have been greatly simplified ~L
+                    
+                    //adds regained shield upon hitting 6 seconds without damage
+                    if (shield > 0f && timeSinceLastHit == 300)
+                    {
+                        //adds whichever is smaller- current life + potential health gain, or your max life (with shield)
+                        npc.life = Math.Min(npc.life + (int)(regularMaxLife * shield), npc.lifeMax);
+                    }
+                    */
+
+                    /* All this is greatly simplified and moved to HitEffect() ~L
+
+                    //if you take damage or lose health through wacky means
+                    if (savedLife > npc.life)
+                    {
+                        //reset cooldown
+                        timeSinceLastHit = 0;
+
+                        //reduce shield by the amount of damage taken
+                        if (shield > 0f)
                         {
-                            shield = 0f;
+                            shield = (float)Math.Max(shield - (savedLife - npc.life) / (float)regularMaxLife, 0f);
+                            if (shield <= 0.01f)
+                            {
+                                shield = 0f;
+                            }
                         }
                     }
+                    savedLife = npc.life;
+                    */
                 }
-                savedLife = npc.life;
             }
 
             if (npc.HasBuff(ModContent.BuffType<BleedingDebuff>()) && !Main.dedServ)
@@ -489,6 +501,21 @@ namespace RiskOfTerrain.NPCs
                 iceShatter.Pitch = 0;
                 iceShatter.Volume = 0.5f;
                 SoundEngine.PlaySound(iceShatter);
+            }
+        }
+
+        public override void HitEffect(NPC npc, NPC.HitInfo hit)
+        {
+            if (isAShielder && HasShield)
+            {
+                // When hit, make the shield take the same damage as life ~L
+                shield -= hit.Damage;
+
+                // Make sure it's limited at 0 or else all damage taken can be regen'd ~L
+                if (shield < 0) shield = 0;
+
+                // Reset cooldown ~L
+                timeSinceLastHit = 0;
             }
         }
 

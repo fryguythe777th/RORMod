@@ -21,7 +21,8 @@ namespace RiskOfTerrain.Content.Elites
         {
             if (active)
             {
-                npc.ROR().maxShield += 1f;
+                // (There is safety for this line in RORNPC.cs) ~L
+                npc.ROR().maxShield = npc.lifeMax;
                 npc.ROR().isAShielder = true;
             }
         }
