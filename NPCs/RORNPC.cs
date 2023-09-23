@@ -460,7 +460,7 @@ namespace RiskOfTerrain.NPCs
 
             if (shatterizationCount == 3)
             {
-                modifiers.SourceDamage += 0.5f;
+                modifiers.SourceDamage += 0.25f;
             }
 
             modifiers.SourceDamage += scorpionCount / 100;

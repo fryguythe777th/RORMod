@@ -9,7 +9,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            RORItem.GreenTier.Add((Type, () => NPC.downedBoss1));
+            RORItem.GreenTier.Add(Type);
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
             Item.value = Item.sellPrice(gold: 2);
         }
 
-        public int HealCooldown = 1800; // 30 seconds 
+        public int HealCooldown = 3600; // 60 seconds 
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -34,7 +34,7 @@ namespace RiskOfTerrain.Items.Accessories.T2Uncommon
 
                 if (HealCooldown == 0)
                 {
-                    HealCooldown = 1800;
+                    HealCooldown = 3600;
 
                     for (int i = 0; i < Main.maxPlayers; i++)
                     {
