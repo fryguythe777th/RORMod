@@ -41,10 +41,31 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 
                     p.timeLeft /= 3;
                     p.ROR().spawnedFromElite = true;
+                    p.ROR().hasBlazingProperties = true;
                     p.hostile = false;
                     p.friendly = true;
                 }
                 blazeSpotPrev = player.position;
+            }
+        }
+
+        public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
+        {
+            BlazingOnHit(victim, projOrItem);
+        }
+
+        public static void BlazingOnHit(EntityInfo victim, Entity projOrItem)
+        {
+            if (projOrItem is Item || projOrItem is Projectile projectile && projectile.type != ProjectileID.GreekFire1 && projectile.type != ProjectileID.GreekFire2 && projectile.type != ProjectileID.GreekFire3)
+            {
+                if (Main.hardMode)
+                {
+                    victim.AddBuff(BuffID.OnFire3, 120);
+                }
+                else
+                {
+                    victim.AddBuff(BuffID.OnFire, 60);
+                }
             }
         }
 

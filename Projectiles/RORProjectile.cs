@@ -22,6 +22,7 @@ namespace RiskOfTerrain.Projectiles
         public float procRate = 1f;
 
         public bool spawnedFromElite = false;
+        public bool hasBlazingProperties = false;
         public bool hasOverloaderProperties = false;
         public bool hasCelestineProperties = false;
         public bool hasMalachiteProperties = false;
@@ -132,6 +133,10 @@ namespace RiskOfTerrain.Projectiles
                 parentNPC.GetElitePrefixes(out var prefixes);
                 foreach (var p in prefixes)
                 {
+                    if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.BlazingElite"))
+                    {
+                        hasBlazingProperties = true;
+                    }
                     if (p.Prefix == Language.GetTextValue("Mods.RiskOfTerrain.CelestineElite"))
                     {
                         hasCelestineProperties = true;
@@ -180,6 +185,18 @@ namespace RiskOfTerrain.Projectiles
             if (spawnedFromElite)
             {
                 target.ROR().hitByBlazerProj = true;
+            }
+
+            if (hasBlazingProperties && (projectile.type != ProjectileID.GreekFire1 && projectile.type != ProjectileID.GreekFire2 && projectile.type != ProjectileID.GreekFire3))
+            {
+                if (Main.hardMode)
+                {
+                    target.AddBuff(BuffID.OnFire3, 120);
+                }
+                else
+                {
+                    target.AddBuff(BuffID.OnFire, 120);
+                }
             }
 
             if (hasCelestineProperties)

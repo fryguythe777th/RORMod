@@ -56,6 +56,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void OnHit(EntityInfo entity, EntityInfo victim, Entity projOrItem, NPC.HitInfo hit)
         {
+            if (entity.HasBuff(ModContent.BuffType<BlazingWOV>()))
+            {
+                BlazingAspect.BlazingOnHit(victim, projOrItem);
+            }
+
             if (entity.HasBuff(ModContent.BuffType<CelestineWOV>()))
             {
                 CelestineAspect.CelestineOnHit(victim);

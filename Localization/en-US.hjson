@@ -9,6 +9,7 @@ Mods: {
 					'''
 					Become an aspect of [c/fa3924:fire]
 					Leave a fiery trail in your wake
+					Light enemies on fire on hit
 					'''
 			}
 
@@ -1157,6 +1158,7 @@ Mods: {
 		NPCs: {
 			MalachiteUrchin.DisplayName: Malachite Urchin
 			CautiousSlugCritter.DisplayName: Cautious Slug
+			Gup.DisplayName: Gup
 		}
 
 		Bestiary: {

@@ -52,6 +52,21 @@ namespace RiskOfTerrain.Content.Elites
             }
         }
 
+        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+        {
+            if (active)
+            {
+                if (Main.hardMode)
+                {
+                    target.AddBuff(BuffID.OnFire3, 120);
+                }
+                else
+                {
+                    target.AddBuff(BuffID.OnFire, 120);
+                }
+            }
+        }
+
         public override bool CanRoll(NPC npc)
         {
             return !ServerConfig.Instance.BlazingElitesDisable;
