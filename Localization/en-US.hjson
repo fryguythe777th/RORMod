@@ -1163,7 +1163,8 @@ Mods: {
 
 		Bestiary: {
 			MalachiteUrchin: ...
-			CautiousSlugCritter: Reclusive cave critter. Tends to hide from predators, rarely being found outside its nest.
+			CautiousSlugCritter: The Cautious Slug is a reclusive cave critter. They tend to hide from predators, rarely being found outside their nests in small crevices in the rock.
+			Gup: The Gup's gelatinous mass is actually a single macroscopic cell. Its slime emits a sweet aroma evocative of strawberries, though it is bitter and vomit-inducing when ingested.
 		}
 	}
 }

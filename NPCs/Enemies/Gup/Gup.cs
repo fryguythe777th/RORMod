@@ -5,6 +5,7 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -54,9 +55,24 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
             gupSpikesTexture = null;
         }
 
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+
+                new BestiaryPortraitBackgroundProviderPreferenceInfoElement(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle),
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle,
+                new FlavorTextBestiaryInfoElement("Mods.RiskOfTerrain.Bestiary.Gup"),
+            });
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = 8;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers();
+            drawModifiers.PortraitPositionYOverride = 2;
+            drawModifiers.Scale = 1.1f;
+            NPCID.Sets.NPCBestiaryDrawOffset[Type] = drawModifiers;
         }
 
         public override void SetDefaults()
@@ -64,29 +80,53 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
             NPC.width = 180;
             NPC.height = 174;
             NPC.aiStyle = -1;
-            NPC.damage = 0;
-            NPC.lifeMax = 1000;
+            NPC.damage = 50;
+            NPC.lifeMax = 4332;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.value = 200;
+            NPC.value = 1400;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.Player.ZoneJungle && !spawnInfo.PlayerSafe && Main.hardMode ? 0.1f : 0f;
+            return spawnInfo.Player.ZoneJungle && !spawnInfo.PlayerSafe ? 0.1f : 0f;
         }
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (Size == 0)
+            if (NPC.ai[1] == 0)
             {
-                if (!Main.hardMode)
+                bool sizePicked = false;
+                while (!sizePicked)
                 {
-                    Size = 1;
+                    int choice = Main.rand.Next(0, 3);
 
-                    if (!NPC.downedBoss2)
+                    switch (choice)
                     {
-                        Size = 2;
+                        case 0:
+                            {
+                                if (Main.hardMode)
+                                {
+                                    sizePicked = true;
+                                    Size = choice;
+                                }
+                                break;
+                            }
+                        case 1:
+                            {
+                                if (NPC.downedBoss2)
+                                {
+                                    sizePicked = true;
+                                    Size = choice;
+                                }
+                                break;
+                            }
+                        case 2:
+                            {
+                                sizePicked = true;
+                                Size = choice;
+                                break;
+                            }
                     }
                 }
             }
@@ -99,14 +139,16 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
             NPC.life = NPC.lifeMax;
             NPC.scale = 1 / sizeScaleFactor;
             NPC.alpha = (int)(10 * Size);
+            NPC.damage = 0;
+            NPC.value = 200;
 
-            //if (source is not EntitySource_Death death)
-            //{
-            //    while (Collision.SolidCollision(NPC.position, NPC.width, NPC.height + 1, true))
-            //    {
-            //        NPC.position.Y--;
-            //    }
-            //}
+            if (NPC.ai[1] == 0)
+            {
+                while (Collision.SolidCollision(NPC.position, NPC.width, NPC.height + 1, true))
+                {
+                    NPC.position.Y--;
+                }
+            }
         }
 
         public override void AI()
@@ -317,6 +359,7 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
                 {
                     int j = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Gup>(), ai0: 0, ai2: Size + 1);
                     Main.npc[j].velocity = new Vector2(i * 5, 0);
+                    Main.npc[j].ai[1] = 1;
                 }
             }
 
