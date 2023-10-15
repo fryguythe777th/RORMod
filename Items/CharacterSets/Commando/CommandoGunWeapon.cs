@@ -50,14 +50,15 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
             if (Main.mouseRight && pierceCooldown == 180)
             {
                 type = ModContent.ProjectileType<DoubleTapPierce>();
-                damage = 15;
-                knockback = 10;
+                damage = (int)player.GetDamage<RangedDamageClass>().ApplyTo(15);
+                knockback = (int)player.GetKnockback<RangedDamageClass>().ApplyTo(10);
                 pierceCooldown = 0;
             }
             else
             {
-                damage = 2;
-                knockback = 2;
+                //damage = (int)(2 * player.GetDamage<RangedDamageClass>().Additive) + (int)player.GetDamage<RangedDamageClass>().Flat;
+                damage = (int)player.GetDamage<RangedDamageClass>().ApplyTo(2);
+                knockback = (int)player.GetKnockback<RangedDamageClass>().ApplyTo(2);
             }
         }
     }
