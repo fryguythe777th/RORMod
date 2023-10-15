@@ -22,7 +22,7 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
         {
             Item.width = 14;
             Item.height = 18;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.value = Item.sellPrice(silver: 50);
             Item.rare = ItemRarityID.Yellow;
 
             Item.useTime = 40;

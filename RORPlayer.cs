@@ -115,6 +115,8 @@ namespace RiskOfTerrain
         public bool minerSetBonusActive;
         public float minerFuel;
 
+        public int commandoRollTime = 0;
+
         /// <summary>
         /// The closest 'enemy' NPC to the player. Updated in <see cref="PostUpdate"/> -> <see cref="DangerEnemy"/>
         /// </summary>
@@ -145,6 +147,20 @@ namespace RiskOfTerrain
             Terraria.On_Player.DropTombstone += Player_DropTombstone;
             Terraria.On_Player.AddBuff_DetermineBuffTimeToAdd += Player_AddBuffTime;
             Terraria.Graphics.Renderers.On_LegacyPlayerRenderer.DrawPlayers += LegacyPlayerRenderer_DrawPlayers;
+            Terraria.On_Player.PlayerFrame += Player_PlayerFrame;
+        }
+
+        private void Player_PlayerFrame(On_Player.orig_PlayerFrame orig, Player self)
+        {
+            orig(self);
+
+            if (self.ROR().commandoRollTime > 0)
+            {
+                self.legFrameCounter = 0;
+                self.bodyFrameCounter = 0;
+                self.legFrame.Y = self.legFrame.Height * 5;
+                self.bodyFrame.Y = self.bodyFrame.Height * 5;
+            }
         }
 
         private void Player_DropTombstone(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, NetworkText deathText, int hitDirection)
@@ -521,6 +537,10 @@ namespace RiskOfTerrain
             aspCelestine = false;
             aspMending = false;
 
+            if (!minerSetBonusActive)
+            {
+                minerFuel = 0;
+            }
             minerSetBonusActive = false;
 
             glass = ArtifactSystem.glass ? 0.9f : 0f;
@@ -696,7 +716,7 @@ namespace RiskOfTerrain
 
         public override bool FreeDodge(Player.HurtInfo info)
         {
-            return Accessories.FreeDodge(Player, info);
+            return Accessories.FreeDodge(Player, info) || (commandoRollTime > 0);
         }
 
         public void CheckElixir()

@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace RiskOfTerrain.NPCs.Enemies.Gup
@@ -141,6 +142,7 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
             NPC.alpha = (int)(10 * Size);
             NPC.damage = 0;
             NPC.value = 200;
+            NPC.GivenName = Language.GetTextValue("Mods.RiskOfTerrain.NPCs.Gup.NameSize" + Size);
 
             if (NPC.ai[1] == 0)
             {
@@ -352,12 +354,12 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
         }
 
         public override void OnKill()
-        {
+        { 
             if (Size < 2)
             {
                 for (int i = -1; i < 2; i += 2)
                 {
-                    int j = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Gup>(), ai0: 0, ai2: Size + 1);
+                    int j = NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Gup>(), ai0: 0, ai1: 1, ai2: Size + 1);
                     Main.npc[j].velocity = new Vector2(i * 5, 0);
                     Main.npc[j].ai[1] = 1;
                 }

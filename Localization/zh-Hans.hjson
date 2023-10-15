@@ -650,7 +650,7 @@ Mods: {
 			}
 
 			ArtificerBody: {
-				// DisplayName: ENV Visor
+				// DisplayName: ENV Suit
 				/* Tooltip:
 					'''
 					Increases maximum mana by 30
@@ -659,7 +659,7 @@ Mods: {
 			}
 
 			ArtificerHead: {
-				// DisplayName: ENV Suit
+				// DisplayName: ENV Visor
 				/* Tooltip:
 					'''
 					Increases maximum mana by 30
@@ -752,9 +752,28 @@ Mods: {
 					Sprinting is considered to be the running speed boost from boot accessories
 					''' */
 			}
+
+			CommandoBody: {
+				// DisplayName: Commando Body
+				// Tooltip: 5% chance to save ammo
+			}
+
+			CommandoHead: {
+				// DisplayName: Commando Head
+				// Tooltip: +5% ranged critical strike chance
+			}
+
+			CommandoLegs: {
+				// DisplayName: Commando Legs
+				// Tooltip: +1 flat ranged damage
+			}
 		}
 
-		// SetBonuses.ArtificerSet: 10% reduced mana cost
+		SetBonuses: {
+			// ArtificerSet: 10% reduced mana cost
+			// CommandoSetKeybind: Set bonus: Perform a dodge roll using {Keybind}
+			// MinerSet: ""
+		}
 
 		Announcements: {
 			ChaosPVP: 你不能再控制你所在的团队了!
@@ -1158,7 +1177,13 @@ Mods: {
 		NPCs: {
 			// MalachiteUrchin.DisplayName: Malachite Urchin
 			// CautiousSlugCritter.DisplayName: Cautious Slug
-			// Gup.DisplayName: Gup
+
+			Gup: {
+				// DisplayName: Gup
+				// NameSize0: Gup
+				// NameSize1: Geep
+				// NameSize2: Gip
+			}
 		}
 
 		Bestiary: {
