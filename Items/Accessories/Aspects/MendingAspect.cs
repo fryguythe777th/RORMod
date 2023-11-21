@@ -15,6 +15,11 @@ namespace RiskOfTerrain.Items.Accessories.Aspects
 {
     public class MendingAspect : GenericAspect
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

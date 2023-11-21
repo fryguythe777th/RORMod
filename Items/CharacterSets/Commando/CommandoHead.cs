@@ -10,12 +10,17 @@ using RiskOfTerrain.Items.CharacterSets.Artificer;
 using Terraria.Audio;
 using Terraria.GameContent;
 using System.Collections.Generic;
+using RiskOfTerrain.Buffs.Debuff;
 
 namespace RiskOfTerrain.Items.CharacterSets.Commando
 {
     [AutoloadEquip(EquipType.Head)]
     public class CommandoHead : ModAccessory
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public bool rollReady = true;
         public int rollCooldown = 600;
 
@@ -72,20 +77,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
                 player.velocity = new Vector2(player.direction * 7, player.velocity.Y);
             }
 
-            if (rollReady && RORKeybinds.ArmorEffectKey.JustPressed)
+            if (!player.HasBuff(ModContent.BuffType<ArmorEffectCooldown>()) && RORKeybinds.ArmorEffectKey.JustPressed)
             {
                 player.ROR().commandoRollTime = 36;
-                rollCooldown = 0;
-                rollReady = false;
-            }
-
-            if (rollCooldown < 600)
-            {
-                rollCooldown++;
-            }
-            else
-            {
-                rollReady = true;
+                player.AddBuff(ModContent.BuffType<ArmorEffectCooldown>(), 600);
             }
         }
     }

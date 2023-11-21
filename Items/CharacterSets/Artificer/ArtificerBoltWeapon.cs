@@ -13,6 +13,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
 {
     public class ArtificerBoltWeapon: ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.width = 22;

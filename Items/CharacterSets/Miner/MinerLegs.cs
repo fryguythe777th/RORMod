@@ -13,6 +13,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
     [AutoloadEquip(EquipType.Legs)]
     public class MinerLegs : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Legs.Sets.HidesTopSkin[Item.legSlot] = true;
@@ -30,7 +34,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 
         public override void UpdateEquip(Player player)
         {
-            
+            player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
+            player.accRunSpeed += 4;
         }
     }
 }

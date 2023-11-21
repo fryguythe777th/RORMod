@@ -9,6 +9,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
     [AutoloadEquip(EquipType.Body)]
     public class ArtificerBody : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Body.Sets.HidesHands[Item.bodySlot] = true;

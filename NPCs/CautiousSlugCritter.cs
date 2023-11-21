@@ -24,6 +24,10 @@ namespace RiskOfTerrain.NPCs
 {
     public class CautiousSlugCritter : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Snail];

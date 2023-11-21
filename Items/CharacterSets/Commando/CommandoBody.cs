@@ -11,6 +11,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
     [AutoloadEquip(EquipType.Body)]
     public class CommandoBody : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Body.Sets.HidesHands[Item.bodySlot] = true;

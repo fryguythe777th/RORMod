@@ -10,6 +10,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
     [AutoloadEquip(EquipType.Head)]
     public class MinerHead : ModAccessory
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = false;
@@ -35,7 +39,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 
         public override void UpdateEquip(Player player)
         {
-
+            player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
+            player.GetCritChance<MeleeDamageClass>() += 0.07f;
         }
 
         public override void UpdateArmorSet(Player player)
@@ -49,17 +54,17 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 
             if (miner.minerFuel >= 500 && miner.minerFuel < 1000)
             {
-                player.GetAttackSpeed<MeleeDamageClass>() += 0.1f;
+                player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
             }
 
             if (miner.minerFuel >= 1000 && miner.minerFuel < 1500)
             {
-                player.GetAttackSpeed<MeleeDamageClass>() += 0.2f;
+                player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
             }
 
             if (miner.minerFuel >= 1500 && miner.minerFuel <= 2000)
             {
-                player.GetAttackSpeed<MeleeDamageClass>() += 0.3f;
+                player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
             }
         }
     }

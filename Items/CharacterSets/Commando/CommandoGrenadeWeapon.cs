@@ -13,6 +13,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
 {
     public class CommandoGrenadeWeapon : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[Type] = true;

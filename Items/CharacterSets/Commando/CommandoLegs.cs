@@ -13,6 +13,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Commando
     [AutoloadEquip(EquipType.Legs)]
     public class CommandoLegs : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Legs.Sets.HidesTopSkin[Item.legSlot] = true;

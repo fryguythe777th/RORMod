@@ -8,6 +8,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
     [AutoloadEquip(EquipType.Head)]
     public class ArtificerHead : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = false;

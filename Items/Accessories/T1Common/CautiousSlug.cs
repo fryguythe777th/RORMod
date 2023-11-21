@@ -11,6 +11,10 @@ namespace RiskOfTerrain.Items.Accessories.T1Common
     [AutoloadEquip(EquipType.Front)]
     public class CautiousSlug : ModAccessory
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public int glubbyActive;
         public bool hideVisual;
 

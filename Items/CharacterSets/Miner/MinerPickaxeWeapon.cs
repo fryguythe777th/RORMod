@@ -14,6 +14,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 {
     public class MinerPickaxeWeapon : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetDefaults()
         {
             Item.width = 38;

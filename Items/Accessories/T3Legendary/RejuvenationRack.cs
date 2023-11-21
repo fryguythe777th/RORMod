@@ -11,6 +11,11 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 {
     public class RejuvenationRack : ModAccessory
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

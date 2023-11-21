@@ -9,6 +9,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
     [AutoloadEquip(EquipType.Body)]
     public class MinerBody : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Body.Sets.HidesHands[Item.bodySlot] = true;
@@ -28,7 +32,8 @@ namespace RiskOfTerrain.Items.CharacterSets.Miner
 
         public override void UpdateEquip(Player player)
         {
-            
+            player.GetAttackSpeed<GenericDamageClass>() += 0.05f;
+            player.GetDamage<MeleeDamageClass>() += 0.15f;
         }
     }
 }

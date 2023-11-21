@@ -720,7 +720,7 @@ Mods: {
 			}
 
 			EngineerTurretSpawner: {
-				DisplayName: Engineer Turret Spawner
+				DisplayName: Engineer Turret Spawner [WIP CONTENT]
 				Tooltip: ""
 			}
 
@@ -730,18 +730,30 @@ Mods: {
 			}
 
 			MinerBody: {
-				DisplayName: Miner Body
-				Tooltip: ""
+				DisplayName: Miner's Exoskeleton
+				Tooltip:
+					'''
+					5% increased attack speed
+					7% increased melee critical strike chance
+					'''
 			}
 
 			MinerHead: {
-				DisplayName: Miner Head
-				Tooltip: ""
+				DisplayName: Miner's Hood
+				Tooltip:
+					'''
+					5% increased attack speed
+					15% increased melee damage
+					'''
 			}
 
 			MinerLegs: {
-				DisplayName: Miner Legs
-				Tooltip: ""
+				DisplayName: Miner's Boots
+				Tooltip:
+					'''
+					5% increased attack speed
+					Enables sprinting
+					'''
 			}
 
 			WeepingFungus: {
@@ -772,7 +784,11 @@ Mods: {
 		SetBonuses: {
 			ArtificerSet: 10% reduced mana cost
 			CommandoSetKeybind: Set bonus: Perform a dodge roll using {Keybind}
-			MinerSet: ""
+			MinerSet:
+				'''
+				Breaking blocks and fighting enemies accumulates fuel
+				Your attacks become more fiery and explosive the more fuel you have
+				'''
 		}
 
 		Announcements: {
@@ -1009,6 +1025,11 @@ Mods: {
 			AfterburnerBuff: {
 				DisplayName: Afterburner Buff
 				Description: Mods.RiskOfTerrain.Buffs.AfterburnerBuff.Description
+			}
+
+			ArmorEffectCooldown: {
+				DisplayName: Armor Effect on Cooldown
+				Description: Your armor set's special ability is temporarily disabled
 			}
 		}
 

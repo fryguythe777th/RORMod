@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using RiskOfTerrain.Buffs.Debuff;
 using RiskOfTerrain.Graphics;
 using RiskOfTerrain.Items.Accessories.T3Legendary;
 using Terraria;
@@ -13,6 +14,10 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
     [AutoloadEquip(EquipType.Legs)]
     public class ArtificerLegs : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
         public override void SetStaticDefaults()
         {
             ArmorIDs.Legs.Sets.HidesTopSkin[Item.legSlot] = true;
@@ -36,24 +41,14 @@ namespace RiskOfTerrain.Items.CharacterSets.Artificer
             player.statManaMax2 += 30;
             player.noFallDmg = true;
 
-            if (jumpReady && RORKeybinds.ArmorEffectKey.JustPressed)
+            if (!player.HasBuff(ModContent.BuffType<ArmorEffectCooldown>()) && RORKeybinds.ArmorEffectKey.JustPressed)
             {
                 player.velocity.Y -= 20;
                 ROREffects.Shake.Set(4);
                 SoundEngine.PlaySound(RiskOfTerrain.GetSounds("artinanobomb/mage_m2_impact_elec_v2_", 4));
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<PlasmaBoltImpact>(), 30, 4, player.whoAmI);
                 Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<IonSurgeVisual>(), 0, 0, player.whoAmI);
-                jumpReady = false;
-                jumpCooldown = 0;
-            }
-
-            if (jumpCooldown < 600)
-            {
-                jumpCooldown++;
-            }
-            else
-            {
-                jumpReady = true;
+                player.AddBuff(ModContent.BuffType<ArmorEffectCooldown>(), 600);
             }
         }
 
