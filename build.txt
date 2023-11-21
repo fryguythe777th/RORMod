@@ -1,4 +1,4 @@
-displayName = [c/f9b2fc:Risk of Terrain:]
+displayName = [c/f9b2fc:Risk of Terrain]
 author = The ROT Dev Team
 version = 2.2
 homepage = https://discord.gg/kQaA5kY9BA
