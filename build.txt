@@ -1,6 +1,6 @@
 displayName = [c/f9b2fc:Risk of Terrain: Preview Only]
 author = The ROT Dev Team
-version = 2.2
+version = 2.2.1
 homepage = https://discord.gg/kQaA5kY9BA
 hideResources = true
 hideCode = false
