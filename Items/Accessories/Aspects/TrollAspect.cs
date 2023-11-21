@@ -118,4 +118,4 @@ EngineerTurretSpawner
 - Aegis can generate in marble chests
 - Shattering Justice can generate in granite chests
 - Fixed multiplayer bugs related to Overloading Elites and Ukulele 
-
+*/
