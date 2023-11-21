@@ -119,6 +119,9 @@ namespace RiskOfTerrain
                         float value = reader.ReadSingle();
                         bool friendly = reader.ReadBoolean();
                         bool spawnedfromstatue = reader.ReadBoolean();
+                        int lastHitProjectileType = reader.ReadInt32();
+                        int aiStyle = reader.ReadInt32();
+                        int pWhoAmI = reader.ReadInt32();
 
                         player.ROR().Accessories.OnKillEnemy(player, new OnKillInfo()
                         {
@@ -132,6 +135,9 @@ namespace RiskOfTerrain
                             value = value,
                             friendly = friendly,
                             spawnedFromStatue = spawnedfromstatue,
+                            lastHitProjectileType = lastHitProjectileType,
+                            aiStyle = aiStyle,
+                            whoAmI = pWhoAmI,
                         });
                     }
                     break;

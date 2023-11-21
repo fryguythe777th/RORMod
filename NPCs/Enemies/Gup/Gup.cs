@@ -90,7 +90,7 @@ namespace RiskOfTerrain.NPCs.Enemies.Gup
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return spawnInfo.Player.ZoneJungle && !spawnInfo.PlayerSafe ? 0.1f : 0f;
+            return spawnInfo.Player.ZoneJungle && !spawnInfo.PlayerSafe && Main.netMode != NetmodeID.Server ? 0.1f : 0f;
         }
 
         public override void OnSpawn(IEntitySource source)

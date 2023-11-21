@@ -17,8 +17,8 @@ namespace RiskOfTerrain.Content.Accessories
         public float value;
         public bool friendly;
         public bool spawnedFromStatue;
-        public int lastHitProjectile;
-        public int aistyle;
+        public int lastHitProjectileType;
+        public int aiStyle;
         public int whoAmI;
 
         public Vector2 Center => new Vector2(position.X + width / 2f, position.Y + height / 2f);

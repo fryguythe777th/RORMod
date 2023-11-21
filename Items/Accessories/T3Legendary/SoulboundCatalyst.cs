@@ -65,7 +65,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (!info.friendly && info.lifeMax > 5 && !info.spawnedFromStatue && entity.entity is Player player && info.lastHitProjectile != ModContent.ProjectileType<BoundSoul>())
+            if (!info.friendly && info.lifeMax > 5 && !info.spawnedFromStatue && entity.entity is Player player && info.lastHitProjectileType != ModContent.ProjectileType<BoundSoul>())
             {
                 int elite = 0;
                 int boss = 0;

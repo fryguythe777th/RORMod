@@ -560,8 +560,8 @@ namespace RiskOfTerrain.NPCs
                             value = npc.value,
                             friendly = npc.friendly,
                             spawnedFromStatue = npc.SpawnedFromStatue,
-                            lastHitProjectile = npc.ROR().lastHitProjectileType,
-                            aistyle = npc.aiStyle,
+                            lastHitProjectileType = npc.ROR().lastHitProjectileType,
+                            aiStyle = npc.aiStyle,
                             whoAmI = npc.whoAmI
                         });
                         continue;

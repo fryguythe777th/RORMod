@@ -29,7 +29,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
 
         public override void OnKillEnemy(EntityInfo entity, OnKillInfo info)
         {
-            if (info.aistyle != 6 && info.lastHitProjectile != ModContent.ProjectileType<SacrificialProj>())
+            if (info.aiStyle != 6 && info.lastHitProjectileType != ModContent.ProjectileType<SacrificialProj>())
             {
                 for (int i = 0; i < 3; i++)
                 {
