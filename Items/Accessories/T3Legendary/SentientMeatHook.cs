@@ -35,7 +35,7 @@ namespace RiskOfTerrain.Items.Accessories.T3Legendary
             {
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
-                    if (RORNPC.Distance(Main.npc[i], npc) <= 400 && !npc.friendly && npc.lifeMax > 5 && npc.damage > 0 && i != npc.whoAmI && npc.aiStyle != NPCAIStyleID.Worm)
+                    if (RORNPC.Distance(Main.npc[i], npc) <= 400 && !Main.npc[i].boss && !Main.npc[i].friendly && Main.npc[i].lifeMax > 5 && Main.npc[i].damage > 0 && i != npc.whoAmI && Main.npc[i].aiStyle != NPCAIStyleID.Worm)
                     {
                         Projectile.NewProjectile(entity.GetSource_Accessory(Item), victim.Center, Vector2.Zero, ModContent.ProjectileType<MeatHookProjDamaging>(), 0, 0, entity.GetProjectileOwnerID(), i, npc.whoAmI);
                     }
