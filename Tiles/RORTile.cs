@@ -55,10 +55,10 @@ namespace RiskOfTerrain.Tiles
             {
                 return;
             }
-            if (WorldGen.genRand.NextBool(10000) && Main.tile[i, j].HasUnactuatedTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
+            if (WorldGen.genRand.NextBool((int)(10000 / ServerConfig.Instance.ChestSpawnFrequency)) && Main.tile[i, j].HasUnactuatedTile && Main.tileSolid[Main.tile[i, j].TileType] && !Main.tileSolidTop[Main.tile[i, j].TileType])
             {
                 var s = RollSecurityChestToSpawn(i, j, type);
-                if (s == null || IsTileInView(i, j, 10))
+                if (s == null || IsTileInView(i, j, 20))
                     return;
 
                 int size = 80;

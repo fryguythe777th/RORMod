@@ -40,5 +40,12 @@ namespace RiskOfTerrain
         [MemberBGColor_Secondary]
         [DefaultValue(false)]
         public bool OverloadingElitesDisable;
+
+        [Name("ChestSpawnFrequency")]
+        [Desc("ChestSpawnFrequency")]
+        [MemberBGColor]
+        [Range(0f, 3f)]
+        [DefaultValue(1f)]
+        public float ChestSpawnFrequency;
     }
 }

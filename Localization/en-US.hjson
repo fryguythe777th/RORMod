@@ -858,6 +858,8 @@ Mods: {
 			MendingElitesDisableTooltip: Mending elites will no longer spawn
 			OverloadingElitesDisable: Disable Overloading Elites
 			OverloadingElitesDisableTooltip: Overloading elites will no longer spawn
+			ChestSpawnFrequency: Security Chest Spawn Frequency
+			ChestSpawnFrequencyTooltip: Adjust the spawn rate of chests. May not produce visible effects at first.
 		}
 
 		BlazingElite: Blazing
